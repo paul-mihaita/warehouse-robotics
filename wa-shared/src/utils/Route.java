@@ -6,5 +6,13 @@ import java.util.List;
 import movement.Movement.move;
 
 public class Route {
-	public List<move> route = new ArrayList<move>();
+	private List<move> path = new ArrayList<move>();
+
+	public List<move> getPath() {
+		return path;
+	}
+
+	public void setPath(List<move> path) {
+		this.path = path;
+	}
 }

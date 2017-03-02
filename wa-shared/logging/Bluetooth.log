@@ -1,0 +1,46 @@
+2017-03-02 21:41:52 INFO  Main:22 - Creating Comm object
+2017-03-02 21:41:52 INFO  Main:25 - Connecting
+2017-03-02 21:41:52 DEBUG bluetooth:82 - open using BlueCove javax.microedition.io.Connector
+2017-03-02 21:41:52 DEBUG bluetooth:167 - connecting btspp://0016530FDDAE:1;authenticate=false;encrypt=false
+2017-03-02 21:41:52 DEBUG bluetooth:123 - Java 1.4+ detected: 1.8.0_111; Java HotSpot(TM) Client VM; Oracle Corporation
+2017-03-02 21:41:52 DEBUG bluetooth:272 - Use stack ClassLoader
+2017-03-02 21:41:52 DEBUG bluetooth:312 - Library loaded from C:\Users\Lexer\AppData\Local\Temp\bluecove_Lexer_0\intelbth.dll
+2017-03-02 21:41:52 DEBUG bluetooth:? - nativeDebugCallback ON
+2017-03-02 21:41:52 DEBUG bluetooth:460 - BluetoothStack detected 1
+2017-03-02 21:41:52 DEBUG bluetooth:122 - initializationStatus 1
+2017-03-02 21:41:52 DEBUG bluetooth:? - socket
+2017-03-02 21:41:52 DEBUG bluetooth:? - socket[800] opened
+2017-03-02 21:41:52 DEBUG bluetooth:? - socket[800] connect
+2017-03-02 21:42:14 DEBUG bluetooth:? - connectRety 1
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] getpeeraddress
+2017-03-02 21:42:17 DEBUG bluetooth:85 - new RemoteDevice 0016530FDDAE
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[844] opened
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[844] bind
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[844] getsockaddress
+2017-03-02 21:42:17 DEBUG bluetooth:? - receive buffer 65536
+2017-03-02 21:42:17 DEBUG bluetooth:? - send buffer 65536
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[844] close
+2017-03-02 21:42:17 DEBUG bluetooth:355 - new devicesCashed 0x16530fddae
+2017-03-02 21:42:17 DEBUG bluetooth:85 - connection open, open now 1
+2017-03-02 21:42:17 INFO  Main:35 - Sending moves
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(int)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(int)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(byte[],int,int=1)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(int)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(int)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(byte[],int,int=1)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(int)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(int)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(byte[],int,int=5)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(int)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(int)
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] send(byte[],int,int=1)
+2017-03-02 21:42:17 INFO  Main:45 - closing connection
+2017-03-02 21:42:17 DEBUG bluetooth:109 - closing RFCOMM Connection 800
+2017-03-02 21:42:17 DEBUG bluetooth:95 - connection closed, open now 0
+2017-03-02 21:42:17 DEBUG bluetooth:? - socket[800] close
+2017-03-02 21:43:32 INFO  Main:22 - Creating Comm object
+2017-03-02 21:43:32 INFO  Main:25 - Connecting
+2017-03-02 21:43:36 INFO  Main:35 - Sending moves
+2017-03-02 21:43:36 INFO  Main:45 - closing connection

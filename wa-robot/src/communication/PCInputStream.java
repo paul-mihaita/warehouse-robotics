@@ -21,13 +21,19 @@ public class PCInputStream {
 		communicate();
 		return moves;
 	}
+
+	public int getNextInstruction() throws IOException {
+		return communicate();
+	}
 	
-	private void communicate() throws IOException {
+	private int communicate() throws IOException {
 		int protocol = stream.read();
 		switch (protocol) {
 			case CommConst.MOVEMENT:
 				readMoves();
-				break;
+				return protocol;
+			case CommConst.START:
+				return protocol;
 			default:
 				throw new IOException("Invalid protocol: " + protocol);
 		}
@@ -62,5 +68,9 @@ public class PCInputStream {
 			default:
 				throw new IOException("Incorrect byte code for movement");
 		}
+	}
+
+	public void close() throws IOException {
+		stream.close();
 	}
 }
