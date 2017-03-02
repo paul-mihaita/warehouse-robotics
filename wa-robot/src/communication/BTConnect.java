@@ -6,6 +6,7 @@ import java.util.List;
 import comunication.CommConst;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
+import lejos.util.Delay;
 import movement.Movement.move;
 
 public class BTConnect {

@@ -7,6 +7,7 @@ import java.util.List;
 
 import comunication.CommConst;
 import lejos.robotics.localization.PoseProvider;
+import lejos.util.Delay;
 import movement.Movement.move;
 
 public class PCInputStream {

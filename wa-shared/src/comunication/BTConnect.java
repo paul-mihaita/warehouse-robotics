@@ -53,6 +53,7 @@ public class BTConnect {
 	}
 
 	public void start() throws IOException {
+		log.info("sending start message");
 		toNXT.startMsg();
 	}
 }
