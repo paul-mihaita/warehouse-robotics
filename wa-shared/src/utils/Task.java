@@ -9,7 +9,10 @@ public class Task {
 		item = new Item(itemName);
 		this.quantity = quantity;
 	}
-
+	
+	public int getQuantity(){
+		return quantity;
+	}
 	public Item getTaskItem() {
 		return item;
 	}

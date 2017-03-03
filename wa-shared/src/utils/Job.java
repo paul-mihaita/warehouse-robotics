@@ -7,6 +7,10 @@ public class Job {
 	int jobID;
 	ArrayList<Task> tasks = new ArrayList<Task>();
 
+	public int getJobID() {
+		return jobID;
+	}
+
 	public Job(int jobID, ArrayList<Task> tasks) {
 		this.jobID = jobID;
 		this.tasks = tasks;
@@ -16,9 +20,12 @@ public class Job {
 		return tasks;
 	}
 
-	public int sumOfWeight(int quantity, int weight) {
+	public float sumOfWeight() {
 
-		int sumOfWeight = quantity * weight;
+		float sumOfWeight = 0;
+		for (Task task : tasks) {
+			sumOfWeight += task.getTaskItem().getWeight();
+		}
 		return sumOfWeight;
 	}
 

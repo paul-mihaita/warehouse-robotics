@@ -10,25 +10,30 @@ import utils.Task;
 public class Input {
 
 	private ArrayList<Job> jobs = new ArrayList<Job>();
-	// private ArrayList<Item> items = new ArrayList<Item>();
+	
+	public Input(){
+		
+	}	
 
 	private boolean fileRight(String fileName) {
 		String file = fileName + ".csv";
 		File f = new File(file);
-		return !f.exists();
+		return f.exists();
 	}
 
 	public boolean readTaskAndJobs(String fileName) {
-		ArrayList<Task> tasks = new ArrayList<Task>();
+		
 		/////////////////////////////////////////////////// FILE RIGHT
-		if (fileRight(fileName)) {
+		//if (fileRight(fileName)) {
+		if (true) {
 			try {
 				// CREATE SCANNER TO READ FILE
-				Scanner inFile = new Scanner(new File(fileName));
+				Scanner inFile = new Scanner(new File(fileName+".csv"));
 				String token;
 				int jobsID;
 				// WHILE UNTIL THE END OF THE FILE
 				while (inFile.hasNext()) {
+					ArrayList<Task> tasks = new ArrayList<Task>();
 					token = inFile.nextLine();
 
 					// READ AND SPLIT THE LINE WITH THE CARACTER ","
@@ -59,7 +64,7 @@ public class Input {
 		if (fileRight(fileName)) {
 			try {
 				// CREATE SCANNER TO READ FILE
-				Scanner inFile = new Scanner(new File(fileName));
+				Scanner inFile = new Scanner(new File(fileName+ ".csv"));
 				String token;
 				// WHILE UNTIL THE END OF THE FILE
 				while (inFile.hasNext()) {
@@ -93,7 +98,7 @@ public class Input {
 		if (fileRight(fileName)) {
 			try {
 				// CREATE SCANNER TO READ FILE
-				Scanner inFile = new Scanner(new File(fileName));
+				Scanner inFile = new Scanner(new File(fileName+".csv"));
 				String token;
 				// WHILE UNTIL THE END OF THE FILE
 				while (inFile.hasNext()) {
@@ -124,6 +129,7 @@ public class Input {
 	}
 
 	public boolean initializeListOfJobs(String fileTaskAndJobs, String fileRewardsAndWeights,
+
 			String fileItemLocations) {
 
 		boolean check = false;
@@ -131,5 +137,9 @@ public class Input {
 		check = check && readItemAndRewardAndWeight(fileRewardsAndWeights);
 		check = check && readItemAndXPositionAndYPosition(fileItemLocations);
 		return check;
+	}
+	
+	public ArrayList<Job> getJobsArray(){
+		return jobs;
 	}
 }

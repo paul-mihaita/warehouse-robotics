@@ -12,10 +12,25 @@ public class Item {
 		this.name = name;
 	}
 
+	
+	
+	
+	//			GETS
 	public String getItemName() {
 		return name;
 	}
-
+	
+	public float getWeight() {
+		return weight;
+	}
+	
+	public float getReward() {
+		return reward;
+	}
+	
+	
+	
+	//			SETS
 	public void setReward(float reward) {
 		this.reward = reward;
 	}
