@@ -13,8 +13,6 @@ public class Item {
 	}
 
 	
-	
-	
 	//			GETS
 	public String getItemName() {
 		return name;
@@ -27,7 +25,6 @@ public class Item {
 	public float getReward() {
 		return reward;
 	}
-	
 	
 	
 	//			SETS
