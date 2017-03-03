@@ -12,22 +12,28 @@ public class Item {
 		this.name = name;
 	}
 
-	
-	//			GETS
+	// GETS
 	public String getItemName() {
 		return name;
 	}
-	
+
+	public Location getLocation() {
+		return location;
+	}
+
 	public float getWeight() {
 		return weight;
 	}
-	
+
 	public float getReward() {
 		return reward;
 	}
-	
-	
-	//			SETS
+
+	public String getName() {
+		return name;
+	}
+
+	// SETS
 	public void setReward(float reward) {
 		this.reward = reward;
 	}
@@ -38,6 +44,18 @@ public class Item {
 
 	public void setLocation(int x, int y) {
 		location = new Location(x, y);
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	public void setWeight(float weight) {
+		this.weight = weight;
 	}
 
 }

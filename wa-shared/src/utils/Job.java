@@ -7,17 +7,9 @@ public class Job {
 	int jobID;
 	ArrayList<Task> tasks = new ArrayList<Task>();
 
-	public int getJobID() {
-		return jobID;
-	}
-
 	public Job(int jobID, ArrayList<Task> tasks) {
 		this.jobID = jobID;
 		this.tasks = tasks;
-	}
-
-	public ArrayList<Task> geTasks() {
-		return tasks;
 	}
 
 	public float sumOfWeight() {
@@ -27,6 +19,28 @@ public class Job {
 			sumOfWeight += task.getTaskItem().getWeight();
 		}
 		return sumOfWeight;
+	}
+
+	// GET
+	public ArrayList<Task> geTasks() {
+		return tasks;
+	}
+
+	public int getJobID() {
+		return jobID;
+	}
+
+	public ArrayList<Task> getTasks() {
+		return tasks;
+	}
+
+	// SET
+	public void setTasks(ArrayList<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+	public void setJobID(int jobID) {
+		this.jobID = jobID;
 	}
 
 }
