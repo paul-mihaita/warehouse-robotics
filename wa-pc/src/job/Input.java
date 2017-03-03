@@ -15,18 +15,18 @@ public class Input {
 	private ArrayList<Job> jobs = new ArrayList<Job>();
 
 	public Input(boolean haveTitle) {
-		thereIsTheTitleFile=haveTitle;
+		thereIsTheTitleFile = haveTitle;
 	}
-	
-	private boolean fileHaveTheExtension(String fileName){
+
+	private boolean fileHaveTheExtension(String fileName) {
 		return fileName.contains(".csv");
 	}
-	
+
 	private boolean fileRight(String fileName) {
 		String file;
-		if(fileHaveTheExtension(fileName)){
-			file =fileName;
-		}else{
+		if (fileHaveTheExtension(fileName)) {
+			file = fileName;
+		} else {
 			file = fileName + ".csv";
 		}
 		File f = new File(file);
@@ -39,8 +39,8 @@ public class Input {
 		if (fileRight(fileName)) {
 			try {
 				// CREATE SCANNER TO READ FILE
-				if(!fileHaveTheExtension(fileName)){
-					fileName=fileName + ".csv";
+				if (!fileHaveTheExtension(fileName)) {
+					fileName = fileName + ".csv";
 				}
 				Scanner inFile = new Scanner(new File(fileName));
 				String token;
@@ -58,10 +58,21 @@ public class Input {
 						jobsID = Integer.parseInt(parts[0]);
 						// READ ALL THE TASK OF THE JOB
 						for (int i = 1; i < parts.length; i += 2) {
-							tasks.add(new Task(parts[i], Integer.parseInt(parts[i + 1])));
+							boolean alreadyThere=true;
+							for(Task check : tasks){
+								if(check.getItem().getItemName().equals(parts[i])){
+									int sumQuantity = check.getQuantity() + Integer.parseInt(parts[i + 1]);
+									check.setQuantity(sumQuantity);
+									alreadyThere=false;
+								}
+							}
+							if(alreadyThere){
+								tasks.add(new Task(parts[i], Integer.parseInt(parts[i + 1])));
+							}
 						}
 						// ADD THE JOB TO THE ARRAY LIST OF JOBS
 						jobs.add(new Job(jobsID, tasks));
+
 					}
 					toDo = true;
 				}
@@ -122,8 +133,8 @@ public class Input {
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
-				if(!fileHaveTheExtension(fileName)){
-					fileName=fileName + ".csv";
+				if (!fileHaveTheExtension(fileName)) {
+					fileName = fileName + ".csv";
 				}
 				// CREATE SCANNER TO READ FILE
 				Scanner inFile = new Scanner(new File(fileName));
@@ -136,7 +147,8 @@ public class Input {
 						// READ AND SPLIT THE LINE WITH THE CARACTER ","
 						String[] parts = token.split(",");
 
-						// ADD TO EVERY SINGLE TASK THE ITEM WEIGHT AND THE ITEM
+						// ADD TO EVERY SINGLE TASK THE ITEM WEIGHT AND THE
+						// ITEM
 						// REWARD
 						for (Job j : jobs) {
 							for (Task t : j.geTasks()) {
@@ -146,6 +158,7 @@ public class Input {
 									t.getTaskItem().setLocation(x, y);
 								}
 							}
+
 						}
 					}
 					toDo = true;
@@ -160,7 +173,6 @@ public class Input {
 			return false;
 	}
 
-	
 	public boolean initializeListOfJobs(String fileTaskAndJobs, String fileRewardsAndWeights,
 
 			String fileItemLocations) {
