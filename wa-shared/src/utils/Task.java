@@ -2,8 +2,15 @@ package utils;
 
 public class Task {
 
-  int item;
-  float reward;
+  Item item;
   int quantity;
   
+  public Task(String itemName,int quantity){
+	  item= new Item(itemName);
+	  this.quantity=quantity;
+  }
+  
+  public Item getTaskItem(){
+	  return item;
+  }
 }

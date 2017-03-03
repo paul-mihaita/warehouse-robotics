@@ -1,14 +1,26 @@
 package utils;
 
+import java.util.ArrayList;
+
 public class Job {
 
-  int jobID;
-  ArrayList<Task> task= new ArrayList<Task>();
-	
-  public int sumOfWeight(int quantity, int weight){
+	int jobID;
+	ArrayList<Task> tasks = new ArrayList<Task>();
 
-	int sumOfWeight = quantity*weight;
-	return sumOfWeight;
-  }
-  
+	public Job(int jobID,ArrayList<Task> tasks) {
+		this.jobID=jobID;
+		this.tasks=tasks;
+	}
+	
+	public ArrayList<Task> geTasks(){
+		return tasks;
+	}
+	
+	public int sumOfWeight(int quantity, int weight) {
+
+		int sumOfWeight = quantity * weight;
+		return sumOfWeight;
+	}
+
+
 }
