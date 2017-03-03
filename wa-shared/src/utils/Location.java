@@ -2,7 +2,11 @@ package utils;
 
 public class Location {
 
-  int x;
-  int y;
-  
+	int x;
+	int y;
+
+	public Location(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 }

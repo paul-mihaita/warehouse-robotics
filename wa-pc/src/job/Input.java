@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import utils.Item;
 import utils.Job;
 import utils.Task;
 
@@ -88,5 +86,50 @@ public class Input {
 		} ////////////////////////////////////////////////// FILE NOT RIGHT
 		else
 			return false;
+	}
+
+	public boolean readItemAndXPositionAndYPosition(String fileName) {
+		/////////////////////////////////////////////////// FILE RIGHT
+		if (fileRight(fileName)) {
+			try {
+				// CREATE SCANNER TO READ FILE
+				Scanner inFile = new Scanner(new File(fileName));
+				String token;
+				// WHILE UNTIL THE END OF THE FILE
+				while (inFile.hasNext()) {
+					token = inFile.nextLine();
+					// READ AND SPLIT THE LINE WITH THE CARACTER ","
+					String[] parts = token.split(",");
+
+					// ADD TO EVERY SINGLE TASK THE ITEM WEIGHT AND THE ITEM
+					// REWARD
+					for (Job j : jobs) {
+						for (Task t : j.geTasks()) {
+							if (t.getTaskItem().getItemName().equals(parts[2])) {
+								int x = Integer.parseInt(parts[0]);
+								int y = Integer.parseInt(parts[1]);
+								t.getTaskItem().setLocation(x, y);
+							}
+						}
+					}
+				}
+				inFile.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} ////////////////////////////////////////////////// FILE NOT RIGHT
+		else
+			return false;
+	}
+
+	public boolean initializeListOfJobs(String fileTaskAndJobs, String fileRewardsAndWeights,
+			String fileItemLocations) {
+
+		boolean check = false;
+		check = check && readTaskAndJobs(fileTaskAndJobs);
+		check = check && readItemAndRewardAndWeight(fileRewardsAndWeights);
+		check = check && readItemAndXPositionAndYPosition(fileItemLocations);
+		return check;
 	}
 }
