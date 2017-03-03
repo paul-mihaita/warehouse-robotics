@@ -1,7 +1,5 @@
 package pc_gui;
 
-import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GUI extends Application {
@@ -41,14 +40,21 @@ public class GUI extends Application {
 			GridPane g = new GridPane();
 			Label l = new Label("Job ID: " + i);
 			Button b = new Button("Cancel");
+			Label s = new Label("Status:");
+			Label status = new Label("Active");
+			status.setTextFill(Color.GREEN);
+
+			b.setOnAction(new ButtonListener(i));
 
 			g.setAlignment(Pos.CENTER);
 			g.setHgap(WIDTH / 100);
 			g.setVgap(WIDTH / 100);
-			
+
 			g.add(l, 0, 0);
 			g.add(b, 1, 0);
-			
+			g.add(s, 0, 1);
+			g.add(status, 1, 1);
+
 			grid.add(g, 0, i);
 		}
 
