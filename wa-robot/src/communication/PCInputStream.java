@@ -5,73 +5,88 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import communication.thread.Converters;
 import comunication.CommConst;
-import lejos.robotics.localization.PoseProvider;
-import lejos.util.Delay;
+import comunication.CommConst.command;
+import comunication.CommConst.protocol;
 import movement.Movement.move;
+import utils.Robot;
 
 public class PCInputStream {
 	private DataInputStream stream;
-	private List<move> moves;
+
 	public PCInputStream(DataInputStream stream) {
 		this.stream = stream;
-		moves = new ArrayList<move>();
-	}
-	
-	public List<move> getMovement() throws IOException {
-		communicate();
-		return moves;
 	}
 
-	public int getNextInstruction() throws IOException {
-		return communicate();
-	}
-	
-	private int communicate() throws IOException {
-		int protocol = stream.read();
-		switch (protocol) {
+	public protocol readProtocol() throws IOException {
+		int proto = stream.read();
+		switch (proto) {
 			case CommConst.MOVEMENT:
-				readMoves();
-				return protocol;
-			case CommConst.START:
-				return protocol;
+				return protocol.Movement;
+			case CommConst.ROBOT:
+				return protocol.Robot;
+			case CommConst.COMMAND:
+				return protocol.Command;
 			default:
-				throw new IOException("Invalid protocol: " + protocol);
+				throw new IOException("Invalid protocol: " + proto);
 		}
-		
+
 	}
-	
-	private void readMoves() throws IOException {
+
+	public List<move> readMoves() throws IOException {
 		int numMoves = stream.read();
 		byte[] moveBytes = new byte[numMoves];
 		int actualNum = stream.read(moveBytes);
 		if (actualNum != numMoves) {
 			throw new IOException("Number of moves mismatch: " + numMoves + " != " + actualNum);
 		}
-		moves.clear();
+		List<move> moves = new ArrayList<move>();
 		for (int i = 0; i < moveBytes.length; i++) {
-			moves.add(makeMove(moveBytes[i]));
+			moves.add(Converters.byteToMove(moveBytes[i]));
 		}
-		
-	}
-	private move makeMove(byte b) throws IOException {
-		switch (b) {
-			case CommConst.FORWARD:
-				return move.FORWARD;
-			case CommConst.BACKWARD:
-				return move.BACKWARD;
-			case CommConst.TURNLEFT:
-				return move.TURNLEFT;
-			case CommConst.TURNRIGHT:
-				return move.TURNRIGHT;
-			case CommConst.WAIT:
-				return move.WAIT;
-			default:
-				throw new IOException("Incorrect byte code for movement");
-		}
+		return moves;
 	}
 
 	public void close() throws IOException {
 		stream.close();
+	}
+
+	public protocol getProtocol() throws IOException {
+		int proto = stream.read();
+		switch (proto) {
+			case CommConst.MOVEMENT:
+				return protocol.Command;
+			case CommConst.ROBOT:
+				return protocol.Robot;
+			case CommConst.COMMAND:
+				return protocol.Command;
+			default:
+				throw new IOException("Invalid protocol recieved");
+
+		}
+	}
+
+	public Robot readRobot() throws IOException {
+		int size = stream.read();
+		byte[] robotArr = new byte[size];
+		int actualNum = stream.read(robotArr);
+		if (actualNum != size) {
+			throw new IOException("Robot byte array size mismatch: " + size + " != " );
+		}
+		return Converters.byteToRobot(robotArr);
+	}
+
+	public command readCommand() throws IOException {
+		int cmd = stream.read();
+		switch (cmd) {
+			case CommConst.COM_START:
+				return command.Start;
+			case CommConst.COM_WAIT:
+				return command.Wait;
+			default:
+				throw new IOException("Invalid protocol recieved");
+
+		}
 	}
 }

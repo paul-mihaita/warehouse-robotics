@@ -1,7 +1,6 @@
 package comunication;
 
 import java.util.List;
-import java.util.Optional;
 
 import comunication.CommConst.command;
 import movement.Movement.move;

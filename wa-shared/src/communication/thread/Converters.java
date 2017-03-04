@@ -1,5 +1,6 @@
 package communication.thread;
 
+import java.io.IOException;
 import java.util.List;
 
 import comunication.CommConst;
@@ -57,6 +58,22 @@ public class Converters {
 			default:
 				//can't happen
 				return 0;
+		}
+	}
+	public static move byteToMove(byte b) throws IOException {
+		switch (b) {
+			case CommConst.FORWARD:
+				return move.FORWARD;
+			case CommConst.BACKWARD:
+				return move.BACKWARD;
+			case CommConst.TURNLEFT:
+				return move.TURNLEFT;
+			case CommConst.TURNRIGHT:
+				return move.TURNRIGHT;
+			case CommConst.WAIT:
+				return move.WAIT;
+			default:
+				throw new IOException("Incorrect byte code for movement");
 		}
 	}
 }
