@@ -5,18 +5,16 @@ import rp.config.WheeledRobotConfiguration;
 
 public class Forward extends AbstractBehavior {
 
-	private int numMoves;
-	private int count;
+	private Continue cont;
 
-	public Forward(WheeledRobotConfiguration config, int numMoves, int count) {
+	public Forward(WheeledRobotConfiguration config, Continue cont) {
 		super(config);
-		this.numMoves = numMoves;
-		this.count = count;
+		this.cont = cont;
 	}
 
 	@Override
 	public boolean takeControl() {
-		return (numMoves > count);
+		return cont.cont();
 	}
 
 	@Override

@@ -10,16 +10,17 @@ import lejos.nxt.SensorPort;
  */
 public class TapeSensor {
 
-	private LightSensor sensor;
 	private int reading;
+	private SensorPort sensor;
 
 	public TapeSensor(SensorPort port) {
-		sensor = new LightSensor(port);
+		new LightSensor(port);
+		this.sensor = port;
 	}
 
 	// public so a user of this object can force an update if they so want
 	public void takeReading() {
-		reading = sensor.getLightValue();
+		reading = sensor.readRawValue();
 	}
 
 	public int getOldReading() {
@@ -33,7 +34,7 @@ public class TapeSensor {
 
 	public boolean isOnTape() {
 		this.takeReading();
-		return roughlyEqual(reading, RobotConstants.TAPE, 5);
+		return roughlyEqual(reading, RobotConstants.TAPE, 50);
 	}
 
 	/**

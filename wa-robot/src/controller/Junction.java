@@ -5,43 +5,43 @@ import java.util.Queue;
 
 import constants.RobotConstants;
 import lejos.nxt.Button;
+import lejos.nxt.SensorPort;
 import movement.Movement.move;
 import rp.config.WheeledRobotConfiguration;
+import utils.Robot;
 
 public class Junction extends AbstractBehavior {
 
 	private TapeSensor left;
 	private TapeSensor right;
 	private Queue<move> moves;
-	private int numMoves;
-	private int count;
+	private Continue cont;
 
-	public Junction(WheeledRobotConfiguration config, TapeSensor leftSensor, TapeSensor rightSensor, int numMoves, int count, List<move> moves) {
+	public Junction(WheeledRobotConfiguration config, SensorPort l, SensorPort r, Continue cont, List<move> moves) {
 		super(config);
-		this.left = leftSensor;
-		this.right = rightSensor;
+		this.left = new TapeSensor(l);
+		this.right = new TapeSensor(r);
 		this.moves = new Queue<move>();
 		for (move move : moves) {
 			this.moves.push(move);
 		}
-		this.numMoves = numMoves;
-		this.count = count;
+		this.cont = cont;
 	}
 
 	@Override
 	public boolean takeControl() {
-		return (left.isOnTape() && right.isOnTape()) && (numMoves > count) ;
+		return (left.isOnTape() && right.isOnTape()) && (cont.cont()) ;
 	}
 
 	@Override
 	public void action() {
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
-		count++;
+		cont.inc();
+		System.out.println(cont.cont());
 		switch ((move) moves.pop()) {
 			case BACKWARD:
-				turnleft();
-				turnleft();
+				pilot.rotate(180);
 				forward();
 				break;
 			case FORWARD:
@@ -70,6 +70,7 @@ public class Junction extends AbstractBehavior {
 		pilot.rotate(90);
 	}
 	private void waitUntilPress() {
+		pilot.stop();
 		Button.waitForAnyPress();
 	}
 

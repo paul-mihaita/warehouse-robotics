@@ -110,3 +110,64 @@
 2017-03-02 22:55:37 INFO  Main:35 - Sending moves
 2017-03-02 22:55:37 INFO  Main:56 - sending start message
 2017-03-02 22:55:37 INFO  Main:45 - closing connection
+2017-03-03 14:57:45 INFO  Main:22 - Creating Comm object
+2017-03-03 14:57:45 INFO  Main:25 - Connecting
+2017-03-03 14:57:48 INFO  Main:35 - Sending moves
+2017-03-03 14:57:49 INFO  Main:56 - sending start message
+2017-03-03 14:57:49 INFO  Main:45 - closing connection
+2017-03-03 16:07:13 INFO  Main:22 - Creating Comm object
+2017-03-03 16:07:13 INFO  Main:25 - Connecting
+2017-03-03 16:07:15 INFO  Main:35 - Sending moves
+2017-03-03 16:07:15 INFO  Main:56 - sending start message
+2017-03-03 16:07:15 INFO  Main:45 - closing connection
+2017-03-03 16:11:44 INFO  Main:22 - Creating Comm object
+2017-03-03 16:11:44 INFO  Main:25 - Connecting
+2017-03-03 16:12:05 ERROR Main:29 - lejos.pc.comm.NXTCommException: Open of Keith failed.
+2017-03-03 16:12:05 ERROR Main:43 - lejos.pc.comm.NXTCommException: Open of Keith failed.
+2017-03-03 16:13:29 INFO  Main:22 - Creating Comm object
+2017-03-03 16:13:29 INFO  Main:25 - Connecting
+2017-03-03 16:13:31 INFO  Main:35 - Sending moves
+2017-03-03 16:13:31 INFO  Main:56 - sending start message
+2017-03-03 16:13:31 INFO  Main:45 - closing connection
+2017-03-03 16:21:45 INFO  Main:22 - Creating Comm object
+2017-03-03 16:21:45 INFO  Main:25 - Connecting
+2017-03-03 16:21:47 INFO  Main:35 - Sending moves
+2017-03-03 16:21:47 INFO  Main:56 - sending start message
+2017-03-03 16:21:47 INFO  Main:45 - closing connection
+2017-03-03 16:40:51 INFO  Main:22 - Creating Comm object
+2017-03-03 16:40:51 INFO  Main:25 - Connecting
+2017-03-03 16:40:54 INFO  Main:35 - Sending moves
+2017-03-03 16:40:54 INFO  Main:56 - sending start message
+2017-03-03 16:40:54 INFO  Main:45 - closing connection
+2017-03-03 16:53:39 INFO  Main:22 - Creating Comm object
+2017-03-03 16:53:39 INFO  Main:25 - Connecting
+2017-03-03 16:53:42 INFO  Main:35 - Sending moves
+2017-03-03 16:53:43 INFO  Main:56 - sending start message
+2017-03-03 16:53:43 INFO  Main:45 - closing connection
+2017-03-03 16:57:27 INFO  Main:22 - Creating Comm object
+2017-03-03 16:57:27 INFO  Main:25 - Connecting
+2017-03-03 16:57:42 ERROR Main:29 - lejos.pc.comm.NXTCommException: Open of Keith failed.
+2017-03-03 16:57:42 ERROR Main:43 - lejos.pc.comm.NXTCommException: Open of Keith failed.
+2017-03-03 16:57:48 INFO  Main:22 - Creating Comm object
+2017-03-03 16:57:48 INFO  Main:25 - Connecting
+2017-03-03 16:57:51 INFO  Main:35 - Sending moves
+2017-03-03 16:57:51 INFO  Main:56 - sending start message
+2017-03-03 16:57:51 INFO  Main:45 - closing connection
+2017-03-03 16:59:30 INFO  Main:22 - Creating Comm object
+2017-03-03 16:59:30 INFO  Main:25 - Connecting
+2017-03-03 16:59:45 ERROR Main:29 - lejos.pc.comm.NXTCommException: Open of Keith failed.
+2017-03-03 16:59:45 ERROR Main:43 - lejos.pc.comm.NXTCommException: Open of Keith failed.
+2017-03-03 17:00:28 INFO  Main:22 - Creating Comm object
+2017-03-03 17:00:28 INFO  Main:25 - Connecting
+2017-03-03 17:00:32 INFO  Main:35 - Sending moves
+2017-03-03 17:00:32 INFO  Main:56 - sending start message
+2017-03-03 17:00:32 INFO  Main:45 - closing connection
+2017-03-03 17:04:21 INFO  Main:22 - Creating Comm object
+2017-03-03 17:04:21 INFO  Main:25 - Connecting
+2017-03-03 17:04:45 ERROR Main:29 - lejos.pc.comm.NXTCommException: Open of Keith failed.
+2017-03-03 17:04:45 ERROR Main:43 - lejos.pc.comm.NXTCommException: Open of Keith failed.
+2017-03-03 17:05:16 INFO  Main:22 - Creating Comm object
+2017-03-03 17:05:16 INFO  Main:25 - Connecting
+2017-03-03 17:05:17 INFO  Main:35 - Sending moves
+2017-03-03 17:05:18 INFO  Main:56 - sending start message
+2017-03-03 17:05:18 INFO  Main:45 - closing connection

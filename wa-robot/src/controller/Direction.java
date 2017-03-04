@@ -1,6 +1,7 @@
 package controller;
 
 import constants.RobotConstants;
+import lejos.nxt.SensorPort;
 import movement.Movement.move;
 import rp.config.WheeledRobotConfiguration;
 
@@ -9,9 +10,9 @@ public class Direction extends AbstractBehavior {
 	private TapeSensor sensor;
 	private move dir;
 
-	public Direction(WheeledRobotConfiguration config, TapeSensor sensor, move dir) {
+	public Direction(WheeledRobotConfiguration config, SensorPort s, move dir) {
 		super(config);
-		this.sensor = sensor;
+		this.sensor = new TapeSensor(s);
 		switch (dir) {
 			case TURNLEFT:
 				this.dir = dir;
@@ -35,9 +36,9 @@ public class Direction extends AbstractBehavior {
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
 		while (!suppressed && sensor.isOnTape()) {
 			if (dir == move.TURNLEFT) {
-				pilot.rotateLeft();
+				pilot.steer(RobotConstants.STEER_SPEED);
 			} else {
-				pilot.rotateRight();
+				pilot.steer(-1 * RobotConstants.STEER_SPEED);
 			}
 		}
 		suppressed = false;

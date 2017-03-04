@@ -6,6 +6,7 @@ import java.util.List;
 
 import communication.BTConnect;
 import controller.Controller;
+import lejos.nxt.Button;
 import movement.Movement.move;
 
 public class Main {
@@ -17,6 +18,7 @@ public class Main {
 			System.out.println("Recieved path");
 			if (connection.shouldRun()) {
 				System.out.println("Was told to run");
+				Button.waitForAnyPress();
 				System.out.println(Arrays.toString(moves.toArray()));
 				Controller controller = new Controller(moves);
 				controller.run();
