@@ -1,67 +1,129 @@
 package pc_gui;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import utils.Job;
 
 public class GUI extends Application {
 
-	public static final int WIDTH = 400;
+	public static final int WIDTH = 150;
 	public static final int HEIGHT = 600;
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+	private static HashSet<Job> jobs;
+	private static HashMap<Job, Label> jobLabels;
 
-	public GUI() {
-		super();
+	private static Group root;
+
+	public static void create(HashSet<Job> jobs) {
+		GUI.jobs = jobs;
+		GUI.jobLabels = new HashMap<Job, Label>();
+		launch();
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
 		primaryStage.setTitle("Warehouse Controller");
+		root = new Group();
 		ScrollPane scroll = new ScrollPane();
-		scroll.setMinSize(WIDTH, HEIGHT);
-		scroll.setMaxSize(WIDTH, HEIGHT);
+		scroll.setMaxHeight(HEIGHT);
+		scroll.setMinWidth(WIDTH);
+
+		scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
+
 		GridPane grid = new GridPane();
+		grid.setMaxHeight(HEIGHT);
+		grid.setMinWidth(WIDTH);
 
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(WIDTH / 100);
 		grid.setVgap(WIDTH / 100);
 
-		for (int i = 0; i < 10; i++) {
-			GridPane g = new GridPane();
-			Label l = new Label("Job ID: " + i);
+		Button startButton = new Button("Start");
+		startButton.setTextFill(Color.GREEN);
+		startButton.setTextAlignment(TextAlignment.CENTER);
+		startButton.setFont(new Font(50));
+
+		grid.add(startButton, 0, 0);
+
+		int level = 1;
+		for (Job j : jobs) {
+
+			GridPane jobPane = new GridPane();
+
+			jobPane.setMinWidth(WIDTH * 0.95);
+
+			jobPane.setStyle("-fx-border-color: blue");
+
+			Label l = new Label("Job ID: " + j.getJobID());
 			Button b = new Button("Cancel");
 			Label s = new Label("Status:");
-			Label status = new Label("Active");
-			status.setTextFill(Color.GREEN);
+			Label status = new Label(j.getStatus());
 
-			b.setOnAction(new ButtonListener(i));
+			status.setTextFill(statusColor(j.getStatus()));
 
-			g.setAlignment(Pos.CENTER);
-			g.setHgap(WIDTH / 100);
-			g.setVgap(WIDTH / 100);
+			b.setOnAction(new ButtonListener(j));
 
-			g.add(l, 0, 0);
-			g.add(b, 1, 0);
-			g.add(s, 0, 1);
-			g.add(status, 1, 1);
+			jobPane.setAlignment(Pos.CENTER_LEFT);
+			jobPane.setHgap(WIDTH / 10);
+			jobPane.setVgap(WIDTH / 10);
 
-			grid.add(g, 0, i);
+			jobPane.add(l, 0, 0);
+			jobPane.add(s, 0, 1);
+
+			jobPane.add(b, 1, 0);
+			jobPane.add(status, 1, 1);
+
+			jobLabels.put(j, status);
+
+			grid.add(jobPane, 0, level++);
 		}
 
 		scroll.setContent(grid);
-		primaryStage.setScene(new Scene(scroll));
+		root.getChildren().add(scroll);
+		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 
 	}
 
+	public static void update() {
+
+		for (Job j : jobLabels.keySet()) {
+			jobLabels.get(j).setText(j.getStatus());
+			jobLabels.get(j).setTextFill(statusColor(j.getStatus()));
+		}
+
+	}
+
+	private static Paint statusColor(String status) {
+		/*
+		 * aCtive, iNactive, cOmpleted, cAnceled
+		 */
+		switch (status.charAt(1)) {
+		case 'C':
+			return Color.GREEN;
+		case 'N':
+			return Color.BLACK;
+		case 'O':
+			return Color.BLUE;
+		case 'A':
+			return Color.RED;
+		default:
+			return Color.GRAY;
+		}
+	}
 }
