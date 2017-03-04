@@ -24,8 +24,15 @@ public class Main {
 	public static void main(String[] args) {
 		// get jobs
 		// order jobs
+		//list of jobs
+		
+		//gui -> 3 jobs
+		//3 jobs -> pathfinding
+		//pathfinding -> movements
+		//
 		// find route for first job
 
+		
 		// this will be from the pathfinding algorithm
 		Route route = new Route();
 		route.setPath(BASEPATH);
