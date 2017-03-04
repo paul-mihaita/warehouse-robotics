@@ -1,10 +1,8 @@
 package pc_gui;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,8 +24,6 @@ public class GUI extends Application {
 	private static HashSet<Job> jobs;
 	private static HashMap<Job, Label> jobLabels;
 
-	private static Group root;
-
 	public static void create(HashSet<Job> jobs) {
 		GUI.jobs = jobs;
 		GUI.jobLabels = new HashMap<Job, Label>();
@@ -38,25 +34,29 @@ public class GUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		primaryStage.setTitle("Warehouse Controller");
-		root = new Group();
+
 		ScrollPane scroll = new ScrollPane();
+
 		scroll.setMaxHeight(HEIGHT);
 		scroll.setMinWidth(WIDTH);
 
 		scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
 
 		GridPane grid = new GridPane();
+
 		grid.setMaxHeight(HEIGHT);
 		grid.setMinWidth(WIDTH);
-
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(WIDTH / 100);
 		grid.setVgap(WIDTH / 100);
 
 		Button startButton = new Button("Start");
+
 		startButton.setTextFill(Color.GREEN);
 		startButton.setTextAlignment(TextAlignment.CENTER);
-		startButton.setFont(new Font(50));
+		startButton.setFont(new Font(20));
+		
+		startButton.setMinWidth(WIDTH);
 
 		grid.add(startButton, 0, 0);
 
@@ -76,7 +76,7 @@ public class GUI extends Application {
 
 			status.setTextFill(statusColor(j.getStatus()));
 
-			b.setOnAction(new ButtonListener(j));
+			b.setOnAction(new CancelListener(j));
 
 			jobPane.setAlignment(Pos.CENTER_LEFT);
 			jobPane.setHgap(WIDTH / 10);
@@ -94,8 +94,7 @@ public class GUI extends Application {
 		}
 
 		scroll.setContent(grid);
-		root.getChildren().add(scroll);
-		primaryStage.setScene(new Scene(root));
+		primaryStage.setScene(new Scene(scroll));
 		primaryStage.show();
 
 	}

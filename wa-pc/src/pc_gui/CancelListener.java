@@ -2,14 +2,13 @@ package pc_gui;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Label;
 import utils.Job;
 
-public class ButtonListener implements EventHandler<ActionEvent> {
+public class CancelListener implements EventHandler<ActionEvent> {
 	
 	private Job j;
 
-	public ButtonListener(Job j) {
+	public CancelListener(Job j) {
 		this.j = j;
 	}
 
