@@ -44,9 +44,6 @@ public class Main {
 		//if the startPath object is changed or the keith object is changed
 		//the corresponding changes will be automatically sent to the robot
 		//via the thread.
-		
-		
-		// attempt to send it to the robot
 
 	}
 }

@@ -72,7 +72,7 @@ public class PCInputStream {
 		byte[] robotArr = new byte[size];
 		int actualNum = stream.read(robotArr);
 		if (actualNum != size) {
-			throw new IOException("Robot byte array size mismatch: " + size + " != " );
+			throw new IOException("Robot byte array size mismatch: " + size + " != ");
 		}
 		return Converters.byteToRobot(robotArr);
 	}

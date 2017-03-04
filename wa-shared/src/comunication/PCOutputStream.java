@@ -11,13 +11,12 @@ import comunication.CommConst.command;
 import comunication.CommConst.protocol;
 import lejos.util.Delay;
 import movement.Movement.move;
-import utils.Location;
 import utils.Robot;
 
 public class PCOutputStream {
 	private OutputStream stream;
 	private Logger log;
-	
+
 	public PCOutputStream(OutputStream stream, Logger log) {
 		this.stream = stream;
 		this.log = log;
@@ -28,11 +27,13 @@ public class PCOutputStream {
 		stream.flush();
 		Delay.msDelay(CommConst.GRACE);
 	}
+
 	private void write(byte[] b) throws IOException {
 		stream.write(b);
 		stream.flush();
 		Delay.msDelay(CommConst.GRACE);
 	}
+
 	public void close() throws IOException {
 		stream.close();
 	}
@@ -59,7 +60,6 @@ public class PCOutputStream {
 		log.debug("Writing robot");
 		write(arrayToSend);
 	}
-	
 
 	public void sendMoves(List<move> moves) throws IOException {
 		int numMoves = moves.size();
@@ -80,6 +80,6 @@ public class PCOutputStream {
 				write(CommConst.COM_WAIT);
 				break;
 		}
-		
+
 	}
 }
