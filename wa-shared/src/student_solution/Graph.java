@@ -5,17 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import utils.Location;
 import graph_entities.IEdge;
@@ -28,6 +23,7 @@ import graph_entities.Label;
  {
 	 Map<String,IVertex<T>> vertices ;
 	 public int id = 0;
+	private BufferedReader read;
 	 public Graph(){
 		 vertices = new ConcurrentHashMap<String,IVertex<T>>();
 	 }
@@ -46,7 +42,7 @@ import graph_entities.Label;
 	public void addEdge(String vertexSrcId, String vertexTgtId, Float cost) {
 		IVertex<T> targetVertex= vertices.get(vertexTgtId);
 		IVertex<T> toAddEdge= vertices.get(vertexSrcId);
-		toAddEdge.addEdge(new Edge(targetVertex,cost));
+		toAddEdge.addEdge(new Edge<T>(targetVertex,cost));
 	}
 	static String removeWhite(String line){
 		String s = line.replaceAll("\\s+","");
@@ -54,13 +50,13 @@ import graph_entities.Label;
 	}
 	public String toDotRepresentation() {
 		Collection<IVertex<T>> vertices = this.getVertices();
-		Iterator it = vertices.iterator();
+		Iterator<IVertex<T>> it = vertices.iterator();
 		String dotRep = "digraph {\n";
 		String twoTabs = "\t\t";
 		
 		while (it.hasNext()) {
-			IVertex<T> vertex = (IVertex<T>) it.next();
-			Label aux = vertex.getLabel();
+			IVertex<T> vertex =  it.next();
+			Label<T> aux = vertex.getLabel();
 			dotRep += twoTabs + aux.getName() + '\n';
 		}
 		it = vertices.iterator();
@@ -81,9 +77,9 @@ import graph_entities.Label;
 	public void fromDotRepresentation(String dotFilePath) {
 		FileReader from;
 		try {
-			HashMap<String,String> names = new HashMap();
+			HashMap<String,String> names = new HashMap<String, String>();
 			from = new FileReader(dotFilePath);
-			BufferedReader read = new BufferedReader(from);
+			read = new BufferedReader(from);
 			read.readLine();
 			int index = 0;
 			CharSequence cs = "label=\"";
@@ -103,9 +99,9 @@ import graph_entities.Label;
 						String number = parts[1].substring(0,ind);
 						addEdge(names.get(source),names.get(target),Float.parseFloat(number));
 					}else{
-						Label l = new Label();
+						Label<T> l = new Label<T>();
 						l.setName(line);
-						addVertex( new Vertex(l));
+						addVertex( new Vertex<T>(l));
 						names.put(line, Integer.toString(index));
 						index++;
 					}
@@ -136,11 +132,11 @@ import graph_entities.Label;
 	public boolean contains(IVertex<T> v){
 		return vertices.containsValue(v);
 	}
-	public boolean contains(Location l){
-		Iterator it = vertices.values().iterator();
+	public boolean contains(T l){
+		Iterator<IVertex<T>> it = vertices.values().iterator();
 		while(it.hasNext()){
-			Vertex<T> x =  (Vertex) it.next();
-			Location m = (Location) x.getLabel().getData();
+			IVertex<T> x =   it.next();
+			T m  = x.getLabel().getData();
 			if(m.equals(l)){
 
 				return true;
@@ -148,20 +144,20 @@ import graph_entities.Label;
 		}
 		return false;
 	}
-	public Collection<IEdge<T>> get(Location pPoint) {
-		Iterator it = vertices.values().iterator();
+	public Collection<IEdge<T>> get(T pPoint) {
+		Iterator<IVertex<T>> it = vertices.values().iterator();
 		while(it.hasNext()){
-			IVertex<T> x = (IVertex<T>) it.next();
+			IVertex<T> x =  it.next();
 			if(x.getLabel().getData().equals(pPoint)){
 				return x.getSuccessors();
 			}
 		}
 		return null;
 	}
-	public IVertex getVertex(Location pPoint) {
-		Iterator it = vertices.values().iterator();
+	public IVertex<T> getVertex(T pPoint) {
+		Iterator<IVertex<T>> it = vertices.values().iterator();
 		while(it.hasNext()){
-			IVertex<T> x = (IVertex<T>) it.next();
+			IVertex<T> x =  it.next();
 			Location l = (Location) x.getLabel().getData();
 			if(l.equals(pPoint)){
 				return x;

@@ -4,7 +4,6 @@ package student_solution;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import utils.Location;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
 import graph_entities.Label;
@@ -15,25 +14,25 @@ import graph_entities.Label;
 	 Collection<IEdge<T>> edges;
 	 public Vertex(){
 		 edges = new ArrayList<>();
-		 label = new Label();
+		 label = new Label<T>();
 	 }
-	 public Vertex(Label label){
+	 public Vertex(Label<T> label){
 		 edges = new ArrayList<>();
 		 setLabel(label);
 	 }
-	 public Vertex(Location loc){
-		 Label label= new Label();
+	 public Vertex(T loc){
+		 Label<T> label= new Label<T>();
 		 label.setData(loc);
 		 edges = new ArrayList<>();
 		 setLabel(label);
 	 }
-	 public Vertex (Label label,Collection<IEdge<T>> edges ){
+	 public Vertex (Label<T> label,Collection<IEdge<T>> edges ){
 		 this.edges = edges;
 		 setLabel(label);
 	 }
 	@Override
 	public int compareTo(IVertex<T> o) {
-		Label compared = o.getLabel();
+		Label<T> compared = o.getLabel();
 		Float vertexValue = label.getCost();
 		Float comparedValue = compared.getCost();
 		return vertexValue < comparedValue ? -1 :  vertexValue > comparedValue ? 1 : 0;

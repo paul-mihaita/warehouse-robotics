@@ -8,7 +8,7 @@ import graph_entities.IEdge;
 	 IVertex<T> target;
 	 Float cost;
 	 public Edge(){
-		 target = new Vertex();
+		 target = new Vertex<T>();
 		 cost = 0.0f;
 	 }
 	 public Edge(IVertex<T> target, Float cost){
