@@ -4,12 +4,13 @@ public class Location implements Comparable {
 
 	int x;
 	int y;
-
+	boolean reserved;
 	public Location(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.reserved = false;
 	}
-
+	
 	// GET
 	public int getX() {
 		return x;
@@ -40,7 +41,7 @@ public class Location implements Comparable {
 	    if (other instanceof Location) {
 	    	Location a = this;
 	    	Location b = (Location) other;
-			return a.getX() < b.getX() ? false : a.getX() > b.getX() ? false : a.getY() < b.getY() ? false : a.getY() > b.getY() ? false: true;
+			return a.x == b.x && a.y == b.y ? true: false;
 	    }
 	    return false;
 	  }
