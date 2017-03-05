@@ -1,4 +1,5 @@
 package pc_gui;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import javafx.application.Application;
@@ -55,8 +56,10 @@ public class GUI extends Application {
 		startButton.setTextFill(Color.GREEN);
 		startButton.setTextAlignment(TextAlignment.CENTER);
 		startButton.setFont(new Font(20));
-		
+
 		startButton.setMinWidth(WIDTH);
+
+		startButton.setOnAction((event) -> GUI.startJobs());
 
 		grid.add(startButton, 0, 0);
 
@@ -76,7 +79,10 @@ public class GUI extends Application {
 
 			status.setTextFill(statusColor(j.getStatus()));
 
-			b.setOnAction(new CancelListener(j));
+			b.setOnAction(e -> {
+				j.cancel();
+				GUI.update();
+			});
 
 			jobPane.setAlignment(Pos.CENTER_LEFT);
 			jobPane.setHgap(WIDTH / 10);
@@ -97,6 +103,15 @@ public class GUI extends Application {
 		primaryStage.setScene(new Scene(scroll));
 		primaryStage.show();
 
+	}
+
+	private static void startJobs() {
+		for (Job j : jobs) {
+			if (j.isInactive()) {
+				j.start();
+			}
+		}
+		GUI.update();
 	}
 
 	public static void update() {

@@ -65,4 +65,20 @@ public class Job {
 	public String getStatus(){
 		return status.name();
 	}
+	
+	public boolean isActive(){
+		return status.equals(Status.ACTIVE);
+	}
+	
+	public boolean isCanceled(){
+		return status.equals(Status.CANCELED);
+	}
+	
+	public boolean isInactive(){
+		return status.equals(Status.INACTIVE);
+	}
+	
+	public boolean isCompleted(){
+		return status.equals(Status.COMPLETED);
+	}
 }
