@@ -1,7 +1,7 @@
 package pc_gui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -22,10 +22,17 @@ public class GUI extends Application {
 	public static final int WIDTH = 150;
 	public static final int HEIGHT = 600;
 
-	private static HashSet<Job> jobs;
+	private static ArrayList<Job> jobs;
 	private static HashMap<Job, Label> jobLabels;
 
-	public static void create(HashSet<Job> jobs) {
+	/**
+	 * 
+	 * Creates a new GUI with the input being the list of jobs in preferential
+	 * order
+	 * 
+	 * @param ListOfJobs
+	 */
+	public static void create(ArrayList<Job> jobs) {
 		GUI.jobs = jobs;
 		GUI.jobLabels = new HashMap<Job, Label>();
 		launch();
