@@ -1,4 +1,4 @@
-package pc_gui;
+package main.pc_gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;

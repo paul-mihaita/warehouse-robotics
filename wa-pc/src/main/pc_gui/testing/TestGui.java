@@ -1,9 +1,7 @@
-package pc_gui.testing;
+package main.pc_gui.testing;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-
-import pc_gui.GUI;
+import main.pc_gui.GUI;
 import utils.Item;
 import utils.Job;
 import utils.Task;
