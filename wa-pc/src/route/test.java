@@ -46,20 +46,20 @@ public class test {
 */
 		State s = new State();
 		ArrayList<Location> l = new ArrayList<>();
-		Location a = new Location(0,3);
+		Location a = new Location(3,0);
 		l.add(a);
-		Location b = new Location(0,4);
+		Location b = new Location(4,0);
 		l.add(b);
-		Location c = new Location(0,5);
+		Location c = new Location(5,0);
 		l.add(c);
 		s.setRLoc(l);
 		Vertex<Location> k = (Vertex<Location>) graph.getVertex(a);
 		Vertex<Location> m = (Vertex<Location>) graph.getVertex(b);
 		Vertex<Location> p = (Vertex<Location>) graph.getVertex(c);
 		ArrayList<Location> fin = new ArrayList<>();
-		fin.add(new Location(0,5));
-		fin.add(new Location(0,4));
-		fin.add(new Location(0,3));
+		fin.add(new Location(5,0));
+		fin.add(new Location(4,0));
+		fin.add(new Location(3,0));
 		State t = new State();
 		t.setRLoc(fin);
 		
@@ -73,7 +73,7 @@ public class test {
 		robots.add(r1);
 		robots.add(r2);
 		robots.add(r3);
-		
+		HashMap<Location,HashMap<Location,Integer>> costs = new HashMap<>();
 		BiFunction<State, State, Integer> heuristics2 = new BiFunction<State, State, Integer>() {
 
 			@Override
@@ -84,8 +84,23 @@ public class test {
 				for(int i=0;i<robots.size();i++){
 					Location a = robots.get(i);
 					Location b = finish.get(i);
-					plan.aStarSimple(graph, a, b, heuristics);
-					cost+= Planning.simpleAc;
+					if(costs.containsKey(a)){
+						HashMap<Location,Integer> x = costs.get(a);
+						if(x.containsKey(b)){
+							cost+= x.get(b);
+						}else{
+							plan.aStarSimple(graph, a, b, heuristics);
+							x.put(b,Planning.simpleAc.intValue());
+							cost+= Planning.simpleAc;
+						}
+					}
+					else{
+						plan.aStarSimple(graph, a, b, heuristics);
+						HashMap<Location, Integer> x = new HashMap<>();
+						x.put(b,Planning.simpleAc.intValue());
+						costs.put(a, x);
+						cost+= Planning.simpleAc;
+					}
 				}
 				return cost;
 			}

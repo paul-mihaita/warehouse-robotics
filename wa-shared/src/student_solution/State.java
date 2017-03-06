@@ -18,6 +18,13 @@ public class State {
 	public State(List<Location> x){
 		setRLoc(x);
 	}
+	public State(State curr) {
+		rPos = new ArrayList<Location>(curr.getRLoc());
+		costHeurisitc = curr.getcostHeurisitc();
+		cost = curr.getCost();
+		parent = curr.parent;
+		
+	}
 	public List<Location> getRLoc(){
 		return rPos;
 	}
