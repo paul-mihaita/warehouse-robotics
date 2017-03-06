@@ -2,21 +2,27 @@ package utils;
 
 import java.util.HashSet;
 
+import student_solution.Graph;
+
 public class WarehouseFloor {
 
 	private HashSet<Robot> robots;
 
-	// TODO Paul needs to put info about the map of the location floor in here
+	private Graph<Location> floor;
 
 	/**
 	 * Creates the Warehouse floor object, contains all the data about the
 	 * warehouse floor.
 	 * 
-	 * @param List
-	 *            of robots
+	 * @param Robots
+	 *            HashSet of robots
+	 * @param Floor
+	 *            Graph of locations which contain the warehouse floor
+	 * 
 	 */
-	public WarehouseFloor(HashSet<Robot> robots) {
+	public WarehouseFloor(HashSet<Robot> robots, Graph<Location> floor) {
 		this.robots = robots;
+		this.floor = floor;
 	}
 
 	/**
@@ -25,6 +31,10 @@ public class WarehouseFloor {
 	 */
 	public HashSet<Robot> getRobots() {
 		return robots;
+	}
+	
+	public Graph<Location> getFloorGraph(){
+		return floor;
 	}
 
 }

@@ -3,11 +3,11 @@ package utils;
 import java.util.ArrayList;
 
 public class Job {
-	
+
 	private static enum Status {
 		ACTIVE, INACTIVE, COMPLETED, CANCELED
 	}
-	
+
 	private Status status;
 
 	int jobID;
@@ -23,7 +23,7 @@ public class Job {
 
 		float sumOfWeight = 0;
 		for (Task task : tasks) {
-			sumOfWeight += task.getTaskItem().getWeight()*task.getQuantity();
+			sumOfWeight += task.getTaskItem().getWeight() * task.getQuantity();
 		}
 		return sumOfWeight;
 	}
@@ -49,36 +49,36 @@ public class Job {
 	public void setJobID(int jobID) {
 		this.jobID = jobID;
 	}
-	
-	public void start(){
+
+	public void start() {
 		this.status = Status.ACTIVE;
 	}
-	
-	public void completed(){
+
+	public void completed() {
 		this.status = Status.COMPLETED;
 	}
 
 	public void cancel() {
 		this.status = Status.CANCELED;
 	}
-	
-	public String getStatus(){
+
+	public String getStatus() {
 		return status.name();
 	}
-	
-	public boolean isActive(){
+
+	public boolean isActive() {
 		return status.equals(Status.ACTIVE);
 	}
-	
-	public boolean isCanceled(){
+
+	public boolean isCanceled() {
 		return status.equals(Status.CANCELED);
 	}
-	
-	public boolean isInactive(){
+
+	public boolean isInactive() {
 		return status.equals(Status.INACTIVE);
 	}
-	
-	public boolean isCompleted(){
+
+	public boolean isCompleted() {
 		return status.equals(Status.COMPLETED);
 	}
 }

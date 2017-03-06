@@ -16,18 +16,21 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import utils.Job;
+import utils.WarehouseFloor;
 
 public class GUI extends Application {
 
-	// For the moment while there is no map
-	public static final int WIDTH = 155;
+	// For the moment while there is no map these are not being used
+	public static final int WIDTH = 400;
 	public static final int HEIGHT = 600;
 
-	public static final int JOB_WIDTH = 155;
-	public static final int JOB_HEIGHT = 600;
+	public static final int JOB_WIDTH = 170;
+	public static final int JOB_HEIGHT = 300;
 
 	private static ArrayList<Job> jobs;
 	private static HashMap<Job, Label> jobLabels;
+	
+	private static WarehouseFloor model;
 
 	/**
 	 * 
@@ -91,8 +94,10 @@ public class GUI extends Application {
 
 			jobPane.setStyle("-fx-border-color: blue");
 
-			Label l = new Label("Job ID: " + j.getJobID());
+			Label l = new Label("ID: " + j.getJobID());
 			Button b = new Button("Cancel");
+			b.setTextFill(Color.CRIMSON);
+			b.setMinWidth(75);
 			Label s = new Label("Status:");
 			Label status = new Label(j.getStatus());
 
