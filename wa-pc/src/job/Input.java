@@ -4,11 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import org.apache.log4j.Logger;
+
 import utils.Job;
 import utils.Task;
 
 public class Input {
 
+	
+	private static final Logger LOG = Logger.getLogger(Input.class);
 	// SET TO TRUE IF IN THE FILES THE FIRST LINE IS THE TITLE
 	boolean thereIsTheTitleFile = false;
 
@@ -23,11 +28,14 @@ public class Input {
 	}
 
 	private boolean fileRight(String fileName) {
+		LOG.debug("Reading if the file have the extension");
 		String file;
 		if (fileHaveTheExtension(fileName)) {
 			file = fileName;
+			LOG.debug("yes");
 		} else {
 			file = fileName + ".csv";
+			LOG.debug("no");
 		}
 		File f = new File(file);
 		return f.exists();
