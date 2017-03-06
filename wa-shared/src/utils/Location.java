@@ -10,7 +10,6 @@ public class Location implements Comparable {
 		this.y = y;
 		this.reserved = false;
 	}
-	
 	// GET
 	public int getX() {
 		return x;

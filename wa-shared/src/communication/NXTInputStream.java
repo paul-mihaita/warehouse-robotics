@@ -5,20 +5,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import communication.CommConst;
 import communication.CommConst.command;
 import communication.CommConst.protocol;
 import communication.thread.Converters;
 import movement.Movement.move;
 import utils.Robot;
 
-public class PCInputStream {
+public class NXTInputStream {
 	private DataInputStream stream;
 
-	public PCInputStream(DataInputStream stream) {
+	public NXTInputStream(DataInputStream stream) {
 		this.stream = stream;
 	}
-
+	
 	public protocol readProtocol() throws IOException {
 		int proto = stream.read();
 		switch (proto) {
@@ -31,9 +30,7 @@ public class PCInputStream {
 			default:
 				throw new IOException("Invalid protocol: " + proto);
 		}
-
 	}
-
 	public List<move> readMoves() throws IOException {
 		int numMoves = stream.read();
 		byte[] moveBytes = new byte[numMoves];
@@ -47,7 +44,6 @@ public class PCInputStream {
 		}
 		return moves;
 	}
-
 	public void close() throws IOException {
 		stream.close();
 	}
@@ -66,7 +62,6 @@ public class PCInputStream {
 
 		}
 	}
-
 	public Robot readRobot() throws IOException {
 		int size = stream.read();
 		byte[] robotArr = new byte[size];

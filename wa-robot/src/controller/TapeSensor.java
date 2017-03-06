@@ -12,10 +12,15 @@ public class TapeSensor {
 
 	private int reading;
 	private SensorPort sensor;
+	private int TAPE;
 
 	public TapeSensor(SensorPort port) {
 		new LightSensor(port);
 		this.sensor = port;
+	}
+	public TapeSensor(SensorPort port, int Tape) {
+		this(port);
+		TAPE = Tape;
 	}
 
 	// public so a user of this object can force an update if they so want
@@ -34,7 +39,16 @@ public class TapeSensor {
 
 	public boolean isOnTape() {
 		this.takeReading();
-		return roughlyEqual(reading, RobotConstants.TAPE, 50);
+		return roughlyEqual(reading, TAPE, 20);
+	}
+	public void calibrate() {
+		int sum = 0;
+		for (int i = 0; i < 10; i++) {
+			this.takeReading();
+			sum  += reading;
+		}
+		sum /= 10;
+		this.TAPE = sum;
 	}
 
 	/**
