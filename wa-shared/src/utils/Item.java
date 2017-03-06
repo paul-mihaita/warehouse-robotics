@@ -5,8 +5,8 @@ public class Item {
 
 	String name;
 	Location location;
-	float weight;
-	float reward;
+	float weight=0;
+	float reward=0;
 
 	public Item(String name) {
 		this.name = name;
