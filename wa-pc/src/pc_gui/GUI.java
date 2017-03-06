@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import utils.Job;
 
 public class GUI extends Application {
-	
+
 	// For the moment while there is no map
 	public static final int WIDTH = 155;
 	public static final int HEIGHT = 600;
@@ -43,13 +43,16 @@ public class GUI extends Application {
 		launch();
 	}
 
+	/**
+	 * Pleeeeeeeeeease don't use this, use create(job) instead xxx
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
 		primaryStage.setTitle("Warehouse Controller");
-		
+
 		GridPane jobHolder = new GridPane();
-		
+
 		jobHolder.setMaxHeight(JOB_HEIGHT);
 		jobHolder.setPrefWidth(JOB_WIDTH);
 
