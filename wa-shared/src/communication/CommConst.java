@@ -1,4 +1,4 @@
-package comunication;
+package communication;
 
 public class CommConst {
 

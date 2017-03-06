@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import communication.Message;
+import communication.CommConst.command;
 import communication.thread.PCSender;
-import comunication.Message;
-import comunication.CommConst.command;
 import movement.Movement.move;
 import utils.Location;
 import utils.Robot;

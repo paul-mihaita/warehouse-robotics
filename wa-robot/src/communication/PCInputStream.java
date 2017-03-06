@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import communication.CommConst;
+import communication.CommConst.command;
+import communication.CommConst.protocol;
 import communication.thread.Converters;
-import comunication.CommConst;
-import comunication.CommConst.command;
-import comunication.CommConst.protocol;
 import movement.Movement.move;
 import utils.Robot;
 

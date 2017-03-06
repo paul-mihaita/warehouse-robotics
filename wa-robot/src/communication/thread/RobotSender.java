@@ -3,10 +3,10 @@ package communication.thread;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import communication.CommConst;
+import communication.Message;
 import communication.NXTOutputStream;
-import comunication.CommConst;
-import comunication.CommConst.protocol;
-import comunication.Message;
+import communication.CommConst.protocol;
 import lejos.util.Delay;
 import utils.Robot;
 

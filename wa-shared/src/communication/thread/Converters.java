@@ -3,7 +3,7 @@ package communication.thread;
 import java.io.IOException;
 import java.util.List;
 
-import comunication.CommConst;
+import communication.CommConst;
 import movement.Movement.move;
 import utils.Location;
 import utils.Robot;

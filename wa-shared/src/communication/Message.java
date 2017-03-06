@@ -1,8 +1,8 @@
-package comunication;
+package communication;
 
 import java.util.List;
 
-import comunication.CommConst.command;
+import communication.CommConst.command;
 import movement.Movement.move;
 
 public class Message {

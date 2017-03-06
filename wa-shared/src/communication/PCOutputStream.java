@@ -1,4 +1,4 @@
-package comunication;
+package communication;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import communication.CommConst.command;
+import communication.CommConst.protocol;
 import communication.thread.Converters;
-import comunication.CommConst.command;
-import comunication.CommConst.protocol;
 import lejos.util.Delay;
 import movement.Movement.move;
 import utils.Robot;

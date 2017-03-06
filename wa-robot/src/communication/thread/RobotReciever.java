@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import communication.PCInputStream;
-import comunication.CommConst.command;
+import communication.CommConst.command;
 import movement.Movement.move;
 import utils.Robot;
 
