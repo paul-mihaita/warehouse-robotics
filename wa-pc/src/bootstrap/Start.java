@@ -6,6 +6,7 @@ import main.job.Input;
 import main.pc_gui.GUI;
 
 public class Start {
+
 	private static Logger log = Logger.getLogger(Start.class);
 
 	public static void main(String[] args) {
