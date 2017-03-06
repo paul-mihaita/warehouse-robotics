@@ -16,8 +16,7 @@ public class RobotSender extends Thread {
 	private Message msg;
 	private OutputStream connection;
 	private NXTOutputStream toPC;
-	private boolean running;
-
+	private boolean running = true;
 	public RobotSender(Robot robot, Message msg, OutputStream connection) {
 		this.robot = robot;
 		this.msg = msg;

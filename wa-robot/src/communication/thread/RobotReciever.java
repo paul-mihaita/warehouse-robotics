@@ -2,11 +2,9 @@ package communication.thread;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.List;
 
+import communication.Message;
 import communication.PCInputStream;
-import communication.CommConst.command;
-import movement.Movement.move;
 import utils.Robot;
 
 public class RobotReciever extends Thread {
@@ -14,14 +12,12 @@ public class RobotReciever extends Thread {
 	private Robot robot;
 	private DataInputStream connection;
 	private PCInputStream fromPC;
-	private boolean running;
-	private List<move> path;
-	private command nextCmd;
+	private boolean running = true;
+	private Message msg;
 
-	public RobotReciever(Robot robot, DataInputStream connection, List<move> path, command nextCmd) {
+	public RobotReciever(Robot robot, Message msg, DataInputStream connection) {
 		this.robot = robot;
-		this.path = path;
-		this.nextCmd = nextCmd;
+		this.msg = msg;
 		this.connection = connection;
 		this.fromPC = new PCInputStream(connection);
 	}
@@ -32,13 +28,13 @@ public class RobotReciever extends Thread {
 			try {
 				switch (fromPC.readProtocol()) {
 					case Movement:
-						path = fromPC.readMoves();
+						msg.setMoves(fromPC.readMoves());
 						break;
 					case Robot:
 						robot = fromPC.readRobot();
 						break;
 					case Command:
-						nextCmd = fromPC.readCommand();
+						msg.setCommand(fromPC.readCommand());
 						break;
 				}
 			} catch (IOException e) {

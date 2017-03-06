@@ -16,7 +16,7 @@ public class PCSender extends Thread {
 
 	private Robot robot;
 	private Message msg;
-	private boolean running;
+	private boolean running = true;
 	private Logger log;
 	private PCOutputStream toNXT;
 	private OutputStream connection;
