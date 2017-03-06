@@ -9,6 +9,7 @@ import utils.Location;
 
 public class State {
 	private List<Location> rPos;
+	private int costHeurisitc = 0;
 	private int cost = 0;
 	public State parent;
 	public State(){
@@ -29,6 +30,12 @@ public class State {
 	public void setCost(int a){
 		cost = a;
 	}
+	public int getcostHeurisitc(){
+		return costHeurisitc;
+	}
+	public void setcostHeurisitc(int a){
+		costHeurisitc = a;
+	}
 	public boolean isFinal(State f){
 		List<Location> fin = f.getRLoc();
 		if(fin.size() == rPos.size()){
@@ -37,7 +44,10 @@ public class State {
 			while(nextRobot.hasNext()){
 				Location rob = nextRobot.next();
 				Location itm = nextItem.next();
-				if(!rob.equals(itm)) return false;
+				if(!itm.equals(new Location(-1,-1)))
+						if(!rob.equals(itm)){
+							return false;
+						}
 			}
 			return true;
 		}
@@ -45,7 +55,7 @@ public class State {
 	}
 	public int compareTo(State o2) {
 		
-		return this.cost > o2.getCost() ? 1 : this.cost< o2.getCost() ? -1 : 0;
+		return this.costHeurisitc > o2.getcostHeurisitc() ? 1 : this.costHeurisitc< o2.getcostHeurisitc() ? -1 : 0;
 	}
 	@Override
 	public  boolean equals(Object other) {

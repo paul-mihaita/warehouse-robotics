@@ -61,6 +61,7 @@ public class Planning {
 			if (!closedList.contains(currEdge.getTgt())) {
 				cameFrom = curr;
 				curr = currEdge.getTgt();
+				currEdge.setCostAux(cameFrom.getLabel().getCost()+1);
 				curr.getLabel().setParentVertex(cameFrom);
 				Location m =  curr.getLabel().getData();
 				if (m.equals(finish)) {
@@ -70,20 +71,23 @@ public class Planning {
 				closedList.add( (Vertex<Location>) curr);
 				Collection<IEdge<Location>> children = curr.getSuccessors();
 				
-				ArrayList<Edge<Location>> aux = new ArrayList<>();
 				if (!children.isEmpty()) {
-					cost ++;
+					ArrayList<Edge<Location>> aux = new ArrayList<>();
+					cost = currEdge.getCostAux();
 					for (IEdge<Location> e : children) {
 						IVertex<Location> from = e.getTgt();
 						IVertex<Location> to = (Vertex<Location>) graph
 								.getVertex(finish);
 						if (to != null) {
-							Float he = cost + heuristics.apply(from.getLabel().getData(), to.getLabel().getData());
+							Integer a = heuristics.apply(from.getLabel().getData(), to.getLabel().getData());
+							Float he = cost + a ;
+							
 							aux.add(new Edge<Location>(from, he));
 						}
 					}
+					openList.addAll(aux);
+
 				}
-				openList.addAll(aux);
 			}
 		}
 		return new ArrayList<IVertex<Location>>();
@@ -101,7 +105,7 @@ public class Planning {
 						return o1.compareTo(o2);
 					}
 				});
-		
+
 		State start = new State(getRobotsLoc(robots));
 		State fin = new State(finish);
 		State curr = start;
@@ -109,27 +113,53 @@ public class Planning {
 		openList.add(start);
 		start.parent = old;
 		curr = start;
+		curr.setCost(0);
 		ArrayList<State> closedList = new ArrayList<>();
 		int priorCost = 0;
 		while(!openList.isEmpty()){
 			old = curr;
 			curr = openList.poll();
+			
 			if(curr.isFinal(fin)){
 				curr.parent = old;
-				simpleAc = (float) priorCost;
+				simpleAc = (float) old.getCost() + Math.max(3,diff(old,curr));
 				return constructStatePath(curr);
 			}
 			if(!closedList.contains(curr) ){
-				priorCost ++;
+				curr.setCost(old.getCost() + Math.max(3,diff(old,curr)));
+				priorCost = old.getCost() + Math.max(3,diff(old,curr));
 				ArrayList<State> nextStates = generateStates(curr, graph, map);
 				for(State x : nextStates){
 					x.parent = curr;
-					x.setCost(priorCost + heuristics.apply(x,fin));
+					int cost = heuristics.apply(x,fin);
+					x.setcostHeurisitc(priorCost + cost);
 				}
 				openList.addAll(nextStates);
+				closedList.add(curr);
 			}
 		}
 		return new ArrayList<State>();
+	}
+	private int diff(State old, State curr) {
+		int cost = 0;
+		List<Location> a = old.getRLoc();
+		List<Location> b = curr.getRLoc();
+		for(int i = 0; i < a.size();i++){
+			Location t = a.get(i);
+			Location u = b.get(i);
+			cost += (Math.abs(t.getX() - u.getX()) + Math.abs(t.getY() - u.getY()));
+		}
+		return cost;
+	}
+	private ArrayList<State> setCost(PriorityQueue<State> auxList, int priorCost) {
+		Iterator<State> it = auxList.iterator();
+		ArrayList<State> x = new ArrayList<>();
+		while(it.hasNext()){
+			State curr = it.next();
+			curr.setCost(priorCost);
+			x.add(curr);
+		}
+		return x;
 	}
 	private ArrayList<State> constructStatePath(State curr) {
 		ArrayList <State> result = new ArrayList<>();

@@ -24,8 +24,8 @@ public class test {
 		Graph<Location> graph = Planning.createGraph(gridMap);
 		Planning plan = new Planning();
 		Location start = new Location(0,1);
-		Location finish = new Location(0,5);
-		Location orientation = new Location(1,0);
+		Location finish = new Location(0,2);
+		Location orientation = new Location(0,3);
 		
 		BiFunction<Location, Location, Integer> heuristics = new BiFunction<Location, Location, Integer> (){
 
@@ -36,28 +36,30 @@ public class test {
 			}
 			
 		};
-		//ArrayList<IVertex<Location>> route = plan.aStarSimple(graph,start ,finish ,  heuristics);
-		
-		/*for(IVertex<Location> n : route){
+		/*ArrayList<IVertex<Location>> route = plan.aStarSimple(graph,start ,finish ,  heuristics);
+		for(IVertex<Location> n : route){
 			Location l = (Location) n.getLabel().getData();
-			System.out.println(l.getX() + "  " + l.getY());
-		}*/
+			System.out.print(l.getX() + "  " + l.getY() + " | ");
+		}
+		System.out.println();
+		System.out.println(Planning.simpleAc);
+*/
 		State s = new State();
 		ArrayList<Location> l = new ArrayList<>();
-		Location a = new Location(0,1);
+		Location a = new Location(0,3);
 		l.add(a);
-		Location b = new Location(0,2);
+		Location b = new Location(0,4);
 		l.add(b);
-		Location c = new Location(0,3);
+		Location c = new Location(0,5);
 		l.add(c);
 		s.setRLoc(l);
 		Vertex<Location> k = (Vertex<Location>) graph.getVertex(a);
 		Vertex<Location> m = (Vertex<Location>) graph.getVertex(b);
 		Vertex<Location> p = (Vertex<Location>) graph.getVertex(c);
 		ArrayList<Location> fin = new ArrayList<>();
-		fin.add(new Location(0,0));
 		fin.add(new Location(0,5));
-		fin.add(new Location(3,7));
+		fin.add(new Location(0,4));
+		fin.add(new Location(0,3));
 		State t = new State();
 		t.setRLoc(fin);
 		
