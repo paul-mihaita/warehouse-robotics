@@ -12,6 +12,7 @@ import graph_entities.Label;
  {
 	 Label<T> label;
 	 Collection<IEdge<T>> edges;
+	 boolean reserved = false;
 	 public Vertex(){
 		 edges = new ArrayList<>();
 		 label = new Label<T>();
@@ -29,6 +30,12 @@ import graph_entities.Label;
 	 public Vertex (Label<T> label,Collection<IEdge<T>> edges ){
 		 this.edges = edges;
 		 setLabel(label);
+	 }
+	 public boolean isReserved(){
+		 return reserved;
+	 }
+	 public void setReserved(boolean x){
+		 reserved = x;
 	 }
 	@Override
 	public int compareTo(IVertex<T> o) {

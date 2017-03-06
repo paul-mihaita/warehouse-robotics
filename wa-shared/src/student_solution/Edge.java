@@ -7,6 +7,7 @@ import graph_entities.IEdge;
  {
 	 IVertex<T> target;
 	 Float cost;
+	 Float costAux= (float) 0; //used for a*
 	 public Edge(){
 		 target = new Vertex<T>();
 		 cost = 0.0f;
@@ -24,7 +25,15 @@ import graph_entities.IEdge;
 	public Float getCost() {
 		return cost;
 	}
-	
+	public void setCost(Float a) {
+		 cost = a;
+	}
+	public Float getCostAux() {
+		return costAux;
+	}
+	public void setCostAux(Float a) {
+		 costAux = a;
+	}
 	@Override
 	public String toString() {
 		String s  = "";

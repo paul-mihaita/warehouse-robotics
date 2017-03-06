@@ -9,13 +9,18 @@ public class Robot {
 	private boolean onJob;
 	public static final int WEIGHT_LIMIT = 50;
 
-	Robot(String name, String btAdresss, Location orientation, Location startLocation) {
+	public Robot(String name, String btAdresss, Location orientation,
+			Location startLocation) {
 		this.name = name;
 		this.btAddress = btAdresss;
 		this.orientation = orientation;
 		this.currentLocation = startLocation;
 	}
-	
+
+	public Robot() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -26,6 +31,14 @@ public class Robot {
 
 	public void setOrientation(Location orientation) {
 		this.orientation = orientation;
+	}
+
+	public void setCurrentLocation(Location loc) {
+		this.currentLocation = loc;
+	}
+
+	public Location getCurrentLocation(Location loc) {
+		return currentLocation;
 	}
 
 	public Location getCurrentLocation() {
