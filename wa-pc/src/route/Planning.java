@@ -115,24 +115,20 @@ public class Planning {
 		curr = start;
 		curr.setCost(0);
 		ArrayList<State> closedList = new ArrayList<>();
-		int priorCost = 0;
 		while(!openList.isEmpty()){
-			old = curr;
 			curr = openList.poll();
-			
 			if(curr.isFinal(fin)){
-				curr.parent = old;
-				simpleAc = (float) old.getCost() + Math.max(3,diff(old,curr));
+				simpleAc = (float) (curr.getCost() +  3);
 				return constructStatePath(curr);
 			}
 			if(!closedList.contains(curr) ){
-				curr.setCost(old.getCost() + Math.max(3,diff(old,curr)));
-				priorCost = old.getCost() + Math.max(3,diff(old,curr));
+				int prior = curr.getCost();
 				ArrayList<State> nextStates = generateStates(curr, graph, map);
 				for(State x : nextStates){
 					x.parent = curr;
-					int cost = heuristics.apply(x,fin);
-					x.setcostHeurisitc(priorCost + cost);
+					int cost = prior + heuristics.apply(x,fin);
+					x.setcostHeurisitc(cost);
+					x.setCost(prior + diff(curr,x));
 				}
 				openList.addAll(nextStates);
 				closedList.add(curr);
@@ -260,6 +256,7 @@ public class Planning {
 			}
 			toAdd.setRLoc(loc);
 			if (isViableState(toAdd)) {
+				toAdd.parent = current;
 				states.add(toAdd);
 
 				List<Location> d = toAdd.getRLoc();
