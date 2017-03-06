@@ -12,7 +12,7 @@ public class Direction extends AbstractBehavior {
 
 	public Direction(WheeledRobotConfiguration config, SensorPort s, move dir) {
 		super(config);
-		this.sensor = new TapeSensor(s);
+		this.sensor = new TapeSensor(s, RobotConstants.TAPE);
 		switch (dir) {
 			case TURNLEFT:
 				this.dir = dir;

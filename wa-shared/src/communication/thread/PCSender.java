@@ -1,6 +1,7 @@
 package communication.thread;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
 
@@ -8,10 +9,6 @@ import comunication.CommConst;
 import comunication.CommConst.protocol;
 import comunication.Message;
 import comunication.PCOutputStream;
-import lejos.pc.comm.NXTComm;
-import lejos.pc.comm.NXTCommException;
-import lejos.pc.comm.NXTCommFactory;
-import lejos.pc.comm.NXTInfo;
 import lejos.util.Delay;
 import utils.Robot;
 
@@ -21,25 +18,15 @@ public class PCSender extends Thread {
 	private Message msg;
 	private boolean running;
 	private Logger log;
-	private NXTComm comm;
 	private PCOutputStream toNXT;
+	private OutputStream connection;
 
-	public PCSender(Robot robot, Message msg, Logger log) {
+	public PCSender(Robot robot, Message msg, OutputStream connection, Logger log) {
 		this.robot = robot;
 		this.msg = msg;
 		this.log = log;
-		try {
-			initConnection();
-		} catch (NXTCommException e) {
-			log.error("couldn't connect", e);
-		}
-	}
-
-	private void initConnection() throws NXTCommException {
-		this.comm = NXTCommFactory.createNXTComm(NXTCommFactory.BLUETOOTH);
-		log.info("Connecting");
-		comm.open(new NXTInfo(NXTCommFactory.BLUETOOTH, robot.getName(), robot.getBtAddress()));
-		this.toNXT = new PCOutputStream(comm.getOutputStream(), log);
+		this.connection = connection;
+		this.toNXT = new PCOutputStream(connection, log);
 	}
 
 	@Override
@@ -73,7 +60,7 @@ public class PCSender extends Thread {
 	public void interrupt() {
 		running = false;
 		try {
-			comm.close();
+			connection.close();
 			toNXT.close();
 		} catch (IOException e) {
 			log.error("Failed to close communication on interupt", e);
