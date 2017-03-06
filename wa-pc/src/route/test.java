@@ -57,9 +57,11 @@ public class test {
 		Vertex<Location> m = (Vertex<Location>) graph.getVertex(b);
 		Vertex<Location> p = (Vertex<Location>) graph.getVertex(c);
 		ArrayList<Location> fin = new ArrayList<>();
-		fin.add(new Location(5,0));
-		fin.add(new Location(4,0));
-		fin.add(new Location(3,0));
+		fin.add(new Location(0,7));
+		fin.add(new Location(3,5));
+		fin.add(new Location(9,7));
+		//fin.add(new Location(-1,-1));
+		//fin.add(new Location(-1,-1));
 		State t = new State();
 		t.setRLoc(fin);
 		

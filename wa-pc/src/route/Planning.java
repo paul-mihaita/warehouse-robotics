@@ -94,7 +94,7 @@ public class Planning {
 	}
 	public ArrayList<State> aStarCoop(Graph<Location> graph,GridMap map,
 			ArrayList<Robot> robots,ArrayList<Location> finish,
-			BiFunction<State, State, Integer> heuristics  ) {
+			BiFunction<State, State, Integer> heuristics  , int w) {
 		simpleAc = (float) 0;
 		PriorityQueue<State> openList = new PriorityQueue<>(
 				new Comparator<State>() {
@@ -115,15 +115,16 @@ public class Planning {
 		curr = start;
 		curr.setCost(0);
 		ArrayList<State> closedList = new ArrayList<>();
+		int counter = 0;
 		while(!openList.isEmpty()){
 			curr = openList.poll();
-			if(curr.isFinal(fin)){
+			if(curr.isFinal(fin) || counter == w){
 				simpleAc = (float) (curr.getCost() +  3);
 				return constructStatePath(curr);
 			}
-			if(!closedList.contains(curr) ){
+			if(!closedList.contains(curr)){
 				int prior = curr.getCost();
-				ArrayList<State> nextStates = generateStates(curr, graph, map);
+				ArrayList<State> nextStates = generateStates(curr,fin, graph, map);
 				for(State x : nextStates){
 					x.parent = curr;
 					int cost = prior + heuristics.apply(x,fin);
@@ -212,9 +213,10 @@ public class Planning {
 	}
 
 	public static ArrayList<State> generateStates(State current,
-			Graph<Location> graph, GridMap map) {
+			State fin, Graph<Location> graph, GridMap map) {
 
 		ArrayList<Location> rLoc = new ArrayList<>(current.getRLoc());
+		ArrayList<Location> fLoc = new ArrayList<>(fin.getRLoc());
 		for (Location r : rLoc) {
 			((Vertex<Location>) graph.getVertex(r)).setReserved(false);
 		}
@@ -223,10 +225,9 @@ public class Planning {
 		for (int i = 0; i < rLoc.size(); i++) {
 
 			Location fst = rLoc.get(i);
-
+			
 			ArrayList<Location> aux = new ArrayList<Location>();
 			aux.add(fst);
-			
 			aux.addAll(getNeibours(fst, map, graph,rLoc,i));
 			rPosTbl.put(i, aux);
 
