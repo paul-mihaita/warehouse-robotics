@@ -6,6 +6,7 @@ public class Robot {
 	private Location orientation;
 	private Location currentLocation;
 	private boolean onJob;
+	private boolean onPickup;
 	public static final int WEIGHT_LIMIT = 50;
 	private boolean needsUpdate;
 
@@ -15,6 +16,8 @@ public class Robot {
 		this.btAddress = btAdresss;
 		this.orientation = orientation;
 		this.currentLocation = startLocation;
+		this.onJob = false;
+		this.onPickup = false;
 		needsUpdate = true;
 	}
 
@@ -46,6 +49,20 @@ public class Robot {
 
 	public boolean isOnJob() {
 		return onJob;
+	}
+	
+	public boolean isOnPickup() {
+		return onPickup;
+	}
+	
+	public void setOnPickup(boolean onPickup){
+		this.onPickup = onPickup;
+		this.needsUpdate = true;
+	}
+	
+	public void setOnJob(boolean onJob){
+		this.onJob = onJob;
+		this.needsUpdate = true;
 	}
 	
 	public boolean needsUpdate() {

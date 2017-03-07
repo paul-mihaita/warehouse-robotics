@@ -14,14 +14,13 @@ public class WarehouseFloor {
 	 * Creates the Warehouse floor object, contains all the data about the
 	 * warehouse floor.
 	 * 
-	 * @param Robots
-	 *            HashSet of robots
 	 * @param Floor
 	 *            Graph of locations which contain the warehouse floor
 	 * 
 	 */
-	public WarehouseFloor(HashSet<Robot> robots, Graph<Location> floor) {
-		this.robots = robots;
+	public WarehouseFloor(Graph<Location> floor) {
+		this.robots = new HashSet<Robot>();
+		this.robots.add(new Robot("Keith", "0016530FDDAE", new Location(0, 1), new Location(0, 0)));
 		this.floor = floor;
 	}
 
@@ -32,8 +31,8 @@ public class WarehouseFloor {
 	public HashSet<Robot> getRobots() {
 		return robots;
 	}
-	
-	public Graph<Location> getFloorGraph(){
+
+	public Graph<Location> getFloorGraph() {
 		return floor;
 	}
 

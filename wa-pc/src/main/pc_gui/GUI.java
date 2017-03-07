@@ -57,7 +57,7 @@ public class GUI extends Application {
 	public static void create(ArrayList<Job> jobs) {
 		GUI.jobs = jobs;
 		GUI.jobLabels = new HashMap<Job, Label>();
-		GUI.model = new WarehouseFloor(null, Planning.createGraph(MapUtils.createRealWarehouse()));
+		GUI.model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()));
 		launch();
 	}
 

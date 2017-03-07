@@ -30,6 +30,7 @@ import utils.Job;
 import utils.Location;
 import utils.Robot;
 import lejos.geom.Line;
+import route.AstarBruteForce;
 
 public class Planning {
 
