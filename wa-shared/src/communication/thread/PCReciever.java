@@ -13,16 +13,16 @@ import utils.Robot;
 public class PCReciever extends Thread {
 	
 	private Robot robot;
-	private DataInputStream connection;
+	private InputStream connection;
 	private NXTInputStream fromNXT;
 	private boolean running = true;
 	private Message msg;
 	private Logger log;
-	public PCReciever(Robot robot, Message msg, DataInputStream connection, Logger log) {
+	public PCReciever(Robot robot, Message msg, InputStream inputStream, Logger log) {
 		this.robot = robot;
-		this.connection = connection;
+		this.connection = inputStream;
 		this.msg = msg;
-		this.fromNXT = new NXTInputStream(connection);
+		this.fromNXT = new NXTInputStream(inputStream);
 		this.log = log;
 	}
 	@Override

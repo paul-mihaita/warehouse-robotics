@@ -37,5 +37,8 @@ public class Message {
 	public boolean needsUpdate() {
 		return needsUpdate;
 	}
+	public void updated(){
+		needsUpdate = false;
+	}
 
 }

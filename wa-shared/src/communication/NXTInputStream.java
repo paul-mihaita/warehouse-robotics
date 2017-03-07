@@ -2,6 +2,7 @@ package communication;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,10 @@ import movement.Movement.move;
 import utils.Robot;
 
 public class NXTInputStream {
-	private DataInputStream stream;
+	private InputStream stream;
 
-	public NXTInputStream(DataInputStream stream) {
-		this.stream = stream;
+	public NXTInputStream(InputStream inputStream) {
+		this.stream = inputStream;
 	}
 	
 	public protocol readProtocol() throws IOException {

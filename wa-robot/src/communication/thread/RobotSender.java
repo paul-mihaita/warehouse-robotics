@@ -31,6 +31,7 @@ public class RobotSender extends Thread {
 				try {
 					toPC.sendProtocol(protocol.Robot);
 					toPC.sendRobot(robot);
+					robot.updated();
 				} catch (IOException e) {
 					System.out.println("Couldn't send robot object");
 					e.printStackTrace();
@@ -40,6 +41,10 @@ public class RobotSender extends Thread {
 			if (msg.needsUpdate()) {
 				try {
 					toPC.sendProtocol(protocol.Movement);
+					toPC.sendMoves(msg.getMoves());
+					toPC.sendProtocol(protocol.Command);
+					toPC.sendCommand(msg.getCommand());
+					msg.updated();
 				} catch (IOException e) {
 					System.out.println("Couldn't send message object");
 					e.printStackTrace();

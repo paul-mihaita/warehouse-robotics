@@ -33,9 +33,12 @@ public class PCSender extends Thread {
 	public void run() {
 		while (running) {
 			if (robot.needsUpdate()) {
+				log.debug("robot needs an update");
 				try {
 					toNXT.sendProtocol(protocol.Robot);
 					toNXT.sendRobot(robot);
+					robot.updated();
+					log.debug("robot updates sent");
 				} catch (IOException e) {
 					log.error("Failed to send robot object", e);
 				}
@@ -47,6 +50,7 @@ public class PCSender extends Thread {
 					toNXT.sendMoves(msg.getMoves());
 					toNXT.sendProtocol(protocol.Command);
 					toNXT.sendCommand(msg.getCommand());
+					msg.updated();
 				} catch (IOException e) {
 					log.error("Failed to send message", e);
 				}

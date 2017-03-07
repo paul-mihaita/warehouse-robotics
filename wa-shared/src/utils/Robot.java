@@ -40,10 +40,6 @@ public class Robot {
 		needsUpdate = true;
 	}
 
-	public Location getCurrentLocation(Location loc) {
-		return currentLocation;
-	}
-
 	public Location getCurrentLocation() {
 		return currentLocation;
 	}
@@ -81,5 +77,10 @@ public class Robot {
 		this.onJob = r.isOnJob();
 		this.onPickup = r.isOnPickup();
 		this.orientation = r.getOrientation();
+	}
+
+
+	public void updated() {
+		needsUpdate = false;
 	}
 }

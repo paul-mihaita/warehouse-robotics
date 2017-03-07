@@ -29,8 +29,8 @@ public class WarehouseFloor {
 		this.assigment = new HashMap<String, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
 		this.robots = new HashSet<Robot>();
-		this.robots.add(new Robot("Keith", "0016530FDDAE", new Location(0, 1), new Location(0, 0)));
-		
+		this.robots.add(new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0)));
+		this.robots.add(new Robot("Cell", "0016531AFA0B", new Location(0,0), new Location(1, 0)));
 		for (Job j: jobs){
 			jobList.put(j.getJobID(), j);
 		}
