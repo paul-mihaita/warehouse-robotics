@@ -39,7 +39,7 @@ public class GUI extends Application {
 
 	public static final int HEIGHT = 390;
 
-	private static ArrayList<Job> jobs;
+	private static HashMap<Integer, Job> jobs;
 	private static HashMap<Job, Label> jobLabels;
 
 	private static WarehouseFloor model;
@@ -54,10 +54,10 @@ public class GUI extends Application {
 	 * @param List
 	 *            of jobs in preferential order, stating with most
 	 */
-	public static void create(ArrayList<Job> jobs) {
-		GUI.jobs = jobs;
+	public static void create(WarehouseFloor model) {
 		GUI.jobLabels = new HashMap<Job, Label>();
-		GUI.model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()));
+		GUI.model = model;
+		GUI.jobs = model.getJobs();
 		launch();
 	}
 
@@ -187,7 +187,7 @@ public class GUI extends Application {
 		jobGrid.setVgap(JOB_WIDTH / 100);
 
 		int level = 1;
-		for (Job j : jobs) {
+		for (Job j : jobs.values()) {
 
 			GridPane jobPane = new GridPane();
 
@@ -234,7 +234,7 @@ public class GUI extends Application {
 	}
 
 	private static void startJobs() {
-		for (Job j : jobs) {
+		for (Job j : jobs.values()) {
 			if (j.isInactive()) {
 				j.start();
 			}
