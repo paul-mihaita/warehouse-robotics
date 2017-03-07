@@ -62,7 +62,6 @@ public class AstarHCA {
 			Astar.setReserved(path);
 			Collection<List<State>> x = Astar.timeOcupation.values();
 			for(List<State> l : x){
-				List<State> l = x.
 				for(State y : l){
 					 List<Location> ly = y.getRLoc();
 					 for(Location lll: ly){
