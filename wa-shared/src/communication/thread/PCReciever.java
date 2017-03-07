@@ -34,7 +34,7 @@ public class PCReciever extends Thread {
 						msg.setMoves(fromNXT.readMoves());
 						break;
 					case Robot:
-						robot = fromNXT.readRobot();
+						robot.update(fromNXT.readRobot());
 						break;
 					case Command:
 						msg.setCommand(fromNXT.readCommand());

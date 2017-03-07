@@ -31,7 +31,7 @@ public class RobotReciever extends Thread {
 						msg.setMoves(fromPC.readMoves());
 						break;
 					case Robot:
-						robot = fromPC.readRobot();
+						robot.update(fromPC.readRobot());
 						break;
 					case Command:
 						msg.setCommand(fromPC.readCommand());

@@ -37,6 +37,7 @@ public class Robot {
 
 	public void setCurrentLocation(Location loc) {
 		this.currentLocation = loc;
+		needsUpdate = true;
 	}
 
 	public Location getCurrentLocation(Location loc) {
@@ -71,5 +72,14 @@ public class Robot {
 
 	public String getBtAddress() {
 		return btAddress;
+	}
+	
+	public void update(Robot r) {
+		this.btAddress = r.getBtAddress();
+		this.currentLocation = r.getCurrentLocation();
+		this.name = r.getName();
+		this.onJob = r.isOnJob();
+		this.onPickup = r.isOnPickup();
+		this.orientation = r.getOrientation();
 	}
 }
