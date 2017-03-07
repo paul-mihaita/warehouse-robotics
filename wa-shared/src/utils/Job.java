@@ -10,8 +10,8 @@ public class Job {
 
 	private Status status;
 
-	int jobID;
-	ArrayList<Task> tasks = new ArrayList<Task>();
+	private int jobID;
+	private ArrayList<Task> tasks = new ArrayList<Task>();
 
 	public Job(int jobID, ArrayList<Task> tasks) {
 		this.jobID = jobID;
