@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 import graph_entities.IEdge;
 import graph_entities.IVertex;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -21,27 +26,31 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import main.route.Planning;
 import rp.robotics.mapping.MapUtils;
 import student_solution.Graph;
 import utils.Job;
 import utils.Location;
+import utils.Robot;
 import utils.WarehouseFloor;
 
 public class GUI extends Application {
 
 	// For the moment while there is no map these are not being used
 	public static final int JOB_WIDTH = 170;
-
 	public static final int MAP_WIDTH = 600;
 
 	public static final int WIDTH = JOB_WIDTH + MAP_WIDTH;
-	public static final int HEIGHT = 400;
+
+	public static final int HEIGHT = 390;
 
 	private static ArrayList<Job> jobs;
 	private static HashMap<Job, Label> jobLabels;
 
 	private static WarehouseFloor model;
+
+	private static AnimationTimer timer;
 
 	/**
 	 * 
@@ -65,14 +74,17 @@ public class GUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		primaryStage.setTitle("Warehouse Controller");
-
-		BorderPane guiHolder = new BorderPane();
+		primaryStage.setMinHeight(HEIGHT);
+		primaryStage.setMinWidth(WIDTH);
+		//primaryStage.getIcons().add(new Image("icon.jpg"));
 
 		GridPane jobHolder = GUI.createJobPane();
 
 		Canvas map = GUI.createMapPane();
 
-		guiHolder.setRight(jobHolder);
+		BorderPane guiHolder = new BorderPane();
+
+		guiHolder.setLeft(jobHolder);
 		guiHolder.setCenter(map);
 
 		primaryStage.setScene(new Scene(guiHolder));
@@ -85,18 +97,28 @@ public class GUI extends Application {
 		// Floor map is 12 x 8
 
 		Canvas map = new Canvas();
-		GraphicsContext gc = map.getGraphicsContext2D();
 
-		map.setWidth(MAP_WIDTH);
-		map.setHeight(HEIGHT);
+		timer = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
 
-		Graph<Location> floorMap = model.getFloorGraph();
+				GraphicsContext gc = map.getGraphicsContext2D();
 
-		for (IVertex<Location> v : floorMap.getVertices()) {
-			GUI.drawNode(v, gc);
-			GUI.drawEdges(v, gc);
-		}
+				map.setWidth(MAP_WIDTH);
+				map.setHeight(HEIGHT);
 
+				Graph<Location> floorMap = model.getFloorGraph();
+
+				for (IVertex<Location> v : floorMap.getVertices()) {
+					GUI.drawNode(v, gc);
+					GUI.drawEdges(v, gc);
+				}
+
+				GUI.drawRobots(gc);
+			}
+		};
+		
+		timer.start();
 		return map;
 	}
 
@@ -107,9 +129,10 @@ public class GUI extends Application {
 		for (IEdge<Location> e : v.getSuccessors()) {
 
 			Location child = e.getTgt().getLabel().getData();
-			
+
 			gc.setStroke(Color.LIGHTSLATEGRAY);
-			gc.strokeLine(scale(parent.getX()) + 5, scale(parent.getY()) + 5, scale(child.getX()) + 5, scale(child.getY()) + 5);
+			gc.strokeLine(scale(parent.getX()) + 5, scale(parent.getY()) + 5, scale(child.getX()) + 5,
+					scale(child.getY()) + 5);
 		}
 
 	}
@@ -121,6 +144,11 @@ public class GUI extends Application {
 		gc.setFill(Color.DARKMAGENTA);
 		gc.fillOval(scale(l.getX()), scale(l.getY()), 10, 10);
 
+	}
+
+	private static void drawRobots(GraphicsContext gc) {
+		gc.setFill(Color.DARKGREY);
+		gc.fillRect(scale(2) - 5, scale(6) - 5, 20, 20);
 	}
 
 	private static float scale(float value) {
