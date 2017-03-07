@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 
+import communication.CommConst.command;
+import communication.Message;
+import movement.Movement.move;
 import student_solution.Graph;
 
 public class WarehouseFloor {
@@ -12,7 +15,9 @@ public class WarehouseFloor {
 	private HashSet<Robot> robots;
 
 	private HashMap<String, Optional<Job>> assigment;
-	
+
+	private HashMap<String, Message> messageQueues;
+
 	private HashMap<Integer, Job> jobList;
 
 	private Graph<Location> floor;
@@ -26,35 +31,55 @@ public class WarehouseFloor {
 	 * 
 	 */
 	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs) {
+
 		this.assigment = new HashMap<String, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
 		this.robots = new HashSet<Robot>();
+		
 		this.robots.add(new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0)));
 		this.robots.add(new Robot("Cell", "0016531AFA0B", new Location(0,0), new Location(1, 0)));
-		for (Job j: jobs){
+
+		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
 		}
 
 		for (Robot r : robots) {
 			assigment.put(r.getName(), Optional.empty());
+			messageQueues.put(r.getName(), new Message(new ArrayList<move>(), command.Wait));
 		}
 
 		this.floor = floor;
 	}
 
+	public void startRobots(){
+		for (Robot r: robots){
+			messageQueues.get(r.getName()).setCommand(command.Start);
+		}
+	}
+	
 	public boolean assign(Robot r, Job j) {
 		String name = r.getName();
 		if (!assigment.get(name).isPresent()) {
+			assigment.remove(name);
 			assigment.put(name, Optional.of(j));
+			this.givePath(r, j);
 			return true;
 		} else {
 			Job c = assigment.get(name).get();
 			if (c.isCompleted() || c.isCanceled()) {
+				assigment.remove(name);
 				assigment.put(name, Optional.of(j));
+				this.givePath(r, j);
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private void givePath(Robot robot, Job job) {
+		
+		
+		
 	}
 
 	/**
@@ -64,8 +89,8 @@ public class WarehouseFloor {
 	public HashSet<Robot> getRobots() {
 		return robots;
 	}
-	
-	public HashMap<Integer, Job> getJobs(){
+
+	public HashMap<Integer, Job> getJobs() {
 		return jobList;
 	}
 
