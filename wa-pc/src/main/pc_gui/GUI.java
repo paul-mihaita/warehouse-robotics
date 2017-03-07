@@ -1,6 +1,5 @@
 package main.pc_gui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import graph_entities.IEdge;
@@ -22,8 +21,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import main.route.Planning;
-import rp.robotics.mapping.MapUtils;
 import student_solution.Graph;
 import utils.Job;
 import utils.Location;
