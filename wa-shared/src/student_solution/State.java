@@ -3,6 +3,7 @@ package student_solution;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import utils.Location;
 
@@ -12,11 +13,17 @@ public class State {
 	private int costHeurisitc = 0;
 	private int cost = 0;
 	public State parent;
-	public State(){
-		rPos = new ArrayList<>();
-	}
+	private Optional<List<State>> nextStates = Optional.empty();
+	
 	public State(List<Location> x){
 		setRLoc(x);
+	}
+	public State() {
+		rPos = new ArrayList<Location>();
+		costHeurisitc = 0;
+		cost = 0;
+		parent = null;
+		
 	}
 	public State(State curr) {
 		rPos = new ArrayList<Location>(curr.getRLoc());
@@ -85,5 +92,14 @@ public class State {
 			if(!aaa.equals(bbb)) return false;
 		}
 		return true;
+	}
+	public Optional<List<State>> getSuccessors() {
+		return nextStates;
+	}
+	public void setSuccessors(ArrayList<State> arrayList) {
+		nextStates = Optional.of(arrayList);
+	}
+	public void addToList(Location l){
+		rPos.add(l);
 	}
 }
