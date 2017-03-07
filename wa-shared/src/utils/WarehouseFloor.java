@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 
+import javax.xml.stream.events.StartDocument;
+
+import org.apache.log4j.Logger;
+
 import communication.CommConst.command;
 import communication.Message;
 import movement.Movement.move;
@@ -21,6 +25,8 @@ public class WarehouseFloor {
 	private HashMap<Integer, Job> jobList;
 
 	private Graph<Location> floor;
+	
+	private Logger log;
 
 	/**
 	 * Creates the Warehouse floor object, contains all the data about the
@@ -30,8 +36,9 @@ public class WarehouseFloor {
 	 *            Graph of locations which contain the warehouse floor
 	 * 
 	 */
-	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs) {
-
+	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, Logger log) {
+		
+		this.log = log;
 		this.assigment = new HashMap<String, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
 		this.robots = new HashSet<Robot>();
@@ -51,12 +58,23 @@ public class WarehouseFloor {
 		this.floor = floor;
 	}
 
-	public void startRobots(){
-		for (Robot r: robots){
-			messageQueues.get(r.getName()).setCommand(command.Start);
+	public void startRobots() {
+		for (Robot r : robots) {
+			if (assigment.get(r.getName()).isPresent()) {
+
+				Job j = assigment.get(r.getName()).get();
+
+				j.start();
+
+				givePath(r, j);
+				messageQueues.get(r.getName()).setCommand(command.Start);
+				log.info(r.getName() + " was started on job id: " + j.getJobID());
+			} else {
+				log.info(r.getName() + " attempted to start, but has no assigned job");
+			}
 		}
 	}
-	
+
 	public boolean assign(Robot r, Job j) {
 		String name = r.getName();
 		if (!assigment.get(name).isPresent()) {
@@ -77,9 +95,7 @@ public class WarehouseFloor {
 	}
 
 	private void givePath(Robot robot, Job job) {
-		
-		
-		
+
 	}
 
 	/**
@@ -88,6 +104,10 @@ public class WarehouseFloor {
 	 */
 	public HashSet<Robot> getRobots() {
 		return robots;
+	}
+	
+	public Optional<Job> getJob(Robot robot){
+		return assigment.get(robot.getName());
 	}
 
 	public HashMap<Integer, Job> getJobs() {
@@ -100,6 +120,12 @@ public class WarehouseFloor {
 	 */
 	public Graph<Location> getFloorGraph() {
 		return floor;
+	}
+
+	public void cancelJob(Robot r) {
+		if(getJob(r).isPresent()){
+			getJob(r).get().cancel();
+		}
 	}
 
 }

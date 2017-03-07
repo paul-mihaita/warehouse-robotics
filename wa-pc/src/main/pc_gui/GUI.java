@@ -24,20 +24,20 @@ import javafx.stage.Stage;
 import student_solution.Graph;
 import utils.Job;
 import utils.Location;
+import utils.Robot;
 import utils.WarehouseFloor;
 
 public class GUI extends Application {
 
 	// For the moment while there is no map these are not being used
-	public static final int JOB_WIDTH = 170;
+	public static final int ROBOT_WIDTH = 220;
 	public static final int MAP_WIDTH = 600;
 
-	public static final int WIDTH = JOB_WIDTH + MAP_WIDTH;
+	public static final int WIDTH = ROBOT_WIDTH + MAP_WIDTH;
 
 	public static final int HEIGHT = 390;
 
-	private static HashMap<Integer, Job> jobs;
-	private static HashMap<Job, Label> jobLabels;
+	private static HashMap<Robot, Label> robotLabels;
 
 	private static WarehouseFloor model;
 
@@ -52,9 +52,9 @@ public class GUI extends Application {
 	 *            of jobs in preferential order, stating with most
 	 */
 	public static void create(WarehouseFloor model) {
-		GUI.jobLabels = new HashMap<Job, Label>();
+
+		GUI.robotLabels = new HashMap<Robot, Label>();
 		GUI.model = model;
-		GUI.jobs = model.getJobs();
 		launch();
 	}
 
@@ -67,15 +67,15 @@ public class GUI extends Application {
 		primaryStage.setTitle("Warehouse Controller");
 		primaryStage.setMinHeight(HEIGHT);
 		primaryStage.setMinWidth(WIDTH);
-		//primaryStage.getIcons().add(new Image("icon.jpg"));
+		// primaryStage.getIcons().add(new Image("icon.jpg"));
 
-		GridPane jobHolder = GUI.createJobPane();
+		GridPane robotHolder = GUI.createRobotPane();
 
 		Canvas map = GUI.createMapPane();
 
 		BorderPane guiHolder = new BorderPane();
 
-		guiHolder.setLeft(jobHolder);
+		guiHolder.setLeft(robotHolder);
 		guiHolder.setCenter(map);
 
 		primaryStage.setScene(new Scene(guiHolder));
@@ -108,7 +108,7 @@ public class GUI extends Application {
 				GUI.drawRobots(gc);
 			}
 		};
-		
+
 		timer.start();
 		return map;
 	}
@@ -151,11 +151,18 @@ public class GUI extends Application {
 		return value * scale + 5;
 	}
 
-	private static GridPane createJobPane() {
-		GridPane jobHolder = new GridPane();
+	private static GridPane createRobotPane() {
 
-		jobHolder.setMaxHeight(HEIGHT);
-		jobHolder.setPrefWidth(JOB_WIDTH);
+		GridPane robotHolder = new GridPane();
+
+		robotHolder.setMaxHeight(HEIGHT);
+		robotHolder.setPrefWidth(ROBOT_WIDTH);
+
+		Label robotLabel = new Label("Robots");
+
+		robotLabel.setFont(new Font(20));
+
+		robotHolder.add(robotLabel, 0, 0);
 
 		Button startButton = new Button("Start");
 
@@ -163,87 +170,103 @@ public class GUI extends Application {
 		startButton.setTextAlignment(TextAlignment.CENTER);
 		startButton.setFont(new Font(20));
 
-		startButton.setMinWidth(JOB_WIDTH);
+		startButton.setMinWidth(ROBOT_WIDTH);
 
-		startButton.setOnAction(e -> GUI.startJobs());
+		startButton.setOnAction(e -> {
+			model.startRobots();
+			GUI.updateLabels();
+		});
 
-		jobHolder.add(startButton, 0, 0);
+		robotHolder.add(startButton, 0, 1);
 
-		ScrollPane jobDisplay = new ScrollPane();
+		ScrollPane robotDisplay = new ScrollPane();
 
-		jobDisplay.setMaxHeight(HEIGHT);
-		jobDisplay.setMinWidth(JOB_WIDTH);
+		robotDisplay.setMaxHeight(HEIGHT);
+		robotDisplay.setMinWidth(ROBOT_WIDTH);
 
-		jobDisplay.setHbarPolicy(ScrollBarPolicy.NEVER);
-		jobDisplay.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		robotDisplay.setHbarPolicy(ScrollBarPolicy.NEVER);
+		robotDisplay.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
-		GridPane jobGrid = new GridPane();
+		GridPane robotGrid = new GridPane();
 
-		jobGrid.setAlignment(Pos.CENTER);
-		jobGrid.setHgap(JOB_WIDTH / 100);
-		jobGrid.setVgap(JOB_WIDTH / 100);
+		robotGrid.setAlignment(Pos.CENTER);
+		robotGrid.setHgap(ROBOT_WIDTH / 100);
+		robotGrid.setVgap(ROBOT_WIDTH / 100);
 
-		int level = 1;
-		for (Job j : jobs.values()) {
+		int level = 0;
 
-			GridPane jobPane = new GridPane();
+		for (Robot r : model.getRobots()) {
 
-			jobPane.setMaxWidth(JOB_WIDTH - 20);
+			GridPane robotPane = new GridPane();
 
-			jobPane.setStyle("-fx-border-color: gray");
+			robotPane.setMaxWidth(ROBOT_WIDTH - 20);
 
-			Label l = new Label("ID: " + j.getJobID());
-			Button b = new Button("Cancel");
+			robotPane.setStyle("-fx-border-color: gray");
+
+			Label l = new Label("Name: " + r.getName());
+
+			Button b = new Button("Cancel Job");
+
 			b.setTextFill(Color.CRIMSON);
 			b.setMinWidth(75);
-			Label s = new Label("Status:");
+
+			Label s = new Label("Job status:");
+
 			s.setFont(new Font(15));
-			Label status = new Label(j.getStatus());
 
-			status.setTextFill(statusColor(j.getStatus()));
+			String text;
 
-			b.setOnAction(e -> GUI.cancelJob(j));
-
-			jobPane.setAlignment(Pos.CENTER_LEFT);
-			jobPane.setHgap(JOB_WIDTH / 10);
-			jobPane.setVgap(JOB_WIDTH / 10);
-
-			jobPane.add(l, 0, 0);
-			jobPane.add(s, 0, 1);
-
-			jobPane.add(b, 1, 0);
-			jobPane.add(status, 1, 1);
-
-			jobLabels.put(j, status);
-
-			jobGrid.add(jobPane, 0, level++);
-		}
-
-		jobDisplay.setContent(jobGrid);
-		jobHolder.add(jobDisplay, 0, 1);
-
-		return jobHolder;
-	}
-
-	private static void cancelJob(Job j) {
-		j.cancel();
-		GUI.updateJobLabels();
-	}
-
-	private static void startJobs() {
-		for (Job j : jobs.values()) {
-			if (j.isInactive()) {
-				j.start();
+			if (model.getJob(r).isPresent()) {
+				text = model.getJob(r).get().getStatus();
+			} else {
+				text = "UNASSIGNED";
 			}
+
+			Label status = new Label(text);
+
+			status.setTextFill(statusColor(text));
+
+			b.setOnAction(e -> {
+				model.cancelJob(r);
+				GUI.updateLabels();
+			});
+
+			Label idText = new Label("Job ID:");
+
+			if (model.getJob(r).isPresent()) {
+				text = "" + model.getJob(r).get().getJobID();
+			} else {
+				text = "UNASSIGNED";
+			}
+
+			Label jobId = new Label(text);
+
+			robotPane.setAlignment(Pos.CENTER_LEFT);
+			robotPane.setHgap(ROBOT_WIDTH / 10);
+			robotPane.setVgap(ROBOT_WIDTH / 10);
+
+			robotPane.add(l, 0, 0);
+			robotPane.add(s, 0, 1);
+
+			robotPane.add(b, 1, 0);
+			robotPane.add(status, 1, 1);
+
+			robotPane.add(idText, 0, 2);
+			robotPane.add(jobId, 1, 2);
+
+			robotLabels.put(r, status);
+
+			robotGrid.add(robotPane, 0, level++);
 		}
-		GUI.updateJobLabels();
+
+		robotDisplay.setContent(robotGrid);
+		robotHolder.add(robotDisplay, 0, 2);
+
+		return robotHolder;
 	}
 
-	private static void updateJobLabels() {
-		for (Job j : jobLabels.keySet()) {
-			jobLabels.get(j).setText(j.getStatus());
-			jobLabels.get(j).setTextFill(statusColor(j.getStatus()));
-		}
+	public static void updateLabels() {
+		// TODO this
 	}
 
 	private static Paint statusColor(String status) {
