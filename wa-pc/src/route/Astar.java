@@ -66,7 +66,6 @@ public class Astar {
 
 				ArrayList<Location> path = constructPath(currState);
 				int steps = path.size();
-
 				if (curr.equals(finish.getRLoc().get(0))
 						|| steps == maxStep + 1) {
 					simpleAc = currState.getCost();
@@ -81,7 +80,7 @@ public class Astar {
 					ArrayList<State> aux = new ArrayList<>();
 					cost = currState.getCost() + 1;
 					for (State from : children) {
-						if (reservedMatter == false || (!isReserved(from, steps+3) )) {
+						if (reservedMatter == false || (!isReserved(from, steps) )) {
 
 							Integer aprox = heuristics.apply(from, finish);
 
