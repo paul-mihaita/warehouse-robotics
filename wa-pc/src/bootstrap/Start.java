@@ -4,6 +4,9 @@ import org.apache.log4j.Logger;
 
 import main.job.Input;
 import main.pc_gui.GUI;
+import main.route.Planning;
+import rp.robotics.mapping.MapUtils;
+import utils.WarehouseFloor;
 
 public class Start {
 
@@ -15,7 +18,8 @@ public class Start {
 		log.info("Starting");
 		Input in = new Input(false);
 		in.initializeListOfJobs("1", "2", "3");
-		GUI.create(in.getJobsArray());
+		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()), in.getJobsArray());
+		GUI.create(model);
 	}
 
 }
