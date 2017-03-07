@@ -18,6 +18,7 @@ public class Robot {
 		needsUpdate = true;
 	}
 
+
 	public String getName() {
 		return name;
 	}
