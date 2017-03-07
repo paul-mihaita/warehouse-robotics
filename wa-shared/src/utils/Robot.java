@@ -16,11 +16,7 @@ public class Robot {
 		this.orientation = orientation;
 		this.currentLocation = startLocation;
 	}
-
-	public Robot() {
-		// TODO Auto-generated constructor stub
-	}
-
+	
 	public String getName() {
 		return name;
 	}
