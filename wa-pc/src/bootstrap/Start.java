@@ -19,11 +19,8 @@ public class Start {
 		log.info("Starting");
 		Input in = new Input(false);
 		in.initializeListOfJobs("1", "2", "3");
-
-		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()), in.getJobsArray());
-		Robot[] robots = model.getRobots().toArray(new Robot[0]);
-		
-		//Server server = new Server(robots, msgs, log);
+		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
+				in.getJobsArray(), log);
 		GUI.create(model);
 	}
 
