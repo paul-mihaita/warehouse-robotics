@@ -3,8 +3,10 @@ package communication.thread;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import communication.CommConst;
 import communication.Message;
 import communication.PCInputStream;
+import lejos.util.Delay;
 import utils.Robot;
 
 public class RobotReciever extends Thread {
@@ -29,17 +31,21 @@ public class RobotReciever extends Thread {
 				switch (fromPC.readProtocol()) {
 					case Movement:
 						msg.setMoves(fromPC.readMoves());
+						msg.updated();
 						break;
 					case Robot:
 						robot.update(fromPC.readRobot());
+						robot.updated();
 						break;
 					case Command:
 						msg.setCommand(fromPC.readCommand());
+						msg.updated();
 						break;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			Delay.msDelay(CommConst.GRACE);
 		}
 	}
 

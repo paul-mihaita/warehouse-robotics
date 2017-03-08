@@ -9,6 +9,7 @@ import javax.xml.stream.events.StartDocument;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Layout;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.spi.LoggingEvent;
@@ -113,13 +114,14 @@ public class Server extends Thread {
 		ca.setWriter(new OutputStreamWriter(System.out));
 		ca.setLayout(new PatternLayout("%-5p [%t]: %m%n"));
 		log.addAppender(ca);
+		log.setLevel(Level.ALL);
 		Robot r0 = new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0));
 		Robot r1 = new Robot("Cell", "0016531AFA0B", new Location(0, 0), new Location(1, 0));
 		Message m0 = new Message(new ArrayList<move>(), command.Wait);
 		Message m1 = new Message(new ArrayList<move>(), command.Wait);
 		Server s = new Server(new Robot[] { r0, r1 }, new Message[] { m0, m1 }, log);
 		s.launch();
-		int i = 0;
+		int i = 100;
 		while (true) {
 			System.out.println(r0.getCurrentLocation().getX());
 			Delay.msDelay(5000);
