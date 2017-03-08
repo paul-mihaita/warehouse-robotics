@@ -3,12 +3,12 @@ package bootstrap;
 import org.apache.log4j.Logger;
 
 import communication.thread.Server;
+import main.gui.GUI;
 import main.job.Input;
-import main.pc_gui.GUI;
+import main.model.WarehouseFloor;
 import main.route.Planning;
 import rp.robotics.mapping.MapUtils;
 import utils.Robot;
-import utils.WarehouseFloor;
 
 public class Start {
 

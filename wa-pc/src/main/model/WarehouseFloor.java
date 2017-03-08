@@ -1,11 +1,9 @@
-package utils;
+package main.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
-
-import javax.xml.stream.events.StartDocument;
 
 import org.apache.log4j.Logger;
 
@@ -13,6 +11,9 @@ import communication.CommConst.command;
 import communication.Message;
 import movement.Movement.move;
 import student_solution.Graph;
+import utils.Job;
+import utils.Location;
+import utils.Robot;
 
 public class WarehouseFloor {
 
@@ -25,7 +26,7 @@ public class WarehouseFloor {
 	private HashMap<Integer, Job> jobList;
 
 	private Graph<Location> floor;
-	
+
 	private Logger log;
 
 	/**
@@ -34,18 +35,21 @@ public class WarehouseFloor {
 	 * 
 	 * @param Floor
 	 *            Graph of locations which contain the warehouse floor
-	 * 
+	 * @param Jobs
+	 *            List of jobs in preferential order
+	 * @param Log
+	 *            log4j logger object
 	 */
 	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, Logger log) {
-		
+
 		this.log = log;
 		this.assigment = new HashMap<String, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
-		
+
 		this.robots.add(new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0)));
-		this.robots.add(new Robot("Cell", "0016531AFA0B", new Location(0,0), new Location(1, 0)));
+		this.robots.add(new Robot("Cell", "0016531AFA0B", new Location(0, 0), new Location(1, 0)));
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -96,8 +100,6 @@ public class WarehouseFloor {
 	}
 
 	private void givePath(Robot robot, Job job) {
-		
-
 
 	}
 
@@ -108,8 +110,8 @@ public class WarehouseFloor {
 	public HashSet<Robot> getRobots() {
 		return robots;
 	}
-	
-	public Optional<Job> getJob(Robot robot){
+
+	public Optional<Job> getJob(Robot robot) {
 		return assigment.get(robot.getName());
 	}
 
@@ -126,7 +128,7 @@ public class WarehouseFloor {
 	}
 
 	public void cancelJob(Robot r) {
-		if(getJob(r).isPresent()){
+		if (getJob(r).isPresent()) {
 			getJob(r).get().cancel();
 		}
 	}

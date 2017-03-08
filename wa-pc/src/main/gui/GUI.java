@@ -1,4 +1,4 @@
-package main.pc_gui;
+package main.gui;
 
 import java.util.HashMap;
 
@@ -21,10 +21,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import main.model.WarehouseFloor;
 import student_solution.Graph;
 import utils.Location;
 import utils.Robot;
-import utils.WarehouseFloor;
 
 public class GUI extends Application {
 
