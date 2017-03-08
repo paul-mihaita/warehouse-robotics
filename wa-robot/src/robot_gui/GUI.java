@@ -15,17 +15,18 @@ public class GUI implements Runnable {
 	Task task;
 	Robot robot;
 
-	private int jobId = job.getJobID();
-	//private int jobId = 1002;
-	private boolean isOnJob = robot.isOnJob();
-	//private boolean isOnJob = true;
-	private boolean isOnPickUp = robot.isOnPickup();
-	//private boolean isOnPickUp = true;
-	private Location location = robot.getCurrentLocation();
-	private int quantity = task.getQuantity();
-	//private int quantity = 5;
-	private String itemName = task.getItem().getItemName();
-	//private String itemName = "test item";
+	//private int jobId = job.getJobID();
+	private int jobId = 1002;
+	//private boolean isOnJob = robot.isOnJob();
+	private boolean isOnJob = true;
+	//private boolean isOnPickUp = robot.isOnPickup();
+	private boolean isOnPickUp = true;
+	//private Location location = robot.getCurrentLocation();
+	private String location = "location";
+	//private int quantity = task.getQuantity();
+	private int quantity = 5;
+	//private String itemName = task.getItem().getItemName();
+	private String itemName = "test item";
 	private int numItems = 0;
 	
 	private boolean ENTER = Button.ENTER.isPressed();
@@ -48,46 +49,50 @@ public class GUI implements Runnable {
 			
 			if(isOnPickUp) {
 				if (ENTER) {
-					LCD.drawString(pickup, 4, 2);
-					LCD.drawString(jobIDisp, 4, 4);
-					LCD.drawString(itemDisp, 4, 8);
-					location = node.getLocation();
-					LCD.drawString(locationDisp, 4, 10);
-					
+					LCD.clear();
+					LCD.drawString(pickup, 2, 1);
+					LCD.drawString(jobIDisp, 2, 2);
+					LCD.drawString(itemDisp, 2, 3);
+					//location = node.getLocation();
+					LCD.drawString(locationDisp, 2, 4);
 					
 				}
 				if (ESCAPE) {
-					
+					LCD.clear();
+					LCD.drawString("BYE", 7, 3);
+					System.exit(0);
 				}
 				if (LEFT) {
 					if (numItems>=0) {
 						numItems--;
-						LCD.drawString(itemDisp, 4, 8);
+						LCD.drawString(itemDisp, 2, 3);
 					}else
-						LCD.drawString(itemMin, 4, 8);
+						LCD.drawString(itemMin, 2, 3);
 				}
 				if (RIGHT) {
 					if (numItems<=quantity) {
 						numItems++;
-						LCD.drawString(itemDisp, 4, 8);
+						LCD.drawString(itemDisp, 2, 3);
 					}else
-						LCD.drawString(itemMax, 4, 8);
+						LCD.drawString(itemMax, 2, 3);
 				}
 			}
 			if (!isOnPickUp) {
 				if (ENTER) {
+					LCD.clear();
 					numItems=0;
 					robot.setOnJob(isOnJob);
-					LCD.drawString(dropoff, 4, 2);
-					LCD.drawString(jobIDisp, 4, 4);
-					LCD.drawString(dropoffItems, 4, 8);
-					location = robot.getCurrentLocation();
-					LCD.drawString(locationDisp, 4, 10);
-					
+					LCD.drawString(dropoff, 2, 1);
+					LCD.drawString(jobIDisp, 2, 2);
+					LCD.drawString(dropoffItems, 2, 3);
+					//location = robot.getCurrentLocation();
+					LCD.drawString(locationDisp, 2, 4);
 					
 				}
 				if (ESCAPE) {
-				
+					LCD.clear();
+					LCD.drawString("BYE", 7, 3);
+					System.exit(0);
 				}
 				
 			
