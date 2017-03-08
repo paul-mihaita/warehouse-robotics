@@ -1,5 +1,7 @@
 package main.route;
 
+import graph_entities.IVertex;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,7 +17,7 @@ import utils.Task;
 
 public class test {
 	public static void main(String[] args) {
-
+		
 		/*
 		 * BiFunction<State, State, Integer> manhatan = new BiFunction<State,
 		 * State, Integer> (){
@@ -41,7 +43,7 @@ public class test {
 		Location d = new Location(5, 0);
 		l.add(d);
 		s.setRLoc(l);
-
+		
 		ArrayList<Location> fin = new ArrayList<>();
 		fin.add(new Location(5, 0));
 		fin.add(new Location(11, 5));
@@ -54,14 +56,14 @@ public class test {
 		Robot r1 = new Robot(null, null, c, a);
 		Robot r2 = new Robot(null, null, c, b);
 		Robot r3 = new Robot(null, null, c, d);
-		r1.setOrientation(new Location(4, 0));
-		r2.setOrientation(new Location(3, 0));
-		r3.setOrientation(new Location(4, 0));
+		r1.setOrientation(new Location (4,0));
+		r2.setOrientation(new Location (3,0));
+		r3.setOrientation(new Location (4,0));
 		robots.add(r1);
 		robots.add(r2);
 		robots.add(r3);
 
-		ArrayList<Task> tasks = new ArrayList<Task>();
+		ArrayList<Task> tasks = new ArrayList<Task>() ;
 		Task task = new Task(" ", 0);
 		Item itm = new Item("gfhf");
 		itm.setLocation(11, 7);
