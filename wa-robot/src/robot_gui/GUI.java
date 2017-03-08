@@ -97,11 +97,10 @@ public class GUI implements Runnable {
 	
 	private String pickup = "Pick-up";
 	private String dropoff = "Drop off";
-	private String jobIDisp = "Current job: " + jobId;
+	private String jobIDisp = "Job: " + jobId;
 	private String itemDisp = itemName + ": " + numItems + "/" + quantity;
 	private String dropoffItems = "Drop off completed";
-	private String locationDisp = "Current location: " + location;
-	private String itemMax = "Reached max num of items";
+	private String locationDisp = "Location: " + location;
 	private String itemMin = "No more items";
 	
 	public void run() {
@@ -127,17 +126,18 @@ public class GUI implements Runnable {
 					if (numItems>=0) {
 						numItems--;
 						itemDisp = itemName + ": " + numItems + "/" + quantity;
-						LCD.drawString(itemDisp, 2, 3);
+						LCD.drawString(itemDisp, 0, 3);
 					}else
-						LCD.drawString(itemMin, 2, 3);
+						LCD.drawString(itemMin, 0, 3);
 				}
 				if (RIGHT) {
 					if (numItems<=quantity) {
 						numItems++;
 						itemDisp = itemName + ": " + numItems + "/" + quantity;
-						LCD.drawString(itemDisp, 2, 3);
+						LCD.drawString(itemDisp, 0, 3);
 					}else
-						LCD.drawString(itemMax, 2, 3);
+						itemDisp = itemName + ": " + quantity + "/" + quantity;
+						LCD.drawString(itemDisp, 0, 3);
 				}
 			}
 			if (!isOnPickUp) {
@@ -145,11 +145,11 @@ public class GUI implements Runnable {
 					LCD.clear();
 					numItems=0;
 					robot.setOnJob(isOnJob);
-					LCD.drawString(dropoff, 2, 1);
-					LCD.drawString(jobIDisp, 2, 2);
-					LCD.drawString(dropoffItems, 2, 3);
+					LCD.drawString(dropoff, 0, 1);
+					LCD.drawString(jobIDisp, 0, 2);
+					LCD.drawString(dropoffItems, 0, 3);
 					//location = robot.getCurrentLocation();
-					LCD.drawString(locationDisp, 2, 4);
+					LCD.drawString(locationDisp, 0, 4);
 					
 				}
 				if (ESCAPE) {
