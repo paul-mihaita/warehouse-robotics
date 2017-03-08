@@ -62,7 +62,7 @@ public class PCInputStream {
 			case CommConst.COMMAND:
 				return protocol.Command;
 			default:
-				throw new IOException("Invalid protocol recieved");
+				throw new IOException("Invalid protocol recieved: " + proto);
 
 		}
 	}
@@ -85,7 +85,7 @@ public class PCInputStream {
 			case CommConst.COM_WAIT:
 				return command.Wait;
 			default:
-				throw new IOException("Invalid protocol recieved");
+				throw new IOException("Invalid protocol recieved: " + cmd);
 
 		}
 	}

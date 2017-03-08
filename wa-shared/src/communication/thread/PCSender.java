@@ -45,12 +45,14 @@ public class PCSender extends Thread {
 				continue;
 			}
 			if (msg.needsUpdate()) {
+				log.debug("Message needs update");
 				try {
 					toNXT.sendProtocol(protocol.Movement);
 					toNXT.sendMoves(msg.getMoves());
 					toNXT.sendProtocol(protocol.Command);
 					toNXT.sendCommand(msg.getCommand());
 					msg.updated();
+					log.debug("Message updates sent");
 				} catch (IOException e) {
 					log.error("Failed to send message", e);
 				}

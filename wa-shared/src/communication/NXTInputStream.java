@@ -48,21 +48,7 @@ public class NXTInputStream {
 	public void close() throws IOException {
 		stream.close();
 	}
-
-	public protocol getProtocol() throws IOException {
-		int proto = stream.read();
-		switch (proto) {
-			case CommConst.MOVEMENT:
-				return protocol.Command;
-			case CommConst.ROBOT:
-				return protocol.Robot;
-			case CommConst.COMMAND:
-				return protocol.Command;
-			default:
-				throw new IOException("Invalid protocol recieved");
-
-		}
-	}
+	
 	public Robot readRobot() throws IOException {
 		int size = stream.read();
 		byte[] robotArr = new byte[size];
@@ -81,7 +67,7 @@ public class NXTInputStream {
 			case CommConst.COM_WAIT:
 				return command.Wait;
 			default:
-				throw new IOException("Invalid protocol recieved");
+				throw new IOException("Invalid protocol recieved: " + cmd);
 
 		}
 	}

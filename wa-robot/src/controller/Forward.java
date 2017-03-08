@@ -1,20 +1,24 @@
 package controller;
 
+import communication.Message;
+import communication.CommConst.command;
 import constants.RobotConstants;
 import rp.config.WheeledRobotConfiguration;
 
 public class Forward extends AbstractBehavior {
 
-	private Continue cont;
 
-	public Forward(WheeledRobotConfiguration config, Continue cont) {
+
+	private Message msg;
+
+	public Forward(WheeledRobotConfiguration config, Message msg) {
 		super(config);
-		this.cont = cont;
+		this.msg = msg;
 	}
 
 	@Override
 	public boolean takeControl() {
-		return cont.cont();
+		return msg.getCommand() == command.Start;
 	}
 
 	@Override

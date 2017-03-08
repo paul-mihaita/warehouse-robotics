@@ -6,8 +6,10 @@ import java.io.InputStream;
 
 import org.apache.log4j.Logger;
 
+import communication.CommConst;
 import communication.Message;
 import communication.NXTInputStream;
+import lejos.util.Delay;
 import utils.Robot;
 
 public class PCReciever extends Thread {
@@ -29,20 +31,25 @@ public class PCReciever extends Thread {
 	public void run() {
 		while (running) {
 			try {
+				log.debug("reading protocol");
 				switch(fromNXT.readProtocol()) {
 					case Movement:
 						msg.setMoves(fromNXT.readMoves());
+						msg.updated();
 						break;
 					case Robot:
 						robot.update(fromNXT.readRobot());
+						robot.updated();
 						break;
 					case Command:
 						msg.setCommand(fromNXT.readCommand());
+						msg.updated();
 						break;
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				log.error("couldn't read data",e);
 			}
+			Delay.msDelay(CommConst.GRACE);
 		}
 	}
 
