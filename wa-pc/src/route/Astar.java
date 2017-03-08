@@ -1,25 +1,18 @@
 package route;
 
-import graph_entities.IEdge;
-import graph_entities.IVertex;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.PriorityQueue;
 import java.util.function.BiFunction;
 
 import rp.robotics.mapping.GridMap;
-import student_solution.Edge;
 import student_solution.Graph;
 import student_solution.State;
-import student_solution.Vertex;
 import utils.Location;
-import utils.Robot;
 
 public class Astar {
 
@@ -82,7 +75,6 @@ public class Astar {
 					cost = currState.getCost() + 1;
 					for (State from : children) {
 						//write(from,steps+1);
-						Location currLoc = from.getRLoc().get(0);
 						if (reservedMatter == false  || !isReserved(from, steps+1)) {
 
 							Integer aprox = heuristics.apply(from, finish);
@@ -104,7 +96,7 @@ public class Astar {
 
 	}
 
-	private static void write(State from, int steps) {
+	/*private static void write(State from, int steps) {
 		Location l = from.getRLoc().get(0);
 		System.out.println(l.getX() + " "+l.getY() + " | "+steps );
 		for(int i = 0; i < timeOcupation.size();i++){
@@ -125,7 +117,7 @@ public class Astar {
 		}
 		System.out.println("end");
 	}
-
+*/
 	private static void generateNextStates(State currState, GridMap map,
 			Graph<Location> graph) {
 		Location l = currState.getRLoc().get(0);
@@ -188,7 +180,6 @@ public class Astar {
 		if(timeOcupation.containsKey(steps)){
 			List<State> statesAtTime = timeOcupation.get(steps);
 			
-			Collection<List<State>> x = timeOcupation.values();
 			
 			return contains(statesAtTime, from);
 		}
@@ -230,7 +221,7 @@ public class Astar {
 		return path;
 	}
 
-	private static <T> void rotate(List<T> list) {
+	/*private static <T> void rotate(List<T> list) {
 		if (!list.isEmpty()) {
 			int lSize = list.size();
 			T firstEl = list.get(0);
@@ -241,7 +232,7 @@ public class Astar {
 			list.add(firstEl);
 		}
 	}
-
+*/
 	public static void reset() {
 
 		timeOcupation = new Hashtable<>();

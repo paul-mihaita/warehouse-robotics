@@ -1,24 +1,12 @@
 package route;
 
 import graph_entities.IEdge;
-import graph_entities.IVertex;
-import graph_entities.Label;
 
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.TreeSet;
+
 import java.util.function.BiFunction;
 
 import rp.robotics.mapping.GridMap;
@@ -26,10 +14,7 @@ import student_solution.Edge;
 import student_solution.Graph;
 import student_solution.State;
 import student_solution.Vertex;
-import utils.Job;
 import utils.Location;
-import utils.Robot;
-import lejos.geom.Line;
 
 public class Planning {
 	public static BiFunction<State, State, Integer> manhatanHeuristic = new BiFunction<State, State, Integer> (){

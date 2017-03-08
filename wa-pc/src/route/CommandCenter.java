@@ -3,7 +3,6 @@ package route;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import rp.robotics.mapping.GridMap;
 import rp.robotics.mapping.MapUtils;
@@ -18,15 +17,15 @@ public class CommandCenter {
 	private static Graph<Location> graph = Planning.createGraph(gridMap);
 
 	public static HashMap<Robot, ArrayList<ArrayList<move>>> generatePaths(
+			
 			HashMap<Robot, Job> jobMap) {
 		ArrayList<Robot> robots = new ArrayList<>();
-		Iterator<Robot> rob = (Iterator<Robot>) jobMap.keySet();
+		Iterator<Robot> rob = jobMap.keySet().iterator();
 		HashMap<Robot, ArrayList<ArrayList<move>>> paths = new HashMap<>();
 		while (rob.hasNext()) {
 			ArrayList<move> individualPath = new ArrayList<>();
 			ArrayList<ArrayList<move>> pathsForRobot = new ArrayList<>();
 			Robot robot = rob.next();
-			Location robotStart = robot.getCurrentLocation();
 			robots.add(robot);
 			Job curJob = jobMap.get(robot);
 			ArrayList<Task> tasks = curJob.getTasks();

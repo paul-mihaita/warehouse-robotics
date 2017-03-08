@@ -1,11 +1,8 @@
 package route;
 
-import graph_entities.IVertex;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Hashtable;
-import java.util.List;
+
 import java.util.function.BiFunction;
 
 import rp.robotics.mapping.GridMap;
@@ -52,7 +49,7 @@ public class AstarWHCA {
 		return robotPaths;
 	}
 
-	private static <T> void rotate(List<T> list) {
+	/*private static <T> void rotate(List<T> list) {
 		if (!list.isEmpty()) {
 			int lSize = list.size();
 			T firstEl = list.get(0);
@@ -62,6 +59,6 @@ public class AstarWHCA {
 			}
 			list.add(firstEl);
 		}
-	}
+	}*/
 
 }
