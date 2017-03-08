@@ -8,6 +8,7 @@ public class CommConst {
 
 	public static final int COM_START = 1000;
 	public static final int COM_WAIT = 2000;
+	public static final int COM_FINISH = 3000;
 
 	public static final int GRACE = 100;
 
@@ -22,6 +23,6 @@ public class CommConst {
 	}
 
 	public enum command {
-		Start, Wait
+		Start, Wait, Finish
 	}
 }
