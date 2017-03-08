@@ -1,6 +1,5 @@
 package communication.thread;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -13,13 +12,14 @@ import lejos.util.Delay;
 import utils.Robot;
 
 public class PCReciever extends Thread {
-	
+
 	private Robot robot;
 	private InputStream connection;
 	private NXTInputStream fromNXT;
 	private boolean running = true;
 	private Message msg;
 	private Logger log;
+
 	public PCReciever(Robot robot, Message msg, InputStream inputStream, Logger log) {
 		this.robot = robot;
 		this.connection = inputStream;
@@ -27,12 +27,13 @@ public class PCReciever extends Thread {
 		this.fromNXT = new NXTInputStream(inputStream);
 		this.log = log;
 	}
+
 	@Override
 	public void run() {
 		while (running) {
 			try {
 				log.debug("reading protocol");
-				switch(fromNXT.readProtocol()) {
+				switch (fromNXT.readProtocol()) {
 					case Movement:
 						msg.setMoves(fromNXT.readMoves());
 						msg.updated();
@@ -47,7 +48,7 @@ public class PCReciever extends Thread {
 						break;
 				}
 			} catch (IOException e) {
-				log.error("couldn't read data",e);
+				log.error("couldn't read data", e);
 			}
 			Delay.msDelay(CommConst.GRACE);
 		}

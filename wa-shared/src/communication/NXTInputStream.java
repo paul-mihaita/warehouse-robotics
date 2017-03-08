@@ -1,6 +1,5 @@
 package communication;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class NXTInputStream {
 	public NXTInputStream(InputStream inputStream) {
 		this.stream = inputStream;
 	}
-	
+
 	public protocol readProtocol() throws IOException {
 		int proto = stream.read();
 		switch (proto) {
@@ -32,6 +31,7 @@ public class NXTInputStream {
 				throw new IOException("Invalid protocol: " + proto);
 		}
 	}
+
 	public List<move> readMoves() throws IOException {
 		int numMoves = stream.read();
 		byte[] moveBytes = new byte[numMoves];
@@ -45,10 +45,11 @@ public class NXTInputStream {
 		}
 		return moves;
 	}
+
 	public void close() throws IOException {
 		stream.close();
 	}
-	
+
 	public Robot readRobot() throws IOException {
 		int size = stream.read();
 		byte[] robotArr = new byte[size];

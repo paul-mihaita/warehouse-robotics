@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import communication.CommConst;
+import communication.CommConst.protocol;
 import communication.Message;
 import communication.NXTOutputStream;
-import communication.CommConst.protocol;
 import lejos.util.Delay;
 import utils.Robot;
 
@@ -17,6 +17,7 @@ public class RobotSender extends Thread {
 	private OutputStream connection;
 	private NXTOutputStream toPC;
 	private boolean running = true;
+
 	public RobotSender(Robot robot, Message msg, OutputStream connection) {
 		this.robot = robot;
 		this.msg = msg;
@@ -40,16 +41,15 @@ public class RobotSender extends Thread {
 			}
 			if (msg.needsUpdate()) {
 				System.out.println("wanted to send message");
-				/*try {
-					toPC.sendProtocol(protocol.Movement);
-					toPC.sendMoves(msg.getMoves());
-					toPC.sendProtocol(protocol.Command);
-					toPC.sendCommand(msg.getCommand());
-					msg.updated();
-				} catch (IOException e) {
-					System.out.println("Couldn't send message object");
-					e.printStackTrace();
-				}*/
+				/*
+				 * try { toPC.sendProtocol(protocol.Movement);
+				 * toPC.sendMoves(msg.getMoves());
+				 * toPC.sendProtocol(protocol.Command);
+				 * toPC.sendCommand(msg.getCommand()); msg.updated(); } catch
+				 * (IOException e) {
+				 * System.out.println("Couldn't send message object");
+				 * e.printStackTrace(); }
+				 */
 			}
 			Delay.msDelay(CommConst.GRACE);
 		}

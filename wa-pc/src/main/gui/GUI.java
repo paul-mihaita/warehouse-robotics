@@ -276,16 +276,16 @@ public class GUI extends Application {
 		 * aCtive, iNactive, cOmpleted, cAnceled
 		 */
 		switch (status.charAt(1)) {
-		case 'C':
-			return Color.GREEN;
-		case 'N':
-			return Color.BLACK;
-		case 'O':
-			return Color.BLUE;
-		case 'A':
-			return Color.RED;
-		default:
-			return Color.GRAY;
+			case 'C':
+				return Color.GREEN;
+			case 'N':
+				return Color.BLACK;
+			case 'O':
+				return Color.BLUE;
+			case 'A':
+				return Color.RED;
+			default:
+				return Color.GRAY;
 		}
 	}
 }

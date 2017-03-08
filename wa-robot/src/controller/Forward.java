@@ -1,13 +1,11 @@
 package controller;
 
-import communication.Message;
 import communication.CommConst.command;
+import communication.Message;
 import constants.RobotConstants;
 import rp.config.WheeledRobotConfiguration;
 
 public class Forward extends AbstractBehavior {
-
-
 
 	private Message msg;
 

@@ -2,12 +2,10 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
-import communication.Message;
 import communication.CommConst.command;
+import communication.Message;
 import constants.RobotConstants;
 import lejos.nxt.Button;
 import lejos.nxt.SensorPort;
@@ -35,9 +33,10 @@ public class Junction extends AbstractBehavior {
 			moves.push(m);
 		}
 	}
+
 	@Override
 	public boolean takeControl() {
-		return (left.isOnTape() && right.isOnTape()) && (msg.getCommand() == command.Start) ;
+		return (left.isOnTape() && right.isOnTape()) && (msg.getCommand() == command.Start);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,25 +63,30 @@ public class Junction extends AbstractBehavior {
 		}
 		msg.setMoves(new ArrayList<move>((Collection<move>) moves));
 	}
+
 	private void backward() {
 		pilot.rotate(180);
 		forward(changeAngle((double) 180, robot.getOrientation()));
 	}
+
 	private void forward(Location orientation) {
 		pilot.travel(RobotConstants.WHEEL_TO_SENSOR);
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
 	}
+
 	private void turnleft() {
-		
+
 		forward(changeAngle((double) -90, robot.getOrientation()));
 		pilot.rotate(-90);
 	}
+
 	private void turnright() {
 		forward(changeAngle((double) 90, robot.getOrientation()));
 		pilot.rotate(90);
 	}
+
 	private void waitUntilPress() {
 		pilot.stop();
 		Button.waitForAnyPress();
@@ -97,6 +101,7 @@ public class Junction extends AbstractBehavior {
 		l.setY(y);
 		return l;
 	}
+
 	private Location addLocation(Location x, Location y) {
 		return new Location(x.getX() + y.getX(), x.getY() + y.getY());
 	}

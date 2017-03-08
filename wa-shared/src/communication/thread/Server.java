@@ -1,18 +1,12 @@
 package communication.thread;
 
-import java.io.DataInputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-import javax.print.attribute.SupportedValuesAttribute;
-import javax.xml.stream.events.StartDocument;
-
 import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-import org.apache.log4j.spi.LoggingEvent;
 
 import communication.CommConst.command;
 import communication.Message;
@@ -100,7 +94,8 @@ public class Server extends Thread {
 			inThread[i].interrupt();
 		}
 	}
-	//the method to start the server
+
+	// the method to start the server
 	public void launch() {
 		this.start();
 		while (!connected) {

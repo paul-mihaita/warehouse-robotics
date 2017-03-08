@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import communication.CommConst;
 import communication.CommConst.command;
 import communication.CommConst.protocol;
 import communication.thread.Converters;

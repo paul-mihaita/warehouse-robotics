@@ -10,7 +10,7 @@ public class Robot {
 	public static final int WEIGHT_LIMIT = 50;
 	private boolean needsUpdate;
 
-    //if you want an empty robot just set everything to null
+	// if you want an empty robot just set everything to null
 	public Robot(String name, String btAdresss, Location orientation, Location startLocation) {
 		this.name = name;
 		this.btAddress = btAdresss;
@@ -20,7 +20,6 @@ public class Robot {
 		this.onPickup = false;
 		needsUpdate = true;
 	}
-
 
 	public String getName() {
 		return name;
@@ -39,6 +38,7 @@ public class Robot {
 		this.currentLocation = loc;
 		needsUpdate = true;
 	}
+
 	public void setPosition(Location loc, Location orientation) {
 		this.currentLocation = loc;
 		this.orientation = orientation;
@@ -52,21 +52,21 @@ public class Robot {
 	public boolean isOnJob() {
 		return onJob;
 	}
-	
+
 	public boolean isOnPickup() {
 		return onPickup;
 	}
-	
-	public void setOnPickup(boolean onPickup){
+
+	public void setOnPickup(boolean onPickup) {
 		this.onPickup = onPickup;
 		this.needsUpdate = true;
 	}
-	
-	public void setOnJob(boolean onJob){
+
+	public void setOnJob(boolean onJob) {
 		this.onJob = onJob;
 		this.needsUpdate = true;
 	}
-	
+
 	public boolean needsUpdate() {
 		return needsUpdate;
 	}
@@ -74,7 +74,7 @@ public class Robot {
 	public String getBtAddress() {
 		return btAddress;
 	}
-	
+
 	public void update(Robot r) {
 		this.btAddress = r.getBtAddress();
 		this.currentLocation = r.getCurrentLocation();
@@ -83,7 +83,6 @@ public class Robot {
 		this.onPickup = r.isOnPickup();
 		this.orientation = r.getOrientation();
 	}
-
 
 	public void updated() {
 		needsUpdate = false;

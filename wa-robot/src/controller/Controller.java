@@ -1,13 +1,10 @@
 package controller;
 
-import java.util.List;
-
 import communication.Message;
 import constants.RobotConstants;
 import lejos.nxt.SensorPort;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import lejos.util.Delay;
 import movement.Movement.move;
 import utils.Robot;
 

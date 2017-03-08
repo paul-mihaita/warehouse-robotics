@@ -9,11 +9,10 @@ import org.apache.log4j.Logger;
 import communication.CommConst.command;
 import communication.CommConst.protocol;
 import communication.thread.Converters;
-import lejos.util.Delay;
 import movement.Movement.move;
 import utils.Robot;
 
-public class PCOutputStream extends AbstractOutputStream{
+public class PCOutputStream extends AbstractOutputStream {
 	private Logger log;
 
 	public PCOutputStream(OutputStream stream, Logger log) {

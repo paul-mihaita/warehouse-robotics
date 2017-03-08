@@ -6,9 +6,9 @@ import java.io.OutputStream;
 import org.apache.log4j.Logger;
 
 import communication.CommConst;
+import communication.CommConst.protocol;
 import communication.Message;
 import communication.PCOutputStream;
-import communication.CommConst.protocol;
 import lejos.util.Delay;
 import utils.Robot;
 

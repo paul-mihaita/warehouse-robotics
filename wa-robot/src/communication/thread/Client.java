@@ -2,7 +2,7 @@ package communication.thread;
 
 import java.io.DataInputStream;
 import java.io.OutputStream;
-import java.util.*;
+import java.util.ArrayList;
 
 import communication.CommConst.command;
 import communication.Message;
@@ -21,13 +21,15 @@ public class Client extends Thread {
 	private RobotReciever inThread;
 	private RobotSender outThread;
 	private boolean connected = false;
-	//new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0))
-	//new Robot("Cell", "0016531AFA0B", new Location(0,0), new Location(1, 0))
+
+	// new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0,
+	// 0))
+	// new Robot("Cell", "0016531AFA0B", new Location(0,0), new Location(1, 0))
 	public Client(Robot robot, Message msg) {
 		BTConnection comm = Bluetooth.waitForConnection();
-		//wait for PC
-		
-		//open streams
+		// wait for PC
+
+		// open streams
 		this.in = comm.openDataInputStream();
 		this.out = comm.openOutputStream();
 		this.robot = robot;
@@ -36,11 +38,11 @@ public class Client extends Thread {
 
 	@Override
 	public void run() {
-		//construct threads to handle each stream
+		// construct threads to handle each stream
 		this.inThread = new RobotReciever(robot, msg, in);
 		this.outThread = new RobotSender(robot, msg, out);
-		
-		//run each thread
+
+		// run each thread
 		inThread.start();
 		outThread.start();
 		this.connected = true;
@@ -49,30 +51,31 @@ public class Client extends Thread {
 	@Override
 	public void interrupt() {
 		System.out.println("Client interupted");
-		//attempt to close the streams gracefully
+		// attempt to close the streams gracefully
 		inThread.interrupt();
 		outThread.interrupt();
 	}
 
-
 	public void launch() {
 		this.start();
-		while (!connected ) {
+		while (!connected) {
 			Delay.msDelay(1000);
 		}
 	}
+
 	public static void main(String[] args) {
 		Robot r;
-		//r = new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0));
-		r = new Robot("Cell", "0016531AFA0B", new Location(0,0), new Location(1, 0));
+		// r = new Robot("Keith", "0016530FDDAE", new Location(0, 0), new
+		// Location(0, 0));
+		r = new Robot("Cell", "0016531AFA0B", new Location(0, 0), new Location(1, 0));
 		Message m = new Message(new ArrayList<move>(), command.Wait);
 		r.updated();
-		m.updated(); 
+		m.updated();
 		System.out.println("constructing client");
 		Client c = new Client(r, m);
 		System.out.println("running");
 		c.launch();
-		while (true){
+		while (true) {
 			System.out.println(r.getCurrentLocation().getX());
 			Delay.msDelay(5000);
 		}

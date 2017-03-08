@@ -14,9 +14,9 @@ public class Converters {
 		Location orientation = new Location(a[2], a[3]);
 		boolean isOnPickup = false;
 		try {
-			 isOnPickup = byteToBoolean(a[4]);
+			isOnPickup = byteToBoolean(a[4]);
 		} catch (IOException e) {
-			//shouldn't happen
+			// shouldn't happen
 		}
 		char[] c = new char[a.length - 5];
 		for (int i = 0; i < c.length; i++) {
@@ -25,7 +25,7 @@ public class Converters {
 		String name = new String(c);
 		Robot r = new Robot(name, name, orientation, current);
 		r.setOnPickup(isOnPickup);
-		return  r;
+		return r;
 	}
 
 	public static byte[] robotToByte(Robot r) {
@@ -88,16 +88,18 @@ public class Converters {
 				throw new IOException("Incorrect byte code for movement");
 		}
 	}
+
 	public static byte booleanToByte(boolean b) {
 		if (b) {
 			return 1;
 		}
 		return 0;
 	}
+
 	public static boolean byteToBoolean(byte b) throws IOException {
 		if (b == 1) {
 			return true;
-		} else if (b ==0) {
+		} else if (b == 0) {
 			return false;
 		}
 		throw new IOException("Incorrect byte code for a boolean");
