@@ -1,10 +1,9 @@
-package route;
+package main.route;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import main.route.Planning;
 import rp.robotics.mapping.GridMap;
 import rp.robotics.mapping.MapUtils;
 import student_solution.Graph;

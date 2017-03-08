@@ -1,13 +1,9 @@
 package main.route;
 
 import graph_entities.IVertex;
-import route.Astar;
-import route.AstarBruteForce;
-import route.AstarHCA;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.HashMap;
 
 import movement.Movement.move;

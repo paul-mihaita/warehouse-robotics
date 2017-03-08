@@ -4,9 +4,7 @@ import graph_entities.IEdge;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.List;
-
 import java.util.function.BiFunction;
 
 import rp.robotics.mapping.GridMap;
@@ -17,7 +15,6 @@ import student_solution.Vertex;
 import utils.Location;
 import utils.Robot;
 import lejos.geom.Line;
-import route.AstarBruteForce;
 
 public class Planning {
 	public static BiFunction<State, State, Integer> manhatanHeuristic = new BiFunction<State, State, Integer> (){
