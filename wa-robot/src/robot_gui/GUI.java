@@ -18,10 +18,14 @@ public class GUI implements Runnable {
 	private int jobId = job.getJobID();
 	//private int jobId = 1002;
 	private boolean isOnJob = robot.isOnJob();
+	//private boolean isOnJob = true;
 	private boolean isOnPickUp = robot.isOnPickup();
+	//private boolean isOnPickUp = true;
 	private Location location = robot.getCurrentLocation();
 	private int quantity = task.getQuantity();
+	//private int quantity = 5;
 	private String itemName = task.getItem().getItemName();
+	//private String itemName = "test item";
 	private int numItems = 0;
 	
 	private boolean ENTER = Button.ENTER.isPressed();
