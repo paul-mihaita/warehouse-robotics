@@ -33,12 +33,27 @@ import lejos.geom.Line;
 import route.AstarBruteForce;
 
 public class Planning {
-
+	public static BiFunction<State, State, Integer> manhatanHeuristic = new BiFunction<State, State, Integer> (){
+		@Override
+		public Integer apply(State a, State b) {
+			// TODO Auto-generated method stub
+			List<Location> from = a.getRLoc();
+			List<Location> to = b.getRLoc();
+			int cost = 0;
+			for(int i = 0; i < from.size();i++){
+				Location t = from.get(i);
+				Location u = to.get(i);
+				cost+= (Math.abs(t.getX() - u.getX()) + Math.abs(t.getY() - u.getY()));
+			}
+			return cost;
+		}
+		
+	};
 	public static Graph<Location> createGraph(GridMap map) {
 
 		Graph<Location> graph = new Graph<>();
 		Location invalid = new Location(-1, -1);
-
+		
 		for (int x = 0; x < map.getXSize(); x++) {
 			for (int y = 0; y < map.getYSize(); y++) {
 				if (map.isValidGridPosition(x, y) && !map.isObstructed(x, y)) {
@@ -70,4 +85,5 @@ public class Planning {
 		}
 		return graph;
 	}
+	
 }

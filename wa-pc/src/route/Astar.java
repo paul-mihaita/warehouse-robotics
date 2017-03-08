@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.PriorityQueue;
@@ -80,7 +81,9 @@ public class Astar {
 					ArrayList<State> aux = new ArrayList<>();
 					cost = currState.getCost() + 1;
 					for (State from : children) {
-						if (reservedMatter == false || (!isReserved(from, steps) )) {
+						//write(from,steps+1);
+						Location currLoc = from.getRLoc().get(0);
+						if (reservedMatter == false  || !isReserved(from, steps+1)) {
 
 							Integer aprox = heuristics.apply(from, finish);
 
@@ -99,6 +102,28 @@ public class Astar {
 		}
 		return new ArrayList<Location>();
 
+	}
+
+	private static void write(State from, int steps) {
+		Location l = from.getRLoc().get(0);
+		System.out.println(l.getX() + " "+l.getY() + " | "+steps );
+		for(int i = 0; i < timeOcupation.size();i++){
+			System.out.println(isReserved(from, i));
+		}
+		Collection<List<State>> x = timeOcupation.values();
+		Iterator<List<State>> it = x.iterator();
+		while(it.hasNext()){
+			List<State> list = it.next();
+			for(State s: list){
+				List<Location> p = s.getRLoc();
+				for(Location loc:p){
+					System.out.print(loc.getX() + " " + loc.getY() + " | ");
+				}
+				System.out.println("state");
+			}
+			System.out.println("time++");
+		}
+		System.out.println("end");
 	}
 
 	private static void generateNextStates(State currState, GridMap map,
@@ -133,6 +158,7 @@ public class Astar {
 		neighbours.add(neighbour(graph, map, x, y, 0, -1));
 
 		neighbours.add(neighbour(graph, map, x, y, 0, 1));
+		neighbours.add(neighbour(graph, map, x, y, 0, 0));
 
 		ArrayList<Location> toDelete = new ArrayList<>();
 
@@ -159,8 +185,10 @@ public class Astar {
 	}
 
 	private static boolean isReserved(State from, int steps) {
-		if(timeOcupation.contains(steps)){
+		if(timeOcupation.containsKey(steps)){
 			List<State> statesAtTime = timeOcupation.get(steps);
+			
+			Collection<List<State>> x = timeOcupation.values();
 			
 			return contains(statesAtTime, from);
 		}
@@ -175,7 +203,7 @@ public class Astar {
 				if (a.size() != b.size())
 					return false;
 				for (int i = 0; i < a.size(); i++) {
-					if (!b.contains(a.get(i)))
+					if (!a.contains(b.get(i)))
 						return false;
 				}
 			}
@@ -232,10 +260,9 @@ public class Astar {
 	}
 
 	public static void setReserved(ArrayList<Location> path) {
-		int x = path.size()-1;
-		for (int i = x; i>=0; i--) {
+		for (int i = 0; i<path.size(); i++) {
 			State s = new State();
-			s.addToList(path.get(x-i));
+			s.addToList(path.get(i));
 			tableAdd(s, i);
 		}
 	}
