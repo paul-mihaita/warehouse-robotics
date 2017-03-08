@@ -24,7 +24,7 @@ public class InputTest {
 			jobs = input.getJobsArray();
 			for (Job j : jobs) {
 				LOG.debug("JOB: " + j.getJobID() + " Sum of weights: " + j.sumOfWeight());
-				for (Task t : j.geTasks()) {
+				for (Task t : j.getTasks()) {
 					LOG.debug("New task");
 					LOG.debug("Item name: " + t.getTaskItem().getItemName() + "     Quantity: "
 							+ t.getQuantity() + "     Reward: " + t.getTaskItem().getReward() + "     Weight: "

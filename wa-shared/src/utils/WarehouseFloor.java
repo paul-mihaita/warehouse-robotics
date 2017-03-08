@@ -42,6 +42,7 @@ public class WarehouseFloor {
 		this.assigment = new HashMap<String, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
 		this.robots = new HashSet<Robot>();
+		this.messageQueues = new HashMap<String, Message>();
 		
 		this.robots.add(new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0)));
 		this.robots.add(new Robot("Cell", "0016531AFA0B", new Location(0,0), new Location(1, 0)));
@@ -95,6 +96,8 @@ public class WarehouseFloor {
 	}
 
 	private void givePath(Robot robot, Job job) {
+		
+
 
 	}
 

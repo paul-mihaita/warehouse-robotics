@@ -602,3 +602,85 @@
 2017-03-07 17:26:45 DEBUG Input:38 - no
 2017-03-07 17:26:45 DEBUG Input:31 - Reading if the file have the extension
 2017-03-07 17:26:45 DEBUG Input:38 - no
+2017-03-08 11:42:29 INFO  Start:17 - Starting
+2017-03-08 11:42:29 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:42:29 DEBUG Input:38 - no
+2017-03-08 11:42:29 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:42:29 DEBUG Input:38 - no
+2017-03-08 11:42:29 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:42:29 DEBUG Input:38 - no
+2017-03-08 11:45:35 INFO  Start:19 - Starting
+2017-03-08 11:45:35 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:45:35 DEBUG Input:38 - no
+2017-03-08 11:47:32 INFO  Start:19 - Starting
+2017-03-08 11:47:32 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:47:32 DEBUG Input:38 - no
+2017-03-08 11:47:40 INFO  Start:19 - Starting
+2017-03-08 11:47:40 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:47:40 DEBUG Input:38 - no
+2017-03-08 11:47:40 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:47:40 DEBUG Input:38 - no
+2017-03-08 11:47:40 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:47:40 DEBUG Input:38 - no
+2017-03-08 11:48:00 INFO  Start:19 - Starting
+2017-03-08 11:48:00 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:48:00 DEBUG Input:38 - no
+2017-03-08 11:48:00 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:48:00 DEBUG Input:38 - no
+2017-03-08 11:48:00 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:48:00 DEBUG Input:38 - no
+2017-03-08 11:48:32 INFO  Start:19 - Starting
+2017-03-08 11:48:32 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:48:32 DEBUG Input:38 - no
+2017-03-08 11:48:32 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:48:32 DEBUG Input:38 - no
+2017-03-08 11:48:32 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:48:32 DEBUG Input:38 - no
+2017-03-08 11:49:55 INFO  Start:19 - Starting
+2017-03-08 11:49:55 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:49:55 DEBUG Input:38 - no
+2017-03-08 11:49:55 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:49:55 DEBUG Input:38 - no
+2017-03-08 11:49:55 DEBUG Input:31 - Reading if the file have the extension
+2017-03-08 11:49:55 DEBUG Input:38 - no
+2017-03-08 12:05:41 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 12:05:41 DEBUG Input:34 - yes
+2017-03-08 12:05:41 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 12:05:41 DEBUG Input:37 - no
+2017-03-08 12:05:41 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 12:05:41 DEBUG Input:34 - yes
+2017-03-08 12:05:41 DEBUG InputTest:22 - Start reading file
+2017-03-08 12:05:41 DEBUG InputTest:26 - JOB: 1001 Sum of weights: 48.86
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: a     Quantity: 1     Reward: 1.0     Weight: 2.0
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: b     Quantity: 2     Reward: 3255.323     Weight: 23.43
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: z     Quantity: 20     Reward: 0.0     Weight: 0.0
+2017-03-08 12:05:41 DEBUG InputTest:33 - next task
+2017-03-08 12:05:41 DEBUG InputTest:26 - JOB: 1002 Sum of weights: 8.0
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: c     Quantity: 4     Reward: 1.0     Weight: 2.0
+2017-03-08 12:05:41 DEBUG InputTest:33 - next task
+2017-03-08 12:05:41 DEBUG InputTest:26 - JOB: 1005 Sum of weights: 46.86
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: f     Quantity: 2     Reward: 3255.323     Weight: 23.43
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: k     Quantity: 9     Reward: 0.0     Weight: 0.0
+2017-03-08 12:05:41 DEBUG InputTest:33 - next task
+2017-03-08 12:05:41 DEBUG InputTest:26 - JOB: 1002 Sum of weights: 93.72
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: f     Quantity: 4     Reward: 3255.323     Weight: 23.43
+2017-03-08 12:05:41 DEBUG InputTest:33 - next task
+2017-03-08 12:05:41 DEBUG InputTest:26 - JOB: 1007 Sum of weights: 46.86
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: f     Quantity: 2     Reward: 3255.323     Weight: 23.43
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: k     Quantity: 9     Reward: 0.0     Weight: 0.0
+2017-03-08 12:05:41 DEBUG InputTest:33 - next task
+2017-03-08 12:05:41 DEBUG InputTest:26 - JOB: 1015 Sum of weights: 46.86
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: f     Quantity: 2     Reward: 3255.323     Weight: 23.43
+2017-03-08 12:05:41 DEBUG InputTest:28 - New task
+2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: k     Quantity: 9     Reward: 0.0     Weight: 0.0
+2017-03-08 12:05:41 DEBUG InputTest:33 - next task

@@ -12,7 +12,6 @@ import utils.Task;
 
 public class Input {
 
-	
 	private static final Logger LOG = Logger.getLogger(Input.class);
 	// SET TO TRUE IF IN THE FILES THE FIRST LINE IS THE TITLE
 	boolean thereIsTheTitleFile = false;
@@ -66,20 +65,22 @@ public class Input {
 						jobsID = Integer.parseInt(parts[0]);
 						// READ ALL THE TASK OF THE JOB
 						for (int i = 1; i < parts.length; i += 2) {
-							boolean alreadyThere=true;
-							for(Task check : tasks){
-								if(check.getItem().getItemName().equals(parts[i])){
+							boolean alreadyThere = true;
+							for (Task check : tasks) {
+								if (check.getItem().getItemName().equals(parts[i])) {
 									int sumQuantity = check.getQuantity() + Integer.parseInt(parts[i + 1]);
 									check.setQuantity(sumQuantity);
-									alreadyThere=false;
+									alreadyThere = false;
 								}
 							}
-							if(alreadyThere){
+							if (alreadyThere) {
 								tasks.add(new Task(parts[i], Integer.parseInt(parts[i + 1])));
 							}
 						}
 						// ADD THE JOB TO THE ARRAY LIST OF JOBS
-						jobs.add(new Job(jobsID, tasks));
+						if (!jobs.contains(jobsID)) {
+							jobs.add(new Job(jobsID, tasks));
+						}
 
 					}
 					toDo = true;
@@ -99,8 +100,8 @@ public class Input {
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
-				if(!fileHaveTheExtension(fileName)){
-					fileName=fileName + ".csv";
+				if (!fileHaveTheExtension(fileName)) {
+					fileName = fileName + ".csv";
 				}
 				// CREATE SCANNER TO READ FILE
 				Scanner inFile = new Scanner(new File(fileName));
@@ -116,7 +117,7 @@ public class Input {
 						// ADD TO EVERY SINGLE TASK THE ITEM WEIGHT AND THE ITEM
 						// REWARD
 						for (Job j : jobs) {
-							for (Task t : j.geTasks()) {
+							for (Task t : j.getTasks()) {
 								if (t.getTaskItem().getItemName().equals(parts[0])) {
 									t.getTaskItem().setReward(Float.parseFloat(parts[1]));
 									t.getTaskItem().setWeight(Float.parseFloat(parts[2]));
@@ -159,7 +160,7 @@ public class Input {
 						// ITEM
 						// REWARD
 						for (Job j : jobs) {
-							for (Task t : j.geTasks()) {
+							for (Task t : j.getTasks()) {
 								if (t.getTaskItem().getItemName().equals(parts[2])) {
 									int x = Integer.parseInt(parts[0]);
 									int y = Integer.parseInt(parts[1]);

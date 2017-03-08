@@ -22,7 +22,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import student_solution.Graph;
-import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.WarehouseFloor;
@@ -138,8 +137,11 @@ public class GUI extends Application {
 	}
 
 	private static void drawRobots(GraphicsContext gc) {
-		gc.setFill(Color.DARKGREY);
-		gc.fillRect(scale(2) - 5, scale(6) - 5, 20, 20);
+		for (Robot r : model.getRobots()) {
+			gc.setFill(Color.DARKGREY);
+			gc.fillRect(scale(r.getCurrentLocation().getX()) - 5, scale(r.getCurrentLocation().getY()) - 5, 20, 20);
+			r.getOrientation();
+		}
 	}
 
 	private static float scale(float value) {
