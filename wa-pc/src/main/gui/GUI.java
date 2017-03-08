@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.jfree.util.Log;
 
+import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
 import javafx.application.Application;
@@ -42,6 +43,8 @@ public class GUI extends Application {
 	private static HashMap<Robot, Tuple<Label, Label>> robotLabels;
 
 	private static WarehouseFloor model;
+	
+	private static Thread canvasHandler;
 
 	/**
 	 * 
@@ -82,6 +85,12 @@ public class GUI extends Application {
 		primaryStage.show();
 
 	}
+	
+	@Override
+	public void stop(){
+		canvasHandler.interrupt();
+		Start.log.info("GUI was closed");
+	}
 
 	private static Canvas createMapPane() {
 
@@ -96,10 +105,10 @@ public class GUI extends Application {
 
 		Graph<Location> floorMap = model.getFloorGraph();
 
-		new Thread(new Runnable() {
+		canvasHandler = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while (true) {
+				while (!canvasHandler.isInterrupted()) {
 					gc.clearRect(0, 0, MAP_WIDTH, HEIGHT);
 
 					for (IVertex<Location> v : floorMap.getVertices()) {
@@ -114,7 +123,9 @@ public class GUI extends Application {
 				}
 
 			}
-		}).start();
+		});
+		
+		canvasHandler.start();
 
 		return map;
 	}
