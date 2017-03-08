@@ -29,10 +29,6 @@ public class Job {
 	}
 
 	// GET
-	public ArrayList<Task> geTasks() {
-		return tasks;
-	}
-
 	public int getJobID() {
 		return jobID;
 	}
