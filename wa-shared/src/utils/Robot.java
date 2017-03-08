@@ -1,6 +1,7 @@
 package utils;
 
 public class Robot {
+
 	private String name = "";
 	private String btAddress = "";
 	private Location orientation;
@@ -10,7 +11,8 @@ public class Robot {
 	public static final int WEIGHT_LIMIT = 50;
 	private boolean needsUpdate;
 
-	// if you want an empty robot just set everything to null
+
+    //if you want an empty robot just set everything to null
 	public Robot(String name, String btAdresss, Location orientation, Location startLocation) {
 		this.name = name;
 		this.btAddress = btAdresss;
