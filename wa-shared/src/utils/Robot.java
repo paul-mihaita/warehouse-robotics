@@ -39,6 +39,11 @@ public class Robot {
 		this.currentLocation = loc;
 		needsUpdate = true;
 	}
+	public void setPosition(Location loc, Location orientation) {
+		this.currentLocation = loc;
+		this.orientation = orientation;
+		needsUpdate = true;
+	}
 
 	public Location getCurrentLocation() {
 		return currentLocation;
