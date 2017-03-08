@@ -16,7 +16,7 @@ public class GUI implements Runnable {
 	Robot robot;
 	
 	private int jobId = job.getJobID();
-	private boolean isOnJob = robot.isOnJob(jobId);
+	private boolean isOnJob = robot.isOnJob();
 	private Location location = node.getLocation();
 	private int quantity = task.getQuantity();
 	private String itemName = task.getItem().getItemName();

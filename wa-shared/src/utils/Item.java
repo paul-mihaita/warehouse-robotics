@@ -2,11 +2,6 @@ package utils;
 
 //Item of a task
 public class Item {
-	String name;
-	Location location;
-	float weight;
-	float reward;
-
 	private String name;
 	private Location location;
 	private float weight;

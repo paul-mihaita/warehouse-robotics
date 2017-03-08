@@ -29,8 +29,6 @@ public class Location implements Comparable {
 	public void setY(int y) {
 		this.y=y;
 	}
-<<<<<<< HEAD
-=======
 
 	@Override
 	public int compareTo(Object o) {
@@ -49,5 +47,4 @@ public class Location implements Comparable {
 	    return false;
 	  }
 	
->>>>>>> Testing
 }
