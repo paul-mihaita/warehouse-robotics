@@ -23,7 +23,7 @@ public class Job {
 
 		float sumOfWeight = 0;
 		for (Task task : tasks) {
-			sumOfWeight += task.getTaskItem().getWeight() * task.getQuantity();
+			sumOfWeight += task.getItem().getWeight() * task.getQuantity();
 		}
 		return sumOfWeight;
 	}
