@@ -164,6 +164,8 @@ public class Input {
 						for (Job j : jobs) {
 							Start.log.debug("In Jobid: " + j.getJobID());
 							for (Task t : j.getTasks()) {
+
+								Start.log.debug("Item test name " + parts[2]);
 								if (t.getItem().getItemName().equals(parts[2])) {
 
 									int x = Integer.parseInt(parts[0]);

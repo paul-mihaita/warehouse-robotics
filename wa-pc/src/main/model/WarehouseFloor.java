@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import communication.CommConst.command;
 import communication.Message;
+import main.gui.GUI;
 import main.route.CommandCenter;
 import movement.Movement.move;
 import student_solution.Graph;
@@ -88,12 +89,14 @@ public class WarehouseFloor {
 			log.debug("Job id: " + j.getJobID());
 			log.debug("Item .... Quantitiy .... Location");
 			for (Task t : j.getTasks()){
-				log.debug(t.getItem().getItemName() + " .... " + t.getQuantity() + " .... " );
+				log.debug(t.getItem().getItemName() + " .... " + t.getQuantity() + " .... " + t.getItem().getLocation());
 			}
 		}
 		HashMap<Robot, ArrayList<ArrayList<move>>> routes = CommandCenter.generatePaths(assignedJobs);
+
 		
 		for (Robot r : routes.keySet()){
+			GUI.displayPath(CommandCenter.getPathLocations().get(r));
 			givePath(r, routes.get(r));
 		}
 

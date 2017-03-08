@@ -1,6 +1,8 @@
 package main.gui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.jfree.util.Log;
 
@@ -24,6 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import main.model.WarehouseFloor;
+import movement.Movement.move;
 import rp.util.Rate;
 import student_solution.Graph;
 import utils.Location;
@@ -47,6 +50,8 @@ public class GUI extends Application {
 
 	private static Thread canvasHandler;
 
+	private static HashSet<ArrayList<ArrayList<Location>>> paths;
+
 	/**
 	 * 
 	 * Creates a new GUI with the input being the list of jobs in preferential
@@ -57,6 +62,7 @@ public class GUI extends Application {
 	 */
 	public static void create(WarehouseFloor model) {
 
+		GUI.paths = new HashSet<ArrayList<ArrayList<Location>>>();
 		GUI.robotLabels = new HashMap<Robot, Tuple<Label, Label>>();
 		GUI.model = model;
 		launch();
@@ -117,6 +123,7 @@ public class GUI extends Application {
 						GUI.drawEdges(v, gc);
 					}
 					GUI.drawRobots(gc);
+					GUI.drawPath(gc);
 
 					Log.debug("Updated robot location");
 
@@ -129,6 +136,25 @@ public class GUI extends Application {
 		canvasHandler.start();
 
 		return map;
+	}
+
+	protected static void drawPath(GraphicsContext gc) {
+		
+		for(ArrayList<ArrayList<Location>> path : paths){
+			
+			for(ArrayList<Location> part : path){
+				
+				for(Location m: part){
+					
+					gc.setFill(Color.RED);
+					gc.fillOval(scale(m.getX()), scale(m.getY()), 10, 10);
+					
+				}
+				
+			}
+			
+		}
+		
 	}
 
 	private static void drawEdges(IVertex<Location> v, GraphicsContext gc) {
@@ -273,34 +299,34 @@ public class GUI extends Application {
 
 			robotPane.add(s, 0, 2);
 			robotPane.add(status, 1, 2);
-			
-			if (model.getJob(r).isPresent()){
+
+			if (model.getJob(r).isPresent()) {
 
 				GridPane taskPane = new GridPane();
 				taskPane.setStyle("-fx-border-color: gray");
 				taskPane.setAlignment(Pos.BASELINE_CENTER);
 				taskPane.setVgap(5);
 				taskPane.setHgap(30);
-				
+
 				int i = 0;
-				
+
 				Label itemFlag = new Label("Job Items");
 				itemFlag.setFont(new Font(15));
-				
+
 				taskPane.add(itemFlag, 0, i++, 2, 1);
 
-				for(Task t : model.getJob(r).get().getTasks()){
-				
+				for (Task t : model.getJob(r).get().getTasks()) {
+
 					Label itemName = new Label(t.getItem().getItemName());
 					Label itemQuantity = new Label("" + t.getQuantity());
-					
+
 					taskPane.add(itemName, 0, i);
 					taskPane.add(itemQuantity, 1, i++);
-					
+
 				}
-				
+
 				robotPane.add(taskPane, 0, 3, 3, 3);
-			} 
+			}
 
 			robotLabels.put(r, new Tuple<Label, Label>(jobId, status));
 
@@ -353,5 +379,9 @@ public class GUI extends Application {
 		default:
 			return Color.GRAY;
 		}
+	}
+
+	public static void displayPath(ArrayList<ArrayList<Location>> arrayList) {
+		paths.add(arrayList);
 	}
 }
