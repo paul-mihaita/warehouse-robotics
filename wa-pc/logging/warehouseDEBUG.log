@@ -684,3 +684,126 @@
 2017-03-08 12:05:41 DEBUG InputTest:28 - New task
 2017-03-08 12:05:41 DEBUG InputTest:29 - Item name: k     Quantity: 9     Reward: 0.0     Weight: 0.0
 2017-03-08 12:05:41 DEBUG InputTest:33 - next task
+2017-03-08 13:18:32 INFO  Start:17 - Starting
+2017-03-08 13:18:32 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:18:32 DEBUG Input:37 - no
+2017-03-08 13:18:32 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:18:32 DEBUG Input:37 - no
+2017-03-08 13:18:32 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:18:32 DEBUG Input:37 - no
+2017-03-08 13:21:43 INFO  Start:17 - Starting
+2017-03-08 13:21:43 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:21:43 DEBUG Input:37 - no
+2017-03-08 13:21:43 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:21:43 DEBUG Input:37 - no
+2017-03-08 13:21:43 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:21:43 DEBUG Input:37 - no
+2017-03-08 13:50:53 INFO  Start:17 - Starting
+2017-03-08 13:50:53 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:50:53 DEBUG Input:37 - no
+2017-03-08 13:50:53 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:50:53 DEBUG Input:37 - no
+2017-03-08 13:50:53 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:50:53 DEBUG Input:37 - no
+2017-03-08 13:51:11 INFO  Start:17 - Starting
+2017-03-08 13:51:11 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:51:11 DEBUG Input:37 - no
+2017-03-08 13:51:11 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:51:11 DEBUG Input:37 - no
+2017-03-08 13:51:11 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:51:11 DEBUG Input:37 - no
+2017-03-08 13:52:31 INFO  Start:17 - Starting
+2017-03-08 13:52:31 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:52:31 DEBUG Input:37 - no
+2017-03-08 13:52:31 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:52:31 DEBUG Input:37 - no
+2017-03-08 13:52:31 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 13:52:31 DEBUG Input:37 - no
+2017-03-08 13:52:52 INFO  Start:79 - Cell attempted to start, but has no assigned job
+2017-03-08 13:52:52 INFO  Start:79 - Keith attempted to start, but has no assigned job
+2017-03-08 14:07:58 INFO  Start:17 - Starting
+2017-03-08 14:07:58 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:07:58 DEBUG Input:37 - no
+2017-03-08 14:07:58 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:07:58 DEBUG Input:37 - no
+2017-03-08 14:07:58 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:07:58 DEBUG Input:37 - no
+2017-03-08 14:08:44 INFO  Start:17 - Starting
+2017-03-08 14:08:44 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:08:44 DEBUG Input:37 - no
+2017-03-08 14:08:44 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:08:44 DEBUG Input:37 - no
+2017-03-08 14:08:44 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:08:44 DEBUG Input:37 - no
+2017-03-08 14:22:09 INFO  Start:17 - Starting
+2017-03-08 14:22:09 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:22:09 DEBUG Input:37 - no
+2017-03-08 14:22:09 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:22:09 DEBUG Input:37 - no
+2017-03-08 14:22:09 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:22:09 DEBUG Input:37 - no
+2017-03-08 14:24:07 INFO  Start:17 - Starting
+2017-03-08 14:24:07 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:24:07 DEBUG Input:37 - no
+2017-03-08 14:24:07 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:24:07 DEBUG Input:37 - no
+2017-03-08 14:24:07 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:24:07 DEBUG Input:37 - no
+2017-03-08 14:24:52 INFO  Start:17 - Starting
+2017-03-08 14:24:52 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:24:52 DEBUG Input:37 - no
+2017-03-08 14:24:52 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:24:52 DEBUG Input:37 - no
+2017-03-08 14:24:52 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:24:52 DEBUG Input:37 - no
+2017-03-08 14:25:22 INFO  Start:17 - Starting
+2017-03-08 14:25:22 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:25:22 DEBUG Input:37 - no
+2017-03-08 14:25:22 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:25:22 DEBUG Input:37 - no
+2017-03-08 14:25:22 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:25:22 DEBUG Input:37 - no
+2017-03-08 14:28:30 INFO  Start:17 - Starting
+2017-03-08 14:28:30 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:28:30 DEBUG Input:37 - no
+2017-03-08 14:28:30 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:28:30 DEBUG Input:37 - no
+2017-03-08 14:28:30 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:28:30 DEBUG Input:37 - no
+2017-03-08 14:30:59 INFO  Start:17 - Starting
+2017-03-08 14:30:59 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:30:59 DEBUG Input:37 - no
+2017-03-08 14:30:59 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:30:59 DEBUG Input:37 - no
+2017-03-08 14:30:59 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:30:59 DEBUG Input:37 - no
+2017-03-08 14:38:46 INFO  Start:17 - Starting
+2017-03-08 14:38:46 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:38:46 DEBUG Input:37 - no
+2017-03-08 14:38:46 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:38:46 DEBUG Input:37 - no
+2017-03-08 14:38:46 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:38:46 DEBUG Input:37 - no
+2017-03-08 14:38:53 INFO  Start:92 - GUI was closed
+2017-03-08 14:39:37 INFO  Start:17 - Starting
+2017-03-08 14:39:37 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:39:37 DEBUG Input:37 - no
+2017-03-08 14:39:37 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:39:37 DEBUG Input:37 - no
+2017-03-08 14:39:37 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:39:37 DEBUG Input:37 - no
+2017-03-08 14:40:39 INFO  Start:92 - GUI was closed
+2017-03-08 14:59:51 INFO  Start:17 - Starting
+2017-03-08 14:59:51 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:59:51 DEBUG Input:37 - no
+2017-03-08 14:59:51 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:59:51 DEBUG Input:37 - no
+2017-03-08 14:59:51 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 14:59:51 DEBUG Input:37 - no
+2017-03-08 15:00:03 INFO  Start:17 - Starting
+2017-03-08 15:00:03 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 15:00:03 DEBUG Input:37 - no
+2017-03-08 15:00:03 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 15:00:03 DEBUG Input:37 - no
+2017-03-08 15:00:03 DEBUG Input:30 - Reading if the file have the extension
+2017-03-08 15:00:03 DEBUG Input:37 - no
