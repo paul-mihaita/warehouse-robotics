@@ -14,6 +14,10 @@ public class GUI implements Runnable {
 	Node node;
 	Task task;
 	Robot robot;
+	
+	public GUI(Robot robot) {
+		this.robot=robot;
+	}
 
 	//private int jobId = job.getJobID();
 	private int jobId = 1002;
