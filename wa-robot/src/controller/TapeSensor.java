@@ -1,6 +1,5 @@
 package controller;
 
-import constants.RobotConstants;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 
@@ -18,6 +17,7 @@ public class TapeSensor {
 		new LightSensor(port);
 		this.sensor = port;
 	}
+
 	public TapeSensor(SensorPort port, int Tape) {
 		this(port);
 		TAPE = Tape;
@@ -41,11 +41,12 @@ public class TapeSensor {
 		this.takeReading();
 		return roughlyEqual(reading, TAPE, 20);
 	}
+
 	public void calibrate() {
 		int sum = 0;
 		for (int i = 0; i < 10; i++) {
 			this.takeReading();
-			sum  += reading;
+			sum += reading;
 		}
 		sum /= 10;
 		this.TAPE = sum;

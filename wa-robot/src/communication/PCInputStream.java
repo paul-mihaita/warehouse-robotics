@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import communication.CommConst;
 import communication.CommConst.command;
 import communication.CommConst.protocol;
 import communication.thread.Converters;
@@ -62,7 +61,7 @@ public class PCInputStream {
 			case CommConst.COMMAND:
 				return protocol.Command;
 			default:
-				throw new IOException("Invalid protocol recieved");
+				throw new IOException("Invalid protocol recieved: " + proto);
 
 		}
 	}
@@ -85,7 +84,7 @@ public class PCInputStream {
 			case CommConst.COM_WAIT:
 				return command.Wait;
 			default:
-				throw new IOException("Invalid protocol recieved");
+				throw new IOException("Invalid protocol recieved: " + cmd);
 
 		}
 	}

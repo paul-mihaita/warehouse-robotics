@@ -23,7 +23,6 @@ public class Robot {
 		needsUpdate = true;
 	}
 
-
 	public String getName() {
 		return name;
 	}
@@ -42,6 +41,12 @@ public class Robot {
 		needsUpdate = true;
 	}
 
+	public void setPosition(Location loc, Location orientation) {
+		this.currentLocation = loc;
+		this.orientation = orientation;
+		needsUpdate = true;
+	}
+
 	public Location getCurrentLocation() {
 		return currentLocation;
 	}
@@ -49,21 +54,21 @@ public class Robot {
 	public boolean isOnJob() {
 		return onJob;
 	}
-	
+
 	public boolean isOnPickup() {
 		return onPickup;
 	}
-	
-	public void setOnPickup(boolean onPickup){
+
+	public void setOnPickup(boolean onPickup) {
 		this.onPickup = onPickup;
 		this.needsUpdate = true;
 	}
-	
-	public void setOnJob(boolean onJob){
+
+	public void setOnJob(boolean onJob) {
 		this.onJob = onJob;
 		this.needsUpdate = true;
 	}
-	
+
 	public boolean needsUpdate() {
 		return needsUpdate;
 	}
@@ -71,7 +76,7 @@ public class Robot {
 	public String getBtAddress() {
 		return btAddress;
 	}
-	
+
 	public void update(Robot r) {
 		this.btAddress = r.getBtAddress();
 		this.currentLocation = r.getCurrentLocation();
@@ -80,7 +85,6 @@ public class Robot {
 		this.onPickup = r.isOnPickup();
 		this.orientation = r.getOrientation();
 	}
-
 
 	public void updated() {
 		needsUpdate = false;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import movement.Movement.move;
 import rp.robotics.mapping.GridMap;
 import rp.robotics.mapping.MapUtils;
 import student_solution.Graph;
@@ -11,13 +12,13 @@ import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
-import movement.Movement.move;
+
 public class CommandCenter {
 	private static GridMap gridMap = MapUtils.createRealWarehouse();
 	private static Graph<Location> graph = Planning.createGraph(gridMap);
 
 	public static HashMap<Robot, ArrayList<ArrayList<move>>> generatePaths(
-			
+
 			HashMap<Robot, Job> jobMap) {
 		ArrayList<Robot> robots = new ArrayList<>();
 		Iterator<Robot> rob = jobMap.keySet().iterator();
@@ -36,9 +37,9 @@ public class CommandCenter {
 				individualPath = new ArrayList<>();
 				Location start = robot.getCurrentLocation();
 				Location finish = task.getItem().getLocation();
-				individualPath = generateMovements(Astar.aStar(graph,
-						start, finish, Planning.manhatanHeuristic, 100, false,
-						gridMap), robot.getOrientation());
+				individualPath = generateMovements(
+						Astar.aStar(graph, start, finish, Planning.manhatanHeuristic, 100, false, gridMap),
+						robot.getOrientation());
 				pathsForRobot.add(individualPath);
 			}
 			paths.put(robot, pathsForRobot);
@@ -47,8 +48,7 @@ public class CommandCenter {
 
 	}
 
-	public static ArrayList<move> generateMovements(
-			ArrayList<Location> path, Location orientation) {
+	public static ArrayList<move> generateMovements(ArrayList<Location> path, Location orientation) {
 		ArrayList<move> moves = new ArrayList<>();
 		move facing = getFacing(path.get(0), orientation);
 
@@ -62,8 +62,7 @@ public class CommandCenter {
 		return moves;
 	}
 
-	public static ArrayList<move> whatDirection(Location loc, Location target,
-			move facing) {
+	public static ArrayList<move> whatDirection(Location loc, Location target, move facing) {
 		ArrayList<move> aux = new ArrayList<>();
 		int lox = loc.getX();
 		int loy = loc.getY();
@@ -84,7 +83,7 @@ public class CommandCenter {
 				aux.add(move.FORWARD);
 			}
 			return aux;
-		} 
+		}
 		if (tgx < lox) {
 			if (facing == move.FORWARD) {
 				aux.add(move.TURNLEFT);
@@ -96,11 +95,11 @@ public class CommandCenter {
 				aux.add(move.TURNLEFT);
 				aux.add(move.FORWARD);
 			} else if (facing == move.TURNRIGHT) {
-				aux.add( move.TURNLEFT);
-				aux.add( move.BACKWARD);
+				aux.add(move.TURNLEFT);
+				aux.add(move.BACKWARD);
 			}
 			return aux;
-		} 
+		}
 		if (tgy > loy) {
 			if (facing == move.FORWARD) {
 				aux.add(move.FORWARD);
@@ -116,7 +115,7 @@ public class CommandCenter {
 				aux.add(move.TURNLEFT);
 			}
 			return aux;
-		} 
+		}
 		if (tgy < loy) {
 			if (facing == move.FORWARD) {
 				aux.add(move.BACKWARD);

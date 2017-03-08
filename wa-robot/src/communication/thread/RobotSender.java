@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import communication.CommConst;
+import communication.CommConst.protocol;
 import communication.Message;
 import communication.NXTOutputStream;
-import communication.CommConst.protocol;
 import lejos.util.Delay;
 import utils.Robot;
 
@@ -17,6 +17,7 @@ public class RobotSender extends Thread {
 	private OutputStream connection;
 	private NXTOutputStream toPC;
 	private boolean running = true;
+
 	public RobotSender(Robot robot, Message msg, OutputStream connection) {
 		this.robot = robot;
 		this.msg = msg;

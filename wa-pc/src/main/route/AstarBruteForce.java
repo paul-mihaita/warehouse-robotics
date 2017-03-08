@@ -1,6 +1,5 @@
 package main.route;
 
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,21 +23,17 @@ public class AstarBruteForce {
 	public static Float simpleAc = 0f;
 	private static HashMap<Integer, int[]> result = new HashMap<Integer, int[]>();
 
-	
-
-	public static ArrayList<State> aStar(Graph<Location> graph, GridMap map,
-			ArrayList<Robot> robots, ArrayList<Location> finish,
-			BiFunction<State, State, Integer> heuristics, int w) {
+	public static ArrayList<State> aStar(Graph<Location> graph, GridMap map, ArrayList<Robot> robots,
+			ArrayList<Location> finish, BiFunction<State, State, Integer> heuristics, int w) {
 		simpleAc = (float) 0;
-		PriorityQueue<State> openList = new PriorityQueue<>(
-				new Comparator<State>() {
+		PriorityQueue<State> openList = new PriorityQueue<>(new Comparator<State>() {
 
-					@Override
-					public int compare(State o1, State o2) {
+			@Override
+			public int compare(State o1, State o2) {
 
-						return o1.compareTo(o2);
-					}
-				});
+				return o1.compareTo(o2);
+			}
+		});
 
 		State start = new State(getRobotsLoc(robots));
 		State fin = new State(finish);
@@ -57,8 +52,7 @@ public class AstarBruteForce {
 			}
 			if (!closedList.contains(curr)) {
 				int prior = curr.getCost();
-				ArrayList<State> nextStates = generateStates(curr, fin, graph,
-						map, finish);
+				ArrayList<State> nextStates = generateStates(curr, fin, graph, map, finish);
 				for (State x : nextStates) {
 					x.parent = curr;
 					x.setCost(prior + diff(curr, x, finish));
@@ -83,8 +77,7 @@ public class AstarBruteForce {
 			Location u = b.get(i);
 			if (!finish.get(i).equals(out)) {
 				if (u.equals(finish.get(i))) {
-					int d = (Math.abs(t.getX() - u.getX()) + Math.abs(t.getY()
-							- u.getY()));
+					int d = (Math.abs(t.getX() - u.getX()) + Math.abs(t.getY() - u.getY()));
 					if (d > 0)
 						cost += d;
 					else
@@ -112,10 +105,7 @@ public class AstarBruteForce {
 		return aux;
 	}
 
-	
-
-	public static Edge<Location> getNeighbour(Graph<Location> graph,
-			GridMap map, int _x, int _y, int _dx, int _dy) {
+	public static Edge<Location> getNeighbour(Graph<Location> graph, GridMap map, int _x, int _y, int _dx, int _dy) {
 		Location p2 = new Location(-1, -1);
 		if (map.isValidTransition(_x, _y, _x + _dx, _y + _dy)) {
 			p2 = new Location(_x + _dx, _y + _dy);
@@ -124,8 +114,7 @@ public class AstarBruteForce {
 				if (!l.isReserved())
 					return new Edge<Location>(graph.getVertex(p2), new Float(1));
 				else
-					return new Edge<Location>(new Vertex<Location>(
-							new Location(-1, -1)), new Float(1));
+					return new Edge<Location>(new Vertex<Location>(new Location(-1, -1)), new Float(1));
 			} else {
 				graph.addVertex(new Vertex<Location>(p2));
 				return new Edge<Location>(graph.getVertex(p2), new Float(1));
@@ -135,8 +124,8 @@ public class AstarBruteForce {
 		return new Edge<Location>(new Vertex<Location>(p2), new Float(1));
 	}
 
-	public static ArrayList<State> generateStates(State current, State fin,
-			Graph<Location> graph, GridMap map, ArrayList<Location> finish) {
+	public static ArrayList<State> generateStates(State current, State fin, Graph<Location> graph, GridMap map,
+			ArrayList<Location> finish) {
 		Location out = new Location(-1, -1);
 		ArrayList<Location> rLoc = new ArrayList<>(current.getRLoc());
 		for (Location r : rLoc) {
@@ -166,7 +155,6 @@ public class AstarBruteForce {
 		}
 		int[] perm = new int[boundaries.length];
 
-
 		int k = 0;
 		permId = 0;
 		result = new HashMap<Integer, int[]>();
@@ -183,7 +171,6 @@ public class AstarBruteForce {
 			if (isViableState(toAdd)) {
 				toAdd.parent = current;
 				states.add(toAdd);
-
 
 			}
 		}
@@ -226,8 +213,8 @@ public class AstarBruteForce {
 		return perm;
 	}
 
-	private static ArrayList<Location> getNeibours(Location fst, GridMap map,
-			Graph<Location> graph, ArrayList<Location> rLoc, int i) {
+	private static ArrayList<Location> getNeibours(Location fst, GridMap map, Graph<Location> graph,
+			ArrayList<Location> rLoc, int i) {
 		ArrayList<Location> neighbours = new ArrayList<>();
 		Location invalid = new Location(-1, -1);
 		int x = fst.getX();
@@ -251,9 +238,8 @@ public class AstarBruteForce {
 		return neighbours;
 	}
 
-	private static Location neighbour(Graph<Location> graph,
-			ArrayList<Location> rLoc, GridMap map, int _x, int _y, int _dx,
-			int _dy, int i) {
+	private static Location neighbour(Graph<Location> graph, ArrayList<Location> rLoc, GridMap map, int _x, int _y,
+			int _dx, int _dy, int i) {
 		Location p2 = new Location(-1, -1);
 		if (map.isValidTransition(_x, _y, _x + _dx, _y + _dy)) {
 			p2 = new Location(_x + _dx, _y + _dy);
@@ -265,8 +251,7 @@ public class AstarBruteForce {
 		return new Location(-1, -1);
 	}
 
-	private static boolean prevRobot(ArrayList<Location> rLoc, int i,
-			Location p2) {
+	private static boolean prevRobot(ArrayList<Location> rLoc, int i, Location p2) {
 
 		if (i >= 1)
 			return rLoc.get(i - 1).equals(p2);

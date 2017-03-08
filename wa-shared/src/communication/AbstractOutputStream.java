@@ -7,9 +7,11 @@ import lejos.util.Delay;
 
 public abstract class AbstractOutputStream {
 	protected OutputStream stream;
-	public AbstractOutputStream(OutputStream stream){
+
+	public AbstractOutputStream(OutputStream stream) {
 		this.stream = stream;
 	}
+
 	protected void write(int b) throws IOException {
 		stream.write(b);
 		stream.flush();

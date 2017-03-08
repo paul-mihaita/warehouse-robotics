@@ -1,19 +1,8 @@
 package graph_entities;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.function.BiFunction;
-
-import student_solution.Vertex;
+import java.util.function.Predicate;
 
 public interface IGraph<T> {
 
@@ -27,18 +16,15 @@ public interface IGraph<T> {
 
 	// If you don't implement any of the above, you will lose marks, but
 	// at least your submission will compile.
-	String toDotRepresentation() ;
+	String toDotRepresentation();
 
-	void fromDotRepresentation(String dotFilePath) ;
+	void fromDotRepresentation(String dotFilePath);
 
-
-	default Result<T> breadthFirstSearchFrom(String vertexId,
-			Predicate<IVertex<T>> pred) {
+	default Result<T> breadthFirstSearchFrom(String vertexId, Predicate<IVertex<T>> pred) {
 		return new Result<T>();
 	}
 
-	default Result<T> depthFirstSearchFrom(String vertexId,
-			Predicate<IVertex<T>> pred) {
+	default Result<T> depthFirstSearchFrom(String vertexId, Predicate<IVertex<T>> pred) {
 		return new Result<T>();
 	}
 
