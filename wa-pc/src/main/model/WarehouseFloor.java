@@ -9,12 +9,14 @@ import org.apache.log4j.Logger;
 
 import communication.CommConst.command;
 import communication.Message;
+import main.gui.GUI;
 import main.route.CommandCenter;
 import movement.Movement.move;
 import student_solution.Graph;
 import utils.Job;
 import utils.Location;
 import utils.Robot;
+import utils.Task;
 
 public class WarehouseFloor {
 
@@ -81,25 +83,38 @@ public class WarehouseFloor {
 			}
 		}
 
+		log.debug("Assigned job size: " + assignedJobs.size());
+		for (Job j : assignedJobs.values()){
+			
+			log.debug("Job id: " + j.getJobID());
+			log.debug("Item .... Quantitiy .... Location");
+			for (Task t : j.getTasks()){
+				log.debug(t.getItem().getItemName() + " .... " + t.getQuantity() + " .... " + t.getItem().getLocation());
+			}
+		}
 		HashMap<Robot, ArrayList<ArrayList<move>>> routes = CommandCenter.generatePaths(assignedJobs);
+
 		
 		for (Robot r : routes.keySet()){
+			GUI.displayPath(CommandCenter.getPathLocations().get(r));
 			givePath(r, routes.get(r));
 		}
 
 	}
 
-	public boolean assign(Robot r, Job j) {
-		String name = r.getName();
-		if (!assigment.get(name).isPresent()) {
+	public boolean assign(String name, Job j) {
+		
+		log.debug(j.getJobID() + " added to " + name);
+
+		if (!assigment.get(getRobot(name)).isPresent()) {
 			assigment.remove(name);
-			assigment.put(r, Optional.of(j));
+			assigment.put(getRobot(name), Optional.of(j));
 			return true;
 		} else {
-			Job c = assigment.get(name).get();
+			Job c = assigment.get(getRobot(name)).get();
 			if (c.isCompleted() || c.isCanceled()) {
 				assigment.remove(name);
-				assigment.put(r, Optional.of(j));
+				assigment.put(getRobot(name), Optional.of(j));
 				return true;
 			}
 		}

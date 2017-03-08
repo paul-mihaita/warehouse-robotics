@@ -27,9 +27,9 @@ public class InputTest {
 				LOG.debug("JOB: " + j.getJobID() + " Sum of weights: " + j.sumOfWeight());
 				for (Task t : j.getTasks()) {
 					LOG.debug("New task");
-					LOG.debug("Item name: " + t.getTaskItem().getItemName() + "     Quantity: " + t.getQuantity()
-							+ "     Reward: " + t.getTaskItem().getReward() + "     Weight: "
-							+ t.getTaskItem().getWeight());
+					LOG.debug("Item name: " + t.getItem().getItemName() + "     Quantity: " + t.getQuantity()
+							+ "     Reward: " + t.getItem().getReward() + "     Weight: "
+							+ t.getItem().getWeight());
 				}
 				LOG.debug("next task");
 			}
