@@ -44,6 +44,10 @@ public class Junction extends AbstractBehavior {
 	public void action() {
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
+		if (moves.isEmpty()) {
+			msg.setCommand(command.Finish);
+			return;
+		}
 		switch ((move) moves.pop()) {
 			case BACKWARD:
 				backward();

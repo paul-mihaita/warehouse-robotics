@@ -83,6 +83,8 @@ public class PCInputStream {
 				return command.Start;
 			case CommConst.COM_WAIT:
 				return command.Wait;
+			case CommConst.COM_FINISH:
+				return command.Finish;
 			default:
 				throw new IOException("Invalid protocol recieved: " + cmd);
 
