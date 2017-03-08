@@ -2,7 +2,6 @@ package utils;
 
 //Item of a task
 public class Item {
-
 	private String name;
 	private Location location;
 	private float weight;
@@ -59,5 +58,8 @@ public class Item {
 	public void setWeight(float weight) {
 		this.weight = weight;
 	}
+<<<<<<< HEAD
+=======
 
+>>>>>>> Testing
 }

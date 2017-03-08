@@ -77,4 +77,5 @@ public class Job {
 	public boolean isCompleted() {
 		return status.equals(Status.COMPLETED);
 	}
+
 }

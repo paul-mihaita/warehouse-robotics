@@ -1,7 +1,6 @@
 package utils;
 
 public class Task {
-
 	Item item;
 
 	int quantity;
