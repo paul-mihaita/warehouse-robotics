@@ -2,9 +2,11 @@ package main.gui;
 
 import java.util.HashMap;
 
+import org.jfree.util.Log;
+
+import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -22,9 +24,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import main.model.WarehouseFloor;
+import rp.util.Rate;
 import student_solution.Graph;
 import utils.Location;
 import utils.Robot;
+import utils.Tuple;
 
 public class GUI extends Application {
 
@@ -36,11 +40,11 @@ public class GUI extends Application {
 
 	public static final int HEIGHT = 390;
 
-	private static HashMap<Robot, Label> robotLabels;
+	private static HashMap<Robot, Tuple<Label, Label>> robotLabels;
 
 	private static WarehouseFloor model;
-
-	private static AnimationTimer timer;
+	
+	private static Thread canvasHandler;
 
 	/**
 	 * 
@@ -52,7 +56,7 @@ public class GUI extends Application {
 	 */
 	public static void create(WarehouseFloor model) {
 
-		GUI.robotLabels = new HashMap<Robot, Label>();
+		GUI.robotLabels = new HashMap<Robot, Tuple<Label, Label>>();
 		GUI.model = model;
 		launch();
 	}
@@ -81,6 +85,12 @@ public class GUI extends Application {
 		primaryStage.show();
 
 	}
+	
+	@Override
+	public void stop(){
+		canvasHandler.interrupt();
+		Start.log.info("GUI was closed");
+	}
 
 	private static Canvas createMapPane() {
 
@@ -88,27 +98,35 @@ public class GUI extends Application {
 
 		Canvas map = new Canvas();
 
-		timer = new AnimationTimer() {
+		map.setWidth(MAP_WIDTH);
+		map.setHeight(HEIGHT);
+
+		GraphicsContext gc = map.getGraphicsContext2D();
+
+		Graph<Location> floorMap = model.getFloorGraph();
+
+		canvasHandler = new Thread(new Runnable() {
 			@Override
-			public void handle(long now) {
+			public void run() {
+				while (!canvasHandler.isInterrupted()) {
+					gc.clearRect(0, 0, MAP_WIDTH, HEIGHT);
 
-				GraphicsContext gc = map.getGraphicsContext2D();
+					for (IVertex<Location> v : floorMap.getVertices()) {
+						GUI.drawNode(v, gc);
+						GUI.drawEdges(v, gc);
+					}
+					GUI.drawRobots(gc);
 
-				map.setWidth(MAP_WIDTH);
-				map.setHeight(HEIGHT);
+					Log.debug("Updated robot location");
 
-				Graph<Location> floorMap = model.getFloorGraph();
-
-				for (IVertex<Location> v : floorMap.getVertices()) {
-					GUI.drawNode(v, gc);
-					GUI.drawEdges(v, gc);
+					new Rate(1).sleep();
 				}
 
-				GUI.drawRobots(gc);
 			}
-		};
+		});
+		
+		canvasHandler.start();
 
-		timer.start();
 		return map;
 	}
 
@@ -140,7 +158,8 @@ public class GUI extends Application {
 		for (Robot r : model.getRobots()) {
 			gc.setFill(Color.DARKGREY);
 			gc.fillRect(scale(r.getCurrentLocation().getX()) - 5, scale(r.getCurrentLocation().getY()) - 5, 20, 20);
-			r.getOrientation();
+
+			// TODO r.getOrientation();
 		}
 	}
 
@@ -256,7 +275,7 @@ public class GUI extends Application {
 			robotPane.add(idText, 0, 2);
 			robotPane.add(jobId, 1, 2);
 
-			robotLabels.put(r, status);
+			robotLabels.put(r, new Tuple<Label, Label>(jobId, status));
 
 			robotGrid.add(robotPane, 0, level++);
 		}
@@ -267,8 +286,28 @@ public class GUI extends Application {
 		return robotHolder;
 	}
 
-	public static void updateLabels() {
-		// TODO this
+	private static void updateLabels() {
+		for (Robot r : robotLabels.keySet()) {
+			Tuple<Label, Label> t = robotLabels.get(r);
+			String text;
+
+			if (model.getJob(r).isPresent()) {
+				text = "" + model.getJob(r).get().getJobID();
+			} else {
+				text = "UNASSIGNED";
+			}
+
+			t.getX().setText(text);
+
+			if (model.getJob(r).isPresent()) {
+				text = model.getJob(r).get().getStatus();
+			} else {
+				text = "UNASSIGNED";
+			}
+
+			t.getY().setText(text);
+
+		}
 	}
 
 	private static Paint statusColor(String status) {

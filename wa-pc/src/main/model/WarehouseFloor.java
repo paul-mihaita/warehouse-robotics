@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import communication.CommConst.command;
 import communication.Message;
+import main.route.CommandCenter;
 import movement.Movement.move;
 import student_solution.Graph;
 import utils.Job;
@@ -19,7 +20,7 @@ public class WarehouseFloor {
 
 	private HashSet<Robot> robots;
 
-	private HashMap<String, Optional<Job>> assigment;
+	private HashMap<Robot, Optional<Job>> assigment;
 
 	private HashMap<String, Message> messageQueues;
 
@@ -43,7 +44,7 @@ public class WarehouseFloor {
 	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, Logger log) {
 
 		this.log = log;
-		this.assigment = new HashMap<String, Optional<Job>>();
+		this.assigment = new HashMap<Robot, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
@@ -56,50 +57,57 @@ public class WarehouseFloor {
 		}
 
 		for (Robot r : robots) {
-			assigment.put(r.getName(), Optional.empty());
+			assigment.put(r, Optional.empty());
 			messageQueues.put(r.getName(), new Message(new ArrayList<move>(), command.Wait));
 		}
 
 		this.floor = floor;
+		
 	}
 
 	public void startRobots() {
-		for (Robot r : robots) {
-			if (assigment.get(r.getName()).isPresent()) {
 
-				Job j = assigment.get(r.getName()).get();
+		HashMap<Robot, Job> assignedJobs = new HashMap<Robot, Job>();
 
+		for (Robot r : assigment.keySet()) {
+			if (assigment.get(r).isPresent()) {
+				Job j = assigment.get(r).get();
 				j.start();
-
-				givePath(r, j);
-				messageQueues.get(r.getName()).setCommand(command.Start);
+				assignedJobs.put(r, j);
 				log.info(r.getName() + " was started on job id: " + j.getJobID());
 			} else {
+				
 				log.info(r.getName() + " attempted to start, but has no assigned job");
 			}
 		}
+
+		HashMap<Robot, ArrayList<ArrayList<move>>> routes = CommandCenter.generatePaths(assignedJobs);
+		
+		for (Robot r : routes.keySet()){
+			givePath(r, routes.get(r));
+		}
+
 	}
 
 	public boolean assign(Robot r, Job j) {
 		String name = r.getName();
 		if (!assigment.get(name).isPresent()) {
 			assigment.remove(name);
-			assigment.put(name, Optional.of(j));
-			this.givePath(r, j);
+			assigment.put(r, Optional.of(j));
 			return true;
 		} else {
 			Job c = assigment.get(name).get();
 			if (c.isCompleted() || c.isCanceled()) {
 				assigment.remove(name);
-				assigment.put(name, Optional.of(j));
-				this.givePath(r, j);
+				assigment.put(r, Optional.of(j));
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private void givePath(Robot robot, Job job) {
+	private void givePath(Robot robot, ArrayList<ArrayList<move>> arrayList) {
+		
 
 	}
 
@@ -110,9 +118,19 @@ public class WarehouseFloor {
 	public HashSet<Robot> getRobots() {
 		return robots;
 	}
+	
+	public Robot getRobot(String name){
+		for (Robot r : robots){
+			if (r.getName().equals(name)){
+				return r;
+			}
+		}
+		
+		return null;
+	}
 
 	public Optional<Job> getJob(Robot robot) {
-		return assigment.get(robot.getName());
+		return assigment.get(robot);
 	}
 
 	public HashMap<Integer, Job> getJobs() {
