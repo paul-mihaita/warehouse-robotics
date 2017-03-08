@@ -40,16 +40,16 @@ public class RobotSender extends Thread {
 				continue;
 			}
 			if (msg.needsUpdate()) {
-				System.out.println("wanted to send message");
-				/*
-				 * try { toPC.sendProtocol(protocol.Movement);
-				 * toPC.sendMoves(msg.getMoves());
-				 * toPC.sendProtocol(protocol.Command);
-				 * toPC.sendCommand(msg.getCommand()); msg.updated(); } catch
-				 * (IOException e) {
-				 * System.out.println("Couldn't send message object");
-				 * e.printStackTrace(); }
-				 */
+				try {
+					toPC.sendProtocol(protocol.Movement);
+					toPC.sendMoves(msg.getMoves());
+					toPC.sendProtocol(protocol.Command);
+					toPC.sendCommand(msg.getCommand());
+					msg.updated();
+				} catch (IOException e) {
+					System.out.println("Couldn't send message object");
+					e.printStackTrace();
+				}
 			}
 			Delay.msDelay(CommConst.GRACE);
 		}
