@@ -1,5 +1,6 @@
 package robot_gui;
 
+import communication.Message;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
@@ -16,9 +17,11 @@ public class GUI implements Runnable {
 	Node node;
 	Task task;
 	Robot robot;
+	private Message msg;
 
-	public GUI(Robot robot) {
+	public GUI(Robot robot, Message msg) {
 		this.robot = robot;
+		this.msg = msg;
 		Button.ENTER.addButtonListener(new ButtonListener() {
 			@Override
 			public void buttonPressed(Button b) {
@@ -71,6 +74,7 @@ public class GUI implements Runnable {
 	}
 
 	//private int jobId = job.getJobID();
+	//private int jobID = Message.getJobID();
 	private int jobId = 1002;
 	//private boolean isOnJob = robot.isOnJob();
 	private boolean isOnJob = true;
@@ -79,8 +83,10 @@ public class GUI implements Runnable {
 	//private Location location = robot.getCurrentLocation();
 	private String location = "location";
 	//private int quantity = task.getQuantity();
+	//private int quantity = Message.getQuantity();
 	private int quantity = 5;
 	//private String itemName = task.getItem().getItemName();
+	//private String itemName = Message.getItemName();
 	private String itemName = "test item";
 	private int numItems = 0;
 	
@@ -105,11 +111,11 @@ public class GUI implements Runnable {
 			if(isOnPickUp) {
 				if (ENTER) {
 					LCD.clear();
-					LCD.drawString(pickup, 2, 1);
-					LCD.drawString(jobIDisp, 2, 2);
-					LCD.drawString(itemDisp, 2, 3);
+					LCD.drawString(pickup, 0, 1);
+					LCD.drawString(jobIDisp, 0, 2);
+					LCD.drawString(itemDisp, 0, 3);
 					//location = node.getLocation();
-					LCD.drawString(locationDisp, 2, 4);
+					LCD.drawString(locationDisp, 0, 4);
 					
 				}
 				if (ESCAPE) {
@@ -120,6 +126,7 @@ public class GUI implements Runnable {
 				if (LEFT) {
 					if (numItems>=0) {
 						numItems--;
+						itemDisp = itemName + ": " + numItems + "/" + quantity;
 						LCD.drawString(itemDisp, 2, 3);
 					}else
 						LCD.drawString(itemMin, 2, 3);
@@ -127,6 +134,7 @@ public class GUI implements Runnable {
 				if (RIGHT) {
 					if (numItems<=quantity) {
 						numItems++;
+						itemDisp = itemName + ": " + numItems + "/" + quantity;
 						LCD.drawString(itemDisp, 2, 3);
 					}else
 						LCD.drawString(itemMax, 2, 3);
@@ -150,7 +158,7 @@ public class GUI implements Runnable {
 					System.exit(0);
 				}
 			}
-			Delay.msDelay(100);
+			Delay.msDelay(200);
 		}
 	}
 
