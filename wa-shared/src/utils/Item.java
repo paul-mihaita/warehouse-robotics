@@ -58,8 +58,4 @@ public class Item {
 	public void setWeight(float weight) {
 		this.weight = weight;
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> Testing
 }
