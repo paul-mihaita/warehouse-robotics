@@ -22,8 +22,7 @@ public class Client extends Thread {
 	private RobotSender outThread;
 	private boolean connected = false;
 
-	// new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0,
-	// 0))
+	// new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0))
 	// new Robot("Cell", "0016531AFA0B", new Location(0,0), new Location(1, 0))
 	public Client(Robot robot, Message msg) {
 		BTConnection comm = Bluetooth.waitForConnection();
@@ -65,8 +64,7 @@ public class Client extends Thread {
 
 	public static void main(String[] args) {
 		Robot r;
-		// r = new Robot("Keith", "0016530FDDAE", new Location(0, 0), new
-		// Location(0, 0));
+		// r = new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0));
 		r = new Robot("Cell", "0016531AFA0B", new Location(0, 0), new Location(1, 0));
 		Message m = new Message(new ArrayList<move>(), command.Wait);
 		r.updated();
