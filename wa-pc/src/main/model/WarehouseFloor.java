@@ -120,7 +120,7 @@ public class WarehouseFloor {
 	}
 
 	public Optional<Job> getJob(Robot robot) {
-		return assigment.get(robot.getName());
+		return assigment.get(robot);
 	}
 
 	public HashMap<Integer, Job> getJobs() {
