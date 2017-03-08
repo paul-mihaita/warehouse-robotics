@@ -1,7 +1,9 @@
 package robot_gui;
 
 import lejos.nxt.Button;
+import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
+import lejos.util.Delay;
 import utils.Job;
 import utils.Location;
 import utils.Node;
@@ -14,6 +16,21 @@ public class GUI implements Runnable {
 	Node node;
 	Task task;
 	Robot robot;
+	public GUI(Robot robot) {
+		this.robot = robot;
+		Button.ENTER.addButtonListener(new ButtonListener() {
+			@Override
+			public void buttonPressed(Button b) {
+				ENTER = true;
+				
+			}
+
+			@Override
+			public void buttonReleased(Button b) {
+				ENTER = false;
+			}
+		});
+	}
 
 	//private int jobId = job.getJobID();
 	private int jobId = 1002;
@@ -29,7 +46,7 @@ public class GUI implements Runnable {
 	private String itemName = "test item";
 	private int numItems = 0;
 	
-	private boolean ENTER = Button.ENTER.isPressed();
+	private boolean ENTER = false; //Button.ENTER.isPressed();
 	private boolean ESCAPE = Button.ESCAPE.isPressed();
 	private boolean LEFT = Button.LEFT.isPressed();
 	private boolean RIGHT = Button.RIGHT.isPressed();
@@ -94,9 +111,8 @@ public class GUI implements Runnable {
 					LCD.drawString("BYE", 7, 3);
 					System.exit(0);
 				}
-				
-			
 			}
+			Delay.msDelay(100);
 		}
 	}
 
