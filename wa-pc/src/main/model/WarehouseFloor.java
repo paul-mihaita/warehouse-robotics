@@ -62,6 +62,7 @@ public class WarehouseFloor {
 		}
 
 		this.floor = floor;
+		
 	}
 
 	public void startRobots() {
@@ -107,7 +108,6 @@ public class WarehouseFloor {
 
 	private void givePath(Robot robot, ArrayList<ArrayList<move>> arrayList) {
 		
-		
 
 	}
 
@@ -117,6 +117,16 @@ public class WarehouseFloor {
 	 */
 	public HashSet<Robot> getRobots() {
 		return robots;
+	}
+	
+	public Robot getRobot(String name){
+		for (Robot r : robots){
+			if (r.getName().equals(name)){
+				return r;
+			}
+		}
+		
+		return null;
 	}
 
 	public Optional<Job> getJob(Robot robot) {

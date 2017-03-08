@@ -286,7 +286,7 @@ public class GUI extends Application {
 		return robotHolder;
 	}
 
-	public static void updateLabels() {
+	private static void updateLabels() {
 		for (Robot r : robotLabels.keySet()) {
 			Tuple<Label, Label> t = robotLabels.get(r);
 			String text;

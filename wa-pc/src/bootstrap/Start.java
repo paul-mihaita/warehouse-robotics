@@ -21,7 +21,7 @@ public class Start {
 
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
 				in.getJobsArray(), log);
-
+		
 		GUI.create(model);
 	}
 
