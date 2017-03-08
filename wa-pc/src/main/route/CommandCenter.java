@@ -12,23 +12,13 @@ import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
-<<<<<<< HEAD
 
-=======
-import lejos.robotics.navigation.Move;
-import movement.Movement.move;
->>>>>>> paulnew
 public class CommandCenter {
 	private static GridMap gridMap = MapUtils.createRealWarehouse();
 	private static Graph<Location> graph = Planning.createGraph(gridMap);
 
-<<<<<<< HEAD
-	public static HashMap<Robot, ArrayList<ArrayList<move>>> generatePaths(
-
-=======
 	/*public static HashMap<Robot, ArrayList<ArrayList<move>>> generatePaths(
 			
->>>>>>> paulnew
 			HashMap<Robot, Job> jobMap) {
 		ArrayList<Robot> robots = new ArrayList<>();
 		Iterator<Robot> rob = jobMap.keySet().iterator();
