@@ -31,6 +31,42 @@ public class GUI implements Runnable {
 				ENTER = false;
 			}
 		});
+		Button.LEFT.addButtonListener(new ButtonListener() {
+			@Override
+			public void buttonPressed(Button b) {
+				LEFT = true;
+				
+			}
+
+			@Override
+			public void buttonReleased(Button b) {
+				LEFT = false;
+			}
+		});
+		Button.RIGHT.addButtonListener(new ButtonListener() {
+			@Override
+			public void buttonPressed(Button b) {
+				RIGHT = true;
+				
+			}
+
+			@Override
+			public void buttonReleased(Button b) {
+				RIGHT = false;
+			}
+		});
+		Button.ESCAPE.addButtonListener(new ButtonListener() {
+			@Override
+			public void buttonPressed(Button b) {
+				ESCAPE = true;
+				
+			}
+
+			@Override
+			public void buttonReleased(Button b) {
+				ESCAPE = false;
+			}
+		});
 
 	}
 
@@ -49,9 +85,9 @@ public class GUI implements Runnable {
 	private int numItems = 0;
 	
 	private boolean ENTER = false; //Button.ENTER.isPressed();
-	private boolean ESCAPE = Button.ESCAPE.isPressed();
-	private boolean LEFT = Button.LEFT.isPressed();
-	private boolean RIGHT = Button.RIGHT.isPressed();
+	private boolean ESCAPE = false; //Button.ESCAPE.isPressed();
+	private boolean LEFT = false; //Button.LEFT.isPressed();
+	private boolean RIGHT = false; //Button.RIGHT.isPressed();
 	
 	private String pickup = "Pick-up";
 	private String dropoff = "Drop off";
