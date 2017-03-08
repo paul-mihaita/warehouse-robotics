@@ -3,6 +3,7 @@ package main.route;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 import movement.Movement.move;
 import student_solution.State;
@@ -69,16 +70,35 @@ public class test {
 		tasks.add(task);
 		job.setTasks(tasks);
 		HashMap<Robot, Job> lll = new HashMap<>();
+		
+		ArrayList<Task> tasks2 = new ArrayList<Task>() ;
+		Task task2 = new Task(" ", 0);
+		Item itm2 = new Item("gfhf");
+		itm2.setLocation(11, 5);
+		Job job2 = new Job(2, tasks2);
+		task2.setItem(itm2);
+		tasks2.add(task2);
+		job2.setTasks(tasks2);
+		tasks.add(task2);
+		job.setTasks(tasks);
 		lll.put(r1, job);
 		HashMap<Robot, ArrayList<ArrayList<move>>> xxx = CommandCenter.generatePaths(lll);
-		Collection<ArrayList<ArrayList<move>>> auxx = xxx.values();
-		for (ArrayList<ArrayList<move>> au : auxx) {
-			for (ArrayList<move> auu : au) {
-				for (move mv : auu) {
-					System.out.print(mv + " ");
+		Set<Robot> rob = xxx.keySet();
+		int rr = 1;
+		int robo = 1;
+		for(Robot r : rob ){
+			ArrayList<ArrayList<move>> auxx = xxx.get(r);
+			rr = 0;
+			System.out.println("Robot " + robo);
+			for(ArrayList<move> au :auxx){
+				System.out.print("Route " + rr+" : " );
+				rr++;
+				for(move auu : au){
+					System.out.print(auu + " ");
 				}
+				System.out.println();
 			}
-			System.out.println("task");
+			robo++;
 		}
 	}
 }

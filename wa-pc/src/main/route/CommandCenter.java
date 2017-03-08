@@ -12,13 +12,23 @@ import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
+<<<<<<< HEAD
 
+=======
+import lejos.robotics.navigation.Move;
+import movement.Movement.move;
+>>>>>>> paulnew
 public class CommandCenter {
 	private static GridMap gridMap = MapUtils.createRealWarehouse();
 	private static Graph<Location> graph = Planning.createGraph(gridMap);
 
+<<<<<<< HEAD
 	public static HashMap<Robot, ArrayList<ArrayList<move>>> generatePaths(
 
+=======
+	/*public static HashMap<Robot, ArrayList<ArrayList<move>>> generatePaths(
+			
+>>>>>>> paulnew
 			HashMap<Robot, Job> jobMap) {
 		ArrayList<Robot> robots = new ArrayList<>();
 		Iterator<Robot> rob = jobMap.keySet().iterator();
@@ -41,14 +51,111 @@ public class CommandCenter {
 						Astar.aStar(graph, start, finish, Planning.manhatanHeuristic, 100, false, gridMap),
 						robot.getOrientation());
 				pathsForRobot.add(individualPath);
+				//set the robot location to the next items location
+
 			}
 			paths.put(robot, pathsForRobot);
 		}
 		return paths;
 
 	}
+	*/
+	public static HashMap<Robot, ArrayList<ArrayList<move>>> generatePaths(
+			
+			HashMap<Robot, Job> jobMap) {
+		ArrayList<Robot> robots = new ArrayList<>();
+		Iterator<Robot> rob = jobMap.keySet().iterator();
+		HashMap<Robot, ArrayList<ArrayList<move>>> paths = new HashMap<>();
+		HashMap<Robot,ArrayList<Location>> finishLoc = new HashMap<>();
+		int item = 0;
+		int maxItem = -9999;
+		while (rob.hasNext()) {
+			item = 0;
+			Robot robot = rob.next();
+			Job curJob = jobMap.get(robot);
+			ArrayList<Task> tasks = curJob.getTasks();
+			finishLoc.put(robot, new ArrayList<Location>());
+			orderTasks(tasks);
+			for (Task task : tasks) {
+				Location finish = task.getItem().getLocation();
+				finishLoc.get(robot).add(finish);
+				item++;
+			}
+			if(maxItem < item){
+				maxItem = item;
+			}
+			robots.add(robot);
+		}
+		ArrayList<Location> startOrientations = new ArrayList<>();
+		ArrayList<Location> finalOrientation = new ArrayList<>();
+		ArrayList<Location> startLocations = new ArrayList<>();
 
-	public static ArrayList<move> generateMovements(ArrayList<Location> path, Location orientation) {
+		for(Robot r: robots){
+			startOrientations.add(r.getOrientation());
+			finalOrientation.add(r.getOrientation());
+			startLocations.add(r.getCurrentLocation());
+		}
+		for(int i = 0; i < maxItem;i++){
+			ArrayList<Location> targets = new ArrayList<>();
+			int k = 0;
+			for(Robot r:robots){
+				ArrayList<Location> aux = finishLoc.get(r);
+				targets.add(aux.get(i));
+				r.setOrientation(finalOrientation.get(k));
+				k++;
+			}
+			ArrayList<ArrayList<Location>> x = AstarWHCA.aStar(graph, gridMap, robots, targets, 100);
+			ArrayList<Location> finalLoc = new ArrayList<>();
+			finalOrientation = new ArrayList<>();
+
+			if(i == 0){
+				int j = 0;
+				for(ArrayList<Location> y : x){
+					ArrayList<ArrayList<move>> aux = new ArrayList<>();
+					Robot r = robots.get(j);
+					aux.add(CommandCenter.generateMovements(y, r.getOrientation()));
+					finalLoc.add(y.get(y.size()-1));
+					finalOrientation.add(getOrientation(y.get(y.size()-2),y.get(y.size()-1)));
+					paths.put(r,aux);
+					j++;
+				}
+			}else{
+				int j = 0;
+				for(ArrayList<Location> y : x){
+					Robot r = robots.get(j);
+					finalLoc.add(y.get(y.size()-1));
+					finalOrientation.add(getOrientation(y.get(y.size()-2),y.get(y.size()-1)));
+					paths.get(r).add(CommandCenter.generateMovements(y, r.getOrientation()));
+					
+					j++;
+				}
+			}
+			k = 0;
+			for(Robot r : robots){
+				r.setCurrentLocation(finalLoc.get(k));
+				r.setOrientation(finalOrientation.get(k));
+				k++;
+			}
+		}
+		int k = 0;
+		for(Robot r:robots){
+			r.setCurrentLocation(startLocations.get(k));
+			r.setOrientation(startOrientations.get(k));
+		}
+		return paths;
+
+	}
+	private static Location getOrientation(Location location, Location location2) {
+		if(location.getX() < location2.getX()){
+			return new Location(location2.getX()+1 , location2.getY());
+
+		}else if(location.getX() > location2.getX()){
+			return new Location(location2.getX() -1, location2.getY());
+		}else if(location.getY() < location2.getY()){
+			return new Location(location2.getX() , location2.getY()+1);
+
+	public static ArrayList<move> generateMovements(
+			ArrayList<Location> path, Location orientation) {
 		ArrayList<move> moves = new ArrayList<>();
 		move facing = getFacing(path.get(0), orientation);
 
