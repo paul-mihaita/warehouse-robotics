@@ -103,11 +103,8 @@ public class CommandCenter {
 					finalLoc.add(y.get(y.size()-1));
 					finalOrientation.add(getOrientation(y.get(y.size()-2),y.get(y.size()-1)));
 					paths.put(r,aux);
-					finalLoc.add(y.get(y.size() - 1));
 					auxLoc.add(y);
 					pathsLocations.put(r, auxLoc);
-					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
-					paths.put(r, aux);
 					j++;
 					}
 				}
@@ -116,10 +113,6 @@ public class CommandCenter {
 				for(ArrayList<Location> y : x){
 					if(y.size()>2){
 					Robot r = robots.get(j);
-					finalLoc.add(y.get(y.size() - 1));
-					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
-					pathsLocations.get(r).add(y);
-					paths.get(r).add(CommandCenter.generateMovements(y, r.getOrientation()));
 					finalLoc.add(y.get(y.size() - 1));
 					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
 					pathsLocations.get(r).add(y);

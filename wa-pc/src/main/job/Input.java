@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.jfree.util.Log;
 
 import bootstrap.Start;
+import utils.Item;
 import utils.Job;
 import utils.Task;
 
@@ -171,7 +172,7 @@ public class Input {
 									int x = Integer.parseInt(parts[0]);
 									int y = Integer.parseInt(parts[1]);
 
-									Start.log.debug(t.getItem().getName() + "'s Location: " + x + " "+ y);
+									Start.log.debug(t.getItem().getName() + "'s Location: " + x + " " + y);
 
 									t.getItem().setLocation(x, y);
 								}
@@ -204,5 +205,47 @@ public class Input {
 
 	public ArrayList<Job> getJobsArray() {
 		return jobs;
+	}
+
+	public ArrayList<Item> items = new ArrayList<Item>();
+
+	public boolean initializeItemsList(String fileName) {
+		/////////////////////////////////////////////////// FILE RIGHT
+		if (fileRight(fileName)) {
+			try {
+				if (!fileHaveTheExtension(fileName)) {
+					fileName = fileName + ".csv";
+				}
+				// CREATE SCANNER TO READ FILE
+				Scanner inFile = new Scanner(new File(fileName));
+				String token;
+				boolean toDo = !thereIsTheTitleFile;
+				// WHILE UNTIL THE END OF THE FILE
+				while (inFile.hasNext()) {
+					token = inFile.nextLine();
+					if (toDo) {
+						String[] parts = token.split(",");
+						if (!items.contains(parts[2])) {
+							LOG.debug("item: " + parts[2] + " were added");
+							Item temp = new Item(parts[2]);
+							int x = Integer.parseInt(parts[0]);
+							int y = Integer.parseInt(parts[1]);
+							temp.setLocation(x, y);
+							items.add(temp);
+						}
+					}
+					toDo = true;
+				}
+				inFile.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} else
+			return false;
+	}
+
+	public ArrayList<Item> getItemsArray() {
+		return items;
 	}
 }

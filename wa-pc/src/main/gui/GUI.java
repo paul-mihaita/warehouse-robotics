@@ -120,7 +120,7 @@ public class GUI extends Application {
 					gc.clearRect(0, 0, MAP_WIDTH, HEIGHT);
 
 					for (IVertex<Location> v : floorMap.getVertices()) {
-						GUI.drawNode(v, gc);
+						//GUI.drawNode(v, gc);
 						GUI.drawEdges(v, gc);
 					}
 					GUI.drawRobots(gc);
