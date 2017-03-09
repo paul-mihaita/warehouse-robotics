@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
+import org.jfree.util.Log;
 
+import bootstrap.Start;
 import utils.Job;
 import utils.Task;
 
@@ -37,6 +39,8 @@ public class Input {
 			LOG.debug("no");
 		}
 		File f = new File(file);
+
+		Start.log.debug("File exists: " + f.exists());
 		return f.exists();
 	}
 
@@ -78,9 +82,7 @@ public class Input {
 							}
 						}
 						// ADD THE JOB TO THE ARRAY LIST OF JOBS
-						if (!jobs.contains(jobsID)) {
-							jobs.add(new Job(jobsID, tasks));
-						}
+						jobs.add(new Job(jobsID, tasks));
 
 					}
 					toDo = true;
@@ -118,9 +120,9 @@ public class Input {
 						// REWARD
 						for (Job j : jobs) {
 							for (Task t : j.getTasks()) {
-								if (t.getTaskItem().getItemName().equals(parts[0])) {
-									t.getTaskItem().setReward(Float.parseFloat(parts[1]));
-									t.getTaskItem().setWeight(Float.parseFloat(parts[2]));
+								if (t.getItem().getItemName().equals(parts[0])) {
+									t.getItem().setReward(Float.parseFloat(parts[1]));
+									t.getItem().setWeight(Float.parseFloat(parts[2]));
 								}
 							}
 						}
@@ -160,11 +162,18 @@ public class Input {
 						// ITEM
 						// REWARD
 						for (Job j : jobs) {
+							Start.log.debug("In Jobid: " + j.getJobID());
 							for (Task t : j.getTasks()) {
-								if (t.getTaskItem().getItemName().equals(parts[2])) {
+
+								Start.log.debug("Item test name " + parts[2]);
+								if (t.getItem().getItemName().equals(parts[2])) {
+
 									int x = Integer.parseInt(parts[0]);
 									int y = Integer.parseInt(parts[1]);
-									t.getTaskItem().setLocation(x, y);
+
+									Start.log.debug(t.getItem().getName() + "'s Location: " + x + " "+ y);
+
+									t.getItem().setLocation(x, y);
 								}
 							}
 
