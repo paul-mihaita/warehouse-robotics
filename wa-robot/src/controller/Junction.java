@@ -42,17 +42,22 @@ public class Junction extends AbstractBehavior {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void action() {
+		System.out.println("junction");
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
+		System.out.println(moves.isEmpty());
 		if (moves.isEmpty()) {
 			msg.setCommand(command.Finish);
 			return;
 		}
-		switch ((move) moves.pop()) {
+		move m = (move) moves.pop();
+		System.out.println(m);
+		switch (m) {
 			case BACKWARD:
 				backward();
 				break;
 			case FORWARD:
+				System.out.println(robot.getOrientation().getX() + ","  + robot.getOrientation().getY());
 				forward(robot.getOrientation());
 				break;
 			case TURNLEFT:
@@ -65,6 +70,7 @@ public class Junction extends AbstractBehavior {
 				waitUntilPress();
 				break;
 		}
+		System.out.println("updating moves");
 		msg.setMoves(new ArrayList<move>((Collection<move>) moves));
 	}
 
@@ -74,7 +80,9 @@ public class Junction extends AbstractBehavior {
 	}
 
 	private void forward(Location orientation) {
+		System.out.println("moving");
 		pilot.travel(RobotConstants.WHEEL_TO_SENSOR);
+		System.out.println("finished move");
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);

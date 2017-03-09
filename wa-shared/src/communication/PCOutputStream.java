@@ -24,12 +24,15 @@ public class PCOutputStream extends AbstractOutputStream {
 		log.debug("Writing a protocol: " + p);
 		switch (p) {
 			case Command:
+				log.debug("wrote: " + CommConst.COMMAND);
 				write(CommConst.COMMAND);
 				break;
 			case Movement:
+				log.debug("wrote: " + CommConst.MOVEMENT);
 				write(CommConst.MOVEMENT);
 				break;
 			case Robot:
+				log.debug("wrote: " + CommConst.ROBOT);
 				write(CommConst.ROBOT);
 				break;
 		}
@@ -56,13 +59,17 @@ public class PCOutputStream extends AbstractOutputStream {
 		log.debug("Writing a command: " + command);
 		switch (command) {
 			case Start:
+				log.debug("wrote: " + CommConst.COM_START);
 				write(CommConst.COM_START);
 				break;
 			case Wait:
+				log.debug("wrote: " + CommConst.COM_WAIT);
 				write(CommConst.COM_WAIT);
 				break;
 			case Finish:
+				log.debug("wrote: " + CommConst.COM_FINISH);
 				write(CommConst.COM_FINISH);
+				break;
 		}
 	}
 }
