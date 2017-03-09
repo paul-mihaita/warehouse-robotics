@@ -14,54 +14,33 @@ import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
-
+import org.junit.Test;
+import static org.junit.Assert.*;
 public class test {
 	public static void main(String[] args) {
-		
-		/*
-		 * BiFunction<State, State, Integer> manhatan = new BiFunction<State,
-		 * State, Integer> (){
-		 * 
-		 * @Override public Integer apply(State a, State b) { // TODO
-		 * Auto-generated method stub List<Location> from = a.getRLoc();
-		 * List<Location> to = b.getRLoc(); int cost = 0; for(int i = 0; i <
-		 * from.size();i++){ Location t = from.get(i); Location u = to.get(i);
-		 * cost+= (Math.abs(t.getX() - u.getX()) + Math.abs(t.getY() -
-		 * u.getY())); } return cost; }
-		 * 
-		 * }; ArrayList<Location> route = Astar.aStar(graph,start ,finish ,
-		 * manhatan, 3 ,false,gridMap); for(Location l : route){
-		 * System.out.print(l.getX() + "  " + l.getY() + " | "); }
-		 * System.out.println(); System.out.println(Astar.simpleAc);
-		 */
+		test t = new test();
+		t.testAddFromOriginToMaxXMaxY();
+		t.testTwoRobotsNotCollide();
+	}
+	@Test
+	public  void testAddFromOriginToMaxXMaxY(){
+		System.out.println("testAddFromOriginToMaxXMaxY");
 		State s = new State();
 		ArrayList<Location> l = new ArrayList<>();
-		Location a = new Location(3, 0);
+		Location a = new Location(0, 0);
 		l.add(a);
-		Location b = new Location(4, 0);
-		l.add(b);
-		Location d = new Location(5, 0);
-		l.add(d);
+		
 		s.setRLoc(l);
 		
-		ArrayList<Location> fin = new ArrayList<>();
-		fin.add(new Location(5, 0));
-		fin.add(new Location(11, 5));
-		fin.add(new Location(3, 0));
-		State t = new State();
-		t.setRLoc(fin);
 
 		ArrayList<Robot> robots = new ArrayList<>();
 		Location c = new Location(-1, -1);
 		Robot r1 = new Robot(null, null, c, a);
-		Robot r2 = new Robot(null, null, c, b);
-		Robot r3 = new Robot(null, null, c, d);
-		r1.setOrientation(new Location (4,0));
-		r2.setOrientation(new Location (3,0));
-		r3.setOrientation(new Location (4,0));
+		
+		r1.setOrientation(new Location (1,0));
+		
 		robots.add(r1);
-		robots.add(r2);
-		robots.add(r3);
+		
 
 		ArrayList<Task> tasks = new ArrayList<Task>() ;
 		Task task = new Task(" ", 0);
@@ -73,34 +52,106 @@ public class test {
 		job.setTasks(tasks);
 		HashMap<Robot, Job> lll = new HashMap<>();
 		
-		ArrayList<Task> tasks2 = new ArrayList<Task>() ;
-		Task task2 = new Task(" ", 0);
 		Item itm2 = new Item("gfhf");
 		itm2.setLocation(11, 5);
-		Job job2 = new Job(2, tasks2);
-		task2.setItem(itm2);
-		tasks2.add(task2);
-		job2.setTasks(tasks2);
-		tasks.add(task2);
-		job.setTasks(tasks);
 		lll.put(r1, job);
-		HashMap<Robot, ArrayList<ArrayList<move>>> xxx = CommandCenter.generatePaths(lll);
+		CommandCenter.generatePaths(lll);
+		HashMap<Robot, ArrayList<ArrayList<Location>>> xxx = CommandCenter.getPathLocations();
 		Set<Robot> rob = xxx.keySet();
 		int rr = 1;
 		int robo = 1;
 		for(Robot r : rob ){
-			ArrayList<ArrayList<move>> auxx = xxx.get(r);
+			ArrayList<ArrayList<Location>> auxx = xxx.get(r);
 			rr = 0;
 			System.out.println("Robot " + robo);
-			for(ArrayList<move> au :auxx){
+			for(ArrayList<Location> au :auxx){
 				System.out.print("Route " + rr+" : " );
 				rr++;
-				for(move auu : au){
-					System.out.print(auu + " ");
+				for(Location auu : au){
+					System.out.print(auu.toString() + " ");
 				}
 				System.out.println();
+				assertEquals(itm.getLocation(), au.get(au.size()-1));
 			}
 			robo++;
+		}
+	}
+	@Test
+	public  void testTwoRobotsNotCollide(){
+		System.out.println("testTwoRobotsNotCollide");
+		State s = new State();
+		ArrayList<Location> l = new ArrayList<>();
+		Location a = new Location(0, 0);
+		l.add(a);
+		Location b = new Location(5, 0);
+		l.add(b);
+		s.setRLoc(l);
+		
+
+		ArrayList<Robot> robots = new ArrayList<>();
+		Location c = new Location(-1, -1);
+		Robot r1 = new Robot(null, null, c, a);
+		Robot r2 = new Robot(null, null, c, b);
+
+		r1.setOrientation(new Location (1,0));
+		r2.setOrientation(new Location (4,0));
+		robots.add(r1);
+		robots.add(r2);
+		
+
+		ArrayList<Task> tasks = new ArrayList<Task>() ;
+		Task task = new Task(" ", 0);
+		Item itm = new Item("gfhf");
+		itm.setLocation(5, 0);
+		Job job = new Job(2, tasks);
+		task.setItem(itm);
+		tasks.add(task);
+		job.setTasks(tasks);
+		HashMap<Robot, Job> lll = new HashMap<>();
+		
+		ArrayList<Task> tasks2 = new ArrayList<Task>() ;
+		Task task2 = new Task(" ", 0);
+		Item itm2 = new Item("gfhf");
+		itm2.setLocation(0, 0);
+		task2.setItem(itm2);
+		tasks2.add(task2);
+		Job job2 = new Job(2, tasks2);
+		job2.setTasks(tasks2);
+		lll.put(r1, job);
+		lll.put(r2, job2);
+		CommandCenter.generatePaths(lll);
+		HashMap<Robot, ArrayList<ArrayList<Location>>> xxx = CommandCenter.getPathLocations();
+		Set<Robot> rob = xxx.keySet();
+		
+		int rr = 1;
+		int robo = 1;
+		ArrayList<ArrayList<Location>> pths = new ArrayList<>();
+		
+		for(Robot r : rob ){
+			ArrayList<ArrayList<Location>> auxx = xxx.get(r);
+			rr = 0;
+			Item it = null ;
+			ArrayList<Task> list = lll.get(r).getTasks();
+			Task tas = list.get(0);
+			it = tas.getItem();
+			System.out.println("Robot "+robo);
+			for(ArrayList<Location> au :auxx){
+				System.out.print("Route " + rr+" : " );
+				rr++;
+				for(Location auu : au){
+					System.out.print(auu.toString() + " ");
+					
+				}
+				pths.add(au);
+				System.out.println();
+				assertEquals(it.getLocation(), au.get(au.size()-1));
+			}
+			robo++;
+		}
+		ArrayList<Location> aa = pths.get(0);
+		ArrayList<Location> bb = pths.get(1);
+		for(int j = 0; j < Math.min(aa.size(), bb.size())-1;j++){
+			assertTrue(!aa.get(j).equals(bb.get(j+1)));
 		}
 	}
 }
