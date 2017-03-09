@@ -2,10 +2,8 @@ package main.job;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 
 import utils.Job;
-import utils.Location;
 import utils.Robot;
 
 public class Selection extends Thread{
@@ -13,15 +11,13 @@ public class Selection extends Thread{
 	private Robot robot;
 	private boolean run;
 	private ArrayList<Job> copyJobs;
-	private Location startLocation;
-	private LinkedList<JobWorth> selectedlist;
-	private LinkedList<JobWorth> convertedlist;
+	private ArrayList<JobWorth> selectedlist;
+	private ArrayList<JobWorth> convertedlist;
 
 
 	public Selection(Robot robot, ArrayList<Job> jobs){
 		
 		this.robot=robot;
-		this.startLocation=this.robot.getCurrentLocation();
 		this.copyJobs=new ArrayList<Job>();
 		
 		//get a copy of the available jobs
@@ -37,7 +33,7 @@ public class Selection extends Thread{
 		this.run=true;
 		
 		JobWorth bestJob;
-		this.selectedlist=new LinkedList<>();
+		this.selectedlist=new ArrayList<>();
 		
 		while(run){
 			
@@ -47,7 +43,7 @@ public class Selection extends Thread{
 				break;
 			}
 			//work out how good a job is by creating a jobworth object each
-			this.convertedlist=this.convertList(this.startLocation);
+			this.convertedlist=this.convertList();
 			assert(this.convertedlist!=null);
 			//get the best job
 			bestJob=this.selectBestJobs(this.convertedlist);
@@ -59,27 +55,28 @@ public class Selection extends Thread{
 		}
 	}
 	
-	public LinkedList<JobWorth> getSelectedList(){
+	public ArrayList<JobWorth> getSelectedList(){
 		
 		return this.selectedlist;
 	}
 	
-	public LinkedList<JobWorth> convertList(Location startLocation){
+	public ArrayList<JobWorth> convertList(){
 		
 		//check there are jobs to convert
 		assert(this.copyJobs.size()>0);
 		//make an empty list of jobworths
-		LinkedList<JobWorth> jobWorths=new LinkedList<JobWorth>();
+		ArrayList<JobWorth> jobWorths=new ArrayList<JobWorth>();
 		for(Job job:this.copyJobs){//calculate worth of jobs and add to list
 			
-			JobWorth jobworth=new JobWorth(this.robot, job,startLocation);
+			JobWorth jobworth=new JobWorth(this.robot, job);
 			jobWorths.add(jobworth);
 		}
 		
 		return jobWorths;
 	}
 	
-	public JobWorth selectBestJobs(LinkedList<JobWorth> jobWorths){
+	public JobWorth selectBestJobs(ArrayList<JobWorth> jobWorths){
+		
 		//check that there are elements in the list
 		assert(jobWorths.size()>0);
 		return Collections.max(jobWorths,null);
