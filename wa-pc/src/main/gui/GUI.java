@@ -3,6 +3,7 @@ package main.gui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import org.jfree.util.Log;
 
@@ -37,7 +38,7 @@ import utils.Tuple;
 public class GUI extends Application {
 
 	// For the moment while there is no map these are not being used
-	public static final int ROBOT_WIDTH = 200;
+	public static final int ROBOT_WIDTH = 230;
 	public static final int MAP_WIDTH = 600;
 
 	public static final int WIDTH = ROBOT_WIDTH + MAP_WIDTH;
@@ -137,44 +138,49 @@ public class GUI extends Application {
 
 		return map;
 	}
-	
+
 	private static int cycle;
-	
+
 	protected static void drawPath(GraphicsContext gc) {
-		cycle  = 0;
-		for(ArrayList<ArrayList<Location>> path : paths){
-			
-			for(ArrayList<Location> part : path){
+		
+		cycle = 0;
+
+	    Iterator<ArrayList<ArrayList<Location>>> it = paths.iterator();	
+
+		for (ArrayList<ArrayList<Location>> path : paths) {
+
+			for (ArrayList<Location> part : path) {
 				gc.setFill(getColor());
 
-				for(Location m: part){
-					
+				for (Location m : part) {
+
 					gc.fillOval(scale(m.getX()), scale(m.getY()), 10, 10);
-					
+
 				}
-				
+
 			}
 			
+			new Rate(1).sleep();
+
 		}
-		
 	}
+
 	private static Paint getColor() {
-		
+
 		Paint p;
-		
-		if (cycle == 0){
+
+		if (cycle == 0) {
 			p = Color.RED;
-		} else if (cycle == 1){
+		} else if (cycle == 1) {
 			p = Color.BLUE;
-		} else if (cycle == 2){
+		} else if (cycle == 2) {
 			p = Color.GREEN;
 		} else {
-			p = Color.PURPLE;
+			p = Color.YELLOW;
 			cycle = 0;
 		}
-		
-		
-		cycle ++;
+
+		cycle++;
 		return p;
 	}
 
@@ -206,6 +212,8 @@ public class GUI extends Application {
 		for (Robot r : model.getRobots()) {
 			gc.setFill(Color.DARKGREY);
 			gc.fillRect(scale(r.getCurrentLocation().getX()) - 5, scale(r.getCurrentLocation().getY()) - 5, 20, 20);
+
+			Start.log.debug(r.getName() + " location: " + r.getCurrentLocation());
 
 			// TODO r.getOrientation();
 		}

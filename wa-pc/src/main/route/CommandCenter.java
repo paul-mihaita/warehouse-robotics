@@ -94,6 +94,7 @@ public class CommandCenter {
 			if(i == 0){
 				int j = 0;
 				for(ArrayList<Location> y : x){
+					if(y.size()>2){
 					ArrayList<ArrayList<move>> aux = new ArrayList<>();
 					ArrayList<ArrayList<Location>> auxLoc = new ArrayList<>();
 
@@ -108,10 +109,12 @@ public class CommandCenter {
 					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
 					paths.put(r, aux);
 					j++;
+					}
 				}
 			}else{
 				int j = 0;
 				for(ArrayList<Location> y : x){
+					if(y.size()>2){
 					Robot r = robots.get(j);
 					finalLoc.add(y.get(y.size() - 1));
 					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
@@ -121,6 +124,7 @@ public class CommandCenter {
 					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
 					pathsLocations.get(r).add(y);
 					j++;
+					}
 				}
 			}
 			k = 0;
@@ -135,6 +139,7 @@ public class CommandCenter {
 		for(Robot r:robots){
 			r.setCurrentLocation(startLocations.get(k));
 			r.setOrientation(startOrientations.get(k));
+			k++;
 		}
 		return paths;
 
