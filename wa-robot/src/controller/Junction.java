@@ -74,41 +74,47 @@ public class Junction extends AbstractBehavior {
 				break;
 		}
 		System.out.println("updating moves");	
-		msg.setMoves(qToList(moves));
+		ArrayList<move> list = new ArrayList<move>();
+		qToList(moves, list);
+		msg.setMoves(list);
 	}
-	private List<move> qToList(Queue<move> q) {
-		ArrayList<move> returnList = new ArrayList<move>();
-		Queue<move> preserve = new Queue<move>();
+	private void qToList(Queue<move> q, List<move> l) {
 		while (!q.isEmpty()) {
 			move cur = (move) q.pop();
-			returnList.add(cur);
-			preserve.push(cur);
+			l.add(cur);
 		}
-		q = preserve;
-		return returnList;
-		
+		for (move move : l) {
+			q.push(move);
+		}
 	}
 
 	private void backward() {
-		pilot.rotate(180);
+		System.out.println("stop");
+		Delay.msDelay(1000);
+		pilot.stop();
+		System.out.println("starting rot");
+		pilot.rotate(180, false);
+		System.out.println("finished rot");
 		forward(changeAngle((double) 180, robot.getOrientation()));
 	}
 
 	private void forward(Location orientation) {
 		pilot.forward();
+		Delay.msDelay(300);
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
 	}
 
 	private void turnleft() {
-
 		forward(changeAngle((double) -90, robot.getOrientation()));
+		pilot.stop();
 		pilot.rotate(-90);
 	}
 
 	private void turnright() {
 		forward(changeAngle((double) 90, robot.getOrientation()));
+		pilot.stop();
 		pilot.rotate(90);
 	}
 
