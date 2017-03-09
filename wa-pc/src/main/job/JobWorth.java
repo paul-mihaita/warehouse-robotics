@@ -27,14 +27,12 @@ public class JobWorth {
 	HashMap<String,String> jobsWithValue= new HashMap<>();
 	HashMap<String,String> finalJobsWithValue= new HashMap<>();
 	
-	public JobWorth(Robot robot, Job job){	
-		
-		this.job=job;
-		this.getReward();
+	public JobWorth(ArrayList<Job> jobs, ArrayList<Robot> robots){	
+		this.robots = robots;
+		this.jobs = jobs;
 	}
 	
 	public Route getRoute(){
-		
 		return this.route;
 	}
 	
@@ -52,7 +50,7 @@ public class JobWorth {
 		return this.quantity;
 	}
 	
-	public HashMap<String, String> Reward(ArrayList<Job> jobs, ArrayList<Robot> robots){
+	public HashMap<String, String> Reward(){
 		
 		for(Job job : jobs){
 			map=new HashMap<>();
@@ -60,27 +58,25 @@ public class JobWorth {
 			for(Robot robot:robots){
 				map.put(robot, job);
 			}
-			int jobPathCost=0, jobSumOfReward=0;
+			int jobPathCost = 0;
 			
-			HashMap<Robot,ArrayList<ArrayList<move>>> paths= CommandCenter.generatePaths(map);
-			Iterator it1=paths.values().iterator();
+			HashMap<Robot,ArrayList<ArrayList<move>>> paths = CommandCenter.generatePaths(map);
+			Iterator it1 = paths.values().iterator();
 			while(it1.hasNext()){
 				ArrayList<ArrayList<move>> routes=new ArrayList<>();
-				routes=(ArrayList<ArrayList<move>>) it1.next();
-				
-				for(ArrayList<move> moves : routes){
-					jobPathCost+=moves.size();
-				}
-				for(Task task : job.getTasks()){
-					jobSumOfReward=(int) task.getItem().getReward();
+				routes = (ArrayList<ArrayList<move>>) it1.next();	
+				for(ArrayList<move> route : routes){
+					jobPathCost += route.size();
 				}
 			}
-			
 			jobsWithValue.put(Integer.toString(job.getJobID()), 
-					Float.toString(jobSumOfReward /  (jobPathCost/robots.size()) * (job.sumOfWeight()/50) ));
-		
-			finalJobsWithValue=sortByValue(jobsWithValue);
+					Float.toString( job.getJobReward() / 
+							( (jobPathCost / robots.size()) * (job.sumOfWeight() / 50) )
+					));
+			
 		}
+		
+		finalJobsWithValue=sortByValue(jobsWithValue);
 		return finalJobsWithValue;						
 	}	
 	
