@@ -24,6 +24,9 @@ public class Forward extends AbstractBehavior {
 		System.out.println("forward");
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.forward();
+		while (!suppressed);
+		suppressed = false;
+		pilot.stop();
 	}
 
 }

@@ -55,6 +55,8 @@ public class Junction extends AbstractBehavior {
 		}
 		move m = (move) moves.pop();
 		System.out.println(m);
+		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
+		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
 		switch (m) {
 			case BACKWARD:
 				backward();
@@ -89,33 +91,31 @@ public class Junction extends AbstractBehavior {
 	}
 
 	private void backward() {
-		System.out.println("stop");
-		Delay.msDelay(1000);
-		pilot.stop();
 		System.out.println("starting rot");
-		pilot.rotate(180, false);
+		pilot.rotate(180);
 		System.out.println("finished rot");
+		System.out.println("stop");
 		forward(changeAngle((double) 180, robot.getOrientation()));
 	}
 
 	private void forward(Location orientation) {
 		pilot.forward();
-		Delay.msDelay(300);
+		Delay.msDelay(50);
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
 	}
 
 	private void turnleft() {
-		forward(changeAngle((double) -90, robot.getOrientation()));
-		pilot.stop();
+		pilot.travel(0.05);
 		pilot.rotate(-90);
+		forward(changeAngle((double) -90, robot.getOrientation()));
 	}
 
 	private void turnright() {
+		pilot.travel(0.05);
+		pilot.rotate(90,false);
 		forward(changeAngle((double) 90, robot.getOrientation()));
-		pilot.stop();
-		pilot.rotate(90);
 	}
 
 	private void waitUntilPress() {
