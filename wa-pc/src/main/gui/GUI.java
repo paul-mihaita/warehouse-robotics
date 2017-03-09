@@ -2,11 +2,7 @@ package main.gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import org.jfree.util.Log;
-
 import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
@@ -27,7 +23,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import main.model.WarehouseFloor;
-import movement.Movement.move;
 import rp.util.Rate;
 import student_solution.Graph;
 import utils.Location;
@@ -50,8 +45,11 @@ public class GUI extends Application {
 	private static WarehouseFloor model;
 
 	private static Thread canvasHandler;
+	private static Thread nodeAnimator;
 
-	private static HashSet<ArrayList<ArrayList<Location>>> paths;
+	private static ArrayList<Location> nodesToDraw;
+
+	private static ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>> paths;
 
 	/**
 	 * 
@@ -63,8 +61,9 @@ public class GUI extends Application {
 	 */
 	public static void create(WarehouseFloor model) {
 
-		GUI.paths = new HashSet<ArrayList<ArrayList<Location>>>();
+		GUI.paths = new ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>>();
 		GUI.robotLabels = new HashMap<Robot, Tuple<Label, Label>>();
+		GUI.nodesToDraw = new ArrayList<Location>();
 		GUI.model = model;
 		launch();
 	}
@@ -97,7 +96,12 @@ public class GUI extends Application {
 	@Override
 	public void stop() {
 		canvasHandler.interrupt();
+		nodeAnimator.interrupt();
 		Start.log.info("GUI was closed");
+	}
+
+	private static ArrayList<Location> getNodes() {
+		return nodesToDraw;
 	}
 
 	private static Canvas createMapPane() {
@@ -113,55 +117,109 @@ public class GUI extends Application {
 
 		Graph<Location> floorMap = model.getFloorGraph();
 
+		nodeAnimator = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				while (!nodeAnimator.isInterrupted()) {
+					int max = getMaxNodes();
+					for (int i = 0; i < max; i++) {
+						for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : paths) {
+							for (ArrayList<Location> part : path.getX()) {
+								if (i < part.size()) {
+									getNodes().add(part.get(i));
+								}
+							}
+							new Rate(1).sleep();
+						}
+
+						for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : paths) {
+
+							for (ArrayList<Location> part : path.getX()) {
+								if (i < part.size()) {
+									getNodes().remove(part.get(i));
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+
 		canvasHandler = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (!canvasHandler.isInterrupted()) {
+
 					gc.clearRect(0, 0, MAP_WIDTH, HEIGHT);
 
 					for (IVertex<Location> v : floorMap.getVertices()) {
-						//GUI.drawNode(v, gc);
 						GUI.drawEdges(v, gc);
 					}
 					GUI.drawRobots(gc);
 					GUI.drawPath(gc);
+					GUI.drawNodes(gc);
 
 					Log.debug("Updated robot location");
 
-					new Rate(1).sleep();
+					new Rate(4).sleep();
 				}
 
 			}
 		});
 
+		nodeAnimator.start();
 		canvasHandler.start();
 
 		return map;
 	}
 
+	private static void drawNodes(GraphicsContext gc) {
+		
+		ArrayList<Location> nodes = getNodes();
+
+		gc.setFill(Color.CADETBLUE);
+		for (Location l : nodes) {
+			gc.fillOval(scale(l.getX()), scale(l.getY()), 15, 15);
+		}
+
+	}
+
 	private static int cycle;
 
-	protected static void drawPath(GraphicsContext gc) {
+	private static int getMaxNodes() {
+
+		int maxPath = 0;
 		
-		cycle = 0;
+		ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone = new ArrayList<Tuple<ArrayList<ArrayList<Location>>,Paint>>(paths);
 
-	    Iterator<ArrayList<ArrayList<Location>>> it = paths.iterator();	
+		for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : clone) {
+			for (ArrayList<Location> part : path.getX()) {
+				maxPath = Math.max(maxPath, part.size());
+			}
+		}
 
-		for (ArrayList<ArrayList<Location>> path : paths) {
+		return maxPath;
+	}
 
-			for (ArrayList<Location> part : path) {
-				gc.setFill(getColor());
+	private static void drawPath(GraphicsContext gc) {
 
-				for (Location m : part) {
+		for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : paths) {
 
-					gc.fillOval(scale(m.getX()), scale(m.getY()), 10, 10);
+			for (ArrayList<Location> part : path.getX()) {
 
+				gc.setFill(path.getY());
+				gc.setStroke(path.getY());
+
+				gc.setLineWidth(4);
+				gc.setLineDashes(7);
+
+				for (int i = 0; i < part.size() - 1; i++) {
+					gc.strokeLine(scale(part.get(i).getX()) + 5, scale(part.get(i).getY()) + 5,
+							scale(part.get(i + 1).getX()) + 5, scale(part.get(i + 1).getY()) + 5);
 				}
 
 			}
-			
-			new Rate(1).sleep();
-
 		}
 	}
 
@@ -193,18 +251,11 @@ public class GUI extends Application {
 			Location child = e.getTgt().getLabel().getData();
 
 			gc.setStroke(Color.LIGHTSLATEGRAY);
+			gc.setLineWidth(2);
+			gc.setLineDashes(0);
 			gc.strokeLine(scale(parent.getX()) + 5, scale(parent.getY()) + 5, scale(child.getX()) + 5,
 					scale(child.getY()) + 5);
 		}
-
-	}
-
-	private static void drawNode(IVertex<Location> v, GraphicsContext gc) {
-
-		Location l = v.getLabel().getData();
-
-		gc.setFill(Color.DARKMAGENTA);
-		gc.fillOval(scale(l.getX()), scale(l.getY()), 10, 10);
 
 	}
 
@@ -212,8 +263,6 @@ public class GUI extends Application {
 		for (Robot r : model.getRobots()) {
 			gc.setFill(Color.DARKGREY);
 			gc.fillRect(scale(r.getCurrentLocation().getX()) - 5, scale(r.getCurrentLocation().getY()) - 5, 20, 20);
-
-			Start.log.debug(r.getName() + " location: " + r.getCurrentLocation());
 
 			// TODO r.getOrientation();
 		}
@@ -411,6 +460,6 @@ public class GUI extends Application {
 	}
 
 	public static void displayPath(ArrayList<ArrayList<Location>> arrayList) {
-		paths.add(arrayList);
+		paths.add(new Tuple<ArrayList<ArrayList<Location>>, Paint>(arrayList, getColor()));
 	}
 }
