@@ -45,16 +45,11 @@ public class Junction extends AbstractBehavior {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void action() {
-		System.out.println("junction");
-		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
-		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
-		System.out.println(moves.isEmpty());
 		if (moves.isEmpty()) {
 			msg.setCommand(command.Finish);
 			return;
 		}
 		move m = (move) moves.pop();
-		System.out.println(m);
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
 		switch (m) {
@@ -62,7 +57,6 @@ public class Junction extends AbstractBehavior {
 				backward();
 				break;
 			case FORWARD:
-				System.out.println(robot.getOrientation().getX() + ","  + robot.getOrientation().getY());
 				forward(robot.getOrientation());
 				break;
 			case TURNLEFT:
@@ -75,7 +69,6 @@ public class Junction extends AbstractBehavior {
 				waitUntilPress();
 				break;
 		}
-		System.out.println("updating moves");	
 		ArrayList<move> list = new ArrayList<move>();
 		qToList(moves, list);
 		msg.setMoves(list);
@@ -91,10 +84,7 @@ public class Junction extends AbstractBehavior {
 	}
 
 	private void backward() {
-		System.out.println("starting rot");
 		pilot.rotate(180);
-		System.out.println("finished rot");
-		System.out.println("stop");
 		forward(changeAngle((double) 180, robot.getOrientation()));
 	}
 
@@ -104,6 +94,7 @@ public class Junction extends AbstractBehavior {
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
+		System.out.println(orientation.getX() + "," + orientation.getY() + ":" + l.getX() + "," + l.getY());
 	}
 
 	private void turnleft() {
@@ -127,13 +118,13 @@ public class Junction extends AbstractBehavior {
 		int x = l.getX();
 		int y = l.getY();
 		x = (int) ((x * Math.cos(theata)) - (y * Math.sin(theata)));
-		y = (int) ((x * Math.sin(theata)) - (y * Math.cos(theata)));
+		y = (int) ((x * Math.sin(theata)) + (y * Math.cos(theata)));
 		l.setX(x);
 		l.setY(y);
 		return l;
 	}
 
-	private Location addLocation(Location x, Location y) {
-		return new Location(x.getX() + y.getX(), x.getY() + y.getY());
+	private Location addLocation(Location a, Location b) {
+		return new Location(a.getX() + b.getX(), a.getY() + b.getY());
 	}
 }

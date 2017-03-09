@@ -131,11 +131,13 @@ public class Server extends Thread {
 			if (m1.getCommand() == command.Finish) //&& (m1.getCommand() == command.Finish)) 
 				{
 				System.out.println("finished");
+				m1.setMoves(moves);
+				m1.setCommand(command.Start);
 			} else {
 				System.out.println(Converters.robotToString(r1));
 				//System.out.println(Converters.robotToString(r1));
 			}
-			Delay.msDelay(10000);
+			Delay.msDelay(1000);
 		}
 	}
 

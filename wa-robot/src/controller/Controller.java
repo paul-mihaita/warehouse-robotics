@@ -22,7 +22,6 @@ public class Controller extends Thread{
 	}
 	@Override
 	public void run() {
-		System.out.println("arbirator started");
 		arby.start();
 	}
 

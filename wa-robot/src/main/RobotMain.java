@@ -24,6 +24,7 @@ public class RobotMain {
 		Controller controller = new Controller(r, m);
 		GUI gui = new GUI(r, m);
 		gui.start();
+		System.out.println(r.getOrientation().getX() + "," + r.getOrientation().getY() + ":" + r.getCurrentLocation().getX() + "," + r.getCurrentLocation().getY());
 		controller.run();
 	}
 }
