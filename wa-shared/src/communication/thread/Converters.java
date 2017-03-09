@@ -104,4 +104,12 @@ public class Converters {
 		}
 		throw new IOException("Incorrect byte code for a boolean");
 	}
+	
+	public static String robotToString(Robot r) {
+		String str = r.getName() + "_" + r.getBtAddress() + "-";
+		str += "(" + r.getCurrentLocation().getX() + ":" + r.getCurrentLocation().getY() + ")";
+		str += "(" + r.getOrientation().getX() + ":" + r.getOrientation().getY() +")";
+		str += "-" + r.isOnJob() + ":" + r.isOnPickup();
+		return str;
+	}
 }

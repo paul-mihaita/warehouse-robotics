@@ -21,6 +21,7 @@ public class Forward extends AbstractBehavior {
 
 	@Override
 	public void action() {
+		System.out.println("forward");
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.forward();
 	}

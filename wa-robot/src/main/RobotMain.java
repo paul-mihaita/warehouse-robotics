@@ -7,6 +7,7 @@ import communication.Message;
 import movement.Movement.move;
 import communication.CommConst.command;
 import communication.thread.Client;
+import controller.Controller;
 import robot_gui.GUI;
 import utils.Location;
 import utils.Robot;
@@ -19,6 +20,8 @@ public class RobotMain {
 		Message m = new Message((List<move>) new ArrayList<move>(), command.Wait);
 		Client client = new Client(r, m);
 		client.launch(); //do not use client.start(); use this instead
+		Controller controller = new Controller(r, m);
+		controller.start(); //start the controller in its own thread
 		GUI gui = new GUI(r, m);
 		gui.run();
 	}
