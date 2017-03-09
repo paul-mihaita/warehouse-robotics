@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Queue;
 
 import communication.CommConst.command;
@@ -9,8 +10,10 @@ import communication.Message;
 import constants.RobotConstants;
 import lejos.nxt.Button;
 import lejos.nxt.SensorPort;
+import lejos.util.Delay;
 import movement.Movement.move;
 import rp.config.WheeledRobotConfiguration;
+import rp.util.Collections;
 import utils.Location;
 import utils.Robot;
 
@@ -70,8 +73,20 @@ public class Junction extends AbstractBehavior {
 				waitUntilPress();
 				break;
 		}
-		System.out.println("updating moves");
-		msg.setMoves(new ArrayList<move>((Collection<move>) moves));
+		System.out.println("updating moves");	
+		msg.setMoves(qToList(moves));
+	}
+	private List<move> qToList(Queue<move> q) {
+		ArrayList<move> returnList = new ArrayList<move>();
+		Queue<move> preserve = new Queue<move>();
+		while (!q.isEmpty()) {
+			move cur = (move) q.pop();
+			returnList.add(cur);
+			preserve.push(cur);
+		}
+		q = preserve;
+		return returnList;
+		
 	}
 
 	private void backward() {
@@ -80,9 +95,7 @@ public class Junction extends AbstractBehavior {
 	}
 
 	private void forward(Location orientation) {
-		System.out.println("moving");
-		pilot.travel(RobotConstants.WHEEL_TO_SENSOR);
-		System.out.println("finished move");
+		pilot.forward();
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
