@@ -116,7 +116,6 @@ public class CommandCenter {
 					finalLoc.add(y.get(y.size() - 1));
 					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
 					pathsLocations.get(r).add(y);
-					Robot r = robots.get(j);					
 					paths.get(r).add(CommandCenter.generateMovements(y, r.getOrientation()));
 					finalLoc.add(y.get(y.size() - 1));
 					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
