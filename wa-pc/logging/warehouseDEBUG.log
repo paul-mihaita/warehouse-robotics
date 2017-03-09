@@ -5582,3 +5582,8 @@
 2017-03-08 19:15:53 DEBUG Start:92 - f .... 4 .... (6, 4)
 2017-03-08 19:15:53 DEBUG Start:92 - b .... 4 .... (11, 7)
 2017-03-08 19:15:56 INFO  Start:99 - GUI was closed
+2017-03-09 10:11:48 DEBUG test:69 - Creating tasks jobs and robot
+2017-03-09 10:11:48 DEBUG test:82 - printing routes
+2017-03-09 10:11:48 DEBUG test:138 - Creating tasks jobs and robot
+2017-03-09 10:11:48 DEBUG test:158 - printing routes
+2017-03-09 10:11:48 DEBUG test:158 - printing routes
