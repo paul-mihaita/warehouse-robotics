@@ -48,3 +48,1194 @@
 2017-03-09 10:18:59 DEBUG test:158 - printing routes
 2017-03-09 10:18:59 DEBUG test:158 - printing routes
 2017-03-09 10:18:59 DEBUG test:158 - printing routes
+2017-03-09 10:26:06 DEBUG test:69 - Creating tasks jobs and robot
+2017-03-09 10:26:06 DEBUG test:69 - Creating tasks jobs and robot
+2017-03-09 10:26:06 DEBUG test:82 - printing routes
+2017-03-09 10:26:06 DEBUG test:82 - printing routes
+2017-03-09 10:26:06 DEBUG test:138 - Creating tasks jobs and robot
+2017-03-09 10:26:06 DEBUG test:138 - Creating tasks jobs and robot
+2017-03-09 10:26:06 DEBUG test:158 - printing routes
+2017-03-09 10:26:06 DEBUG test:158 - printing routes
+2017-03-09 10:26:06 DEBUG test:158 - printing routes
+2017-03-09 10:26:06 DEBUG test:158 - printing routes
+2017-03-09 10:28:28 INFO  Start:17 - Starting
+2017-03-09 10:28:28 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:28:28 DEBUG Input:39 - no
+2017-03-09 10:28:28 DEBUG Start:43 - File exists: true
+2017-03-09 10:28:28 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:28:28 DEBUG Input:39 - no
+2017-03-09 10:28:28 DEBUG Start:43 - File exists: true
+2017-03-09 10:28:28 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:28:28 DEBUG Input:39 - no
+2017-03-09 10:28:28 DEBUG Start:43 - File exists: true
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:28:28 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:28 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 10:28:28 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 10:28:35 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 10:28:35 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 10:28:35 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 10:28:35 DEBUG Start:89 - Job id: 1002
+2017-03-09 10:28:35 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 10:28:35 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 10:28:35 DEBUG Start:92 - b .... 4 .... (11, 7)
+2017-03-09 10:28:39 INFO  Start:99 - GUI was closed
+2017-03-09 10:28:51 INFO  Start:17 - Starting
+2017-03-09 10:28:51 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:28:51 DEBUG Input:39 - no
+2017-03-09 10:28:51 DEBUG Start:43 - File exists: true
+2017-03-09 10:28:51 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:28:51 DEBUG Input:39 - no
+2017-03-09 10:28:51 DEBUG Start:43 - File exists: true
+2017-03-09 10:28:51 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:28:51 DEBUG Input:39 - no
+2017-03-09 10:28:51 DEBUG Start:43 - File exists: true
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name a 
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:174 - b's Location: 11 0
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:174 - b's Location: 11 0
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name b
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name c
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:28:51 DEBUG Start:168 - Item test name f
+2017-03-09 10:28:51 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 10:28:51 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 10:28:53 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 10:28:53 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 10:28:53 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 10:28:53 DEBUG Start:89 - Job id: 1002
+2017-03-09 10:28:53 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 10:28:53 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 10:28:53 DEBUG Start:92 - b .... 4 .... (11, 0)
+2017-03-09 10:29:16 INFO  Start:99 - GUI was closed
+2017-03-09 10:29:21 INFO  Start:17 - Starting
+2017-03-09 10:29:21 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:29:21 DEBUG Input:39 - no
+2017-03-09 10:29:21 DEBUG Start:43 - File exists: true
+2017-03-09 10:29:21 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:29:21 DEBUG Input:39 - no
+2017-03-09 10:29:21 DEBUG Start:43 - File exists: true
+2017-03-09 10:29:21 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:29:21 DEBUG Input:39 - no
+2017-03-09 10:29:21 DEBUG Start:43 - File exists: true
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name a 
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:174 - b's Location: 11 0
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:174 - b's Location: 11 0
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name b
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name c
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:29:21 DEBUG Start:168 - Item test name f
+2017-03-09 10:29:21 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 10:29:21 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 10:29:38 INFO  Start:99 - GUI was closed
+2017-03-09 10:31:10 INFO  Start:17 - Starting
+2017-03-09 10:31:10 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:31:10 DEBUG Input:39 - no
+2017-03-09 10:31:10 DEBUG Start:43 - File exists: true
+2017-03-09 10:31:10 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:31:10 DEBUG Input:39 - no
+2017-03-09 10:31:10 DEBUG Start:43 - File exists: true
+2017-03-09 10:31:10 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:31:10 DEBUG Input:39 - no
+2017-03-09 10:31:10 DEBUG Start:43 - File exists: true
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name a 
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:174 - b's Location: 11 0
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:174 - b's Location: 11 0
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name b
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name c
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:31:10 DEBUG Start:168 - Item test name f
+2017-03-09 10:31:10 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 10:31:10 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 10:31:52 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 10:31:52 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 10:31:52 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 10:31:52 DEBUG Start:89 - Job id: 1002
+2017-03-09 10:31:52 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 10:31:52 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 10:31:52 DEBUG Start:92 - b .... 4 .... (11, 0)
+2017-03-09 10:32:24 INFO  Start:99 - GUI was closed
+2017-03-09 10:47:27 INFO  Start:17 - Starting
+2017-03-09 10:47:27 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:47:27 DEBUG Input:39 - no
+2017-03-09 10:47:27 DEBUG Start:43 - File exists: true
+2017-03-09 10:47:27 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:47:27 DEBUG Input:39 - no
+2017-03-09 10:47:27 DEBUG Start:43 - File exists: true
+2017-03-09 10:47:27 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:47:27 DEBUG Input:39 - no
+2017-03-09 10:47:27 DEBUG Start:43 - File exists: true
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:174 - b's Location: 11 0
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:174 - b's Location: 11 0
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:47:27 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:27 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 10:47:27 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 10:47:31 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 10:47:31 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 10:47:31 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 10:47:31 DEBUG Start:89 - Job id: 1002
+2017-03-09 10:47:31 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 10:47:31 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 10:47:31 DEBUG Start:92 - b .... 4 .... (11, 0)
+2017-03-09 10:47:37 INFO  Start:99 - GUI was closed
+2017-03-09 10:47:52 INFO  Start:17 - Starting
+2017-03-09 10:47:52 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:47:52 DEBUG Input:39 - no
+2017-03-09 10:47:52 DEBUG Start:43 - File exists: true
+2017-03-09 10:47:52 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:47:52 DEBUG Input:39 - no
+2017-03-09 10:47:52 DEBUG Start:43 - File exists: true
+2017-03-09 10:47:52 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:47:52 DEBUG Input:39 - no
+2017-03-09 10:47:52 DEBUG Start:43 - File exists: true
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name a 
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name b
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name c
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:47:52 DEBUG Start:168 - Item test name f
+2017-03-09 10:47:52 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 10:47:52 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 10:47:53 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 10:47:53 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 10:47:53 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 10:47:53 DEBUG Start:89 - Job id: 1002
+2017-03-09 10:47:53 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 10:47:53 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 10:47:53 DEBUG Start:92 - b .... 4 .... (11, 7)
+2017-03-09 10:48:01 INFO  Start:99 - GUI was closed
+2017-03-09 10:48:03 INFO  Start:17 - Starting
+2017-03-09 10:48:03 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:48:03 DEBUG Input:39 - no
+2017-03-09 10:48:03 DEBUG Start:43 - File exists: true
+2017-03-09 10:48:03 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:48:03 DEBUG Input:39 - no
+2017-03-09 10:48:03 DEBUG Start:43 - File exists: true
+2017-03-09 10:48:03 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:48:03 DEBUG Input:39 - no
+2017-03-09 10:48:03 DEBUG Start:43 - File exists: true
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:48:03 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:03 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 10:48:03 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 10:48:07 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 10:48:07 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 10:48:07 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 10:48:07 DEBUG Start:89 - Job id: 1002
+2017-03-09 10:48:07 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 10:48:07 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 10:48:07 DEBUG Start:92 - b .... 4 .... (11, 7)
+2017-03-09 10:48:11 INFO  Start:99 - GUI was closed
+2017-03-09 10:48:16 INFO  Start:17 - Starting
+2017-03-09 10:48:16 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:48:16 DEBUG Input:39 - no
+2017-03-09 10:48:16 DEBUG Start:43 - File exists: true
+2017-03-09 10:48:16 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:48:16 DEBUG Input:39 - no
+2017-03-09 10:48:16 DEBUG Start:43 - File exists: true
+2017-03-09 10:48:16 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:48:16 DEBUG Input:39 - no
+2017-03-09 10:48:16 DEBUG Start:43 - File exists: true
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name a 
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:174 - b's Location: 5 0
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:174 - b's Location: 5 0
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name b
+2017-03-09 10:48:16 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:16 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name c
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:48:17 DEBUG Start:168 - Item test name f
+2017-03-09 10:48:17 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 10:48:17 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 10:48:18 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 10:48:18 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 10:48:18 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 10:48:18 DEBUG Start:89 - Job id: 1002
+2017-03-09 10:48:18 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 10:48:18 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 10:48:18 DEBUG Start:92 - b .... 4 .... (5, 0)
+2017-03-09 10:48:22 INFO  Start:99 - GUI was closed
+2017-03-09 10:59:39 INFO  Start:17 - Starting
+2017-03-09 10:59:39 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:59:39 DEBUG Input:39 - no
+2017-03-09 10:59:39 DEBUG Start:43 - File exists: true
+2017-03-09 10:59:39 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:59:39 DEBUG Input:39 - no
+2017-03-09 10:59:39 DEBUG Start:43 - File exists: true
+2017-03-09 10:59:39 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 10:59:39 DEBUG Input:39 - no
+2017-03-09 10:59:39 DEBUG Start:43 - File exists: true
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name a 
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:174 - b's Location: 5 0
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:174 - b's Location: 5 0
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name b
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name c
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 10:59:39 DEBUG Start:168 - Item test name f
+2017-03-09 10:59:39 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 10:59:39 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 10:59:40 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 10:59:40 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 10:59:40 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 10:59:40 DEBUG Start:89 - Job id: 1002
+2017-03-09 10:59:40 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 10:59:40 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 10:59:40 DEBUG Start:92 - b .... 4 .... (5, 0)
+2017-03-09 10:59:54 INFO  Start:99 - GUI was closed
+2017-03-09 11:00:02 INFO  Start:17 - Starting
+2017-03-09 11:00:02 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 11:00:02 DEBUG Input:39 - no
+2017-03-09 11:00:02 DEBUG Start:43 - File exists: true
+2017-03-09 11:00:02 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 11:00:02 DEBUG Input:39 - no
+2017-03-09 11:00:02 DEBUG Start:43 - File exists: true
+2017-03-09 11:00:02 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 11:00:02 DEBUG Input:39 - no
+2017-03-09 11:00:02 DEBUG Start:43 - File exists: true
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name a 
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:174 - b's Location: 5 0
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:174 - b's Location: 5 0
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name b
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name c
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:00:02 DEBUG Start:168 - Item test name f
+2017-03-09 11:00:02 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 11:00:02 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 11:00:04 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 11:00:04 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 11:00:04 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 11:00:04 DEBUG Start:89 - Job id: 1002
+2017-03-09 11:00:04 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 11:00:04 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 11:00:04 DEBUG Start:92 - b .... 4 .... (5, 0)
+2017-03-09 11:00:07 INFO  Start:99 - GUI was closed
+2017-03-09 11:03:58 INFO  Start:17 - Starting
+2017-03-09 11:03:58 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 11:03:58 DEBUG Input:39 - no
+2017-03-09 11:03:58 DEBUG Start:43 - File exists: true
+2017-03-09 11:03:58 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 11:03:58 DEBUG Input:39 - no
+2017-03-09 11:03:58 DEBUG Start:43 - File exists: true
+2017-03-09 11:03:58 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 11:03:58 DEBUG Input:39 - no
+2017-03-09 11:03:58 DEBUG Start:43 - File exists: true
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name a 
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name b
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name c
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:03:58 DEBUG Start:168 - Item test name f
+2017-03-09 11:03:58 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 11:03:58 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 11:04:00 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 11:04:00 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 11:04:00 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 11:04:00 DEBUG Start:89 - Job id: 1002
+2017-03-09 11:04:00 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 11:04:00 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 11:04:00 DEBUG Start:92 - b .... 4 .... (11, 7)
+2017-03-09 11:04:03 INFO  Start:99 - GUI was closed
+2017-03-09 11:07:13 INFO  Start:17 - Starting
+2017-03-09 11:07:13 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 11:07:13 DEBUG Input:39 - no
+2017-03-09 11:07:13 DEBUG Start:43 - File exists: true
+2017-03-09 11:07:13 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 11:07:13 DEBUG Input:39 - no
+2017-03-09 11:07:13 DEBUG Start:43 - File exists: true
+2017-03-09 11:07:13 DEBUG Input:32 - Reading if the file have the extension
+2017-03-09 11:07:13 DEBUG Input:39 - no
+2017-03-09 11:07:13 DEBUG Start:43 - File exists: true
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name a 
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:174 - b's Location: 11 7
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name b
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:174 - c's Location: 3 7
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name c
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1001
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1005
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1002
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1007
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:165 - In Jobid: 1015
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:174 - f's Location: 6 4
+2017-03-09 11:07:13 DEBUG Start:168 - Item test name f
+2017-03-09 11:07:13 DEBUG Start:27 - Number of Jobs: 5
+2017-03-09 11:07:13 DEBUG Start:108 - 1002 added to Cell
+2017-03-09 11:07:26 INFO  Start:82 - Keith attempted to start, but has no assigned job
+2017-03-09 11:07:26 INFO  Start:79 - Cell was started on job id: 1002
+2017-03-09 11:07:26 DEBUG Start:86 - Assigned job size: 1
+2017-03-09 11:07:26 DEBUG Start:89 - Job id: 1002
+2017-03-09 11:07:26 DEBUG Start:90 - Item .... Quantitiy .... Location
+2017-03-09 11:07:26 DEBUG Start:92 - f .... 4 .... (6, 4)
+2017-03-09 11:07:26 DEBUG Start:92 - b .... 4 .... (11, 7)
+2017-03-09 11:09:05 INFO  Start:99 - GUI was closed

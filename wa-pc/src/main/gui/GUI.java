@@ -137,16 +137,18 @@ public class GUI extends Application {
 
 		return map;
 	}
-
+	
+	private static int cycle;
+	
 	protected static void drawPath(GraphicsContext gc) {
-		
+		cycle  = 0;
 		for(ArrayList<ArrayList<Location>> path : paths){
 			
 			for(ArrayList<Location> part : path){
-				
+				gc.setFill(getColor());
+
 				for(Location m: part){
 					
-					gc.setFill(Color.RED);
 					gc.fillOval(scale(m.getX()), scale(m.getY()), 10, 10);
 					
 				}
@@ -155,6 +157,25 @@ public class GUI extends Application {
 			
 		}
 		
+	}
+	private static Paint getColor() {
+		
+		Paint p;
+		
+		if (cycle == 0){
+			p = Color.RED;
+		} else if (cycle == 1){
+			p = Color.BLUE;
+		} else if (cycle == 2){
+			p = Color.GREEN;
+		} else {
+			p = Color.PURPLE;
+			cycle = 0;
+		}
+		
+		
+		cycle ++;
+		return p;
 	}
 
 	private static void drawEdges(IVertex<Location> v, GraphicsContext gc) {
