@@ -15,10 +15,6 @@ public class Task {
 		return quantity;
 	}
 
-	public Item getTaskItem() {
-		return item;
-	}
-
 	public Item getItem() {
 		return item;
 	}
