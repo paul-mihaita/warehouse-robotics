@@ -93,6 +93,7 @@ public class WarehouseFloor {
 			}
 		}
 		HashMap<Robot, ArrayList<ArrayList<move>>> routes = CommandCenter.generatePaths(assignedJobs);
+
 		
 		
 		for (Robot r : routes.keySet()){

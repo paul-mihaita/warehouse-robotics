@@ -46,7 +46,6 @@ public class CommandCenter {
 			
 			HashMap<Robot, Job> jobMap) {
 		pathsLocations.clear();
-		
 		ArrayList<Robot> robots = new ArrayList<>();
 		Iterator<Robot> rob = jobMap.keySet().iterator();
 		HashMap<Robot, ArrayList<ArrayList<move>>> paths = new HashMap<>();
@@ -100,6 +99,9 @@ public class CommandCenter {
 
 					Robot r = robots.get(j);
 					aux.add(CommandCenter.generateMovements(y, r.getOrientation()));
+					finalLoc.add(y.get(y.size()-1));
+					finalOrientation.add(getOrientation(y.get(y.size()-2),y.get(y.size()-1)));
+					paths.put(r,aux);
 					finalLoc.add(y.get(y.size() - 1));
 					auxLoc.add(y);
 					pathsLocations.put(r, auxLoc);
@@ -110,7 +112,10 @@ public class CommandCenter {
 			}else{
 				int j = 0;
 				for(ArrayList<Location> y : x){
-					Robot r = robots.get(j);					
+					Robot r = robots.get(j);
+					finalLoc.add(y.get(y.size() - 1));
+					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
+					pathsLocations.get(r).add(y);
 					paths.get(r).add(CommandCenter.generateMovements(y, r.getOrientation()));
 					finalLoc.add(y.get(y.size() - 1));
 					finalOrientation.add(getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
