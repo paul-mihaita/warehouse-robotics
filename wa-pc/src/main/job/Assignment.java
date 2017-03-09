@@ -13,15 +13,14 @@ public class Assignment extends Thread{
 	private ArrayList<Job> jobs;
 	private ArrayList<JobWorth> assignJobs;
 	private boolean finishedAssignedJobs;
-	//private boolean jobCancelled;
+	
 	private boolean jobFinished;
 	
 	public Assignment(Robot robot){
 		
 		this.robot=robot;
 		this.assignJobs=new ArrayList<>();
-		this.finishedAssignedJobs=false;
-		//this.jobCancelled=false;		
+		this.finishedAssignedJobs=false;		
 		this.jobFinished=false;
 		
 		
