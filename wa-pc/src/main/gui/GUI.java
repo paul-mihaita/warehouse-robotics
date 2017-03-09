@@ -2,10 +2,7 @@ package main.gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-
 import org.jfree.util.Log;
-
 import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
@@ -102,8 +99,8 @@ public class GUI extends Application {
 		nodeAnimator.interrupt();
 		Start.log.info("GUI was closed");
 	}
-	
-	private static synchronized ArrayList<Location> getNodes(){
+
+	private static ArrayList<Location> getNodes() {
 		return nodesToDraw;
 	}
 
@@ -121,6 +118,7 @@ public class GUI extends Application {
 		Graph<Location> floorMap = model.getFloorGraph();
 
 		nodeAnimator = new Thread(new Runnable() {
+
 			@Override
 			public void run() {
 				while (!nodeAnimator.isInterrupted()) {
@@ -134,6 +132,7 @@ public class GUI extends Application {
 							}
 							new Rate(1).sleep();
 						}
+
 						for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : paths) {
 
 							for (ArrayList<Location> part : path.getX()) {
@@ -141,7 +140,6 @@ public class GUI extends Application {
 									getNodes().remove(part.get(i));
 								}
 							}
-							new Rate(1).sleep();
 						}
 					}
 				}
@@ -170,16 +168,18 @@ public class GUI extends Application {
 			}
 		});
 
-		// nodeAnimator.start();
+		nodeAnimator.start();
 		canvasHandler.start();
 
 		return map;
 	}
 
 	private static void drawNodes(GraphicsContext gc) {
+		
+		ArrayList<Location> nodes = getNodes();
 
 		gc.setFill(Color.CADETBLUE);
-		for (Location l : getNodes()) {
+		for (Location l : nodes) {
 			gc.fillOval(scale(l.getX()), scale(l.getY()), 15, 15);
 		}
 
@@ -190,8 +190,10 @@ public class GUI extends Application {
 	private static int getMaxNodes() {
 
 		int maxPath = 0;
+		
+		ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone = new ArrayList<Tuple<ArrayList<ArrayList<Location>>,Paint>>(paths);
 
-		for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : paths) {
+		for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : clone) {
 			for (ArrayList<Location> part : path.getX()) {
 				maxPath = Math.max(maxPath, part.size());
 			}
