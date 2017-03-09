@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
+import main.job.InputTest;
 import movement.Movement.move;
 import student_solution.State;
 import utils.Item;
@@ -14,9 +15,14 @@ import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
+
+import org.apache.log4j.Logger;
+import org.jfree.util.Log;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 public class test {
+	private final Logger LOG = Logger.getLogger(test.class);
 	public static void main(String[] args) {
 		test t = new test();
 		t.testAddFromOriginToMaxXMaxY();
@@ -60,6 +66,7 @@ public class test {
 		Set<Robot> rob = xxx.keySet();
 		int rr = 1;
 		int robo = 1;
+		LOG.debug("Creating tasks jobs and robot");
 		for(Robot r : rob ){
 			ArrayList<ArrayList<Location>> auxx = xxx.get(r);
 			rr = 0;
@@ -72,6 +79,8 @@ public class test {
 				}
 				System.out.println();
 				assertEquals(itm.getLocation(), au.get(au.size()-1));
+				LOG.debug("printing routes");
+
 			}
 			robo++;
 		}
@@ -126,7 +135,8 @@ public class test {
 		int rr = 1;
 		int robo = 1;
 		ArrayList<ArrayList<Location>> pths = new ArrayList<>();
-		
+		LOG.debug("Creating tasks jobs and robot");
+
 		for(Robot r : rob ){
 			ArrayList<ArrayList<Location>> auxx = xxx.get(r);
 			rr = 0;
@@ -145,6 +155,7 @@ public class test {
 				pths.add(au);
 				System.out.println();
 				assertEquals(it.getLocation(), au.get(au.size()-1));
+				LOG.debug("printing routes");
 			}
 			robo++;
 		}
