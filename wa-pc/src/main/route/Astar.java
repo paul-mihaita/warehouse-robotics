@@ -76,7 +76,6 @@ public class Astar {
 					for (State from : children) {
 						//write(from,steps+1);
 						if (reservedMatter == false  || !isReserved(from, steps+1)) {
-
 							Integer aprox = heuristics.apply(from, finish);
 
 							int he = cost + aprox;

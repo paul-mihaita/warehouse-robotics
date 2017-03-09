@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Queue;
 
 import communication.CommConst.command;
@@ -9,8 +10,10 @@ import communication.Message;
 import constants.RobotConstants;
 import lejos.nxt.Button;
 import lejos.nxt.SensorPort;
+import lejos.util.Delay;
 import movement.Movement.move;
 import rp.config.WheeledRobotConfiguration;
+import rp.util.Collections;
 import utils.Location;
 import utils.Robot;
 
@@ -42,13 +45,22 @@ public class Junction extends AbstractBehavior {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void action() {
+		System.out.println("junction");
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
-		switch ((move) moves.pop()) {
+		System.out.println(moves.isEmpty());
+		if (moves.isEmpty()) {
+			msg.setCommand(command.Finish);
+			return;
+		}
+		move m = (move) moves.pop();
+		System.out.println(m);
+		switch (m) {
 			case BACKWARD:
 				backward();
 				break;
 			case FORWARD:
+				System.out.println(robot.getOrientation().getX() + ","  + robot.getOrientation().getY());
 				forward(robot.getOrientation());
 				break;
 			case TURNLEFT:
@@ -61,29 +73,48 @@ public class Junction extends AbstractBehavior {
 				waitUntilPress();
 				break;
 		}
-		msg.setMoves(new ArrayList<move>((Collection<move>) moves));
+		System.out.println("updating moves");	
+		ArrayList<move> list = new ArrayList<move>();
+		qToList(moves, list);
+		msg.setMoves(list);
+	}
+	private void qToList(Queue<move> q, List<move> l) {
+		while (!q.isEmpty()) {
+			move cur = (move) q.pop();
+			l.add(cur);
+		}
+		for (move move : l) {
+			q.push(move);
+		}
 	}
 
 	private void backward() {
-		pilot.rotate(180);
+		System.out.println("stop");
+		Delay.msDelay(1000);
+		pilot.stop();
+		System.out.println("starting rot");
+		pilot.rotate(180, false);
+		System.out.println("finished rot");
 		forward(changeAngle((double) 180, robot.getOrientation()));
 	}
 
 	private void forward(Location orientation) {
-		pilot.travel(RobotConstants.WHEEL_TO_SENSOR);
+		pilot.forward();
+		Delay.msDelay(300);
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
 	}
 
 	private void turnleft() {
-
 		forward(changeAngle((double) -90, robot.getOrientation()));
+		pilot.stop();
 		pilot.rotate(-90);
 	}
 
 	private void turnright() {
 		forward(changeAngle((double) 90, robot.getOrientation()));
+		pilot.stop();
 		pilot.rotate(90);
 	}
 

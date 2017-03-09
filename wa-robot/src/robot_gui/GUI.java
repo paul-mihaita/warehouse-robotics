@@ -1,7 +1,10 @@
 package robot_gui;
 
+import communication.Message;
 import lejos.nxt.Button;
+import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
+import lejos.util.Delay;
 import utils.Job;
 import utils.Location;
 import utils.Node;
@@ -14,8 +17,64 @@ public class GUI implements Runnable {
 	Node node;
 	Task task;
 	Robot robot;
+	private Message msg;
+
+	public GUI(Robot robot, Message msg) {
+		this.robot = robot;
+		this.msg = msg;
+		Button.ENTER.addButtonListener(new ButtonListener() {
+			@Override
+			public void buttonPressed(Button b) {
+				ENTER = true;
+				
+			}
+
+			@Override
+			public void buttonReleased(Button b) {
+				ENTER = false;
+			}
+		});
+		Button.LEFT.addButtonListener(new ButtonListener() {
+			@Override
+			public void buttonPressed(Button b) {
+				LEFT = true;
+				
+			}
+
+			@Override
+			public void buttonReleased(Button b) {
+				LEFT = false;
+			}
+		});
+		Button.RIGHT.addButtonListener(new ButtonListener() {
+			@Override
+			public void buttonPressed(Button b) {
+				RIGHT = true;
+				
+			}
+
+			@Override
+			public void buttonReleased(Button b) {
+				RIGHT = false;
+			}
+		});
+		Button.ESCAPE.addButtonListener(new ButtonListener() {
+			@Override
+			public void buttonPressed(Button b) {
+				ESCAPE = true;
+				
+			}
+
+			@Override
+			public void buttonReleased(Button b) {
+				ESCAPE = false;
+			}
+		});
+
+	}
 
 	//private int jobId = job.getJobID();
+	//private int jobID = Message.getJobID();
 	private int jobId = 1002;
 	//private boolean isOnJob = robot.isOnJob();
 	private boolean isOnJob = true;
@@ -24,23 +83,24 @@ public class GUI implements Runnable {
 	//private Location location = robot.getCurrentLocation();
 	private String location = "location";
 	//private int quantity = task.getQuantity();
+	//private int quantity = Message.getQuantity();
 	private int quantity = 5;
 	//private String itemName = task.getItem().getItemName();
+	//private String itemName = Message.getItemName();
 	private String itemName = "test item";
 	private int numItems = 0;
 	
-	private boolean ENTER = Button.ENTER.isPressed();
-	private boolean ESCAPE = Button.ESCAPE.isPressed();
-	private boolean LEFT = Button.LEFT.isPressed();
-	private boolean RIGHT = Button.RIGHT.isPressed();
+	private boolean ENTER = false; //Button.ENTER.isPressed();
+	private boolean ESCAPE = false; //Button.ESCAPE.isPressed();
+	private boolean LEFT = false; //Button.LEFT.isPressed();
+	private boolean RIGHT = false; //Button.RIGHT.isPressed();
 	
 	private String pickup = "Pick-up";
 	private String dropoff = "Drop off";
-	private String jobIDisp = "Current job: " + jobId;
+	private String jobIDisp = "Job: " + jobId;
 	private String itemDisp = itemName + ": " + numItems + "/" + quantity;
 	private String dropoffItems = "Drop off completed";
-	private String locationDisp = "Current location: " + location;
-	private String itemMax = "Reached max num of items";
+	private String locationDisp = "Location: " + location;
 	private String itemMin = "No more items";
 	
 	public void run() {
@@ -50,11 +110,11 @@ public class GUI implements Runnable {
 			if(isOnPickUp) {
 				if (ENTER) {
 					LCD.clear();
-					LCD.drawString(pickup, 2, 1);
-					LCD.drawString(jobIDisp, 2, 2);
-					LCD.drawString(itemDisp, 2, 3);
+					LCD.drawString(pickup, 0, 1);
+					LCD.drawString(jobIDisp, 0, 2);
+					LCD.drawString(itemDisp, 0, 3);
 					//location = node.getLocation();
-					LCD.drawString(locationDisp, 2, 4);
+					LCD.drawString(locationDisp, 0, 4);
 					
 				}
 				if (ESCAPE) {
@@ -65,16 +125,19 @@ public class GUI implements Runnable {
 				if (LEFT) {
 					if (numItems>=0) {
 						numItems--;
-						LCD.drawString(itemDisp, 2, 3);
+						itemDisp = itemName + ": " + numItems + "/" + quantity;
+						LCD.drawString(itemDisp, 0, 3);
 					}else
-						LCD.drawString(itemMin, 2, 3);
+						LCD.drawString(itemMin, 0, 3);
 				}
 				if (RIGHT) {
 					if (numItems<=quantity) {
 						numItems++;
-						LCD.drawString(itemDisp, 2, 3);
+						itemDisp = itemName + ": " + numItems + "/" + quantity;
+						LCD.drawString(itemDisp, 0, 3);
 					}else
-						LCD.drawString(itemMax, 2, 3);
+						itemDisp = itemName + ": " + quantity + "/" + quantity;
+						LCD.drawString(itemDisp, 0, 3);
 				}
 			}
 			if (!isOnPickUp) {
@@ -82,11 +145,11 @@ public class GUI implements Runnable {
 					LCD.clear();
 					numItems=0;
 					robot.setOnJob(isOnJob);
-					LCD.drawString(dropoff, 2, 1);
-					LCD.drawString(jobIDisp, 2, 2);
-					LCD.drawString(dropoffItems, 2, 3);
+					LCD.drawString(dropoff, 0, 1);
+					LCD.drawString(jobIDisp, 0, 2);
+					LCD.drawString(dropoffItems, 0, 3);
 					//location = robot.getCurrentLocation();
-					LCD.drawString(locationDisp, 2, 4);
+					LCD.drawString(locationDisp, 0, 4);
 					
 				}
 				if (ESCAPE) {
@@ -94,9 +157,8 @@ public class GUI implements Runnable {
 					LCD.drawString("BYE", 7, 3);
 					System.exit(0);
 				}
-				
-			
 			}
+			Delay.msDelay(200);
 		}
 	}
 

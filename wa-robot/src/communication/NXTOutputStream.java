@@ -51,6 +51,9 @@ public class NXTOutputStream extends AbstractOutputStream {
 			case Wait:
 				write(CommConst.COM_WAIT);
 				break;
+			case Finish:
+				write(CommConst.COM_FINISH);
+				break;
 		}
 	}
 }

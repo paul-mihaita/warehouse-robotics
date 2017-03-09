@@ -2,6 +2,7 @@ package controller;
 
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
+import lejos.util.Delay;
 
 /**
  * @author Lexer747, Alex Lewis
@@ -11,16 +12,13 @@ public class TapeSensor {
 
 	private int reading;
 	private SensorPort sensor;
-	private int TAPE;
+	private int initial;
 
 	public TapeSensor(SensorPort port) {
 		new LightSensor(port);
 		this.sensor = port;
-	}
-
-	public TapeSensor(SensorPort port, int Tape) {
-		this(port);
-		TAPE = Tape;
+		Delay.msDelay(100);
+		this.initial = this.getReading();
 	}
 
 	// public so a user of this object can force an update if they so want
@@ -39,17 +37,11 @@ public class TapeSensor {
 
 	public boolean isOnTape() {
 		this.takeReading();
-		return roughlyEqual(reading, TAPE, 20);
+		return checkDelta(initial, reading, 40);
 	}
-
-	public void calibrate() {
-		int sum = 0;
-		for (int i = 0; i < 10; i++) {
-			this.takeReading();
-			sum += reading;
-		}
-		sum /= 10;
-		this.TAPE = sum;
+	
+	private boolean checkDelta(int initial,int newValue,int diff) {
+		return (Math.abs(initial - newValue) >= diff);
 	}
 
 	/**
@@ -59,8 +51,8 @@ public class TapeSensor {
 	 * @param y
 	 * @param accuracy
 	 * @return
-	 */
+	 *//*
 	private boolean roughlyEqual(int x, int y, int accuracy) {
 		return (Math.abs(x - y) < accuracy);
-	}
+	}*/
 }

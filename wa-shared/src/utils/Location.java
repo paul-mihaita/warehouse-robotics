@@ -12,6 +12,11 @@ public class Location implements Comparable {
 		this.y = y;
 		this.reserved = false;
 	}
+	
+	@Override
+	public String toString(){
+		return "(" + x +", " + y + ")";
+	}
 
 	// GET
 	public int getX() {

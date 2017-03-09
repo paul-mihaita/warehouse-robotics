@@ -1,5 +1,7 @@
 package controller;
 
+import communication.CommConst.command;
+import communication.Message;
 import constants.RobotConstants;
 import lejos.nxt.SensorPort;
 import movement.Movement.move;
@@ -9,10 +11,12 @@ public class Direction extends AbstractBehavior {
 
 	private TapeSensor sensor;
 	private move dir;
+	private Message msg;
 
-	public Direction(WheeledRobotConfiguration config, SensorPort s, move dir) {
+	public Direction(WheeledRobotConfiguration config, SensorPort s, move dir, Message msg) {
 		super(config);
-		this.sensor = new TapeSensor(s, RobotConstants.TAPE);
+		this.msg = msg;
+		this.sensor = new TapeSensor(s);
 		switch (dir) {
 			case TURNLEFT:
 				this.dir = dir;
@@ -27,11 +31,12 @@ public class Direction extends AbstractBehavior {
 
 	@Override
 	public boolean takeControl() {
-		return sensor.isOnTape();
+		return (sensor.isOnTape() && msg.getCommand() == command.Start);
 	}
 
 	@Override
 	public void action() {
+		System.out.println("direction");
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
 		while (!suppressed && sensor.isOnTape()) {
