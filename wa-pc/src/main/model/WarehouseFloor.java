@@ -3,7 +3,6 @@ package main.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
@@ -11,7 +10,6 @@ import org.apache.log4j.Logger;
 import communication.CommConst.command;
 import communication.Message;
 import communication.thread.Server;
-import lejos.util.Delay;
 import main.gui.GUI;
 import main.route.CommandCenter;
 import movement.Movement.move;
@@ -55,11 +53,12 @@ public class WarehouseFloor {
 		this.messageQueues = new HashMap<String, Message>();
 
 		Robot keith = new Robot("Keith", "0016530FDDAE", new Location(1, 0), new Location(0, 0));
-		Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
-		Robot charmander = new Robot("Charmander", "0016531AF6D6", new Location(0, 1), new Location(2, 0));
+		//Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
+		//Robot charmander = new Robot("Charmander", "0016531AF6D6", new Location(0, 1), new Location(2, 0));
 		this.robots.add(keith);
-		this.robots.add(cell);
-
+		//this.robots.add(cell);
+		//this.robots.add(charmander);
+		
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
 		}
@@ -73,8 +72,10 @@ public class WarehouseFloor {
 		}
 
 		this.floor = floor;
-		Server s = new Server(new Robot[] { keith, cell }, tempArr, log);
-		// s.launch();
+		log.debug("Creating Server");
+		Server s = new Server(new Robot[] { keith}  , tempArr, log);
+		s.launch();
+		log.debug("Server launched succesfully, warehousefloor constructed");
 	}
 
 	public void startRobots() {
@@ -118,14 +119,14 @@ public class WarehouseFloor {
 		RobotHelper[] help = new RobotHelper[robots.size()];
 		int i = 0;
 		for (Robot robot : robots) {
-			help[i++] = new RobotHelper(messageQueues.get(robot), routes.get(robot));
+			help[i++] = new RobotHelper(messageQueues.get(robot.getName()), routes.get(robot));
 		}
 		for (int j = 0; j < help.length; j++) {
-			help[i].start();
+			help[j].start();
 		}
 		for (int j = 0; j < help.length; j++) {
 			try {
-				help[i].join();
+				help[j].join();
 			} catch (InterruptedException e) {
 				//shouldn't happen
 				log.error("Robot helper was interupted" , e);

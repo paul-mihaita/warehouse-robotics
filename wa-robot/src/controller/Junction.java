@@ -32,19 +32,20 @@ public class Junction extends AbstractBehavior {
 		this.moves = new Queue<move>();
 		this.msg = msg;
 		this.robot = robot;
-		for (move m : msg.getMoves()) {
-			moves.push(m);
-		}
 	}
 
 	@Override
 	public boolean takeControl() {
+		//System.out.println(left.isOnTape() && right.isOnTape() && (msg.getCommand() == command.Start));
 		return (left.isOnTape() && right.isOnTape()) && (msg.getCommand() == command.Start);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void action() {
+		for (move m : msg.getMoves()) {
+			moves.push(m);
+		}
 		if (moves.isEmpty()) {
 			msg.setCommand(command.Finish);
 			return;
@@ -52,6 +53,7 @@ public class Junction extends AbstractBehavior {
 		move m = (move) moves.pop();
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
+		System.out.println("e: " + m);
 		switch (m) {
 			case BACKWARD:
 				backward();
@@ -71,7 +73,9 @@ public class Junction extends AbstractBehavior {
 		}
 		ArrayList<move> list = new ArrayList<move>();
 		qToList(moves, list);
+		System.out.println("worked?");
 		msg.setMoves(list);
+		System.out.println("fully finished");
 	}
 	private void qToList(Queue<move> q, List<move> l) {
 		while (!q.isEmpty()) {
@@ -94,7 +98,8 @@ public class Junction extends AbstractBehavior {
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
-		System.out.println(orientation.getX() + "," + orientation.getY() + ":" + l.getX() + "," + l.getY());
+		System.out.println("forward finished");
+		//System.out.println(orientation.getX() + "," + orientation.getY() + ":" + l.getX() + "," + l.getY());
 	}
 
 	private void turnleft() {

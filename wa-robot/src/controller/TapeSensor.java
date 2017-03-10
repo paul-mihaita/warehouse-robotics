@@ -17,7 +17,7 @@ public class TapeSensor {
 	public TapeSensor(SensorPort port) {
 		new LightSensor(port);
 		this.sensor = port;
-		Delay.msDelay(100);
+		Delay.msDelay(500);
 		this.initial = this.getReading();
 	}
 
