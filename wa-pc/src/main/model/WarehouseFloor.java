@@ -112,9 +112,24 @@ public class WarehouseFloor {
 
 	}
 
+
 	private void givePaths(HashMap<Robot, ArrayList<ArrayList<move>>> routes) {
-		//TODO alex will fix this when he is less insane
-		
+		RobotHelper[] help = new RobotHelper[robots.size()];
+		int i = 0;
+		for (Robot robot : robots) {
+			help[i++] = new RobotHelper(messageQueues.get(robot), routes.get(robot));
+		}
+		for (int j = 0; j < help.length; j++) {
+			help[i].start();
+		}
+		for (int j = 0; j < help.length; j++) {
+			try {
+				help[i].join();
+			} catch (InterruptedException e) {
+				//shouldn't happen
+				log.error("Robot helper was interupted" , e);
+			}
+		}
 	}
 
 	public boolean assign(String name, Job j) {
