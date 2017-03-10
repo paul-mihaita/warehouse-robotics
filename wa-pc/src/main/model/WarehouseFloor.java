@@ -76,7 +76,36 @@ public class WarehouseFloor {
 
 		HashSet<Robot> robots = this.getRobots();
 		JobWorth jobWorth = new JobWorth(jobs, robots);
-		HashMap<String, String> temp = jobWorth.getReward(); 
+		HashMap<Integer, Float> temp = jobWorth.getReward(); 
+		
+		Integer maxkey = -1;
+		for (Integer key: temp.keySet()){
+			if(maxkey == -1){
+				maxkey = key;
+			}
+			
+			if(temp.get(key) > temp.get(maxkey)){
+				maxkey = key;
+			}
+		}
+		
+		
+		this.assign("Cell", jobList.get(maxkey));
+		
+		temp.remove(maxkey);
+		
+		maxkey = -1;
+		
+		for (Integer key: temp.keySet()){
+			if(maxkey == -1){
+				maxkey = key;
+			}
+			if(temp.get(key) > temp.get(maxkey)){
+				maxkey = key;
+			}
+		}
+		
+		this.assign("Keith", jobList.get(maxkey));
 		
 
 		this.floor = floor;
