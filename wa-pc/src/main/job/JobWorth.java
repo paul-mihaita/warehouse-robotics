@@ -3,10 +3,14 @@ package main.job;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+
+import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
+
 import java.util.Comparator;
 
 import main.route.CommandCenter;
@@ -21,20 +25,18 @@ public class JobWorth {
 	private Job job;
 	private Route route;
 	private Task quantity;
-	ArrayList<utils.Robot> robots=new ArrayList<>();
+	HashSet<utils.Robot> robots=new HashSet<>();
 	ArrayList<Job> jobs=new ArrayList<>();
 	HashMap<Robot,Job> map;
 	HashMap<String,String> jobsWithValue= new HashMap<>();
 	HashMap<String,String> finalJobsWithValue= new HashMap<>();
 	
-	public JobWorth(Robot robot, Job job){	
-		
-		this.job=job;
-		this.getReward();
+	public JobWorth(ArrayList<Job> jobs, HashSet<Robot> robots){	
+		this.robots = robots;
+		this.jobs = jobs;
 	}
 	
 	public Route getRoute(){
-		
 		return this.route;
 	}
 	
@@ -43,16 +45,11 @@ public class JobWorth {
 		return this.job;
 	}
 	
-	public HashMap<String, String> getReward(){
-		
-		return this.finalJobsWithValue;                                              
-	}
-	
 	public Task getQuantity(){
 		return this.quantity;
 	}
 	
-	public HashMap<String, String> Reward(ArrayList<Job> jobs, ArrayList<Robot> robots){
+	public HashMap<String, String> getReward(){
 		
 		for(Job job : jobs){
 			map=new HashMap<>();
@@ -60,27 +57,26 @@ public class JobWorth {
 			for(Robot robot:robots){
 				map.put(robot, job);
 			}
-			int jobPathCost=0, jobSumOfReward=0;
+			int jobPathCost = 0;
 			
-			HashMap<Robot,ArrayList<ArrayList<move>>> paths= CommandCenter.generatePaths(map);
-			Iterator it1=paths.values().iterator();
+			HashMap<Robot,ArrayList<ArrayList<move>>> paths = CommandCenter.generatePaths(map);
+			Iterator it1 = paths.values().iterator();
 			while(it1.hasNext()){
 				ArrayList<ArrayList<move>> routes=new ArrayList<>();
-				routes=(ArrayList<ArrayList<move>>) it1.next();
-				
-				for(ArrayList<move> moves : routes){
-					jobPathCost+=moves.size();
-				}
-				for(Task task : job.getTasks()){
-					jobSumOfReward=(int) task.getItem().getReward();
+				routes = (ArrayList<ArrayList<move>>) it1.next();	
+				for(ArrayList<move> route : routes){
+					jobPathCost += route.size();
 				}
 			}
-			
 			jobsWithValue.put(Integer.toString(job.getJobID()), 
-					Float.toString(jobSumOfReward /  (jobPathCost/robots.size()) * (job.sumOfWeight()/50) ));
-		
-			finalJobsWithValue=sortByValue(jobsWithValue);
+					Float.toString( job.getJobReward() / 
+							( (jobPathCost / robots.size()) * (job.sumOfWeight() / 50) )
+					));
+			
 		}
+		
+		finalJobsWithValue=sortByValue(jobsWithValue);
+		printMap(finalJobsWithValue);
 		return finalJobsWithValue;						
 	}	
 	
@@ -100,5 +96,15 @@ public class JobWorth {
 			}
 			return sortedJobsWithValue;
 	}	
+	
+	public static void printMap(HashMap<String, String> map){
+		for (String key: map.keySet()){
+            String k = key.toString();
+            String value = map.get(key).toString();  
+            System.out.println("JobID: " + k + "\t worth: " + value);  
+		}
+			
+	}
+	
 	
 }

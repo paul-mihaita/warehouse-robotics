@@ -27,4 +27,8 @@ public class Task {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	public float getTaskReward(){
+		return item.getReward()*quantity;
+	}
 }
