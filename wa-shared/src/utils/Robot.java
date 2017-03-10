@@ -78,7 +78,6 @@ public class Robot {
 	}
 
 	public void update(Robot r) {
-		this.btAddress = r.getBtAddress();
 		this.currentLocation = r.getCurrentLocation();
 		this.name = r.getName();
 		this.onJob = r.isOnJob();

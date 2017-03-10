@@ -3,12 +3,15 @@ package main.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 
 import communication.CommConst.command;
 import communication.Message;
+import communication.thread.Server;
+import lejos.util.Delay;
 import main.gui.GUI;
 import main.route.CommandCenter;
 import movement.Movement.move;
@@ -51,20 +54,26 @@ public class WarehouseFloor {
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
 
-		this.robots.add(new Robot("Keith", "0016530FDDAE", new Location(1, 0), new Location(0, 0)));
-		this.robots.add(new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0)));
+		Robot keith = new Robot("Keith", "0016530FDDAE", new Location(1, 0), new Location(0, 0));
+		Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
+		this.robots.add(keith);
+		this.robots.add(cell);
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
 		}
-
+		Message[] tempArr = new Message[robots.size()];
+		int i = 0;
 		for (Robot r : robots) {
 			assigment.put(r, Optional.empty());
-			messageQueues.put(r.getName(), new Message(new ArrayList<move>(), command.Wait));
+			Message temp = new Message(new ArrayList<move>(), command.Wait);
+			tempArr[i++] = temp;
+			messageQueues.put(r.getName(), temp);
 		}
 
 		this.floor = floor;
-		
+		Server s = new Server(new Robot[] { keith, cell }, tempArr, log);
+		// s.launch();
 	}
 
 	public void startRobots() {
@@ -78,33 +87,38 @@ public class WarehouseFloor {
 				assignedJobs.put(r, j);
 				log.info(r.getName() + " was started on job id: " + j.getJobID());
 			} else {
-				
+
 				log.info(r.getName() + " attempted to start, but has no assigned job");
 			}
 		}
 
 		log.debug("Assigned job size: " + assignedJobs.size());
-		for (Job j : assignedJobs.values()){
-			
+		for (Job j : assignedJobs.values()) {
+
 			log.debug("Job id: " + j.getJobID());
 			log.debug("Item .... Quantitiy .... Location");
-			for (Task t : j.getTasks()){
-				log.debug(t.getItem().getItemName() + " .... " + t.getQuantity() + " .... " + t.getItem().getLocation());
+			for (Task t : j.getTasks()) {
+				log.debug(
+						t.getItem().getItemName() + " .... " + t.getQuantity() + " .... " + t.getItem().getLocation());
 			}
 		}
 		HashMap<Robot, ArrayList<ArrayList<move>>> routes = CommandCenter.generatePaths(assignedJobs);
 
-		
-		
-		for (Robot r : routes.keySet()){
+		for (Robot r : routes.keySet()) {
 			GUI.displayPath(CommandCenter.getPathLocations().get(r));
-			givePath(r, routes.get(r));
 		}
+
+		givePaths(routes);
 
 	}
 
-	public boolean assign(String name, Job j) {
+	private void givePaths(HashMap<Robot, ArrayList<ArrayList<move>>> routes) {
+		//TODO alex will fix this when he is less insane
 		
+	}
+
+	public boolean assign(String name, Job j) {
+
 		log.debug(j.getJobID() + " added to " + name);
 
 		if (!assigment.get(getRobot(name)).isPresent()) {
@@ -122,11 +136,6 @@ public class WarehouseFloor {
 		return false;
 	}
 
-	private void givePath(Robot robot, ArrayList<ArrayList<move>> arrayList) {
-		
-
-	}
-
 	/**
 	 * 
 	 * @return List of robots
@@ -134,14 +143,14 @@ public class WarehouseFloor {
 	public HashSet<Robot> getRobots() {
 		return robots;
 	}
-	
-	public Robot getRobot(String name){
-		for (Robot r : robots){
-			if (r.getName().equals(name)){
+
+	public Robot getRobot(String name) {
+		for (Robot r : robots) {
+			if (r.getName().equals(name)) {
 				return r;
 			}
 		}
-		
+
 		return null;
 	}
 

@@ -23,7 +23,7 @@ public class Converters {
 			c[i] = (char) a[i + 5];
 		}
 		String name = new String(c);
-		Robot r = new Robot(name, name, orientation, current);
+		Robot r = new Robot(name, null, orientation, current);
 		r.setOnPickup(isOnPickup);
 		return r;
 	}

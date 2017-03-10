@@ -36,7 +36,6 @@ public class Direction extends AbstractBehavior {
 
 	@Override
 	public void action() {
-		System.out.println("direction");
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
 		while (!suppressed && sensor.isOnTape()) {

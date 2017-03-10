@@ -37,7 +37,6 @@ public class test {
 		l.add(a);
 		
 		s.setRLoc(l);
-		3
 
 		ArrayList<Robot> robots = new ArrayList<>();
 		Location c = new Location(-1, -1);
