@@ -56,6 +56,7 @@ public class WarehouseFloor {
 
 		Robot keith = new Robot("Keith", "0016530FDDAE", new Location(1, 0), new Location(0, 0));
 		Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
+		Robot charmander = new Robot("Charmander", "0016531AF6D6", new Location(0, 1), new Location(2, 0));
 		this.robots.add(keith);
 		this.robots.add(cell);
 
