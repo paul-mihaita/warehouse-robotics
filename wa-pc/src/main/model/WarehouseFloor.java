@@ -54,12 +54,14 @@ public class WarehouseFloor {
 		this.messageQueues = new HashMap<String, Message>();
 
 		Robot keith = new Robot("Keith", "0016530FDDAE", new Location(1, 0), new Location(0, 0));
-		//Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
-		//Robot charmander = new Robot("Charmander", "0016531AF6D6", new Location(0, 1), new Location(2, 0));
+		// Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1),
+		// new Location(1, 0));
+		// Robot charmander = new Robot("Charmander", "0016531AF6D6", new
+		// Location(0, 1), new Location(2, 0));
 		this.robots.add(keith);
-		//this.robots.add(cell);
-		//this.robots.add(charmander);
-		
+		// this.robots.add(cell);
+		// this.robots.add(charmander);
+
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
 		}
@@ -71,45 +73,43 @@ public class WarehouseFloor {
 			tempArr[i++] = temp;
 			messageQueues.put(r.getName(), temp);
 		}
-		
 
 		HashSet<Robot> robots = this.getRobots();
 		JobWorth jobWorth = new JobWorth(jobs, robots);
-		HashMap<Integer, Float> temp = jobWorth.getReward(); 
-		
+		HashMap<Integer, Float> temp = jobWorth.getReward();
+
 		Integer maxkey = -1;
-		for (Integer key: temp.keySet()){
-			if(maxkey == -1){
+		for (Integer key : temp.keySet()) {
+			if (maxkey == -1) {
 				maxkey = key;
 			}
-			
-			if(temp.get(key) > temp.get(maxkey)){
-				maxkey = key;
-			}
-		}
-		
-		
-		this.assign("Cell", jobList.get(maxkey));
-		
-		temp.remove(maxkey);
-		
-		maxkey = -1;
-		
-		for (Integer key: temp.keySet()){
-			if(maxkey == -1){
-				maxkey = key;
-			}
-			if(temp.get(key) > temp.get(maxkey)){
+
+			if (temp.get(key) > temp.get(maxkey)) {
 				maxkey = key;
 			}
 		}
-		
+
 		this.assign("Keith", jobList.get(maxkey));
-		
+
+		// temp.remove(maxkey);
+		//
+		// maxkey = -1;
+		//
+		// for (Integer key: temp.keySet()){
+		// if(maxkey == -1){
+		// maxkey = key;
+		// }
+		// if(temp.get(key) > temp.get(maxkey)){
+		// maxkey = key;
+		// }
+		// }
+		//
+		// this.assign("Keith", jobList.get(maxkey));
+		//
 
 		this.floor = floor;
 		log.debug("Creating Server");
-		Server s = new Server(new Robot[] { keith}  , tempArr, log);
+		Server s = new Server(new Robot[] { keith }, tempArr, log);
 		s.launch();
 		log.debug("Server launched succesfully, warehousefloor constructed");
 	}
@@ -150,7 +150,6 @@ public class WarehouseFloor {
 
 	}
 
-
 	private void givePaths(HashMap<Robot, ArrayList<ArrayList<move>>> routes) {
 		RobotHelper[] help = new RobotHelper[robots.size()];
 		int i = 0;
@@ -164,8 +163,8 @@ public class WarehouseFloor {
 			try {
 				help[j].join();
 			} catch (InterruptedException e) {
-				//shouldn't happen
-				log.error("Robot helper was interupted" , e);
+				// shouldn't happen
+				log.error("Robot helper was interupted", e);
 			}
 		}
 	}

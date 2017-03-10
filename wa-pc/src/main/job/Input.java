@@ -25,11 +25,11 @@ public class Input {
 		thereIsTheTitleFile = haveTitle;
 	}
 
-	private boolean fileHaveTheExtension(String fileName) {
+	public boolean fileHaveTheExtension(String fileName) {
 		return fileName.contains(".csv");
 	}
 
-	private boolean fileRight(String fileName) {
+	public boolean fileRight(String fileName) {
 		LOG.debug("Reading if the file have the extension");
 		String file;
 		if (fileHaveTheExtension(fileName)) {

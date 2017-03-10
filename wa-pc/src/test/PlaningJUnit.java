@@ -1,4 +1,4 @@
-package main.route;
+package test;
 
 import graph_entities.IVertex;
 
@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import main.job.InputTest;
+import main.route.CommandCenter;
 import movement.Movement.move;
 import student_solution.State;
 import utils.Item;
@@ -21,10 +22,10 @@ import org.jfree.util.Log;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-public class test {
-	private final Logger LOG = Logger.getLogger(test.class);
+public class PlaningJUnit {
+	private final Logger LOG = Logger.getLogger(PlaningJUnit.class);
 	public static void main(String[] args) {
-		test t = new test();
+		PlaningJUnit t = new PlaningJUnit();
 		t.testAddFromOriginToMaxXMaxY();
 		t.testTwoRobotsNotCollide();
 	}
