@@ -57,6 +57,7 @@ public class WarehouseFloor {
 
 		Robot keith = new Robot("Keith", "0016530FDDAE", new Location(1, 0), new Location(0, 0));
 		Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
+		Robot charmander = new Robot("Charmander", "0016531AF6D6", new Location(0, 1), new Location(2, 0));
 		this.robots.add(keith);
 		this.robots.add(cell);
 
@@ -119,9 +120,24 @@ public class WarehouseFloor {
 
 	}
 
+
 	private void givePaths(HashMap<Robot, ArrayList<ArrayList<move>>> routes) {
-		//TODO alex will fix this when he is less insane
-		
+		RobotHelper[] help = new RobotHelper[robots.size()];
+		int i = 0;
+		for (Robot robot : robots) {
+			help[i++] = new RobotHelper(messageQueues.get(robot), routes.get(robot));
+		}
+		for (int j = 0; j < help.length; j++) {
+			help[i].start();
+		}
+		for (int j = 0; j < help.length; j++) {
+			try {
+				help[i].join();
+			} catch (InterruptedException e) {
+				//shouldn't happen
+				log.error("Robot helper was interupted" , e);
+			}
+		}
 	}
 
 	public boolean assign(String name, Job j) {
