@@ -25,10 +25,7 @@ public class JobWorthTest {
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
 				in.getJobsArray(), log);
 		
-		HashSet<Robot> robots = model.getRobots();
-		//model.getJobs();
-		JobWorth jobWorth = new JobWorth(in.getJobsArray(), robots);
-		jobWorth.getReward(); 
+		
 		//HashMap<String, String> jobsReward = jobWorth.getReward(); 
 		
 		//GUI.create(model);

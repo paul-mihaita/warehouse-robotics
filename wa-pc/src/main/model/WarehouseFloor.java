@@ -13,6 +13,7 @@ import communication.Message;
 import communication.thread.Server;
 import lejos.util.Delay;
 import main.gui.GUI;
+import main.job.JobWorth;
 import main.route.CommandCenter;
 import movement.Movement.move;
 import student_solution.Graph;
@@ -70,6 +71,12 @@ public class WarehouseFloor {
 			tempArr[i++] = temp;
 			messageQueues.put(r.getName(), temp);
 		}
+		
+
+		HashSet<Robot> robots = this.getRobots();
+		JobWorth jobWorth = new JobWorth(jobs, robots);
+		HashMap<String, String> temp = jobWorth.getReward(); 
+		
 
 		this.floor = floor;
 		Server s = new Server(new Robot[] { keith, cell }, tempArr, log);
