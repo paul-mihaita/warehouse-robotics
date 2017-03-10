@@ -90,10 +90,10 @@ public class GUI implements Runnable {
 	private String itemName = "test item";
 	private int numItems = 0;
 	
-	private boolean ENTER = false; //Button.ENTER.isPressed();
-	private boolean ESCAPE = false; //Button.ESCAPE.isPressed();
-	private boolean LEFT = false; //Button.LEFT.isPressed();
-	private boolean RIGHT = false; //Button.RIGHT.isPressed();
+	private boolean ENTER = false; 
+	private boolean ESCAPE = false; 
+	private boolean LEFT = false; 
+	private boolean RIGHT = false; 
 	
 	private String pickup = "Pick-up";
 	private String dropoff = "Drop off";
@@ -108,6 +108,12 @@ public class GUI implements Runnable {
 		while (true) {
 			
 			if(isOnPickUp) {
+				LCD.clear();
+				LCD.drawString(pickup, 0, 1);
+				LCD.drawString(jobIDisp, 0, 2);
+				LCD.drawString(itemDisp, 0, 3);
+				//location = node.getLocation();
+				LCD.drawString(locationDisp, 0, 4);
 				if (ENTER) {
 					LCD.clear();
 					LCD.drawString(pickup, 0, 1);
@@ -123,7 +129,7 @@ public class GUI implements Runnable {
 					System.exit(0);
 				}
 				if (LEFT) {
-					if (numItems>=0) {
+					if (numItems>0) {
 						numItems--;
 						itemDisp = itemName + ": " + numItems + "/" + quantity;
 						LCD.drawString(itemDisp, 0, 3);
@@ -131,7 +137,7 @@ public class GUI implements Runnable {
 						LCD.drawString(itemMin, 0, 3);
 				}
 				if (RIGHT) {
-					if (numItems<=quantity) {
+					if (numItems<quantity) {
 						numItems++;
 						itemDisp = itemName + ": " + numItems + "/" + quantity;
 						LCD.drawString(itemDisp, 0, 3);
@@ -141,6 +147,14 @@ public class GUI implements Runnable {
 				}
 			}
 			if (!isOnPickUp) {
+				LCD.clear();
+				numItems=0;
+				robot.setOnJob(isOnJob);
+				LCD.drawString(dropoff, 0, 1);
+				LCD.drawString(jobIDisp, 0, 2);
+				LCD.drawString(dropoffItems, 0, 3);
+				//location = robot.getCurrentLocation();
+				LCD.drawString(locationDisp, 0, 4);
 				if (ENTER) {
 					LCD.clear();
 					numItems=0;
