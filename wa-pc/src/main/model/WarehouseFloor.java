@@ -11,6 +11,7 @@ import communication.CommConst.command;
 import communication.Message;
 import communication.thread.Server;
 import main.gui.GUI;
+import main.job.JobWorth;
 import main.route.CommandCenter;
 import movement.Movement.move;
 import student_solution.Graph;
@@ -70,6 +71,41 @@ public class WarehouseFloor {
 			tempArr[i++] = temp;
 			messageQueues.put(r.getName(), temp);
 		}
+		
+
+		HashSet<Robot> robots = this.getRobots();
+		JobWorth jobWorth = new JobWorth(jobs, robots);
+		HashMap<Integer, Float> temp = jobWorth.getReward(); 
+		
+		Integer maxkey = -1;
+		for (Integer key: temp.keySet()){
+			if(maxkey == -1){
+				maxkey = key;
+			}
+			
+			if(temp.get(key) > temp.get(maxkey)){
+				maxkey = key;
+			}
+		}
+		
+		
+		this.assign("Cell", jobList.get(maxkey));
+		
+		temp.remove(maxkey);
+		
+		maxkey = -1;
+		
+		for (Integer key: temp.keySet()){
+			if(maxkey == -1){
+				maxkey = key;
+			}
+			if(temp.get(key) > temp.get(maxkey)){
+				maxkey = key;
+			}
+		}
+		
+		this.assign("Keith", jobList.get(maxkey));
+		
 
 		this.floor = floor;
 		log.debug("Creating Server");
