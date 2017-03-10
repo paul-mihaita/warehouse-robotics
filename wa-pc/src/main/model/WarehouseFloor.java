@@ -89,7 +89,7 @@ public class WarehouseFloor {
 		}
 		
 		
-		this.assign("Cell", jobList.get(maxkey));
+		//this.assign("Cell", jobList.get(maxkey));
 		
 		temp.remove(maxkey);
 		
