@@ -33,6 +33,8 @@ public class WarehouseFloor {
 	private Graph<Location> floor;
 
 	private Logger log;
+	
+	private boolean server;
 
 	/**
 	 * Creates the Warehouse floor object, contains all the data about the
@@ -45,15 +47,16 @@ public class WarehouseFloor {
 	 * @param Log
 	 *            log4j logger object
 	 */
-	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, Logger log) {
+	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, Logger log, boolean server) {
 
+		this.server = server;
 		this.log = log;
 		this.assigment = new HashMap<Robot, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
 
-		Robot keith = new Robot("Keith", "0016530FDDAE", new Location(1, 0), new Location(0, 0));
+		Robot keith = new Robot("Keith", "0016530FDDAE", new Location(2, 0), new Location(1,0));
 		//Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
 		//Robot charmander = new Robot("Charmander", "0016531AF6D6", new Location(0, 1), new Location(2, 0));
 		this.robots.add(keith);
@@ -89,7 +92,7 @@ public class WarehouseFloor {
 		}
 		
 		
-		this.assign("Cell", jobList.get(maxkey));
+		//this.assign("Cell", jobList.get(maxkey));
 		
 		temp.remove(maxkey);
 		
@@ -110,7 +113,7 @@ public class WarehouseFloor {
 		this.floor = floor;
 		log.debug("Creating Server");
 		Server s = new Server(new Robot[] { keith}  , tempArr, log);
-		s.launch();
+		if (server) s.launch();
 		log.debug("Server launched succesfully, warehousefloor constructed");
 	}
 
@@ -152,6 +155,7 @@ public class WarehouseFloor {
 
 
 	private void givePaths(HashMap<Robot, ArrayList<ArrayList<move>>> routes) {
+		if (!server) return;
 		RobotHelper[] help = new RobotHelper[robots.size()];
 		int i = 0;
 		for (Robot robot : robots) {

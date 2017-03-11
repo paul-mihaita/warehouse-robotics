@@ -20,7 +20,7 @@ public class Start {
 		in.initializeListOfJobs("1", "2", "3");
 
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
-				in.getJobsArray(), log);
+				in.getJobsArray(), log, true);
 		
 		// Testing
 		
