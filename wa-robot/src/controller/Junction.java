@@ -1,9 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Queue;
 
 import communication.CommConst.command;
 import communication.Message;
@@ -13,7 +10,6 @@ import lejos.nxt.SensorPort;
 import lejos.util.Delay;
 import movement.Movement.move;
 import rp.config.WheeledRobotConfiguration;
-import rp.util.Collections;
 import utils.Location;
 import utils.Robot;
 
@@ -21,7 +17,7 @@ public class Junction extends AbstractBehavior {
 
 	private TapeSensor left;
 	private TapeSensor right;
-	private Queue<move> moves;
+	private List<move> moves;
 	private Message msg;
 	private Robot robot;
 
@@ -29,7 +25,6 @@ public class Junction extends AbstractBehavior {
 		super(desc);
 		this.left = new TapeSensor(l);
 		this.right = new TapeSensor(r);
-		this.moves = new Queue<move>();
 		this.msg = msg;
 		this.robot = robot;
 	}
@@ -40,17 +35,16 @@ public class Junction extends AbstractBehavior {
 		return (left.isOnTape() && right.isOnTape()) && (msg.getCommand() == command.Start);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void action() {
-		for (move m : msg.getMoves()) {
-			moves.push(m);
+		if (msg.getCommand() == command.Start) {
+			moves = msg.getMoves();
 		}
 		if (moves.isEmpty()) {
 			msg.setCommand(command.Finish);
 			return;
 		}
-		move m = (move) moves.pop();
+		move m = getNextMove(moves);
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
 		System.out.println("e: " + m);
@@ -71,20 +65,17 @@ public class Junction extends AbstractBehavior {
 				waitUntilPress();
 				break;
 		}
-		ArrayList<move> list = new ArrayList<move>();
-		qToList(moves, list);
-		System.out.println("worked?");
-		msg.setMoves(list);
+		msg.setMoves(moves);
 		System.out.println("fully finished");
 	}
-	private void qToList(Queue<move> q, List<move> l) {
-		while (!q.isEmpty()) {
-			move cur = (move) q.pop();
-			l.add(cur);
+	private move getNextMove(List<move> list) {
+		int i =0;
+		move returnMove = list.get(i++);
+		for (i = 1; i < list.size() - 1; i++) {
+			list.add(i-1, list.get(i));
 		}
-		for (move move : l) {
-			q.push(move);
-		}
+		list.remove(list.size() - 1);
+		return returnMove;
 	}
 
 	private void backward() {
