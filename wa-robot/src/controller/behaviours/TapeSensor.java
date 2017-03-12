@@ -1,4 +1,4 @@
-package controller;
+package controller.behaviours;
 
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;

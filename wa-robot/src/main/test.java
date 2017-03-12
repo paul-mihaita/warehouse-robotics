@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import constants.RobotConstants;
-import controller.TapeSensor;
+import controller.behaviours.TapeSensor;
 import lejos.nxt.Button;
 import lejos.nxt.SensorPort;
 import lejos.robotics.navigation.DifferentialPilot;

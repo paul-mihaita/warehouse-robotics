@@ -1,4 +1,4 @@
-package controller;
+package controller.behaviours;
 
 import communication.Message;
 import constants.RobotConstants;

@@ -6,7 +6,7 @@ import java.util.List;
 import communication.CommConst.command;
 import communication.Message;
 import communication.thread.Client;
-import controller.Controller;
+import controller.behaviours.Controller;
 import movement.Movement.move;
 import robot_gui.GUI;
 import utils.Location;

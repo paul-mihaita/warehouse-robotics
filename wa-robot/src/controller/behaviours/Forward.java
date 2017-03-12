@@ -1,4 +1,4 @@
-package controller;
+package controller.behaviours;
 
 import communication.CommConst.command;
 import communication.Message;

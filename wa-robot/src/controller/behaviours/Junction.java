@@ -1,4 +1,4 @@
-package controller;
+package controller.behaviours;
 
 import java.util.List;
 
