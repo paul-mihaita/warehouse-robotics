@@ -31,7 +31,8 @@ public class Junction extends AbstractBehavior {
 
 	@Override
 	public boolean takeControl() {
-		//System.out.println(left.isOnTape() && right.isOnTape() && (msg.getCommand() == command.Start));
+		// System.out.println(left.isOnTape() && right.isOnTape() &&
+		// (msg.getCommand() == command.Start));
 		return (left.isOnTape() && right.isOnTape()) && (msg.getCommand() == command.Start);
 	}
 
@@ -68,11 +69,12 @@ public class Junction extends AbstractBehavior {
 		msg.setMoves(moves);
 		System.out.println("fully finished");
 	}
+
 	private move getNextMove(List<move> list) {
-		int i =0;
+		int i = 0;
 		move returnMove = list.get(i++);
 		for (i = 1; i < list.size() - 1; i++) {
-			list.add(i-1, list.get(i));
+			list.add(i - 1, list.get(i));
 		}
 		list.remove(list.size() - 1);
 		return returnMove;
@@ -90,7 +92,8 @@ public class Junction extends AbstractBehavior {
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
 		System.out.println("forward finished");
-		//System.out.println(orientation.getX() + "," + orientation.getY() + ":" + l.getX() + "," + l.getY());
+		// System.out.println(orientation.getX() + "," + orientation.getY() +
+		// ":" + l.getX() + "," + l.getY());
 	}
 
 	private void turnleft() {
@@ -101,7 +104,7 @@ public class Junction extends AbstractBehavior {
 
 	private void turnright() {
 		pilot.travel(0.05);
-		pilot.rotate(90,false);
+		pilot.rotate(90, false);
 		forward(changeAngle((double) 90, robot.getOrientation()));
 	}
 

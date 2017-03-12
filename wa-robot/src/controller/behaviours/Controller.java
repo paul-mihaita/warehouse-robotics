@@ -8,7 +8,7 @@ import lejos.robotics.subsumption.Behavior;
 import movement.Movement.move;
 import utils.Robot;
 
-public class Controller extends Thread{
+public class Controller extends Thread {
 	Arbitrator arby;
 
 	public Controller(Robot robot, Message msg) {
@@ -20,6 +20,7 @@ public class Controller extends Thread{
 		Behavior junction = new Junction(RobotConstants.DESC, l, r, robot, msg);
 		arby = new Arbitrator(new Behavior[] { forward, left, right, junction }, true);
 	}
+
 	@Override
 	public void run() {
 		arby.start();

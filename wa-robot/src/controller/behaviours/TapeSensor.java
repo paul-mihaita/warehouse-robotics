@@ -39,8 +39,8 @@ public class TapeSensor {
 		this.takeReading();
 		return checkDelta(initial, reading, 40);
 	}
-	
-	private boolean checkDelta(int initial,int newValue,int diff) {
+
+	private boolean checkDelta(int initial, int newValue, int diff) {
 		return (Math.abs(initial - newValue) >= diff);
 	}
 
@@ -52,7 +52,7 @@ public class TapeSensor {
 	 * @param accuracy
 	 * @return
 	 *//*
-	private boolean roughlyEqual(int x, int y, int accuracy) {
-		return (Math.abs(x - y) < accuracy);
-	}*/
+		 * private boolean roughlyEqual(int x, int y, int accuracy) { return
+		 * (Math.abs(x - y) < accuracy); }
+		 */
 }
