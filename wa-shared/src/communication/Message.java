@@ -1,5 +1,6 @@
 package communication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import communication.CommConst.command;
@@ -23,6 +24,13 @@ public class Message {
 	public void setMoves(List<move> moves) {
 		this.moves = moves;
 		needsUpdate = true;
+	}
+	public void setMoves(move[] moves) {
+		List<move> temp = new ArrayList<move>();
+		for (int i = 0; i < moves.length; i++) {
+			temp.add(moves[i]);
+		}
+		setMoves(temp);
 	}
 
 	public command getCommand() {

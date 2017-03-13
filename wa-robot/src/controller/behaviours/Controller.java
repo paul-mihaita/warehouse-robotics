@@ -25,5 +25,4 @@ public class Controller extends Thread {
 	public void run() {
 		arby.start();
 	}
-
 }
