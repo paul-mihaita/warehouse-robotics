@@ -35,6 +35,11 @@ public class PCOutputStream extends AbstractOutputStream {
 				log.debug("wrote: " + CommConst.ROBOT);
 				write(CommConst.ROBOT);
 				break;
+			case DC:
+				//writing a DC message
+				IOException e = new IOException("tried to write a DC protocol");
+				log.error(e);
+				throw e;
 		}
 	}
 

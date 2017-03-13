@@ -27,6 +27,8 @@ public class NXTInputStream {
 				return protocol.Robot;
 			case CommConst.COMMAND:
 				return protocol.Command;
+			case CommConst.DC:
+				return protocol.DC;
 			default:
 				throw new IOException("Invalid protocol: " + proto);
 		}

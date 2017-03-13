@@ -56,12 +56,12 @@ public class WarehouseFloor {
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
 		
-		Robot keith = new Robot("Keith", "0016530FDDAE", new Location(2, 0), new Location(1,0));
-		//Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
+		//Robot keith = new Robot("Keith", "0016530FDDAE", new Location(2, 0), new Location(1,0));
+		Robot cell = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
 		//Robot charmander = new Robot("Charmander", "0016531AF6D6", new Location(0, 1), new Location(2, 0));
-		this.robots.add(keith);
-		// this.robots.add(cell);
-		// this.robots.add(charmander);
+		//this.robots.add(keith);
+		this.robots.add(cell);
+		//this.robots.add(charmander);
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -102,7 +102,7 @@ public class WarehouseFloor {
 			}
 		}
 
-		this.assign("Keith", jobList.get(maxkey));
+		//this.assign("Keith", jobList.get(maxkey));
 
 		// temp.remove(maxkey);
 		//
@@ -122,7 +122,7 @@ public class WarehouseFloor {
 
 		this.floor = floor;
 		log.debug("Creating Server");
-		Server s = new Server(new Robot[] { keith}  , tempArr, log);
+		Server s = new Server(new Robot[] { cell }  , tempArr, log);
 		if (server) s.launch();
 		log.debug("Server launched succesfully, warehousefloor constructed");
 	}

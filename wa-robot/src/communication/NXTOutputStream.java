@@ -27,6 +27,9 @@ public class NXTOutputStream extends AbstractOutputStream {
 			case Robot:
 				write(CommConst.ROBOT);
 				break;
+			case DC:
+				//writing a DC message
+				throw new IOException("tried to write a DC protocol");
 		}
 	}
 

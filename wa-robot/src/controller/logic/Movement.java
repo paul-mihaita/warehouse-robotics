@@ -14,10 +14,10 @@ public class Movement {
 
 	public static void forward(Location orientation, DifferentialPilot pilot, Robot robot) {
 		pilot.forward();
-		Delay.msDelay(50);
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
+		Delay.msDelay(150);
 	}
 
 	public static void turnleft(DifferentialPilot pilot, Robot robot) {

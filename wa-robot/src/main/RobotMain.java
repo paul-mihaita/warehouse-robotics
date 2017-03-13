@@ -14,8 +14,8 @@ import utils.Robot;
 public class RobotMain {
 	public static void main(String[] args) {
 		Robot r;
-		//r = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
-		r = new Robot("Keith", "0016530FDDAE", new Location(2, 0), new Location(1,0));
+		r = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
+		//r = new Robot("Keith", "0016530FDDAE", new Location(2, 0), new Location(1,0));
 		Message m = new Message((List<move>) new ArrayList<move>(), command.Wait);
 		Client client = new Client(r, m);
 		client.launch(); //do not use client.start(); use this instead

@@ -28,13 +28,22 @@ public class QueueTracker {
 			return;
 		}
 		internal = updated; // pull moves
+		printInternal();
 		pointer = 0;
+	}
+
+	private void printInternal() {
+		for (move move : internal) {
+			System.out.print(move);
+		}
+		System.out.println();
 	}
 
 	/**
 	 * This method returns if the queue has reached the end, it has side
-	 * effects:
+	 * effects if the result was true:
 	 * 
+	 * true ->
 	 * It will reset the queue so that it is ready for new moves and the msg
 	 * object has its command set to Finish.
 	 * 
