@@ -28,7 +28,7 @@ public class QueueTracker {
 			return;
 		}
 		internal = updated; // pull moves
-		printInternal();
+		//printInternal();
 		pointer = 0;
 	}
 
