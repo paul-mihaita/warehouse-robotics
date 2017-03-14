@@ -2,6 +2,8 @@ package main.gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+
 import org.jfree.util.Log;
 import bootstrap.Start;
 import graph_entities.IEdge;
@@ -14,7 +16,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -25,6 +30,7 @@ import javafx.stage.Stage;
 import main.model.WarehouseFloor;
 import rp.util.Rate;
 import student_solution.Graph;
+import utils.Item;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
@@ -49,7 +55,8 @@ public class GUI extends Application {
 
 	private static ArrayList<Location> nodesToDraw;
 
-	private static ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>> paths;
+	private static HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> coloredPath;
+	private static HashSet<ArrayList<ArrayList<Location>>> paths;
 
 	/**
 	 * 
@@ -61,7 +68,8 @@ public class GUI extends Application {
 	 */
 	public static void create(WarehouseFloor model) {
 
-		GUI.paths = new ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>>();
+		GUI.paths = new HashSet<ArrayList<ArrayList<Location>>>();
+		GUI.coloredPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>();
 		GUI.robotLabels = new HashMap<Robot, Tuple<Label, Label>>();
 		GUI.nodesToDraw = new ArrayList<Location>();
 		GUI.model = model;
@@ -79,18 +87,26 @@ public class GUI extends Application {
 		primaryStage.setMinWidth(WIDTH);
 		// primaryStage.getIcons().add(new Image("icon.jpg"));
 
-		GridPane robotHolder = GUI.createRobotPane();
+		TabPane tabPane = GUI.createTabPane();
 
 		Canvas map = GUI.createMapPane();
 
 		BorderPane guiHolder = new BorderPane();
 
-		guiHolder.setLeft(robotHolder);
+		guiHolder.setLeft(tabPane);
 		guiHolder.setCenter(map);
 
 		primaryStage.setScene(new Scene(guiHolder));
 		primaryStage.show();
 
+	}
+
+	private static TabPane createTabPane() {
+		TabPane pane = new TabPane();
+		pane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		GridPane robotHolder = GUI.createRobotPane();
+		pane.getTabs().add(new Tab("Robots", robotHolder));
+		return pane;
 	}
 
 	@Override
@@ -101,7 +117,7 @@ public class GUI extends Application {
 	}
 
 	private static ArrayList<Location> getNodes() {
-		return nodesToDraw;
+		return new ArrayList<Location>(nodesToDraw);
 	}
 
 	private static Canvas createMapPane() {
@@ -124,23 +140,23 @@ public class GUI extends Application {
 				while (!nodeAnimator.isInterrupted()) {
 					int max = getMaxNodes();
 					for (int i = 0; i < max; i++) {
-						for (ArrayList<Location> path : makeDrawable(paths)) {
+						for (ArrayList<Location> path : makeDrawable(coloredPath)) {
 							if (i < path.size()) {
-								getNodes().add(path.get(i));
+								nodesToDraw.add(path.get(i));
 							}
 
 							if (nodeAnimator.isInterrupted())
 								return;
 
-							new Rate(1).sleep();
+							new Rate(1.5).sleep();
 
 							if (nodeAnimator.isInterrupted())
 								return;
 						}
 
-						for (ArrayList<Location> path : makeDrawable(paths)) {
+						for (ArrayList<Location> path : makeDrawable(coloredPath)) {
 							if (i < path.size()) {
-								getNodes().remove(path.get(i));
+								nodesToDraw.remove(path.get(i));
 							}
 						}
 					}
@@ -161,6 +177,7 @@ public class GUI extends Application {
 					GUI.drawRobots(gc);
 					GUI.drawPath(gc);
 					GUI.drawNodes(gc);
+					GUI.drawItems(gc, model.getItems());
 
 					Log.debug("Updated robot location");
 
@@ -176,13 +193,24 @@ public class GUI extends Application {
 		return map;
 	}
 
+	private static void drawItems(GraphicsContext gc, ArrayList<Item> items) {
+
+		for (Item i : items) {
+
+			gc.setFill(Color.BLACK);
+			gc.fillOval(scale(i.getLocation().getX()), scale(i.getLocation().getY()), 5, 5);
+			gc.strokeText(i.getItemName(), scale(i.getLocation().getX()) - 20, scale(i.getLocation().getY()) - 20);
+		}
+
+	}
+
 	private static void drawNodes(GraphicsContext gc) {
 
 		ArrayList<Location> nodes = getNodes();
 
 		gc.setFill(Color.CADETBLUE);
 		for (Location l : nodes) {
-			gc.fillOval(scale(l.getX()) - 2.5, scale(l.getY()) - 2.5, 15, 15);
+			gc.fillOval(scale(l.getX()), scale(l.getY()) , 10, 10);
 		}
 
 	}
@@ -193,8 +221,8 @@ public class GUI extends Application {
 
 		int maxPath = 0;
 
-		ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone = new ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>>(
-				paths);
+		HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>(
+				coloredPath);
 
 		for (ArrayList<Location> path : makeDrawable(clone)) {
 			maxPath = Math.max(maxPath, path.size());
@@ -204,7 +232,7 @@ public class GUI extends Application {
 	}
 
 	private static ArrayList<ArrayList<Location>> makeDrawable(
-			ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone) {
+			HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone) {
 		ArrayList<ArrayList<Location>> drawable = new ArrayList<ArrayList<Location>>();
 
 		for (Tuple<ArrayList<ArrayList<Location>>, Paint> partPath : clone) {
@@ -222,7 +250,7 @@ public class GUI extends Application {
 
 	private static void drawPath(GraphicsContext gc) {
 
-		for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : paths) {
+		for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : coloredPath) {
 
 			for (ArrayList<Location> part : path.getX()) {
 
@@ -301,13 +329,6 @@ public class GUI extends Application {
 
 		robotHolder.setMaxHeight(HEIGHT);
 		robotHolder.setPrefWidth(ROBOT_WIDTH);
-
-		Label robotLabel = new Label("Robots");
-
-		robotLabel.setFont(new Font(20));
-
-		robotHolder.add(robotLabel, 0, 0);
-
 		Button startButton = new Button("Start");
 
 		startButton.setTextFill(Color.GREEN);
@@ -478,6 +499,13 @@ public class GUI extends Application {
 	}
 
 	public static void displayPath(ArrayList<ArrayList<Location>> arrayList) {
-		paths.add(new Tuple<ArrayList<ArrayList<Location>>, Paint>(arrayList, getColor()));
+
+		paths.add(arrayList);
+		coloredPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>();
+		for (ArrayList<ArrayList<Location>> path : paths) {
+
+			coloredPath.add(new Tuple<ArrayList<ArrayList<Location>>, Paint>(path, getColor()));
+
+		}
 	}
 }
