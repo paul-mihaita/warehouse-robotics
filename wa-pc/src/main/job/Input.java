@@ -23,6 +23,8 @@ public class Input {
 
 	public Input(boolean haveTitle) {
 		thereIsTheTitleFile = haveTitle;
+		this.initializeListOfJobs("1", "2", "3");
+		this.initializeItemsList("3");
 	}
 
 	public boolean fileHaveTheExtension(String fileName) {
@@ -226,7 +228,7 @@ public class Input {
 					if (toDo) {
 						String[] parts = token.split(",");
 						if (!items.contains(parts[2])) {
-							LOG.debug("item: " + parts[2] + " were added");
+							Start.log.debug("item: " + parts[2] + " were added");
 							Item temp = new Item(parts[2]);
 							int x = Integer.parseInt(parts[0]);
 							int y = Integer.parseInt(parts[1]);

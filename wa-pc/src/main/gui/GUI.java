@@ -1,5 +1,6 @@
 package main.gui;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.image.Image;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
@@ -85,7 +87,12 @@ public class GUI extends Application {
 		primaryStage.setTitle("Warehouse Controller");
 		primaryStage.setMinHeight(HEIGHT);
 		primaryStage.setMinWidth(WIDTH);
-		// primaryStage.getIcons().add(new Image("icon.jpg"));
+
+		File alex = new File("/alex.png");
+		if (alex.exists()) {
+			Start.log.debug(alex.getAbsolutePath());
+			primaryStage.getIcons().add(new Image(alex.getAbsolutePath()));
+		}
 
 		TabPane tabPane = GUI.createTabPane();
 
@@ -199,6 +206,7 @@ public class GUI extends Application {
 
 			gc.setFill(Color.BLACK);
 			gc.fillOval(scale(i.getLocation().getX()), scale(i.getLocation().getY()), 5, 5);
+			gc.setLineWidth(1);
 			gc.strokeText(i.getItemName(), scale(i.getLocation().getX()) - 20, scale(i.getLocation().getY()) - 20);
 		}
 
@@ -210,7 +218,7 @@ public class GUI extends Application {
 
 		gc.setFill(Color.CADETBLUE);
 		for (Location l : nodes) {
-			gc.fillOval(scale(l.getX()), scale(l.getY()) , 10, 10);
+			gc.fillOval(scale(l.getX()), scale(l.getY()), 10, 10);
 		}
 
 	}
