@@ -27,7 +27,7 @@ public class test {
 		 * x4.initial + ";" + x4.getReading()); System.out.println(x1.isOnTape()
 		 * + ":" + x4.isOnTape()); }
 		 */
-
+		
 		BASEPATH.add(move.FORWARD);
 		BASEPATH.add(move.BACKWARD);
 		BASEPATH.add(move.TURNLEFT);
