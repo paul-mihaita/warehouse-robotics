@@ -88,10 +88,10 @@ public class GUI extends Application {
 		primaryStage.setMinHeight(HEIGHT);
 		primaryStage.setMinWidth(WIDTH);
 
-		File alex = new File("/alex.png");
+		File alex = new File("alex.png");
 		if (alex.exists()) {
 			Start.log.debug(alex.getAbsolutePath());
-			primaryStage.getIcons().add(new Image(alex.getAbsolutePath()));
+			primaryStage.getIcons().add(new Image("file:" + alex.getAbsolutePath()));
 		}
 
 		TabPane tabPane = GUI.createTabPane();
