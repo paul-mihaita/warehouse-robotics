@@ -5,7 +5,7 @@ import java.util.List;
 
 import communication.CommConst.command;
 import communication.Message;
-import controller.logic.Controller;
+import controller.behaviours.Controller;
 import movement.Movement.move;
 import utils.Location;
 import utils.Robot;
