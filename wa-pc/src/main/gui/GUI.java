@@ -124,21 +124,23 @@ public class GUI extends Application {
 				while (!nodeAnimator.isInterrupted()) {
 					int max = getMaxNodes();
 					for (int i = 0; i < max; i++) {
-						for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : paths) {
-							for (ArrayList<Location> part : path.getX()) {
-								if (i < part.size()) {
-									getNodes().add(part.get(i));
-								}
+						for (ArrayList<Location> path : makeDrawable(paths)) {
+							if (i < path.size()) {
+								getNodes().add(path.get(i));
 							}
+
+							if (nodeAnimator.isInterrupted())
+								return;
+
 							new Rate(1).sleep();
+
+							if (nodeAnimator.isInterrupted())
+								return;
 						}
 
-						for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : paths) {
-
-							for (ArrayList<Location> part : path.getX()) {
-								if (i < part.size()) {
-									getNodes().remove(part.get(i));
-								}
+						for (ArrayList<Location> path : makeDrawable(paths)) {
+							if (i < path.size()) {
+								getNodes().remove(path.get(i));
 							}
 						}
 					}
@@ -175,12 +177,12 @@ public class GUI extends Application {
 	}
 
 	private static void drawNodes(GraphicsContext gc) {
-		
+
 		ArrayList<Location> nodes = getNodes();
 
 		gc.setFill(Color.CADETBLUE);
 		for (Location l : nodes) {
-			gc.fillOval(scale(l.getX()), scale(l.getY()), 15, 15);
+			gc.fillOval(scale(l.getX()) - 2.5, scale(l.getY()) - 2.5, 15, 15);
 		}
 
 	}
@@ -190,16 +192,32 @@ public class GUI extends Application {
 	private static int getMaxNodes() {
 
 		int maxPath = 0;
-		
-		ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone = new ArrayList<Tuple<ArrayList<ArrayList<Location>>,Paint>>(paths);
 
-		for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : clone) {
-			for (ArrayList<Location> part : path.getX()) {
-				maxPath = Math.max(maxPath, part.size());
-			}
+		ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone = new ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>>(
+				paths);
+
+		for (ArrayList<Location> path : makeDrawable(clone)) {
+			maxPath = Math.max(maxPath, path.size());
 		}
 
 		return maxPath;
+	}
+
+	private static ArrayList<ArrayList<Location>> makeDrawable(
+			ArrayList<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone) {
+		ArrayList<ArrayList<Location>> drawable = new ArrayList<ArrayList<Location>>();
+
+		for (Tuple<ArrayList<ArrayList<Location>>, Paint> partPath : clone) {
+			ArrayList<Location> wholePath = new ArrayList<Location>();
+			for (ArrayList<Location> singlePath : partPath.getX()) {
+				for (Location l : singlePath) {
+					wholePath.add(l);
+				}
+			}
+			drawable.add(wholePath);
+		}
+
+		return drawable;
 	}
 
 	private static void drawPath(GraphicsContext gc) {
