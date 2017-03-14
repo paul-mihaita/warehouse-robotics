@@ -5,7 +5,7 @@ import java.util.List;
 
 import communication.CommConst.command;
 import communication.Message;
-import controller.logic.Controller;
+import controller.behaviours.Controller;
 import movement.Movement.move;
 import utils.Location;
 import utils.Robot;
@@ -27,7 +27,7 @@ public class test {
 		 * x4.initial + ";" + x4.getReading()); System.out.println(x1.isOnTape()
 		 * + ":" + x4.isOnTape()); }
 		 */
-
+		
 		BASEPATH.add(move.FORWARD);
 		BASEPATH.add(move.BACKWARD);
 		BASEPATH.add(move.TURNLEFT);
