@@ -124,6 +124,7 @@ public class PlaningJUnit {
 		itm2.setLocation(0, 0);
 		task2.setItem(itm2);
 		tasks2.add(task2);
+		tasks2.add(task);
 		Job job2 = new Job(2, tasks2);
 		job2.setTasks(tasks2);
 		lll.put(r1, job);
@@ -164,5 +165,6 @@ public class PlaningJUnit {
 		for(int j = 0; j < Math.min(aa.size(), bb.size())-1;j++){
 			assertTrue(!aa.get(j).equals(bb.get(j+1)));
 		}
+		
 	}
 }

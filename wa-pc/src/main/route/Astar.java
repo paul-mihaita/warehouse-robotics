@@ -18,12 +18,12 @@ public class Astar {
 
 	public static int simpleAc = 0;
 
-	public static Hashtable<Integer, List<State>> timeOcupation ;
+	public static Hashtable<Integer, List<State>> timeOcupation =  new Hashtable<Integer, List<State>> () ;
 
 	public static ArrayList<Location> aStar(Graph<Location> graph,
 			Location stLoc, Location finLoc,
 			BiFunction<State, State, Integer> heuristics, int maxStep,
-			boolean reservedMatter, GridMap map) {
+			boolean reservedMatter, GridMap map, int max) {
 		PriorityQueue<State> openList = new PriorityQueue<>(
 				new Comparator<State>() {
 
@@ -74,8 +74,7 @@ public class Astar {
 					ArrayList<State> aux = new ArrayList<>();
 					cost = currState.getCost() + 1;
 					for (State from : children) {
-						//write(from,steps+1);
-						if (reservedMatter == false  || !isReserved(from, steps+1)) {
+						if (reservedMatter == false  || !isReserved(from, max + steps+1)) {
 							Integer aprox = heuristics.apply(from, finish);
 
 							int he = cost + aprox;
@@ -175,11 +174,11 @@ public class Astar {
 		return new Location(-1, -1);
 	}
 
-	private static boolean isReserved(State from, int steps) {
+	private static boolean isReserved(State from, Integer steps) {
 		if(timeOcupation.containsKey(steps)){
 			List<State> statesAtTime = timeOcupation.get(steps);
-			
-			
+				
+				
 			return contains(statesAtTime, from);
 		}
 		return false;
@@ -249,8 +248,8 @@ public class Astar {
 		}
 	}
 
-	public static void setReserved(ArrayList<Location> path) {
-		for (int i = 0; i<path.size(); i++) {
+	public static void setReserved(ArrayList<Location> path, int j) {
+		for (int i = j; i<path.size()+j; i++) {
 			State s = new State();
 			s.addToList(path.get(i));
 			tableAdd(s, i);
