@@ -12,6 +12,7 @@ public class TabMenuPane extends TabPane{
 		this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		GridPane robotHolder = new RobotPane(model);
 		this.getTabs().add(new Tab("Robots", robotHolder));
-		// TODO: GridPane jobHolder = new JobPane(model);
+		GridPane jobHolder = new JobPane(model);
+		this.getTabs().add(new Tab("Jobs", jobHolder));
 	}
 }

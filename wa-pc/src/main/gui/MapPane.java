@@ -3,7 +3,6 @@ package main.gui;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
 import javafx.scene.canvas.Canvas;
@@ -79,10 +78,7 @@ public class MapPane extends Canvas {
 					MapPane.drawPath(gc);
 					MapPane.drawNodes(gc);
 					MapPane.drawItems(gc, model.getItems());
-
-					Start.log.debug("Updated robot location");
-
-					new Rate(4).sleep();
+					new Rate(5).sleep();
 				}
 
 			}
@@ -144,9 +140,11 @@ public class MapPane extends Canvas {
 		for (Item i : items) {
 
 			gc.setFill(Color.BLACK);
-			gc.fillOval(scale(i.getLocation().getX()), scale(i.getLocation().getY()), 5, 5);
 			gc.setLineWidth(1);
-			gc.strokeText(i.getItemName(), scale(i.getLocation().getX()) - 20, scale(i.getLocation().getY()) - 20);
+			gc.setLineDashOffset(0);
+			gc.setLineDashes(0);
+			gc.setStroke(Color.BLACK);
+			gc.strokeText(i.getItemName(), scale(i.getLocation().getX()), scale(i.getLocation().getY()) + 5);
 		}
 
 	}

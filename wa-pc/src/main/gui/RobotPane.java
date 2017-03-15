@@ -82,7 +82,7 @@ public class RobotPane extends GridPane {
 			String text;
 
 			if (model.getJob(r).isPresent()) {
-				text = model.getJob(r).get().getStatus();
+				text = model.getJob(r).get().getStatus().toString();
 			} else {
 				text = "UNASSIGNED";
 			}
@@ -94,6 +94,7 @@ public class RobotPane extends GridPane {
 			b.setOnAction(e -> {
 				model.cancelJob(r);
 				RobotPane.updateLabels();
+				JobPane.updateButtons();
 			});
 
 			Label idText = new Label("Job ID:");
@@ -156,7 +157,7 @@ public class RobotPane extends GridPane {
 		this.add(robotDisplay, 0, 2);
 	}
 
-	private static void updateLabels() {
+	protected static void updateLabels() {
 		for (Robot r : robotLabels.keySet()) {
 			Tuple<Label, Label> t = robotLabels.get(r);
 			String text;
@@ -170,7 +171,7 @@ public class RobotPane extends GridPane {
 			t.getX().setText(text);
 
 			if (model.getJob(r).isPresent()) {
-				text = model.getJob(r).get().getStatus();
+				text = model.getJob(r).get().getStatus().toString();
 			} else {
 				text = "UNASSIGNED";
 			}

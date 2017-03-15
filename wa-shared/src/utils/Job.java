@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class Job {
 
-	private static enum Status {
-		ACTIVE, INACTIVE, COMPLETED, CANCELED
+	public static enum Status {
+		// ACTIVE, INACTIVE, COMPLETED, CANCELED
+		NOT_SELECTED, SELECTED, ACTIVE, CANCELED, COMPLETED
 	}
 
 	private Status status;
@@ -16,7 +17,7 @@ public class Job {
 	public Job(int jobID, ArrayList<Task> tasks) {
 		this.jobID = jobID;
 		this.tasks = tasks;
-		this.status = Status.INACTIVE;
+		this.status = Status.NOT_SELECTED;
 	}
 
 	public float sumOfWeight() {
@@ -47,7 +48,15 @@ public class Job {
 	}
 
 	public void start() {
-		this.status = Status.ACTIVE;
+		if (!status.equals(Status.CANCELED)) {
+			this.status = Status.ACTIVE;
+		}
+	}
+
+	public void select() {
+		if (!status.equals(Status.CANCELED)) {
+			status = Status.SELECTED;
+		}
 	}
 
 	public void completed() {
@@ -58,15 +67,15 @@ public class Job {
 		this.status = Status.CANCELED;
 	}
 
-	public String getStatus() {
-		return status.name();
+	public Status getStatus() {
+		return status;
 	}
-	
-	public float getJobReward(){
+
+	public float getJobReward() {
 		float reward = 0;
-		for(Task t : tasks)
+		for (Task t : tasks)
 			reward += t.getTaskReward();
-			return reward;
+		return reward;
 	}
 
 	public boolean isActive() {
@@ -77,8 +86,12 @@ public class Job {
 		return status.equals(Status.CANCELED);
 	}
 
-	public boolean isInactive() {
-		return status.equals(Status.INACTIVE);
+	public boolean isSelected() {
+		return status.equals(Status.SELECTED);
+	}
+
+	public boolean isNotSelected() {
+		return status.equals(Status.NOT_SELECTED);
 	}
 
 	public boolean isCompleted() {
