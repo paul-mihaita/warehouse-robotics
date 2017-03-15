@@ -52,12 +52,7 @@ public class QueueTracker {
 	 */
 	public boolean finished() {
 		if (pointer == internal.size()) {
-			
 			msg.setCommand(command.Wait);
-
-			
-			
-			
 			pointer = 0;
 			internal = null;
 			return true;

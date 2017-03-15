@@ -10,6 +10,7 @@ import communication.CommConst.protocol;
 import communication.thread.Converters;
 import movement.Movement.move;
 import utils.Robot;
+import utils.Task;
 
 public class PCInputStream {
 	private DataInputStream stream;
@@ -21,12 +22,10 @@ public class PCInputStream {
 	public protocol readProtocol() throws IOException {
 		int proto = stream.read();
 		switch (proto) {
-			case CommConst.MOVEMENT:
-				return protocol.Movement;
 			case CommConst.ROBOT:
 				return protocol.Robot;
-			case CommConst.COMMAND:
-				return protocol.Command;
+			case CommConst.MESSAGE:
+				return protocol.Message;
 			case CommConst.DC:
 				return protocol.DC;
 			default:
@@ -35,7 +34,7 @@ public class PCInputStream {
 
 	}
 
-	public List<move> readMoves() throws IOException {
+	private List<move> readMoves() throws IOException {
 		int numMoves = stream.read();
 		byte[] moveBytes = new byte[numMoves];
 		int actualNum = stream.read(moveBytes);
@@ -53,15 +52,26 @@ public class PCInputStream {
 		stream.close();
 	}
 
+	public Message readMessage() throws IOException {
+		List<move> l = readMoves();
+		command c = readCommand();
+		basicJob j = readJob();
+		return new Message(l,c,j);
+	}
+	private basicJob readJob() throws IOException {
+		int id = stream.read();
+		int quant = stream.read();
+		String name = (char) stream.read() + "";
+		return new basicJob(id, new Task(name, quant));
+	}
+
 	public protocol getProtocol() throws IOException {
 		int proto = stream.read();
 		switch (proto) {
-			case CommConst.MOVEMENT:
-				return protocol.Command;
 			case CommConst.ROBOT:
 				return protocol.Robot;
-			case CommConst.COMMAND:
-				return protocol.Command;
+			case CommConst.MESSAGE:
+				return protocol.Message;
 			default:
 				throw new IOException("Invalid protocol recieved: " + proto);
 
@@ -78,7 +88,7 @@ public class PCInputStream {
 		return Converters.byteToRobot(robotArr);
 	}
 
-	public command readCommand() throws IOException {
+	private command readCommand() throws IOException {
 		int cmd = stream.read();
 		switch (cmd) {
 			case CommConst.COM_START:

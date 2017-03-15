@@ -1,22 +1,13 @@
 package communication.thread;
 
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 
-import communication.CommConst.command;
 import communication.Message;
 import lejos.pc.comm.NXTComm;
 import lejos.pc.comm.NXTCommException;
 import lejos.pc.comm.NXTCommFactory;
 import lejos.pc.comm.NXTInfo;
 import lejos.util.Delay;
-import movement.Movement.move;
-import utils.Location;
 import utils.Robot;
 
 //new Robot("Keith", "0016530FDDAE", new Location(0, 1), new Location(0, 0))

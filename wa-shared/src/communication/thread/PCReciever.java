@@ -33,22 +33,15 @@ public class PCReciever extends Thread {
 		while (running) {
 			try {
 				switch (fromNXT.readProtocol()) {
-					case Movement:
-						log.debug("read: Movement");
-						msg.setMoves(fromNXT.readMoves());
-						msg.updated();
-						break;
 					case Robot:
 						log.debug("read: Robot");
 						robot.update(fromNXT.readRobot());
 						robot.updated();
 						break;
-					case Command:
-						log.debug("read: Commad");
-						msg.setCommand(fromNXT.readCommand());
-						log.debug("command is now: " + msg.getCommand());
+					case Message:
+						log.debug("read: Message");
+						msg.update(fromNXT.readMessage());
 						msg.updated();
-						break;
 					case DC:
 						log.error("Disconnected");
 						this.interrupt();

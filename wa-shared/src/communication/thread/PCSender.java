@@ -35,7 +35,6 @@ public class PCSender extends Thread {
 			if (robot.needsUpdate()) {
 				log.debug("robot needs an update");
 				try {
-					toNXT.sendProtocol(protocol.Robot);
 					toNXT.sendRobot(robot);
 					robot.updated();
 					log.debug("robot updates sent");
@@ -47,10 +46,7 @@ public class PCSender extends Thread {
 			if (msg.needsUpdate()) {
 				log.debug("Message needs update");
 				try {
-					toNXT.sendProtocol(protocol.Movement);
-					toNXT.sendMoves(msg.getMoves());
-					toNXT.sendProtocol(protocol.Command);
-					toNXT.sendCommand(msg.getCommand());
+					toNXT.sendMessage(msg);
 					msg.updated();
 					log.debug("Message updates sent");
 				} catch (IOException e) {
