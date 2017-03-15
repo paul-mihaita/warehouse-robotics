@@ -73,15 +73,12 @@ public class GUI extends Thread {
 
 	}
 
-	//private int jobId = job.getJobID();
-	private int jobId = Message.getJobID();
+	private int jobId = msg.getJob().getId();
 	private boolean isOnJob = robot.isOnJob();
 	private boolean isOnPickUp = robot.isOnPickup();
 	private Location location = robot.getCurrentLocation();
-	//private int quantity = task.getQuantity();
-	private int quantity = Message.getQuantity();
-	//private String itemName = task.getItem().getItemName();
-	private String itemName = Message.getItemName();
+	private int quantity = msg.getJob().getTask().getQuantity();
+	private String itemName = msg.getJob().getTask().getItem().getItemName();
 	private int numItems = 0;
 	
 	private boolean ENTER = false; 
@@ -104,16 +101,20 @@ public class GUI extends Thread {
 			if(isOnPickUp) {
 				LCD.clear();
 				LCD.drawString(pickup, 0, 1);
-				jobId = Message.getJob().getJobId();
+				jobId = msg.getJob().getId();
 				LCD.drawString(jobIDisp, 0, 2);
+				quantity = msg.getJob().getTask().getQuantity();
+				itemName = msg.getJob().getTask().getItem().getItemName();
 				LCD.drawString(itemDisp, 0, 3);
 				location = robot.getCurrentLocation();
 				LCD.drawString(locationDisp, 0, 4);
 				if (ENTER) {
 					LCD.clear();
 					LCD.drawString(pickup, 0, 1);
-					jobId = Message.getJob().getJobId();
+					//jobId = msg.getJob().getId();
 					LCD.drawString(jobIDisp, 0, 2);
+					quantity = msg.getJob().getTask().getQuantity();
+					itemName = msg.getJob().getTask().getItem().getItemName();
 					LCD.drawString(itemDisp, 0, 3);
 					location = robot.getCurrentLocation();
 					LCD.drawString(locationDisp, 0, 4);
@@ -147,7 +148,7 @@ public class GUI extends Thread {
 				numItems=0;
 				robot.setOnJob(isOnJob);
 				LCD.drawString(dropoff, 0, 1);
-				jobId = Message.getJob().getJobId();
+				jobId = msg.getJob().getId();
 				LCD.drawString(jobIDisp, 0, 2);
 				LCD.drawString(dropoffItems, 0, 3);
 				location = robot.getCurrentLocation();
@@ -157,7 +158,7 @@ public class GUI extends Thread {
 					numItems=0;
 					robot.setOnJob(isOnJob);
 					LCD.drawString(dropoff, 0, 1);
-					jobId = Message.getJob().getJobId();
+					//jobId = msg.getJob().getId();
 					LCD.drawString(jobIDisp, 0, 2);
 					LCD.drawString(dropoffItems, 0, 3);
 					location = robot.getCurrentLocation();
