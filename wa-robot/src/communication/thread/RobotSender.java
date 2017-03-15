@@ -41,10 +41,8 @@ public class RobotSender extends Thread {
 			}
 			if (msg.needsUpdate()) {
 				try {
-					toPC.sendProtocol(protocol.Movement);
-					toPC.sendMoves(msg.getMoves());
-					toPC.sendProtocol(protocol.Command);
-					toPC.sendCommand(msg.getCommand());
+					toPC.sendProtocol(protocol.Message);
+					toPC.sendMessage(msg);
 					msg.updated();
 				} catch (IOException e) {
 					System.out.println("Couldn't send message object");

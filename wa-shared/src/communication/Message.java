@@ -61,4 +61,11 @@ public class Message {
 		needsUpdate = true;
 	}
 
+	public void update(Message readMessage) {
+		this.moves = readMessage.getMoves();
+		this.command = readMessage.getCommand();
+		this.job = readMessage.getJob();
+		needsUpdate = true;
+	}
+
 }

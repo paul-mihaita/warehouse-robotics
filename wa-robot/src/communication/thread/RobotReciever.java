@@ -29,16 +29,12 @@ public class RobotReciever extends Thread {
 		while (running) {
 			try {
 				switch (fromPC.readProtocol()) {
-					case Movement:
-						msg.setMoves(fromPC.readMoves());
-						msg.updated();
-						break;
 					case Robot:
 						robot.update(fromPC.readRobot());
 						robot.updated();
 						break;
-					case Command:
-						msg.setCommand(fromPC.readCommand());
+					case Message:
+						msg.update(fromPC.readMessage());
 						msg.updated();
 						break;
 					case DC:

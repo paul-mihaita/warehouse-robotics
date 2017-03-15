@@ -20,20 +20,16 @@ public class PCOutputStream extends AbstractOutputStream {
 		this.log = log;
 	}
 
-	public void sendProtocol(protocol p) throws IOException {
+	private void sendProtocol(protocol p) throws IOException {
 		log.debug("Writing a protocol: " + p);
 		switch (p) {
-			case Command:
-				log.debug("wrote: " + CommConst.COMMAND);
-				write(CommConst.COMMAND);
-				break;
-			case Movement:
-				log.debug("wrote: " + CommConst.MOVEMENT);
-				write(CommConst.MOVEMENT);
-				break;
 			case Robot:
 				log.debug("wrote: " + CommConst.ROBOT);
 				write(CommConst.ROBOT);
+				break;
+			case Message:
+				log.debug("wrote: " + CommConst.MESSAGE);
+				write(CommConst.MESSAGE);
 				break;
 			case DC:
 				//writing a DC message
@@ -44,14 +40,26 @@ public class PCOutputStream extends AbstractOutputStream {
 	}
 
 	public void sendRobot(Robot robot) throws IOException {
+		sendProtocol(protocol.Robot);
 		byte[] arrayToSend = Converters.robotToByte(robot);
 		log.debug("Writing number of elements in array: " + arrayToSend.length);
 		write(arrayToSend.length);
 		log.debug("Writing robot");
 		write(arrayToSend);
 	}
+	public void sendMessage(Message msg) throws IOException {
+		sendProtocol(protocol.Message);
+		sendMoves(msg.getMoves());
+		sendCommand(msg.getCommand());
+		sendJob(msg.getJob());
+	}
+	private void sendJob(basicJob job) throws IOException {
+		write(job.getId());
+		write(job.getTask().getQuantity());
+		write((byte) job.getTask().getItem().getName().charAt(0));
+	}
 
-	public void sendMoves(List<move> moves) throws IOException {
+	private void sendMoves(List<move> moves) throws IOException {
 		int numMoves = moves.size();
 		log.debug("Writing number of moves: " + numMoves);
 		write(numMoves);
@@ -60,7 +68,7 @@ public class PCOutputStream extends AbstractOutputStream {
 		write(moveBytes);
 	}
 
-	public void sendCommand(command command) throws IOException {
+	private void sendCommand(command command) throws IOException {
 		log.debug("Writing a command: " + command);
 		switch (command) {
 			case Start:
