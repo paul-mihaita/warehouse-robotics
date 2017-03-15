@@ -10,6 +10,7 @@ public class Robot {
 	private boolean onPickup;
 	public static final int WEIGHT_LIMIT = 50;
 	private boolean needsUpdate;
+	private boolean isMoving;
 
 
     //if you want an empty robot just set everything to null
@@ -21,6 +22,7 @@ public class Robot {
 		this.onJob = false;
 		this.onPickup = false;
 		needsUpdate = true;
+		this.setMoving(false);
 	}
 
 	public String getName() {
@@ -88,5 +90,14 @@ public class Robot {
 
 	public void updated() {
 		needsUpdate = false;
+	}
+
+	public boolean isMoving() {
+		return isMoving;
+	}
+
+	public void setMoving(boolean isMoving) {
+		this.isMoving = isMoving;
+		needsUpdate=true;
 	}
 }
