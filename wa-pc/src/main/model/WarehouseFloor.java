@@ -191,12 +191,14 @@ public class WarehouseFloor {
 		if (!assigment.get(getRobot(name)).isPresent()) {
 			assigment.remove(name);
 			assigment.put(getRobot(name), Optional.of(j));
+			j.select();
 			return true;
 		} else {
 			Job c = assigment.get(getRobot(name)).get();
 			if (c.isCompleted() || c.isCanceled()) {
 				assigment.remove(name);
 				assigment.put(getRobot(name), Optional.of(j));
+				j.select();
 				return true;
 			}
 		}
@@ -248,6 +250,18 @@ public class WarehouseFloor {
 
 	public ArrayList<Item> getItems() {
 		return items;
+	}
+
+	public void cancelJob(Job j) {
+		if (j.isSelected()){
+			j.cancel();
+			// TODO: Reselect Jobs
+		} else if (j.isActive()){
+			j.cancel();
+			// TODO: Interrupt job
+		}
+
+		j.cancel();
 	}
 
 }
