@@ -9,6 +9,7 @@ import utils.Job;
 import utils.Node;
 import utils.Robot;
 import utils.Task;
+import utils.Location;
 
 public class GUI extends Thread {
 	
@@ -73,20 +74,14 @@ public class GUI extends Thread {
 	}
 
 	//private int jobId = job.getJobID();
-	//private int jobID = Message.getJobID();
-	private int jobId = 1002;
-	//private boolean isOnJob = robot.isOnJob();
-	private boolean isOnJob = true;
-	//private boolean isOnPickUp = robot.isOnPickup();
-	private boolean isOnPickUp = true;
-	//private Location location = robot.getCurrentLocation();
-	private String location = "location";
+	private int jobId = Message.getJobID();
+	private boolean isOnJob = robot.isOnJob();
+	private boolean isOnPickUp = robot.isOnPickup();
+	private Location location = robot.getCurrentLocation();
 	//private int quantity = task.getQuantity();
-	//private int quantity = Message.getQuantity();
-	private int quantity = 5;
+	private int quantity = Message.getQuantity();
 	//private String itemName = task.getItem().getItemName();
-	//private String itemName = Message.getItemName();
-	private String itemName = "test item";
+	private String itemName = Message.getItemName();
 	private int numItems = 0;
 	
 	private boolean ENTER = false; 
@@ -109,16 +104,18 @@ public class GUI extends Thread {
 			if(isOnPickUp) {
 				LCD.clear();
 				LCD.drawString(pickup, 0, 1);
+				jobId = Message.getJob().getJobId();
 				LCD.drawString(jobIDisp, 0, 2);
 				LCD.drawString(itemDisp, 0, 3);
-				//location = node.getLocation();
+				location = robot.getCurrentLocation();
 				LCD.drawString(locationDisp, 0, 4);
 				if (ENTER) {
 					LCD.clear();
 					LCD.drawString(pickup, 0, 1);
+					jobId = Message.getJob().getJobId();
 					LCD.drawString(jobIDisp, 0, 2);
 					LCD.drawString(itemDisp, 0, 3);
-					//location = node.getLocation();
+					location = robot.getCurrentLocation();
 					LCD.drawString(locationDisp, 0, 4);
 					
 				}
@@ -150,18 +147,20 @@ public class GUI extends Thread {
 				numItems=0;
 				robot.setOnJob(isOnJob);
 				LCD.drawString(dropoff, 0, 1);
+				jobId = Message.getJob().getJobId();
 				LCD.drawString(jobIDisp, 0, 2);
 				LCD.drawString(dropoffItems, 0, 3);
-				//location = robot.getCurrentLocation();
+				location = robot.getCurrentLocation();
 				LCD.drawString(locationDisp, 0, 4);
 				if (ENTER) {
 					LCD.clear();
 					numItems=0;
 					robot.setOnJob(isOnJob);
 					LCD.drawString(dropoff, 0, 1);
+					jobId = Message.getJob().getJobId();
 					LCD.drawString(jobIDisp, 0, 2);
 					LCD.drawString(dropoffItems, 0, 3);
-					//location = robot.getCurrentLocation();
+					location = robot.getCurrentLocation();
 					LCD.drawString(locationDisp, 0, 4);
 					
 				}
