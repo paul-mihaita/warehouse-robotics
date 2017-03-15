@@ -17,10 +17,9 @@ public class Start {
 		log.info("Starting");
 
 		Input in = new Input(false);
-		in.initializeListOfJobs("1", "2", "3");
 
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
-				in.getJobsArray(), log, false);
+				in.getJobsArray(),in.getItemsArray(), log, false);
 		
 		// Testing
 		

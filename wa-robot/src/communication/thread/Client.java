@@ -66,19 +66,4 @@ public class Client extends Thread {
 			Delay.msDelay(1000);
 		}
 	}
-	
-	public static void main(String[] args) {
-		Robot r;
-		// r = new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0));
-		r = new Robot("Cell", "0016531AFA0B", new Location(0, 0), new Location(1, 0));
-		Message m = new Message(new ArrayList<move>(), command.Wait);
-		System.out.println("constructing client");
-		Client c = new Client(r, m);
-		System.out.println("running");
-		c.launch();
-		while (true) {
-			System.out.println(r.getCurrentLocation().getX());
-			Delay.msDelay(5000);
-		}
-	}
 }

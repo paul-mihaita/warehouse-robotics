@@ -16,6 +16,7 @@ import main.job.JobWorth;
 import main.route.CommandCenter;
 import movement.Movement.move;
 import student_solution.Graph;
+import utils.Item;
 import utils.Info;
 import utils.Job;
 import utils.Location;
@@ -31,6 +32,8 @@ public class WarehouseFloor {
 	private HashMap<String, Message> messageQueues;
 
 	private HashMap<Integer, Job> jobList;
+	
+	private ArrayList<Item> items;
 
 	private Graph<Location> floor;
 
@@ -41,6 +44,7 @@ public class WarehouseFloor {
 	/**
 	 * Creates the Warehouse floor object, contains all the data about the
 	 * warehouse floor.
+	 * @param arrayList 
 	 * 
 	 * @param Floor
 	 *            Graph of locations which contain the warehouse floor
@@ -49,12 +53,13 @@ public class WarehouseFloor {
 	 * @param Log
 	 *            log4j logger object
 	 */
-	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, Logger log, boolean server) {
+	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items, Logger log, boolean server) {
 
 		this.server = server;
 		this.log = log;
 		this.assigment = new HashMap<Robot, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
+		this.items = items;
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
 
@@ -119,7 +124,7 @@ public class WarehouseFloor {
 		Server s = new Server(Info.getRobots(), tempArr, log);
 		if (server)
 			s.launch();
-		log.debug("Server launched succesfully, warehousefloor constructed");
+		log.info("Server launched succesfully, warehousefloor constructed");
 	}
 
 	public void startRobots() {
@@ -233,9 +238,16 @@ public class WarehouseFloor {
 	}
 
 	public void cancelJob(Robot r) {
+		/*
+		 * TODO: * Interrupt job * Stop robot * Reassign job
+		 */
 		if (getJob(r).isPresent()) {
 			getJob(r).get().cancel();
 		}
+	}
+
+	public ArrayList<Item> getItems() {
+		return items;
 	}
 
 }

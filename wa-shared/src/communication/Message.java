@@ -10,10 +10,12 @@ public class Message {
 	private List<move> moves;
 	private command command;
 	private boolean needsUpdate;
+	private basicJob job;
 
-	public Message(List<move> moves, command command) {
+	public Message(List<move> moves, command command, basicJob job) {
 		this.moves = moves;
 		this.command = command;
+		this.job = job;
 		needsUpdate = true;
 	}
 
@@ -48,6 +50,15 @@ public class Message {
 
 	public void updated() {
 		needsUpdate = false;
+	}
+
+	public basicJob getJob() {
+		return job;
+	}
+
+	public void setJob(basicJob job) {
+		this.job = job;
+		needsUpdate = true;
 	}
 
 }
