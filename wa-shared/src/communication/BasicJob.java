@@ -2,11 +2,11 @@ package communication;
 
 import utils.Task;
 
-public class basicJob {
+public class BasicJob {
 	private int id;
 	private Task task;
 
-	public basicJob(int jobID, Task task) {
+	public BasicJob(int jobID, Task task) {
 		this.setId(jobID);
 		this.setTask(task);
 	}

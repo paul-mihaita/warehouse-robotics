@@ -10,9 +10,9 @@ public class Message {
 	private List<move> moves;
 	private command command;
 	private boolean needsUpdate;
-	private basicJob job;
+	private BasicJob job;
 
-	public Message(List<move> moves, command command, basicJob job) {
+	public Message(List<move> moves, command command, BasicJob job) {
 		this.moves = moves;
 		this.command = command;
 		this.job = job;
@@ -52,11 +52,11 @@ public class Message {
 		needsUpdate = false;
 	}
 
-	public basicJob getJob() {
+	public BasicJob getJob() {
 		return job;
 	}
 
-	public void setJob(basicJob job) {
+	public void setJob(BasicJob job) {
 		this.job = job;
 		needsUpdate = true;
 	}

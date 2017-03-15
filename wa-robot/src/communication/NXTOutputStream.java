@@ -45,7 +45,7 @@ public class NXTOutputStream extends AbstractOutputStream {
 		sendJob(msg.getJob());
 	}
 
-	private void sendJob(basicJob job) throws IOException {
+	private void sendJob(BasicJob job) throws IOException {
 		write(job.getId());
 		write(job.getTask().getQuantity());
 		write((byte) job.getTask().getItem().getName().charAt(0));

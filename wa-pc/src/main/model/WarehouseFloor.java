@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import communication.CommConst.command;
 import communication.Message;
-import communication.basicJob;
+import communication.BasicJob;
 import communication.thread.Server;
 import main.gui.GUI;
 import main.job.JobWorth;
@@ -70,7 +70,7 @@ public class WarehouseFloor {
 		int i = 0;
 		for (Robot r : robots) {
 			assigment.put(r, Optional.empty());
-			Message temp = new Message(new ArrayList<move>(), command.Wait, new basicJob(0, new Task("", 0)));
+			Message temp = new Message(new ArrayList<move>(), command.Wait, new BasicJob(0, new Task("", 0)));
 			tempArr[i++] = temp;
 			messageQueues.put(r.getName(), temp);
 		}

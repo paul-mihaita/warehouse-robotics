@@ -5,7 +5,7 @@ import java.util.List;
 
 import communication.CommConst.command;
 import communication.Message;
-import communication.basicJob;
+import communication.BasicJob;
 import communication.thread.Client;
 import controller.behaviours.Controller;
 import movement.Movement.move;
@@ -18,7 +18,7 @@ public class RobotMain {
 	public static void main(String[] args) {
 		Robot[] r = Info.getRobots();
 		
-		Message m = new Message((List<move>) new ArrayList<move>(), command.Wait, new basicJob(0, new Task("", 0)));
+		Message m = new Message((List<move>) new ArrayList<move>(), command.Wait, new BasicJob(0, new Task("", 0)));
 		Client client = new Client(r[0], m);
 		client.launch(); //do not use client.start(); use this instead
 		Controller controller = new Controller(r[0], m);

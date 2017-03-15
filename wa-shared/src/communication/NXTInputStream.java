@@ -45,15 +45,15 @@ public class NXTInputStream {
 	public Message readMessage() throws IOException {
 		List<move> l = readMoves();
 		command c = readCommand();
-		basicJob j = readJob();
+		BasicJob j = readJob();
 		return new Message(l, c, j);
 	}
 
-	private basicJob readJob() throws IOException {
+	private BasicJob readJob() throws IOException {
 		int id = stream.read();
 		int quant = stream.read();
 		String name = (char) stream.read() + "";
-		return new basicJob(id, new Task(name, quant));
+		return new BasicJob(id, new Task(name, quant));
 	}
 
 	private List<move> readMoves() throws IOException {

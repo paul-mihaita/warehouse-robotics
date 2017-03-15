@@ -43,6 +43,7 @@ public class Junction extends AbstractBehavior {
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
 		moveQueue.pull();
 		if (moveQueue.finished()) {
+			robot.setMoving(false);
 			pilot.stop();
 			return;
 		}
