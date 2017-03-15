@@ -28,7 +28,7 @@ public class test {
 		 * + ":" + x4.isOnTape()); }
 		 */
 		
-		BASEPATH.add(move.FORWARD);
+	/*	BASEPATH.add(move.FORWARD);
 		BASEPATH.add(move.BACKWARD);
 		BASEPATH.add(move.TURNLEFT);
 		BASEPATH.add(move.TURNRIGHT);
@@ -36,7 +36,7 @@ public class test {
 		Controller controller = new Controller(
 				new Robot("Keith", "0016530FDDAE", new Location(2, 0), new Location(1, 0)),
 				new Message(BASEPATH, command.Start));
-		controller.run();
+		controller.run();*/
 
 	}
 }

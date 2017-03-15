@@ -5,6 +5,7 @@ import java.util.List;
 import communication.CommConst.command;
 import communication.Message;
 import movement.Movement.move;
+import robot_gui.GUI;
 
 public class QueueTracker {
 
@@ -51,7 +52,12 @@ public class QueueTracker {
 	 */
 	public boolean finished() {
 		if (pointer == internal.size()) {
-			msg.setCommand(command.Finish);
+			
+			msg.setCommand(command.Wait);
+
+			
+			
+			
 			pointer = 0;
 			internal = null;
 			return true;
