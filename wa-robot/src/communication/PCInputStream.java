@@ -27,6 +27,8 @@ public class PCInputStream {
 				return protocol.Robot;
 			case CommConst.COMMAND:
 				return protocol.Command;
+			case CommConst.DC:
+				return protocol.DC;
 			default:
 				throw new IOException("Invalid protocol: " + proto);
 		}
@@ -83,6 +85,8 @@ public class PCInputStream {
 				return command.Start;
 			case CommConst.COM_WAIT:
 				return command.Wait;
+			case CommConst.COM_FINISH:
+				return command.Finish;
 			default:
 				throw new IOException("Invalid protocol recieved: " + cmd);
 

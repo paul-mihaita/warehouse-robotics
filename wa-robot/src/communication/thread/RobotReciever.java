@@ -41,6 +41,10 @@ public class RobotReciever extends Thread {
 						msg.setCommand(fromPC.readCommand());
 						msg.updated();
 						break;
+					case DC:
+						//we disconnected
+						this.interrupt();
+						break;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

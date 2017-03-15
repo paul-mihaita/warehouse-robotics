@@ -18,19 +18,21 @@ public class Converters {
 		} catch (IOException e) {
 			// shouldn't happen
 		}
-		char[] c = new char[a.length - 5];
+		int movesCompleted = a[5];
+		char[] c = new char[a.length - 6];
 		for (int i = 0; i < c.length; i++) {
-			c[i] = (char) a[i + 5];
+			c[i] = (char) a[i + 6];
 		}
 		String name = new String(c);
-		Robot r = new Robot(name, name, orientation, current);
+		Robot r = new Robot(name, null, orientation, current);
+		r.setMoves(movesCompleted); 
 		r.setOnPickup(isOnPickup);
 		return r;
 	}
 
 	public static byte[] robotToByte(Robot r) {
 		String name = r.getName();
-		byte[] returnArr = new byte[name.length() + 5];
+		byte[] returnArr = new byte[name.length() + 6];
 		Location location = r.getCurrentLocation();
 		returnArr[0] = (byte) location.getX();
 		returnArr[1] = (byte) location.getY();
@@ -38,9 +40,10 @@ public class Converters {
 		returnArr[2] = (byte) location.getX();
 		returnArr[3] = (byte) location.getX();
 		returnArr[4] = booleanToByte(r.isOnPickup());
+		returnArr[5] = (byte) r.getMovesCompleted();
 		char[] c = name.toCharArray();
 		for (int i = 0; i < c.length; i++) {
-			returnArr[i + 5] = (byte) c[i];
+			returnArr[i + 6] = (byte) c[i];
 		}
 		return returnArr;
 	}
@@ -103,5 +106,13 @@ public class Converters {
 			return false;
 		}
 		throw new IOException("Incorrect byte code for a boolean");
+	}
+	
+	public static String robotToString(Robot r) {
+		String str = r.getName() + "_" + r.getBtAddress() + "-";
+		str += "(" + r.getCurrentLocation().getX() + ":" + r.getCurrentLocation().getY() + ")";
+		str += "(" + r.getOrientation().getX() + ":" + r.getOrientation().getY() +")";
+		str += "-" + r.isOnJob() + ":" + r.isOnPickup();
+		return str;
 	}
 }

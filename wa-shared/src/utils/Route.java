@@ -7,7 +7,7 @@ import movement.Movement.move;
 
 public class Route {
 	private List<move> path = new ArrayList<move>();
-
+	
 	public List<move> getPath() {
 		return path;
 	}

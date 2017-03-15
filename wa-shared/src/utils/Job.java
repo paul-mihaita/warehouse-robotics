@@ -23,7 +23,7 @@ public class Job {
 
 		float sumOfWeight = 0;
 		for (Task task : tasks) {
-			sumOfWeight += task.getTaskItem().getWeight() * task.getQuantity();
+			sumOfWeight += task.getItem().getWeight() * task.getQuantity();
 		}
 		return sumOfWeight;
 	}
@@ -60,6 +60,13 @@ public class Job {
 
 	public String getStatus() {
 		return status.name();
+	}
+	
+	public float getJobReward(){
+		float reward = 0;
+		for(Task t : tasks)
+			reward += t.getTaskReward();
+			return reward;
 	}
 
 	public boolean isActive() {

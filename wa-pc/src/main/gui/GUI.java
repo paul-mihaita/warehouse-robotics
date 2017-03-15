@@ -1,10 +1,14 @@
 package main.gui;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
+import org.jfree.util.Log;
+import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,7 +17,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.image.Image;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -22,25 +30,35 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import main.model.WarehouseFloor;
+import rp.util.Rate;
 import student_solution.Graph;
+import utils.Item;
 import utils.Location;
 import utils.Robot;
+import utils.Task;
+import utils.Tuple;
 
 public class GUI extends Application {
 
 	// For the moment while there is no map these are not being used
-	public static final int ROBOT_WIDTH = 220;
+	public static final int ROBOT_WIDTH = 230;
 	public static final int MAP_WIDTH = 600;
 
 	public static final int WIDTH = ROBOT_WIDTH + MAP_WIDTH;
 
 	public static final int HEIGHT = 390;
 
-	private static HashMap<Robot, Label> robotLabels;
+	private static HashMap<Robot, Tuple<Label, Label>> robotLabels;
 
 	private static WarehouseFloor model;
 
-	private static AnimationTimer timer;
+	private static Thread canvasHandler;
+	private static Thread nodeAnimator;
+
+	private static ArrayList<Location> nodesToDraw;
+
+	private static HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> coloredPath;
+	private static HashSet<ArrayList<ArrayList<Location>>> paths;
 
 	/**
 	 * 
@@ -52,7 +70,10 @@ public class GUI extends Application {
 	 */
 	public static void create(WarehouseFloor model) {
 
-		GUI.robotLabels = new HashMap<Robot, Label>();
+		GUI.paths = new HashSet<ArrayList<ArrayList<Location>>>();
+		GUI.coloredPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>();
+		GUI.robotLabels = new HashMap<Robot, Tuple<Label, Label>>();
+		GUI.nodesToDraw = new ArrayList<Location>();
 		GUI.model = model;
 		launch();
 	}
@@ -61,25 +82,49 @@ public class GUI extends Application {
 	 * Pleeeeeeeeeease don't use this, use create(jobs) instead xxx
 	 */
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 
 		primaryStage.setTitle("Warehouse Controller");
 		primaryStage.setMinHeight(HEIGHT);
 		primaryStage.setMinWidth(WIDTH);
-		// primaryStage.getIcons().add(new Image("icon.jpg"));
 
-		GridPane robotHolder = GUI.createRobotPane();
+		File alex = new File("alex.png");
+		if (alex.exists()) {
+			Start.log.debug(alex.getAbsolutePath());
+			primaryStage.getIcons().add(new Image("file:" + alex.getAbsolutePath()));
+		}
+
+		TabPane tabPane = GUI.createTabPane();
 
 		Canvas map = GUI.createMapPane();
 
 		BorderPane guiHolder = new BorderPane();
 
-		guiHolder.setLeft(robotHolder);
+		guiHolder.setLeft(tabPane);
 		guiHolder.setCenter(map);
 
 		primaryStage.setScene(new Scene(guiHolder));
 		primaryStage.show();
 
+	}
+
+	private static TabPane createTabPane() {
+		TabPane pane = new TabPane();
+		pane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		GridPane robotHolder = GUI.createRobotPane();
+		pane.getTabs().add(new Tab("Robots", robotHolder));
+		return pane;
+	}
+
+	@Override
+	public void stop() {
+		canvasHandler.interrupt();
+		nodeAnimator.interrupt();
+		Start.log.info("GUI was closed");
+	}
+
+	private static ArrayList<Location> getNodes() {
+		return new ArrayList<Location>(nodesToDraw);
 	}
 
 	private static Canvas createMapPane() {
@@ -88,28 +133,167 @@ public class GUI extends Application {
 
 		Canvas map = new Canvas();
 
-		timer = new AnimationTimer() {
+		map.setWidth(MAP_WIDTH);
+		map.setHeight(HEIGHT);
+
+		GraphicsContext gc = map.getGraphicsContext2D();
+
+		Graph<Location> floorMap = model.getFloorGraph();
+
+		nodeAnimator = new Thread(new Runnable() {
+
 			@Override
-			public void handle(long now) {
+			public void run() {
+				while (!nodeAnimator.isInterrupted()) {
+					int max = getMaxNodes();
+					for (int i = 0; i < max; i++) {
+						for (ArrayList<Location> path : makeDrawable(coloredPath)) {
+							if (i < path.size()) {
+								nodesToDraw.add(path.get(i));
+							}
 
-				GraphicsContext gc = map.getGraphicsContext2D();
+							if (nodeAnimator.isInterrupted())
+								return;
 
-				map.setWidth(MAP_WIDTH);
-				map.setHeight(HEIGHT);
+							new Rate(1.5).sleep();
 
-				Graph<Location> floorMap = model.getFloorGraph();
+							if (nodeAnimator.isInterrupted())
+								return;
+						}
 
-				for (IVertex<Location> v : floorMap.getVertices()) {
-					GUI.drawNode(v, gc);
-					GUI.drawEdges(v, gc);
+						for (ArrayList<Location> path : makeDrawable(coloredPath)) {
+							if (i < path.size()) {
+								nodesToDraw.remove(path.get(i));
+							}
+						}
+					}
+				}
+			}
+		});
+
+		canvasHandler = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (!canvasHandler.isInterrupted()) {
+
+					gc.clearRect(0, 0, MAP_WIDTH, HEIGHT);
+
+					for (IVertex<Location> v : floorMap.getVertices()) {
+						GUI.drawEdges(v, gc);
+					}
+					GUI.drawRobots(gc);
+					GUI.drawPath(gc);
+					GUI.drawNodes(gc);
+					GUI.drawItems(gc, model.getItems());
+
+					Log.debug("Updated robot location");
+
+					new Rate(4).sleep();
 				}
 
-				GUI.drawRobots(gc);
 			}
-		};
+		});
 
-		timer.start();
+		nodeAnimator.start();
+		canvasHandler.start();
+
 		return map;
+	}
+
+	private static void drawItems(GraphicsContext gc, ArrayList<Item> items) {
+
+		for (Item i : items) {
+
+			gc.setFill(Color.BLACK);
+			gc.fillOval(scale(i.getLocation().getX()), scale(i.getLocation().getY()), 5, 5);
+			gc.setLineWidth(1);
+			gc.strokeText(i.getItemName(), scale(i.getLocation().getX()) - 20, scale(i.getLocation().getY()) - 20);
+		}
+
+	}
+
+	private static void drawNodes(GraphicsContext gc) {
+
+		ArrayList<Location> nodes = getNodes();
+
+		gc.setFill(Color.CADETBLUE);
+		for (Location l : nodes) {
+			gc.fillOval(scale(l.getX()), scale(l.getY()), 10, 10);
+		}
+
+	}
+
+	private static int cycle;
+
+	private static int getMaxNodes() {
+
+		int maxPath = 0;
+
+		HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>(
+				coloredPath);
+
+		for (ArrayList<Location> path : makeDrawable(clone)) {
+			maxPath = Math.max(maxPath, path.size());
+		}
+
+		return maxPath;
+	}
+
+	private static ArrayList<ArrayList<Location>> makeDrawable(
+			HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone) {
+		ArrayList<ArrayList<Location>> drawable = new ArrayList<ArrayList<Location>>();
+
+		for (Tuple<ArrayList<ArrayList<Location>>, Paint> partPath : clone) {
+			ArrayList<Location> wholePath = new ArrayList<Location>();
+			for (ArrayList<Location> singlePath : partPath.getX()) {
+				for (Location l : singlePath) {
+					wholePath.add(l);
+				}
+			}
+			drawable.add(wholePath);
+		}
+
+		return drawable;
+	}
+
+	private static void drawPath(GraphicsContext gc) {
+
+		for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : coloredPath) {
+
+			for (ArrayList<Location> part : path.getX()) {
+
+				gc.setFill(path.getY());
+				gc.setStroke(path.getY());
+
+				gc.setLineWidth(4);
+				gc.setLineDashes(7);
+
+				for (int i = 0; i < part.size() - 1; i++) {
+					gc.strokeLine(scale(part.get(i).getX()) + 5, scale(part.get(i).getY()) + 5,
+							scale(part.get(i + 1).getX()) + 5, scale(part.get(i + 1).getY()) + 5);
+				}
+
+			}
+		}
+	}
+
+	private static Paint getColor() {
+
+		Paint p;
+
+		if (cycle == 0) {
+			p = Color.RED;
+		} else if (cycle == 1) {
+			p = Color.BLUE;
+		} else if (cycle == 2) {
+			p = Color.GREEN;
+		} else {
+			p = Color.YELLOW;
+			cycle = 0;
+		}
+
+		cycle++;
+		return p;
 	}
 
 	private static void drawEdges(IVertex<Location> v, GraphicsContext gc) {
@@ -121,18 +305,11 @@ public class GUI extends Application {
 			Location child = e.getTgt().getLabel().getData();
 
 			gc.setStroke(Color.LIGHTSLATEGRAY);
+			gc.setLineWidth(2);
+			gc.setLineDashes(0);
 			gc.strokeLine(scale(parent.getX()) + 5, scale(parent.getY()) + 5, scale(child.getX()) + 5,
 					scale(child.getY()) + 5);
 		}
-
-	}
-
-	private static void drawNode(IVertex<Location> v, GraphicsContext gc) {
-
-		Location l = v.getLabel().getData();
-
-		gc.setFill(Color.DARKMAGENTA);
-		gc.fillOval(scale(l.getX()), scale(l.getY()), 10, 10);
 
 	}
 
@@ -140,7 +317,8 @@ public class GUI extends Application {
 		for (Robot r : model.getRobots()) {
 			gc.setFill(Color.DARKGREY);
 			gc.fillRect(scale(r.getCurrentLocation().getX()) - 5, scale(r.getCurrentLocation().getY()) - 5, 20, 20);
-			r.getOrientation();
+
+			// TODO r.getOrientation();
 		}
 	}
 
@@ -159,13 +337,6 @@ public class GUI extends Application {
 
 		robotHolder.setMaxHeight(HEIGHT);
 		robotHolder.setPrefWidth(ROBOT_WIDTH);
-
-		Label robotLabel = new Label("Robots");
-
-		robotLabel.setFont(new Font(20));
-
-		robotHolder.add(robotLabel, 0, 0);
-
 		Button startButton = new Button("Start");
 
 		startButton.setTextFill(Color.GREEN);
@@ -214,8 +385,6 @@ public class GUI extends Application {
 
 			Label s = new Label("Job status:");
 
-			s.setFont(new Font(15));
-
 			String text;
 
 			if (model.getJob(r).isPresent()) {
@@ -244,19 +413,47 @@ public class GUI extends Application {
 			Label jobId = new Label(text);
 
 			robotPane.setAlignment(Pos.CENTER_LEFT);
-			robotPane.setHgap(ROBOT_WIDTH / 10);
-			robotPane.setVgap(ROBOT_WIDTH / 10);
+			robotPane.setHgap(10);
+			robotPane.setVgap(0);
 
 			robotPane.add(l, 0, 0);
-			robotPane.add(s, 0, 1);
-
 			robotPane.add(b, 1, 0);
-			robotPane.add(status, 1, 1);
 
-			robotPane.add(idText, 0, 2);
-			robotPane.add(jobId, 1, 2);
+			robotPane.add(idText, 0, 1);
+			robotPane.add(jobId, 1, 1);
 
-			robotLabels.put(r, status);
+			robotPane.add(s, 0, 2);
+			robotPane.add(status, 1, 2);
+
+			if (model.getJob(r).isPresent()) {
+
+				GridPane taskPane = new GridPane();
+				taskPane.setStyle("-fx-border-color: gray");
+				taskPane.setAlignment(Pos.BASELINE_CENTER);
+				taskPane.setVgap(5);
+				taskPane.setHgap(30);
+
+				int i = 0;
+
+				Label itemFlag = new Label("Job Items");
+				itemFlag.setFont(new Font(15));
+
+				taskPane.add(itemFlag, 0, i++, 2, 1);
+
+				for (Task t : model.getJob(r).get().getTasks()) {
+
+					Label itemName = new Label(t.getItem().getItemName());
+					Label itemQuantity = new Label("" + t.getQuantity());
+
+					taskPane.add(itemName, 0, i);
+					taskPane.add(itemQuantity, 1, i++);
+
+				}
+
+				robotPane.add(taskPane, 0, 3, 3, 3);
+			}
+
+			robotLabels.put(r, new Tuple<Label, Label>(jobId, status));
 
 			robotGrid.add(robotPane, 0, level++);
 		}
@@ -267,8 +464,28 @@ public class GUI extends Application {
 		return robotHolder;
 	}
 
-	public static void updateLabels() {
-		// TODO this
+	private static void updateLabels() {
+		for (Robot r : robotLabels.keySet()) {
+			Tuple<Label, Label> t = robotLabels.get(r);
+			String text;
+
+			if (model.getJob(r).isPresent()) {
+				text = "" + model.getJob(r).get().getJobID();
+			} else {
+				text = "UNASSIGNED";
+			}
+
+			t.getX().setText(text);
+
+			if (model.getJob(r).isPresent()) {
+				text = model.getJob(r).get().getStatus();
+			} else {
+				text = "UNASSIGNED";
+			}
+
+			t.getY().setText(text);
+
+		}
 	}
 
 	private static Paint statusColor(String status) {
@@ -276,16 +493,27 @@ public class GUI extends Application {
 		 * aCtive, iNactive, cOmpleted, cAnceled
 		 */
 		switch (status.charAt(1)) {
-			case 'C':
-				return Color.GREEN;
-			case 'N':
-				return Color.BLACK;
-			case 'O':
-				return Color.BLUE;
-			case 'A':
-				return Color.RED;
-			default:
-				return Color.GRAY;
+		case 'C':
+			return Color.GREEN;
+		case 'N':
+			return Color.BLACK;
+		case 'O':
+			return Color.BLUE;
+		case 'A':
+			return Color.RED;
+		default:
+			return Color.GRAY;
+		}
+	}
+
+	public static void displayPath(ArrayList<ArrayList<Location>> arrayList) {
+
+		paths.add(arrayList);
+		coloredPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>();
+		for (ArrayList<ArrayList<Location>> path : paths) {
+
+			coloredPath.add(new Tuple<ArrayList<ArrayList<Location>>, Paint>(path, getColor()));
+
 		}
 	}
 }

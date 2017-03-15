@@ -110,20 +110,32 @@ public class Server extends Thread {
 		ca.setLayout(new PatternLayout("%-5p [%t]: %m%n"));
 		log.addAppender(ca);
 		log.setLevel(Level.ALL);
-		Robot r0 = new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0));
-		Robot r1 = new Robot("Cell", "0016531AFA0B", new Location(0, 0), new Location(1, 0));
-		Message m0 = new Message(new ArrayList<move>(), command.Wait);
-		Message m1 = new Message(new ArrayList<move>(), command.Wait);
-		Server s = new Server(new Robot[] { r0, r1 }, new Message[] { m0, m1 }, log);
+		Robot r0 = new Robot("Keith", "0016530FDDAE", new Location(0, 1), new Location(0, 0));
+		Robot r1 = new Robot("Cell", "0016531AFA0B", new Location(0, 1), new Location(1, 0));
+		Robot r2 = new Robot("Charmander", "0016531AF6D6", new Location(0, 1), new Location(2, 0));
+		ArrayList<move> moves = new ArrayList<move>();
+		moves.add(move.FORWARD);
+		moves.add(move.BACKWARD);
+		moves.add(move.TURNLEFT);
+		moves.add(move.TURNRIGHT);
+		Message m0 = new Message(moves, command.Wait);
+		Message m1 = new Message(moves, command.Wait);
+		Message m2 = new Message(moves, command.Wait);
+		Server s = new Server(new Robot[] { r1 }, new Message[] { m1 }, log);
 		s.launch();
-		int i = 100;
+		Delay.msDelay(1000);
+		m0.setCommand(command.Start);
+		m1.setCommand(command.Start);
+		m2.setCommand(command.Start);
 		while (true) {
-			System.out.println(r0.getCurrentLocation().getX());
-			Delay.msDelay(5000);
-			Location l = r0.getCurrentLocation();
-			l.setX(i++);
-			r0.setCurrentLocation(l);
-			r1.setCurrentLocation(l);
+			if (m1.getCommand() == command.Finish) //&& (m1.getCommand() == command.Finish)) 
+				{
+				System.out.println("finished");
+			} else {
+				System.out.println(Converters.robotToString(r1));
+				//System.out.println(Converters.robotToString(r1));
+			}
+			Delay.msDelay(1000);
 		}
 	}
 

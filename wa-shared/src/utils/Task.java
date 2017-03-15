@@ -15,10 +15,6 @@ public class Task {
 		return quantity;
 	}
 
-	public Item getTaskItem() {
-		return item;
-	}
-
 	public Item getItem() {
 		return item;
 	}
@@ -30,5 +26,9 @@ public class Task {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	
+	public float getTaskReward(){
+		return item.getReward()*quantity;
 	}
 }

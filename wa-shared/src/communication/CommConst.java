@@ -2,12 +2,14 @@ package communication;
 
 public class CommConst {
 
+	public static final int DC = -1;
 	public static final int MOVEMENT = 1;
 	public static final int ROBOT = 2;
 	public static final int COMMAND = 3;
 
-	public static final int COM_START = 1000;
-	public static final int COM_WAIT = 2000;
+	public static final int COM_START = 10;
+	public static final int COM_WAIT = 20;
+	public static final int COM_FINISH = 30;
 
 	public static final int GRACE = 100;
 
@@ -18,10 +20,10 @@ public class CommConst {
 	public static final byte WAIT = 0x05;
 
 	public enum protocol {
-		Movement, Robot, Command
+		Movement, Robot, Command, DC
 	}
 
 	public enum command {
-		Start, Wait
+		Start, Wait, Finish
 	}
 }

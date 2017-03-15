@@ -6,12 +6,11 @@ import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
 import lejos.util.Delay;
 import utils.Job;
-import utils.Location;
 import utils.Node;
 import utils.Robot;
 import utils.Task;
 
-public class GUI implements Runnable {
+public class GUI extends Thread {
 	
 	Job job;
 	Node node;
