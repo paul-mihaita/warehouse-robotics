@@ -45,9 +45,7 @@ public class CommandCenter {
 	 * }
 	 */
 
-	public static HashMap<Robot, ArrayList<ArrayList<move>>> generatePaths(
-
-	HashMap<Robot, Job> jobMap) {
+	public static HashMap<Robot, ArrayList<ArrayList<move>>> generatePaths(HashMap<Robot, Job> jobMap) {
 		pathsLocations.clear();
 		ArrayList<Robot> robots = new ArrayList<>();
 		Iterator<Robot> rob = jobMap.keySet().iterator();
@@ -94,8 +92,7 @@ public class CommandCenter {
 				}
 
 			}
-			ArrayList<ArrayList<Location>> x = AstarWHCA.aStar(graph, gridMap,
-					robots, targets, 100);
+			ArrayList<ArrayList<Location>> x = AstarWHCA.aStar(graph, gridMap, robots, targets, 100);
 			Hashtable<Robot, Location> finalLoc = new Hashtable<Robot, Location>();
 			finalOrientation = new Hashtable<Robot, Location>();
 
@@ -106,18 +103,15 @@ public class CommandCenter {
 						ArrayList<ArrayList<move>> aux = new ArrayList<>();
 						ArrayList<ArrayList<Location>> auxLoc = new ArrayList<>();
 						Robot r = robots.get(j);
-						aux.add(CommandCenter.generateMovements(y,
-								r.getOrientation()));
+						aux.add(CommandCenter.generateMovements(y, r.getOrientation()));
 						finalLoc.put(r, y.get(y.size() - 1));
-						finalOrientation.put(
-								r,
-								getOrientation(y.get(y.size() - 2),
-										y.get(y.size() - 1)));
+						finalOrientation.put(r, getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
 						paths.put(r, aux);
 						auxLoc.add(y);
 						pathsLocations.put(r, auxLoc);
 						j++;
-					}else j++;
+					} else
+						j++;
 				}
 			} else {
 				int j = 0;
@@ -125,14 +119,11 @@ public class CommandCenter {
 					if (y.size() > 2) {
 						Robot r = robots.get(j);
 						finalLoc.put(r, y.get(y.size() - 1));
-						finalOrientation.put(
-								r,
-								getOrientation(y.get(y.size() - 2),
-										y.get(y.size() - 1)));
+						finalOrientation.put(r, getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
 						pathsLocations.get(r).add(y);
 						j++;
-					}
-					else j++;
+					} else
+						j++;
 				}
 			}
 			for (Robot r : robots) {
@@ -172,8 +163,7 @@ public class CommandCenter {
 			return location2;
 	}
 
-	public static ArrayList<move> generateMovements(ArrayList<Location> path,
-			Location orientation) {
+	public static ArrayList<move> generateMovements(ArrayList<Location> path, Location orientation) {
 		ArrayList<move> moves = new ArrayList<>();
 		move facing = getFacing(path.get(0), orientation);
 
@@ -187,8 +177,7 @@ public class CommandCenter {
 		return moves;
 	}
 
-	public static ArrayList<move> whatDirection(Location loc, Location target,
-			move facing) {
+	public static ArrayList<move> whatDirection(Location loc, Location target, move facing) {
 		ArrayList<move> aux = new ArrayList<>();
 		int lox = loc.getX();
 		int loy = loc.getY();
