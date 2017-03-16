@@ -20,10 +20,10 @@ public class JobWorthTest {
 	public static void main(String[] args){
 
 		Input in = new Input(false);
-		in.initializeListOfJobs("1", "2", "3");
+		//in.initializeListOfJobs("1", "2", "3");
 		
-		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
-				in.getJobsArray(), log);
+		//WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
+			//	in.getJobsArray(), log);
 		
 		
 		//HashMap<String, String> jobsReward = jobWorth.getReward(); 

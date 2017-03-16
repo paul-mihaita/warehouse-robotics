@@ -19,6 +19,10 @@ public class Job {
 		this.tasks = tasks;
 		this.status = Status.NOT_SELECTED;
 	}
+	
+	public Job(){
+		
+	}
 
 	public float sumOfWeight() {
 
