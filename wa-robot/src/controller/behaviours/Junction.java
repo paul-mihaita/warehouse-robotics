@@ -5,7 +5,7 @@ import java.util.List;
 import communication.CommConst.command;
 import communication.Message;
 import constants.RobotConstants;
-import controller.logic.Movement;
+import controller.logic.RobotMovement;
 import controller.logic.QueueTracker;
 import lejos.nxt.Button;
 import lejos.nxt.SensorPort;
@@ -54,19 +54,19 @@ public class Junction extends AbstractBehavior {
 		//System.out.println(m);
 		switch (m) {
 			case BACKWARD:
-				Movement.backward(pilot, robot);
+				RobotMovement.backward(pilot, robot);
 				break;
 			case FORWARD:
-				Movement.forward(robot.getOrientation(), pilot, robot);
+				RobotMovement.forward(robot.getOrientation(), pilot, robot);
 				break;
 			case TURNLEFT:
-				Movement.turnleft(pilot, robot);
+				RobotMovement.turnleft(pilot, robot);
 				break;
 			case TURNRIGHT:
-				Movement.turnright(pilot, robot);
+				RobotMovement.turnright(pilot, robot);
 				break;
 			case WAIT:
-				Movement.waitUntilPress(pilot);
+				RobotMovement.waitUntilPress(pilot);
 				break;
 		}
 	}
