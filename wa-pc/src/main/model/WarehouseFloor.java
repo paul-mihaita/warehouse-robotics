@@ -7,24 +7,24 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 
+import communication.BasicJob;
 import communication.CommConst.command;
 import communication.Message;
-import communication.BasicJob;
 import communication.thread.Server;
 import main.gui.GUI;
 import main.job.JobWorth;
 import main.route.CommandCenter;
 import movement.Movement.move;
 import student_solution.Graph;
-import utils.Item;
 import utils.Info;
+import utils.Item;
 import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
 
 public class WarehouseFloor {
-
+	RobotHelper[] help;
 	private HashSet<Robot> robots;
 
 	private HashMap<Robot, Optional<Job>> assigment;
@@ -32,7 +32,7 @@ public class WarehouseFloor {
 	private HashMap<String, Message> messageQueues;
 
 	private HashMap<Integer, Job> jobList;
-	
+
 	private ArrayList<Item> items;
 
 	private Graph<Location> floor;
@@ -44,7 +44,8 @@ public class WarehouseFloor {
 	/**
 	 * Creates the Warehouse floor object, contains all the data about the
 	 * warehouse floor.
-	 * @param arrayList 
+	 * 
+	 * @param arrayList
 	 * 
 	 * @param Floor
 	 *            Graph of locations which contain the warehouse floor
@@ -53,7 +54,8 @@ public class WarehouseFloor {
 	 * @param Log
 	 *            log4j logger object
 	 */
-	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items, Logger log, boolean server) {
+	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items, Logger log,
+			boolean server) {
 
 		this.server = server;
 		this.log = log;
@@ -62,14 +64,15 @@ public class WarehouseFloor {
 		this.items = items;
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
-		
+
 		Robot keith = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(2, 0), new Location(1, 0));
 		this.robots.add(keith);
 
 		Robot cell = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(0, 0), new Location(1, 0));
 		this.robots.add(cell);
 
-		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1), new Location(0, 0));
+		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1),
+				new Location(0, 0));
 		this.robots.add(charmander);
 
 		for (Job j : jobs) {
@@ -174,7 +177,7 @@ public class WarehouseFloor {
 	private void givePaths(HashMap<Robot, ArrayList<ArrayList<move>>> routes) {
 		if (!server)
 			return;
-		RobotHelper[] help = new RobotHelper[robots.size()];
+		help = new RobotHelper[robots.size()];
 		int i = 0;
 		for (Robot robot : robots) {
 			help[i++] = new RobotHelper(messageQueues.get(robot.getName()), routes.get(robot));
@@ -186,8 +189,7 @@ public class WarehouseFloor {
 			try {
 				help[j].join();
 			} catch (InterruptedException e) {
-				// shouldn't happen
-				log.error("Robot helper was interupted", e);
+				log.debug("Robot helper was interrupted: job was cancelled", e);
 			}
 		}
 	}
@@ -248,9 +250,6 @@ public class WarehouseFloor {
 	}
 
 	public void cancelJob(Robot r) {
-		/*
-		 * TODO: * Interrupt job * Stop robot * Reassign job
-		 */
 		if (getJob(r).isPresent()) {
 			getJob(r).get().cancel();
 		}
@@ -261,10 +260,10 @@ public class WarehouseFloor {
 	}
 
 	public void cancelJob(Job j) {
-		if (j.isSelected()){
+		if (j.isSelected()) {
 			j.cancel();
 			// TODO: Reselect Jobs
-		} else if (j.isActive()){
+		} else if (j.isActive()) {
 			j.cancel();
 			// TODO: Interrupt job
 		}

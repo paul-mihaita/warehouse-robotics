@@ -36,4 +36,9 @@ public class RobotHelper extends Thread {
 			}
 		}
 	}
+	
+	@Override
+	public void interrupt() {
+		//job has been cancelled
+	}
 }
