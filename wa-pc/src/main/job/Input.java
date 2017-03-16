@@ -32,7 +32,7 @@ public class Input {
 		this.initializeListOfJobs(path+"jobs", path+"items", path+"locations");
 		this.initializeItemsList(path+"locations");
 		this.initializedropLocations(path+"drops");
-		this.initializeCancelledJobs(path+"cancellations");
+		//this.initializeCancelledJobs(path+"cancellations");
 	}
 	
 	public Input(){
@@ -277,11 +277,13 @@ public class Input {
 					token = inFile.nextLine();
 					if (toDo) {
 						String[] parts = token.split(",");
-						if (!items.contains(parts[2])) {
+						if (parts.length==2) {
+							Start.log.debug("Drop= "+token);
 							Start.log.debug("drop location: " + i);
 							DropLocation temp = new DropLocation("DropLocation_" + (i + 1));
-							int x = Integer.parseInt(parts[0]);
-							int y = Integer.parseInt(parts[1]);
+							int x = Integer.parseInt(parts[0].trim());
+							int y = Integer.parseInt(parts[1].trim());
+							Start.log.debug("x= "+x+"\ty="+y);
 							temp.setLocation(x, y);
 							dropLocations.add(temp);
 						}
@@ -319,11 +321,13 @@ public class Input {
 					token = inFile.nextLine();
 					if (toDo) {
 						String[] parts = token.split(",");
-						if (!items.contains(parts[2])) {
+						if (parts.length==2) {
 							Start.log.debug("JobID: "+parts[0]+"\tCancellation: "+parts[1]);
-							int jobID = Integer.parseInt(parts[0].trim());
-							Job job = getJobWithID(Integer.parseInt(parts[0].trim()));
+							int jobID = Integer.parseInt(parts[0]);
+							System.out.println(jobs.size());
+							//Job job = getJobWithID(Integer.parseInt(parts[0]));
 							for (Job j : jobs) {
+								System.out.println(j.getJobID() +"\t"+jobID);
 								if(j.getJobID() == jobID){
 									jobsWithCancellation.put(j, Boolean.parseBoolean(parts[1]));
 									Start.log.debug("Inserted in HashMap:\nJob with ID: "+j.getJobID()+"\tand Cancellation: "+Boolean.parseBoolean(parts[1]));
