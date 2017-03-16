@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import org.apache.log4j.Logger;
 
@@ -262,10 +263,24 @@ public class WarehouseFloor {
 	public void cancelJob(Job j) {
 		if (j.isSelected()) {
 			j.cancel();
+			for (Robot r : assigment.keySet()) {
+				assigment.get(r).ifPresent(new Consumer<Job>() {
+					@Override
+					public void accept(Job t) {
+						if (t.equals(j)) {
+							cancelJob(r);
+						}
+					}
+				});
+			}
+
 			// TODO: Reselect Jobs
+
 		} else if (j.isActive()) {
 			j.cancel();
+
 			// TODO: Interrupt job
+
 		}
 
 		j.cancel();
