@@ -62,6 +62,15 @@ public class WarehouseFloor {
 		this.items = items;
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
+		
+		Robot keith = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(2, 0), new Location(1, 0));
+		this.robots.add(keith);
+
+		Robot cell = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(0, 0), new Location(1, 0));
+		this.robots.add(cell);
+
+		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1), new Location(0, 0));
+		this.robots.add(charmander);
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -75,7 +84,6 @@ public class WarehouseFloor {
 			messageQueues.put(r.getName(), temp);
 		}
 
-		HashSet<Robot> robots = this.getRobots();
 		JobWorth jobWorth = new JobWorth(jobs, robots);
 		HashMap<Integer, Float> temp = jobWorth.getReward();
 
