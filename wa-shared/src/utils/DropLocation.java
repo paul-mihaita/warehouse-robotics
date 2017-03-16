@@ -7,6 +7,7 @@ public class DropLocation {
 	
 	public DropLocation(String name){
 		this.name=name;
+		this.location = new Location(0, 0);
 	}
 	
 	public String getName() {
