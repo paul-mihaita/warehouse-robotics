@@ -19,10 +19,13 @@ hs_err_pid*
 */bin/
 
 .metadata
+
 /bin/
 
 */.classpath
 */.project
 *.log
+
+wa-pc/logging/*
 
 .recommenders/
