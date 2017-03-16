@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.jfree.util.Log;
 
 import bootstrap.Start;
+import utils.DropLocation;
 import utils.Item;
 import utils.Job;
 import utils.Task;
@@ -25,6 +26,7 @@ public class Input {
 		thereIsTheTitleFile = haveTitle;
 		this.initializeListOfJobs("1", "2", "3");
 		this.initializeItemsList("3");
+		this.initializedropLocations("4");
 	}
 
 	public boolean fileHaveTheExtension(String fileName) {
@@ -250,4 +252,47 @@ public class Input {
 	public ArrayList<Item> getItemsArray() {
 		return items;
 	}
+
+	public ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
+
+	public boolean initializedropLocations(String fileName) {
+		/////////////////////////////////////////////////// FILE RIGHT
+		if (fileRight(fileName)) {
+			try {
+				if (!fileHaveTheExtension(fileName)) {
+					fileName = fileName + ".csv";
+				}
+				// CREATE SCANNER TO READ FILE
+				Scanner inFile = new Scanner(new File(fileName));
+				String token;
+				boolean toDo = !thereIsTheTitleFile;
+				int i = 0;
+				while (inFile.hasNext()) {
+					token = inFile.nextLine();
+					if (toDo) {
+						String[] parts = token.split(",");
+						if (!items.contains(parts[2])) {
+							Start.log.debug("drop location: " + i);
+							DropLocation temp = new DropLocation("DropLocation_" + (i + 1));
+							int x = Integer.parseInt(parts[0]);
+							int y = Integer.parseInt(parts[1]);
+							temp.setLocation(x, y);
+							dropLocations.add(temp);
+						}
+					}
+					toDo = true;
+				}
+				inFile.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} else
+			return false;
+	}
+	
+	public ArrayList<DropLocation> getIDropLocationArray() {
+		return dropLocations;
+	}
+
 }
