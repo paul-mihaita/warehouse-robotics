@@ -14,15 +14,17 @@ public class RobotHelper extends Thread {
 	private Message m;
 	private Queue<ArrayList<move>> r;
 
-	public RobotHelper(Message m, ArrayList<ArrayList<move>> routes) {
+	public RobotHelper(Message m) {
 		this.m = m;
+	}
+	
+	public void overwriteRoutes(ArrayList<ArrayList<move>> routes) {
 		Queue<ArrayList<move>> route = new LinkedList<ArrayList<move>>();
 		for (ArrayList<move> arrayList : routes) {
 			route.offer(arrayList);
 		}
 		this.r = route;
 	}
-	
 	@Override
 	public void run() {
 		while (!r.isEmpty()) {
@@ -40,5 +42,6 @@ public class RobotHelper extends Thread {
 	@Override
 	public void interrupt() {
 		//job has been cancelled
+		m.setCommand(command.Wait);
 	}
 }

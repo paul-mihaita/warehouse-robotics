@@ -25,7 +25,7 @@ import utils.Robot;
 import utils.Task;
 
 public class WarehouseFloor {
-	RobotHelper[] help;
+	private HashMap<Robot, RobotHelper> poller = new HashMap<Robot, RobotHelper>();
 	private HashSet<Robot> robots;
 
 	private HashMap<Robot, Optional<Job>> assigment;
@@ -131,12 +131,21 @@ public class WarehouseFloor {
 		// this.assign("Keith", jobList.get(maxkey));
 		//
 
+		log.debug("creating threads for starting and stopping jobs");
+		initalizePoller();
+		log.debug("created");
 		this.floor = floor;
 		log.debug("Creating Server");
 		Server s = new Server(Info.getRobots(), tempArr, log);
 		if (server)
 			s.launch();
 		log.info("Server launched succesfully, warehousefloor constructed");
+	}
+
+	private void initalizePoller() {
+		for (Robot r : robots) {
+			poller.put(r, new RobotHelper(messageQueues.get(r.getName())));
+		}
 	}
 
 	public void startRobots() {
@@ -176,22 +185,19 @@ public class WarehouseFloor {
 	}
 
 	private void givePaths(HashMap<Robot, ArrayList<ArrayList<move>>> routes) {
-		if (!server)
+
+	}
+	
+	public void givePath(Robot r, ArrayList<ArrayList<move>> routes) {
+		if (!server) 
 			return;
-		help = new RobotHelper[robots.size()];
-		int i = 0;
-		for (Robot robot : robots) {
-			help[i++] = new RobotHelper(messageQueues.get(robot.getName()), routes.get(robot));
-		}
-		for (int j = 0; j < help.length; j++) {
-			help[j].start();
-		}
-		for (int j = 0; j < help.length; j++) {
-			try {
-				help[j].join();
-			} catch (InterruptedException e) {
-				log.debug("Robot helper was interrupted: job was cancelled", e);
-			}
+		RobotHelper p = poller.get(r);
+		p.overwriteRoutes(routes);
+		p.start();
+		try {
+			p.join();
+		} catch (InterruptedException e) {
+			log.debug("robot cancelled");
 		}
 	}
 
@@ -253,6 +259,7 @@ public class WarehouseFloor {
 	public void cancelJob(Robot r) {
 		if (getJob(r).isPresent()) {
 			getJob(r).get().cancel();
+			poller.get(r).interrupt();
 		}
 	}
 
