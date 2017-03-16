@@ -15,7 +15,7 @@ public class Selection extends Thread{
 	private ArrayList<JobWorth> convertedlist;
 
 
-	public Selection(Robot robot, ArrayList<Job> jobs){
+	public Selection( Robot robot, ArrayList<Job> jobs){
 		
 		this.robot=robot;
 		this.copyJobs=new ArrayList<Job>();

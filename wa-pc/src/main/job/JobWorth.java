@@ -3,6 +3,7 @@ package main.job;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,16 +22,15 @@ public class JobWorth {
 	private Job job;
 	private Route route;
 	private Task quantity;
-	ArrayList<utils.Robot> robots=new ArrayList<>();
-	ArrayList<Job> jobs=new ArrayList<>();
+	HashSet<Robot> robots=new HashSet<Robot>();
+	ArrayList<Job> jobs=new ArrayList<Job>();
 	HashMap<Robot,Job> map;
-	HashMap<String,String> jobsWithValue= new HashMap<>();
-	HashMap<String,String> finalJobsWithValue= new HashMap<>();
+	HashMap<Integer,Float> jobsWithValue= new HashMap<>();
+	HashMap<Integer,Float> finalJobsWithValue= new HashMap<>();
 	
-	public JobWorth(Robot robot, Job job){	
-		
-		this.job=job;
-		this.getReward();
+	public JobWorth(HashSet<Robot> robots, ArrayList<Job> jobs){	
+		this.robots = robots;
+		this.jobs = jobs;
 	}
 	
 	public Route getRoute(){
@@ -43,62 +43,65 @@ public class JobWorth {
 		return this.job;
 	}
 	
-	public HashMap<String, String> getReward(){
-		
-		return this.finalJobsWithValue;                                              
-	}
-	
 	public Task getQuantity(){
 		return this.quantity;
 	}
 	
-	public HashMap<String, String> Reward(ArrayList<Job> jobs, ArrayList<Robot> robots){
+	public HashMap<Integer, Float> getReward(){
 		
 		for(Job job : jobs){
-			map=new HashMap<>();
+			map=new HashMap<Robot, Job>();
 			
 			for(Robot robot:robots){
 				map.put(robot, job);
 			}
-			int jobPathCost=0, jobSumOfReward=0;
+			int jobPathCost=0 /*jobSumOfReward=0*/;
 			
 			HashMap<Robot,ArrayList<ArrayList<move>>> paths= CommandCenter.generatePaths(map);
-			Iterator it1=paths.values().iterator();
+			Iterator<ArrayList<ArrayList<move>>> it1=paths.values().iterator();
 			while(it1.hasNext()){
 				ArrayList<ArrayList<move>> routes=new ArrayList<>();
-				routes=(ArrayList<ArrayList<move>>) it1.next();
+				routes= it1.next();
 				
-				for(ArrayList<move> moves : routes){
-					jobPathCost+=moves.size();
-				}
-				for(Task task : job.getTasks()){
-					jobSumOfReward=(int) task.getItem().getReward();
+				for(ArrayList<move> route : routes){
+					jobPathCost+=route.size();
 				}
 			}
 			
-			jobsWithValue.put(Integer.toString(job.getJobID()), 
-					Float.toString(jobSumOfReward /  (jobPathCost/robots.size()) * (job.sumOfWeight()/50) ));
+			jobsWithValue.put(job.getJobID(), 
+					job.getJobReward() /  ((jobPathCost/robots.size()) * (job.sumOfWeight()/50) )));
 		
-			finalJobsWithValue=sortByValue(jobsWithValue);
+			
 		}
+		
+		finalJobsWithValue=sortByValue(jobsWithValue);
+		printMap(finalJobsWithValue);
 		return finalJobsWithValue;						
 	}	
 	
-	public static HashMap<String,String> sortByValue (HashMap<String,String> jobsWithValue){
+	public static HashMap<Integer,Float> sortByValue (HashMap<Integer, Float> jobsWithValue){
 			
-			List<HashMap.Entry<String,String>> list=new LinkedList<HashMap.Entry<String,String>>(jobsWithValue.entrySet());
+			List<HashMap.Entry<Integer,Float>> list=new LinkedList<HashMap.Entry<Integer,Float>>(jobsWithValue.entrySet());
 			//sorting based on values
-			Collections.sort(list,new Comparator<HashMap.Entry<String,String>>(){
-				public int compare(Entry<String,String> o1, Entry<String,String> o2){
+			Collections.sort(list,new Comparator<HashMap.Entry<Integer,Float>>(){
+				public int compare(Entry<Integer,Float> o1, Entry<Integer,Float> o2){
 					
 						return (o1.getValue()).compareTo(o2.getValue());
 				}
 			});
-			HashMap<String,String> sortedJobsWithValue=new HashMap<String,String>();
-			for(HashMap.Entry<String,String> entry:list){
+			HashMap<Integer,Float> sortedJobsWithValue=new HashMap<Integer,Float>();
+			for(HashMap.Entry<Integer,Float> entry:list){
 				sortedJobsWithValue.put(entry.getKey(), entry.getValue());
 			}
 			return sortedJobsWithValue;
 	}	
 	
+	public static void printMap(HashMap<Integer,Float> map){
+		
+		for(Integer key : map.keySet()){
+			String k=key.toString();
+			String value=map.get(key).toString();
+			System.out.println("JobID: "+k+"\t worth: "+value);
+		}
+	}
 }

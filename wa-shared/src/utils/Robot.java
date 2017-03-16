@@ -23,6 +23,18 @@ public class Robot {
 		needsUpdate = true;
 	}
 
+	public Robot(){
+		name = "NO_NAME";
+		
+	}
+	public Robot(String name){
+		this.name = name;		
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}
