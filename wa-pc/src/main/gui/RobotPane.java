@@ -12,11 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import main.gui.listeners.RobotCancel;
 import main.model.WarehouseFloor;
 import utils.Robot;
 import utils.Task;
 import utils.Tuple;
-
 
 public class RobotPane extends GridPane {
 
@@ -25,19 +25,20 @@ public class RobotPane extends GridPane {
 
 	public RobotPane(WarehouseFloor model) {
 		super();
-		
+
 		RobotPane.model = model;
 		RobotPane.robotLabels = new HashMap<Robot, Tuple<Label, Label>>();
-		
+
 		this.setMaxHeight(GUI.HEIGHT);
-		this.setPrefWidth(GUI.ROBOT_WIDTH);
+		this.setPrefWidth(GUI.SIDEBAR_WIDTH);
+		this.setHgap(20);
 		Button startButton = new Button("Start");
 
 		startButton.setTextFill(Color.GREEN);
 		startButton.setTextAlignment(TextAlignment.CENTER);
 		startButton.setFont(new Font(20));
 
-		startButton.setMinWidth(GUI.ROBOT_WIDTH);
+		startButton.setPrefWidth(GUI.SIDEBAR_WIDTH);
 
 		startButton.setOnAction(e -> {
 			model.startRobots();
@@ -49,16 +50,15 @@ public class RobotPane extends GridPane {
 		ScrollPane robotDisplay = new ScrollPane();
 
 		robotDisplay.setMaxHeight(GUI.HEIGHT);
-		robotDisplay.setMinWidth(GUI.ROBOT_WIDTH);
-
+		robotDisplay.setMinWidth(GUI.SIDEBAR_WIDTH); 
 		robotDisplay.setHbarPolicy(ScrollBarPolicy.NEVER);
 		robotDisplay.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
 		GridPane robotGrid = new GridPane();
 
 		robotGrid.setAlignment(Pos.CENTER);
-		robotGrid.setHgap(GUI.ROBOT_WIDTH / 100);
-		robotGrid.setVgap(GUI.ROBOT_WIDTH / 100);
+		robotGrid.setHgap(GUI.SIDEBAR_WIDTH / 100);
+		robotGrid.setVgap(GUI.SIDEBAR_WIDTH / 100);
 
 		int level = 0;
 
@@ -66,7 +66,7 @@ public class RobotPane extends GridPane {
 
 			GridPane robotPane = new GridPane();
 
-			robotPane.setMaxWidth(GUI.ROBOT_WIDTH - 20);
+			robotPane.setMaxWidth(GUI.SIDEBAR_WIDTH - 20);
 
 			robotPane.setStyle("-fx-border-color: gray");
 
@@ -91,11 +91,7 @@ public class RobotPane extends GridPane {
 
 			status.setTextFill(statusColor(text));
 
-			b.setOnAction(e -> {
-				model.cancelJob(r);
-				RobotPane.updateLabels();
-				JobPane.updateButtons();
-			});
+			b.setOnAction(new RobotCancel(model, r));
 
 			Label idText = new Label("Job ID:");
 
@@ -157,7 +153,7 @@ public class RobotPane extends GridPane {
 		this.add(robotDisplay, 0, 2);
 	}
 
-	protected static void updateLabels() {
+	public static void updateLabels() {
 		for (Robot r : robotLabels.keySet()) {
 			Tuple<Label, Label> t = robotLabels.get(r);
 			String text;
@@ -180,6 +176,7 @@ public class RobotPane extends GridPane {
 
 		}
 	}
+
 	private static Paint statusColor(String status) {
 		/*
 		 * aCtive, iNactive, cOmpleted, cAnceled
@@ -197,6 +194,5 @@ public class RobotPane extends GridPane {
 			return Color.GRAY;
 		}
 	}
-
 
 }

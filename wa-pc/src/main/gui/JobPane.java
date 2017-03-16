@@ -26,6 +26,16 @@ public class JobPane extends GridPane {
 		idLabel.setFont(new Font(17));
 
 		this.add(idLabel, 0, 0);
+		
+		Label statusLabel = new Label("Status");
+		statusLabel.setFont(new Font(17));
+		
+		this.add(statusLabel, 1, 0);
+		
+		Label taskLabel = new Label("Tasks");
+		taskLabel.setFont(new Font(17));
+		
+		this.add(taskLabel, 3, 0);
 
 		int level = 1;
 		for (Job j : model.getJobs().values()) {
@@ -45,9 +55,11 @@ public class JobPane extends GridPane {
 			cancel.setTextFill(Color.RED);
 			cancel.setOnAction(e -> {
 				model.cancelJob(j);
-				JobPane.updateButtons();
+				JobPane.updateLabels();
 				RobotPane.updateLabels();
 			});
+
+			jobStatus.put(status, j);
 
 			this.add(id, 0, level);
 			this.add(status, 1, level);
@@ -56,7 +68,7 @@ public class JobPane extends GridPane {
 		}
 	}
 	
-	protected static void updateButtons(){
+	public static void updateLabels(){
 		
 		for (Label l : jobStatus.keySet()){
 			l.setText(jobStatus.get(l).getStatus().toString());

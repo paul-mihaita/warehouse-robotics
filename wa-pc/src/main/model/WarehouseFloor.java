@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import org.apache.log4j.Logger;
 
@@ -32,7 +33,7 @@ public class WarehouseFloor {
 	private HashMap<String, Message> messageQueues;
 
 	private HashMap<Integer, Job> jobList;
-	
+
 	private ArrayList<Item> items;
 
 	private Graph<Location> floor;
@@ -44,7 +45,8 @@ public class WarehouseFloor {
 	/**
 	 * Creates the Warehouse floor object, contains all the data about the
 	 * warehouse floor.
-	 * @param arrayList 
+	 * 
+	 * @param arrayList
 	 * 
 	 * @param Floor
 	 *            Graph of locations which contain the warehouse floor
@@ -53,7 +55,8 @@ public class WarehouseFloor {
 	 * @param Log
 	 *            log4j logger object
 	 */
-	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items, Logger log, boolean server) {
+	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items, Logger log,
+			boolean server) {
 
 		this.server = server;
 		this.log = log;
@@ -62,14 +65,15 @@ public class WarehouseFloor {
 		this.items = items;
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
-		
+
 		Robot keith = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(2, 0), new Location(1, 0));
 		this.robots.add(keith);
 
 		Robot cell = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(0, 0), new Location(1, 0));
 		this.robots.add(cell);
 
-		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1), new Location(0, 0));
+		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1),
+				new Location(0, 0));
 		this.robots.add(charmander);
 
 		for (Job j : jobs) {
@@ -261,12 +265,26 @@ public class WarehouseFloor {
 	}
 
 	public void cancelJob(Job j) {
-		if (j.isSelected()){
+		if (j.isSelected()) {
 			j.cancel();
+			for (Robot r : assigment.keySet()) {
+				assigment.get(r).ifPresent(new Consumer<Job>() {
+					@Override
+					public void accept(Job t) {
+						if (t.equals(j)) {
+							cancelJob(r);
+						}
+					}
+				});
+			}
+
 			// TODO: Reselect Jobs
-		} else if (j.isActive()){
+
+		} else if (j.isActive()) {
 			j.cancel();
+
 			// TODO: Interrupt job
+
 		}
 
 		j.cancel();
