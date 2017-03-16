@@ -3,6 +3,7 @@ package controller.logic;
 import java.util.List;
 
 import communication.CommConst.command;
+import lejos.util.Delay;
 import communication.Message;
 import movement.Movement.move;
 import robot_gui.GUI;
@@ -33,11 +34,12 @@ public class QueueTracker {
 		pointer = 0;
 	}
 
-	private void printInternal() {
+	private String printInternal() {
+		String returnStr = "";
 		for (move move : internal) {
-			System.out.print(move);
+			returnStr += move.toString() + ",";
 		}
-		System.out.println();
+		return returnStr;
 	}
 
 	/**
@@ -85,5 +87,11 @@ public class QueueTracker {
 				return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return printInternal();
 	}
 }

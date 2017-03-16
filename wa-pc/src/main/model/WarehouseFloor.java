@@ -66,15 +66,15 @@ public class WarehouseFloor {
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
 
-		Robot keith = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(2, 0), new Location(3, 0));
-		this.robots.add(keith);
+		Robot squirtle = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(11, 6), new Location(11, 7));
+		this.robots.add(squirtle);
 
-		Robot cell = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(0, 0), new Location(1, 0));
-		this.robots.add(cell);
+		Robot bulbasaur = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(1, 7), new Location(0, 7));
+		this.robots.add(bulbasaur);
 
 		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1),
 				new Location(0, 0));
-		this.robots.add(charmander);
+		//this.robots.add(charmander);
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -105,7 +105,7 @@ public class WarehouseFloor {
 		log.debug("created");
 		this.floor = floor;
 		log.debug("Creating Server");
-		Server s = new Server(Info.getRobots(), tempArr, log);
+		Server s = new Server(robots.toArray(new Robot[robots.size()]), tempArr, log);
 		if (server)
 			s.launch();
 		log.info("Server launched succesfully, warehousefloor constructed");
@@ -170,11 +170,6 @@ public class WarehouseFloor {
 		RobotHelper p = poller.get(r);
 		p.overwriteRoutes(routes);
 		p.start();
-		try {
-			p.join();
-		} catch (InterruptedException e) {
-			log.debug("robot cancelled");
-		}
 	}
 
 	public boolean assign(String name, Job j) {

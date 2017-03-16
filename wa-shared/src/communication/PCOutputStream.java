@@ -56,7 +56,11 @@ public class PCOutputStream extends AbstractOutputStream {
 	private void sendJob(BasicJob job) throws IOException {
 		write(job.getId());
 		write(job.getTask().getQuantity());
-		write((byte) job.getTask().getItem().getName().charAt(0));
+		String temp = job.getTask().getItem().getName();
+		if (temp == null || temp.equals(""))
+			write(0);
+		else
+			write((byte) job.getTask().getItem().getName().charAt(0));
 	}
 
 	private void sendMoves(List<move> moves) throws IOException {
