@@ -24,7 +24,7 @@ public class Start {
 		// Testing
 		
 		log.debug("Number of Jobs: " + model.getJobs().size());
-		model.assign("Cell", model.getJobs().get(1002));
+		model.assign("Squirtle", model.getJobs().get(1002));
 		
 		GUI.create(model);
 	}
