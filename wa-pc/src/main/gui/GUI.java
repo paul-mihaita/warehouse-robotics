@@ -33,8 +33,8 @@ public class GUI extends Application {
 	private static HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> coloredPath;
 	private static HashSet<ArrayList<ArrayList<Location>>> paths;
 
-	private TabMenuPane tabPane;
-	private MapPane map;
+	private static TabMenuPane tabPane;
+	private static MapPane map;
 
 	/**
 	 * 
@@ -89,6 +89,10 @@ public class GUI extends Application {
 		map.interrupt();
 		Start.log.info("GUI was closed");
 	}
+	
+	public static void refresh(){
+		tabPane.refresh();
+	}
 
 	protected static ArrayList<Location> getNodes() {
 		return new ArrayList<Location>(nodesToDraw);
@@ -102,8 +106,8 @@ public class GUI extends Application {
 		return nodesToDraw;
 	}
 
-	public static void displayPath(ArrayList<ArrayList<Location>> arrayList) {
-		paths.add(arrayList);
+	public static void displayPath(ArrayList<ArrayList<Location>> newPath) {
+		paths.add(newPath);
 		coloredPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>();
 		for (ArrayList<ArrayList<Location>> path : paths) {
 			coloredPath.add(new Tuple<ArrayList<ArrayList<Location>>, Paint>(path, Color.BLUE));

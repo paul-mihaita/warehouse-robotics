@@ -28,9 +28,9 @@ public class RobotCancel implements EventHandler<ActionEvent> {
 			@Override
 			public void accept(Job t) {
 				t.cancel();
+				model.reassignJobs();
 				RobotPane.updateLabels();
 				JobPane.updateLabels();
-				model.reassignJobs();
 			}
 		});
 	}

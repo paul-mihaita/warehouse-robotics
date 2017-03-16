@@ -13,6 +13,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import main.gui.listeners.RobotCancel;
+import main.gui.listeners.StartListener;
 import main.model.WarehouseFloor;
 import utils.Robot;
 import utils.Task;
@@ -39,11 +40,8 @@ public class RobotPane extends GridPane {
 		startButton.setFont(new Font(20));
 
 		startButton.setPrefWidth(GUI.SIDEBAR_WIDTH);
-
-		startButton.setOnAction(e -> {
-			model.startRobots();
-			RobotPane.updateLabels();
-		});
+		
+		startButton.setOnAction(new StartListener(model));
 
 		this.add(startButton, 0, 1);
 

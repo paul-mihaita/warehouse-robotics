@@ -35,7 +35,13 @@ public class JobPane extends GridPane {
 		Label taskLabel = new Label("Tasks");
 		taskLabel.setFont(new Font(17));
 		
-		this.add(taskLabel, 3, 0);
+		this.add(taskLabel, 2, 0);
+		
+		Label cancelButtons = new Label("Cancel");
+		cancelButtons.setFont(new Font(17));
+		
+		this.add(cancelButtons, 3, 0);
+
 
 		int level = 1;
 		for (Job j : model.getJobs().values()) {

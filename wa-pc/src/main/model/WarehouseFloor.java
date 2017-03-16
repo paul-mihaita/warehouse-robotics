@@ -28,7 +28,7 @@ public class WarehouseFloor {
 	private HashMap<Robot, RobotHelper> poller = new HashMap<Robot, RobotHelper>();
 	private HashSet<Robot> robots;
 
-	private HashMap<Robot, Optional<Job>> assigment;
+	private HashMap<Robot, Optional<Job>> assignment;
 
 	private HashMap<String, Message> messageQueues;
 
@@ -60,13 +60,13 @@ public class WarehouseFloor {
 
 		this.server = server;
 		this.log = log;
-		this.assigment = new HashMap<Robot, Optional<Job>>();
+		this.assignment = new HashMap<Robot, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
 		this.items = items;
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
 
-		Robot keith = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(2, 0), new Location(1, 0));
+		Robot keith = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(2, 0), new Location(3, 0));
 		this.robots.add(keith);
 
 		Robot cell = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(0, 0), new Location(1, 0));
@@ -82,7 +82,7 @@ public class WarehouseFloor {
 		Message[] tempArr = new Message[robots.size()];
 		int i = 0;
 		for (Robot r : robots) {
-			assigment.put(r, Optional.empty());
+			assignment.put(r, Optional.empty());
 			Message temp = new Message(new ArrayList<move>(), command.Wait, new BasicJob(0, new Task("", 0)));
 			tempArr[i++] = temp;
 			messageQueues.put(r.getName(), temp);
@@ -98,38 +98,7 @@ public class WarehouseFloor {
 			}
 		}
 
-		// this.assign("Cell", jobList.get(maxkey));
-
-		temp.remove(maxkey);
-
-		maxkey = -1;
-
-		for (Integer key : temp.keySet()) {
-			if (maxkey == -1) {
-				maxkey = key;
-			}
-			if (temp.get(key) > temp.get(maxkey)) {
-				maxkey = key;
-			}
-		}
-
-		// this.assign("Keith", jobList.get(maxkey));
-
-		// temp.remove(maxkey);
-		//
-		// maxkey = -1;
-		//
-		// for (Integer key: temp.keySet()){
-		// if(maxkey == -1){
-		// maxkey = key;
-		// }
-		// if(temp.get(key) > temp.get(maxkey)){
-		// maxkey = key;
-		// }
-		// }
-		//
-		// this.assign("Keith", jobList.get(maxkey));
-		//
+		reassignJobs();
 
 		log.debug("creating threads for starting and stopping jobs");
 		initalizePoller();
@@ -178,7 +147,7 @@ public class WarehouseFloor {
 		 */
 
 		for (Robot r : robots) {
-			assigment.get(r).ifPresent(new Consumer<Job>() {
+			assignment.get(r).ifPresent(new Consumer<Job>() {
 				@Override
 				public void accept(Job t) {
 					if (t.isSelected()) {
@@ -186,7 +155,8 @@ public class WarehouseFloor {
 						HashMap<Robot, Job> give = new HashMap<Robot, Job>();
 						give.put(r, t);
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
-						// TODO: GIVE PATH HERE
+						GUI.displayPath(CommandCenter.getPathLocations().get(r));
+						givePath(r, path.get(r));
 					}
 				}
 			});
@@ -194,12 +164,8 @@ public class WarehouseFloor {
 
 	}
 
-	private void givePaths(HashMap<Robot, ArrayList<ArrayList<move>>> routes) {
-
-	}
-	
 	public void givePath(Robot r, ArrayList<ArrayList<move>> routes) {
-		if (!server) 
+		if (!server)
 			return;
 		RobotHelper p = poller.get(r);
 		p.overwriteRoutes(routes);
@@ -215,16 +181,16 @@ public class WarehouseFloor {
 
 		log.debug(j.getJobID() + " added to " + name);
 
-		if (!assigment.get(getRobot(name)).isPresent()) {
-			assigment.remove(name);
-			assigment.put(getRobot(name), Optional.of(j));
+		if (!assignment.get(getRobot(name)).isPresent()) {
+			assignment.remove(name);
+			assignment.put(getRobot(name), Optional.of(j));
 			j.select();
 			return true;
 		} else {
-			Job c = assigment.get(getRobot(name)).get();
+			Job c = assignment.get(getRobot(name)).get();
 			if (c.isCompleted() || c.isCanceled()) {
-				assigment.remove(name);
-				assigment.put(getRobot(name), Optional.of(j));
+				assignment.remove(name);
+				assignment.put(getRobot(name), Optional.of(j));
 				j.select();
 				return true;
 			}
@@ -251,7 +217,7 @@ public class WarehouseFloor {
 	}
 
 	public Optional<Job> getJob(Robot robot) {
-		return assigment.get(robot);
+		return assignment.get(robot);
 	}
 
 	public HashMap<Integer, Job> getJobs() {
@@ -280,8 +246,8 @@ public class WarehouseFloor {
 	public void cancelJob(Job j) {
 		if (j.isSelected()) {
 			j.cancel();
-			for (Robot r : assigment.keySet()) {
-				assigment.get(r).ifPresent(new Consumer<Job>() {
+			for (Robot r : assignment.keySet()) {
+				assignment.get(r).ifPresent(new Consumer<Job>() {
 					@Override
 					public void accept(Job t) {
 						if (t.equals(j)) {
@@ -313,10 +279,10 @@ public class WarehouseFloor {
 			}
 		}
 
-		for (Robot r : assigment.keySet()) {
+		for (Robot r : assignment.keySet()) {
 
-			if (assigment.get(r).isPresent()) {
-				Job j = assigment.get(r).get();
+			if (assignment.get(r).isPresent()) {
+				Job j = assignment.get(r).get();
 				if (j.isCanceled() || j.isCompleted()) {
 					unAssigned.add(r);
 				}
@@ -325,21 +291,21 @@ public class WarehouseFloor {
 			}
 
 		}
-		
+
 		ArrayList<Robot> robotArray = new ArrayList<Robot>();
-		for (Robot r :unAssigned){
+		for (Robot r : unAssigned) {
 			robotArray.add(r);
 		}
-		
+
 		JobWorth selector = new JobWorth(validJobs, unAssigned);
-		
+
 		int i = 0;
-		for (Integer id : selector.getReward().keySet()){
+		for (Integer id : selector.getReward().keySet()) {
 			jobList.get(id);
-			if (i == robotArray.size()){
+			if (i == robotArray.size()) {
 				break;
 			}
-			
+
 			assign(robotArray.get(i++).getName(), jobList.get(id));
 		}
 
