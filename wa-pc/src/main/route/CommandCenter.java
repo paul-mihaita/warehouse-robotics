@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import movement.Movement.move;
 import rp.robotics.mapping.GridMap;
 import rp.robotics.mapping.MapUtils;
 import student_solution.Graph;
@@ -12,8 +13,6 @@ import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
-import lejos.robotics.navigation.Move;
-import movement.Movement.move;
 
 public class CommandCenter {
 	private static GridMap gridMap = MapUtils.createRealWarehouse();
@@ -133,11 +132,9 @@ public class CommandCenter {
 				}
 			}
 		}
-		int k = 0;
 		for (Robot r : robots) {
-			r.setCurrentLocation(startLocations.get(k));
-			r.setOrientation(startOrientations.get(k));
-			k++;
+			r.setCurrentLocation(startLocations.get(r));
+			r.setOrientation(startOrientations.get(r));
 		}
 		return paths;
 
