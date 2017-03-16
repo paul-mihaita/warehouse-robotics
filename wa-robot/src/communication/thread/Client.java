@@ -2,15 +2,11 @@ package communication.thread;
 
 import java.io.DataInputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
-import communication.CommConst.command;
 import communication.Message;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 import lejos.util.Delay;
-import movement.Movement.move;
-import utils.Location;
 import utils.Robot;
 
 public class Client extends Thread {
