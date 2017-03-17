@@ -31,7 +31,7 @@ public class Input {
 		thereIsTheTitleFile = haveTitle;
 		this.initializeListOfJobs(path+"jobs", path+"items", path+"locations");
 		this.initializeItemsList(path+"locations");
-		this.initializedropLocations(path+"drops");
+		// this.initializedropLocations(path+"drops");
 		//this.initializeCancelledJobs(path+"cancellations");
 	}
 	
@@ -352,7 +352,7 @@ public class Input {
 			if(job.getJobID() == id)
 				return job;
 		}
-		return new Job();
+		return null;
 	}
 	
 	public HashMap<Job, Boolean> getCancelledJobs() {

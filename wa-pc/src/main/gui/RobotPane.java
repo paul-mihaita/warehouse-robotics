@@ -74,6 +74,7 @@ public class RobotPane extends GridPane {
 
 			b.setTextFill(Color.CRIMSON);
 			b.setMinWidth(75);
+			b.setOnAction(new RobotCancel(model, r));
 
 			Label s = new Label("Job status:");
 
@@ -88,8 +89,6 @@ public class RobotPane extends GridPane {
 			Label status = new Label(text);
 
 			status.setTextFill(statusColor(text));
-
-			b.setOnAction(new RobotCancel(model, r));
 
 			Label idText = new Label("Job ID:");
 
