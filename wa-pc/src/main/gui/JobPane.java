@@ -52,6 +52,7 @@ public class JobPane extends GridPane {
 		jobData.setHbarPolicy(ScrollBarPolicy.NEVER);
 		jobData.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		GridPane dataHolder = new GridPane();
+		dataHolder.setStyle("-fx-border-color: gray");
 
 		int level = 0;
 		for (Job j : model.getJobs().values()) {
@@ -64,7 +65,7 @@ public class JobPane extends GridPane {
 
 			ComboBox<String> task = new ComboBox<String>();
 			task.setEditable(false);
-			task.setMaxWidth(20);
+			task.setPrefWidth(15);
 
 			for (Task t : j.getTasks()) {
 				task.getItems().add(t.toString());

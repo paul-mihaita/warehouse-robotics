@@ -55,14 +55,16 @@ public class RobotPane extends GridPane {
 		GridPane robotGrid = new GridPane();
 
 		robotGrid.setAlignment(Pos.CENTER);
-		robotGrid.setHgap(GUI.SIDEBAR_WIDTH / 100);
-		robotGrid.setVgap(GUI.SIDEBAR_WIDTH / 100);
+		robotGrid.setHgap(GUI.SIDEBAR_WIDTH / 70);
+		robotGrid.setVgap(GUI.SIDEBAR_WIDTH / 70);
 
 		int level = 0;
 
 		for (Robot r : model.getRobots()) {
 
 			GridPane robotPane = new GridPane();
+			
+			robotPane.setAlignment(Pos.BASELINE_RIGHT);
 
 			robotPane.setMaxWidth(GUI.SIDEBAR_WIDTH - 20);
 

@@ -66,7 +66,8 @@ public class WarehouseFloor {
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<String, Message>();
 
-		Robot squirtle = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(11, 6), new Location(11, 7));
+		Robot squirtle = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(11, 6),
+				new Location(11, 7));
 		this.robots.add(squirtle);
 
 		Robot bulbasaur = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(1, 7), new Location(0, 7));
@@ -74,7 +75,7 @@ public class WarehouseFloor {
 
 		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1),
 				new Location(0, 0));
-		//this.robots.add(charmander);
+		this.robots.add(charmander);
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -118,33 +119,6 @@ public class WarehouseFloor {
 	}
 
 	public void startRobots() {
-
-		/*
-		 * HashMap<Robot, Job> assignedJobs = new HashMap<Robot, Job>();
-		 * 
-		 * for (Robot r : assigment.keySet()) { if
-		 * (assigment.get(r).isPresent()) { Job j = assigment.get(r).get();
-		 * j.start(); assignedJobs.put(r, j); log.info(r.getName() +
-		 * " was started on job id: " + j.getJobID()); } else {
-		 * 
-		 * log.info(r.getName() +
-		 * " attempted to start, but has no assigned job"); } }
-		 * 
-		 * log.debug("Assigned job size: " + assignedJobs.size()); for (Job j :
-		 * assignedJobs.values()) {
-		 * 
-		 * log.debug("Job id: " + j.getJobID());
-		 * log.debug("Item .... Quantitiy .... Location"); for (Task t :
-		 * j.getTasks()) { log.debug( t.getItem().getItemName() + " .... " +
-		 * t.getQuantity() + " .... " + t.getItem().getLocation()); } }
-		 * HashMap<Robot, ArrayList<ArrayList<move>>> routes =
-		 * CommandCenter.generatePaths(assignedJobs);
-		 * 
-		 * for (Robot r : routes.keySet()) {
-		 * GUI.displayPath(CommandCenter.getPathLocations().get(r)); }
-		 * 
-		 * givePaths(routes);
-		 */
 
 		for (Robot r : robots) {
 			assignment.get(r).ifPresent(new Consumer<Job>() {
@@ -290,6 +264,10 @@ public class WarehouseFloor {
 		ArrayList<Robot> robotArray = new ArrayList<Robot>();
 		for (Robot r : unAssigned) {
 			robotArray.add(r);
+		}
+
+		if (robotArray.isEmpty()) {
+			return;
 		}
 
 		JobWorth selector = new JobWorth(validJobs, unAssigned);

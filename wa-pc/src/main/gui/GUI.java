@@ -19,7 +19,7 @@ import utils.Tuple;
 public class GUI extends Application {
 
 	// For the moment while there is no map these are not being used
-	public static final int SIDEBAR_WIDTH = 260;
+	public static final int SIDEBAR_WIDTH = 272;
 	public static final int MAP_WIDTH = 600;
 
 	public static final int WIDTH = SIDEBAR_WIDTH + MAP_WIDTH;
