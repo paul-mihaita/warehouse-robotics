@@ -11,7 +11,6 @@
 *.war
 *.ear
 
-*/*.log
 *.nxd
 *.nxj
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
@@ -24,8 +23,7 @@ hs_err_pid*
 
 */.classpath
 */.project
-*.log
 
-wa-pc/logging/*
+/wa-pc/logging/*
 
 .recommenders/
