@@ -18,7 +18,7 @@ import utils.Task;
 public class RobotMain {
 	public static void main(String[] args) {
 		Robot[] r = Info.getRobots();
-		int rob = 0; //0 = s, 1 = b, 2 = c
+		int rob = 1; //0 = s, 1 = b, 2 = c
 		Message m = new Message((List<move>) new ArrayList<move>(), command.Wait, new BasicJob(1, new Task("a", 1)));
 		Client client = new Client(r[rob], m);
 		client.launch(); //do not use client.start(); use this instead
