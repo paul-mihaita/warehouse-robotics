@@ -3,6 +3,7 @@ package main.gui;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
 import javafx.scene.canvas.Canvas;
@@ -51,6 +52,7 @@ public class MapPane extends Canvas {
 
 			@Override
 			public void run() {
+				this.setName("Node animator");
 				while (!this.isInterrupted()) {
 					int max = getMaxNodes();
 					for (int i = 0; i < max; i++) {
@@ -82,15 +84,16 @@ public class MapPane extends Canvas {
 		canvasHandler = new Thread() {
 			@Override
 			public void run() {
-				while (!this.isInterrupted()) {
+				this.setName("Canvas Handler");
 
+				while (!this.isInterrupted()) {
 					gc.clearRect(0, 0, GUI.MAP_WIDTH, GUI.HEIGHT);
 
 					for (IVertex<Location> v : floorMap.getVertices()) {
 						MapPane.drawEdges(v, gc);
 					}
-					MapPane.drawRobots(gc);
 					MapPane.drawPath(gc);
+					MapPane.drawRobots(gc);
 					MapPane.drawNodes(gc);
 					MapPane.drawItems(gc, model.getItems());
 					new Rate(5).sleep();
@@ -173,13 +176,69 @@ public class MapPane extends Canvas {
 
 			}
 
-			float x = r.getOrientation().getX();
-			float y = r.getOrientation().getY();
-			
+			float x = r.getCurrentLocation().getX();
+			float y = r.getCurrentLocation().getY();
+
 			float rx = r.getRelativeOrientation().getX();
 			float ry = r.getRelativeOrientation().getY();
 
-			
+			double[] xPoints = new double[3];
+			double[] yPoints = new double[3];
+
+			if (rx == 1.0f) {
+				// right
+
+				xPoints[0] = scale(x + 0.5f);
+				yPoints[0] = scale(y);
+
+				xPoints[1] = scale(x + 0.3f);
+				xPoints[1] = scale(y - 0.2f);
+
+				xPoints[2] = scale(x + 0.3f);
+				xPoints[2] = scale(y + 0.2f);
+
+			} else if (rx == -1.0f) {
+				// left
+
+				xPoints[0] = scale(x - 0.5f);
+				yPoints[0] = scale(y);
+
+				xPoints[1] = scale(x - 0.3f);
+				xPoints[1] = scale(y - 0.2f);
+
+				xPoints[2] = scale(x - 0.3f);
+				xPoints[2] = scale(y + 0.2f);
+
+			} else if (ry == 1.0d) {
+				// down
+
+				xPoints[0] = scale(x);
+				yPoints[0] = scale(y + 0.5f);
+
+				xPoints[1] = scale(x - 0.2f);
+				xPoints[1] = scale(y + 0.3f);
+
+				xPoints[2] = scale(x + 0.2f);
+				xPoints[2] = scale(y + 0.3f);
+
+			} else {
+				// up
+
+				xPoints[0] = scale(x);
+				yPoints[0] = scale(y - 0.5f);
+
+				xPoints[1] = scale(x - 0.2f);
+				xPoints[1] = scale(y - 0.3f);
+
+				xPoints[2] = scale(x + 0.2f);
+				xPoints[2] = scale(y - 0.3f);
+
+			}
+
+			Start.log.debug("Direction drawn at: " + r.getOrientation().toString());
+
+			// gc.fillPolygon(xPoints, yPoints, 3);
+
 		}
 	}
 
@@ -267,7 +326,7 @@ public class MapPane extends Canvas {
 		return drawable;
 	}
 
-	private static int getMaxNodes() {
+	private synchronized static int getMaxNodes() {
 
 		int maxPath = 0;
 

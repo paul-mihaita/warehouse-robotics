@@ -63,12 +63,12 @@ public class RobotPane extends GridPane {
 
 			Label l = new Label("Name: " + r.getName());
 
-			Button b = new Button("Cancel Job");
+			Button cancelb = new Button("Cancel Job");
 
-			b.setTextFill(Color.CRIMSON);
-			b.setMinWidth(75);
-			b.setOnAction(new RobotCancel(model, r));
-
+			cancelb.setTextFill(Color.CRIMSON);
+			cancelb.setMinWidth(75);
+			cancelb.setOnAction(new RobotCancel(model, r));
+			
 			Label s = new Label("Job status:");
 
 			String text;
@@ -98,7 +98,7 @@ public class RobotPane extends GridPane {
 			robotPane.setVgap(10);
 
 			robotPane.add(l, 0, 0);
-			robotPane.add(b, 1, 0);
+			robotPane.add(cancelb, 1, 0);
 
 			robotPane.add(idText, 0, 1);
 			robotPane.add(jobId, 1, 1);
@@ -111,15 +111,10 @@ public class RobotPane extends GridPane {
 				GridPane taskPane = new GridPane();
 				taskPane.setStyle("-fx-border-color: gray");
 				taskPane.setAlignment(Pos.BASELINE_CENTER);
-				taskPane.setVgap(5);
+				taskPane.setVgap(10);
 				taskPane.setHgap(30);
 
 				int i = 0;
-
-				Label itemFlag = new Label("Job Items");
-				itemFlag.setFont(new Font(15));
-
-				taskPane.add(itemFlag, 0, i++, 2, 1);
 
 				for (Task t : model.getJob(r).get().getTasks()) {
 
