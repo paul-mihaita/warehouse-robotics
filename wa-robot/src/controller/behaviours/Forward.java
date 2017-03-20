@@ -1,4 +1,4 @@
-package controller;
+package controller.behaviours;
 
 import communication.CommConst.command;
 import communication.Message;
@@ -23,7 +23,8 @@ public class Forward extends AbstractBehavior {
 	public void action() {
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.forward();
-		while (!suppressed);
+		while (!suppressed)
+			;
 		suppressed = false;
 		pilot.stop();
 	}

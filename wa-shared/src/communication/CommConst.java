@@ -2,9 +2,9 @@ package communication;
 
 public class CommConst {
 
-	public static final int MOVEMENT = 1;
-	public static final int ROBOT = 2;
-	public static final int COMMAND = 3;
+	public static final int DC = -1;
+	public static final int ROBOT = 1;
+	public static final int MESSAGE = 2;
 
 	public static final int COM_START = 10;
 	public static final int COM_WAIT = 20;
@@ -19,7 +19,7 @@ public class CommConst {
 	public static final byte WAIT = 0x05;
 
 	public enum protocol {
-		Movement, Robot, Command
+		Robot, Message ,DC
 	}
 
 	public enum command {

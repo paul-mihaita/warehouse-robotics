@@ -17,17 +17,14 @@ public class Start {
 		log.info("Starting");
 
 		Input in = new Input(false);
-		in.initializeListOfJobs("1", "2", "3");
 
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
-				in.getJobsArray(), log);
-		
+				in.getJobsArray(), in.getItemsArray(), log, false);
+
 		// Testing
-		
+
 		log.debug("Number of Jobs: " + model.getJobs().size());
-		model.assign("Cell", model.getJobs().get(1002));
-		model.assign("Keith", model.getJobs().get(1001));
-		
+
 		GUI.create(model);
 	}
 

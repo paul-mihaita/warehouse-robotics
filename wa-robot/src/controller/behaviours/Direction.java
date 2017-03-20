@@ -1,4 +1,4 @@
-package controller;
+package controller.behaviours;
 
 import communication.CommConst.command;
 import communication.Message;
@@ -13,10 +13,10 @@ public class Direction extends AbstractBehavior {
 	private move dir;
 	private Message msg;
 
-	public Direction(WheeledRobotConfiguration config, SensorPort s, move dir, Message msg) {
+	public Direction(WheeledRobotConfiguration config, TapeSensor s, move dir, Message msg) {
 		super(config);
 		this.msg = msg;
-		this.sensor = new TapeSensor(s);
+		this.sensor = s;
 		switch (dir) {
 			case TURNLEFT:
 				this.dir = dir;

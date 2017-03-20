@@ -3,12 +3,14 @@ package main.job;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 import org.jfree.util.Log;
 
 import bootstrap.Start;
+import utils.DropLocation;
 import utils.Item;
 import utils.Job;
 import utils.Task;
@@ -18,18 +20,30 @@ public class Input {
 	private static final Logger LOG = Logger.getLogger(Input.class);
 	// SET TO TRUE IF IN THE FILES THE FIRST LINE IS THE TITLE
 	boolean thereIsTheTitleFile = false;
-
+	private final int MAX_LINES = 100;
 	private ArrayList<Job> jobs = new ArrayList<Job>();
+	public ArrayList<Item> items = new ArrayList<Item>();
+	public ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
+	public HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
+	String path = "./data_files/";
 
 	public Input(boolean haveTitle) {
 		thereIsTheTitleFile = haveTitle;
+		this.initializeListOfJobs(path+"jobs", path+"items", path+"locations");
+		this.initializeItemsList(path+"locations");
+		// this.initializedropLocations(path+"drops");
+		//this.initializeCancelledJobs(path+"cancellations");
+	}
+	
+	public Input(){
+		
 	}
 
-	private boolean fileHaveTheExtension(String fileName) {
+	public boolean fileHaveTheExtension(String fileName) {
 		return fileName.contains(".csv");
 	}
 
-	private boolean fileRight(String fileName) {
+	public boolean fileRight(String fileName) {
 		LOG.debug("Reading if the file have the extension");
 		String file;
 		if (fileHaveTheExtension(fileName)) {
@@ -46,7 +60,7 @@ public class Input {
 	}
 
 	public boolean readTaskAndJobs(String fileName) {
-
+		int k=0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
@@ -59,7 +73,8 @@ public class Input {
 				int jobsID;
 				// WHILE UNTIL THE END OF THE FILE
 				boolean toDo = !thereIsTheTitleFile;
-				while (inFile.hasNext()) {
+				while (inFile.hasNext() && k<MAX_LINES) {
+					k++;
 					ArrayList<Task> tasks = new ArrayList<Task>();
 					token = inFile.nextLine();
 					if (toDo) {
@@ -99,7 +114,7 @@ public class Input {
 	}
 
 	public boolean readItemAndRewardAndWeight(String fileName) {
-
+		int i=0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
@@ -111,7 +126,7 @@ public class Input {
 				String token;
 				boolean toDo = !thereIsTheTitleFile;
 				// WHILE UNTIL THE END OF THE FILE
-				while (inFile.hasNext()) {
+				while (inFile.hasNext() && i<MAX_LINES) {
 					token = inFile.nextLine();
 					if (toDo) {
 						// READ AND SPLIT THE LINE WITH THE CARACTER ","
@@ -142,6 +157,7 @@ public class Input {
 	}
 
 	public boolean readItemAndXPositionAndYPosition(String fileName) {
+		int i=0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
@@ -153,7 +169,7 @@ public class Input {
 				String token;
 				boolean toDo = !thereIsTheTitleFile;
 				// WHILE UNTIL THE END OF THE FILE
-				while (inFile.hasNext()) {
+				while (inFile.hasNext() && i<MAX_LINES) {
 					token = inFile.nextLine();
 					if (toDo) {
 						// READ AND SPLIT THE LINE WITH THE CARACTER ","
@@ -193,21 +209,17 @@ public class Input {
 	}
 
 	public boolean initializeListOfJobs(String fileTaskAndJobs, String fileRewardsAndWeights,
-
-			String fileItemLocations) {
-
-		boolean check = true;
-		check = check && readTaskAndJobs(fileTaskAndJobs);
-		check = check && readItemAndRewardAndWeight(fileRewardsAndWeights);
-		check = check && readItemAndXPositionAndYPosition(fileItemLocations);
-		return check;
+										String fileItemLocations) {
+			boolean check = true;
+			check = check && readTaskAndJobs(fileTaskAndJobs);
+			check = check && readItemAndRewardAndWeight(fileRewardsAndWeights);
+			check = check && readItemAndXPositionAndYPosition(fileItemLocations);
+			return check;
 	}
 
 	public ArrayList<Job> getJobsArray() {
 		return jobs;
 	}
-
-	public ArrayList<Item> items = new ArrayList<Item>();
 
 	public boolean initializeItemsList(String fileName) {
 		/////////////////////////////////////////////////// FILE RIGHT
@@ -226,7 +238,7 @@ public class Input {
 					if (toDo) {
 						String[] parts = token.split(",");
 						if (!items.contains(parts[2])) {
-							LOG.debug("item: " + parts[2] + " were added");
+							Start.log.debug("item: " + parts[2] + " were added");
 							Item temp = new Item(parts[2]);
 							int x = Integer.parseInt(parts[0]);
 							int y = Integer.parseInt(parts[1]);
@@ -248,4 +260,103 @@ public class Input {
 	public ArrayList<Item> getItemsArray() {
 		return items;
 	}
+
+	public boolean initializedropLocations(String fileName) {
+		int i=0;
+		/////////////////////////////////////////////////// FILE RIGHT
+		if (fileRight(fileName)) {
+			try {
+				if (!fileHaveTheExtension(fileName)) {
+					fileName = fileName + ".csv";
+				}
+				// CREATE SCANNER TO READ FILE
+				Scanner inFile = new Scanner(new File(fileName));
+				String token;
+				boolean toDo = !thereIsTheTitleFile;
+				while (inFile.hasNext() && i<MAX_LINES) {
+					token = inFile.nextLine();
+					if (toDo) {
+						String[] parts = token.split(",");
+						if (parts.length==2) {
+							Start.log.debug("Drop= "+token);
+							Start.log.debug("drop location: " + i);
+							DropLocation temp = new DropLocation("DropLocation_" + (i + 1));
+							int x = Integer.parseInt(parts[0].trim());
+							int y = Integer.parseInt(parts[1].trim());
+							Start.log.debug("x= "+x+"\ty="+y);
+							temp.setLocation(x, y);
+							dropLocations.add(temp);
+						}
+					}
+					toDo = true;
+				}
+				inFile.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} else
+			return false;
+	}
+	
+	public ArrayList<DropLocation> getIDropLocationArray() {
+		return dropLocations;
+	}
+	
+
+	public boolean initializeCancelledJobs(String fileName) {
+		int i=0;
+		/////////////////////////////////////////////////// FILE RIGHT
+		if (fileRight(fileName)) {
+			try {
+				if (!fileHaveTheExtension(fileName)) {
+					fileName = fileName + ".csv";
+				}
+				// CREATE SCANNER TO READ FILE
+				Scanner inFile = new Scanner(new File(fileName));
+				String token;
+				boolean isCancelled;
+				boolean toDo = !thereIsTheTitleFile;
+				while (inFile.hasNext()&&i<MAX_LINES) {
+					token = inFile.nextLine();
+					if (toDo) {
+						String[] parts = token.split(",");
+						if (parts.length==2) {
+							Start.log.debug("JobID: "+parts[0]+"\tCancellation: "+parts[1]);
+							int jobID = Integer.parseInt(parts[0]);
+							System.out.println(jobs.size());
+							//Job job = getJobWithID(Integer.parseInt(parts[0]));
+							for (Job j : jobs) {
+								System.out.println(j.getJobID() +"\t"+jobID);
+								if(j.getJobID() == jobID){
+									jobsWithCancellation.put(j, Boolean.parseBoolean(parts[1]));
+									Start.log.debug("Inserted in HashMap:\nJob with ID: "+j.getJobID()+"\tand Cancellation: "+Boolean.parseBoolean(parts[1]));
+								}
+									
+							}
+						}
+					}
+					toDo = true;
+				}
+				inFile.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} else
+			return false;
+	}
+	
+	public Job getJobWithID(int id){
+		for (Job job : jobs) {
+			if(job.getJobID() == id)
+				return job;
+		}
+		return null;
+	}
+	
+	public HashMap<Job, Boolean> getCancelledJobs() {
+		return jobsWithCancellation;
+	}
+
 }

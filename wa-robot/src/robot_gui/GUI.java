@@ -6,10 +6,10 @@ import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
 import lejos.util.Delay;
 import utils.Job;
-import utils.Location;
 import utils.Node;
 import utils.Robot;
 import utils.Task;
+import utils.Location;
 
 public class GUI extends Thread {
 	
@@ -73,27 +73,18 @@ public class GUI extends Thread {
 
 	}
 
-	//private int jobId = job.getJobID();
-	//private int jobID = Message.getJobID();
-	private int jobId = 1002;
-	//private boolean isOnJob = robot.isOnJob();
-	private boolean isOnJob = true;
-	//private boolean isOnPickUp = robot.isOnPickup();
-	private boolean isOnPickUp = true;
-	//private Location location = robot.getCurrentLocation();
-	private String location = "location";
-	//private int quantity = task.getQuantity();
-	//private int quantity = Message.getQuantity();
-	private int quantity = 5;
-	//private String itemName = task.getItem().getItemName();
-	//private String itemName = Message.getItemName();
-	private String itemName = "test item";
+	private int jobId = msg.getJob().getId();
+	private boolean isOnJob = robot.isOnJob();
+	private boolean isOnPickUp = robot.isOnPickup();
+	private Location location = robot.getCurrentLocation();
+	private int quantity = msg.getJob().getTask().getQuantity();
+	private String itemName = msg.getJob().getTask().getItem().getItemName();
 	private int numItems = 0;
 	
-	private boolean ENTER = false; //Button.ENTER.isPressed();
-	private boolean ESCAPE = false; //Button.ESCAPE.isPressed();
-	private boolean LEFT = false; //Button.LEFT.isPressed();
-	private boolean RIGHT = false; //Button.RIGHT.isPressed();
+	private boolean ENTER = false; 
+	private boolean ESCAPE = false; 
+	private boolean LEFT = false; 
+	private boolean RIGHT = false; 
 	
 	private String pickup = "Pick-up";
 	private String dropoff = "Drop off";
@@ -108,12 +99,24 @@ public class GUI extends Thread {
 		while (true) {
 			
 			if(isOnPickUp) {
+				LCD.clear();
+				LCD.drawString(pickup, 0, 1);
+				jobId = msg.getJob().getId();
+				LCD.drawString(jobIDisp, 0, 2);
+				quantity = msg.getJob().getTask().getQuantity();
+				itemName = msg.getJob().getTask().getItem().getItemName();
+				LCD.drawString(itemDisp, 0, 3);
+				location = robot.getCurrentLocation();
+				LCD.drawString(locationDisp, 0, 4);
 				if (ENTER) {
 					LCD.clear();
 					LCD.drawString(pickup, 0, 1);
+					//jobId = msg.getJob().getId();
 					LCD.drawString(jobIDisp, 0, 2);
+					quantity = msg.getJob().getTask().getQuantity();
+					itemName = msg.getJob().getTask().getItem().getItemName();
 					LCD.drawString(itemDisp, 0, 3);
-					//location = node.getLocation();
+					location = robot.getCurrentLocation();
 					LCD.drawString(locationDisp, 0, 4);
 					
 				}
@@ -123,7 +126,7 @@ public class GUI extends Thread {
 					System.exit(0);
 				}
 				if (LEFT) {
-					if (numItems>=0) {
+					if (numItems>0) {
 						numItems--;
 						itemDisp = itemName + ": " + numItems + "/" + quantity;
 						LCD.drawString(itemDisp, 0, 3);
@@ -131,7 +134,7 @@ public class GUI extends Thread {
 						LCD.drawString(itemMin, 0, 3);
 				}
 				if (RIGHT) {
-					if (numItems<=quantity) {
+					if (numItems<quantity) {
 						numItems++;
 						itemDisp = itemName + ": " + numItems + "/" + quantity;
 						LCD.drawString(itemDisp, 0, 3);
@@ -141,14 +144,24 @@ public class GUI extends Thread {
 				}
 			}
 			if (!isOnPickUp) {
+				LCD.clear();
+				numItems=0;
+				robot.setOnJob(isOnJob);
+				LCD.drawString(dropoff, 0, 1);
+				jobId = msg.getJob().getId();
+				LCD.drawString(jobIDisp, 0, 2);
+				LCD.drawString(dropoffItems, 0, 3);
+				location = robot.getCurrentLocation();
+				LCD.drawString(locationDisp, 0, 4);
 				if (ENTER) {
 					LCD.clear();
 					numItems=0;
 					robot.setOnJob(isOnJob);
 					LCD.drawString(dropoff, 0, 1);
+					//jobId = msg.getJob().getId();
 					LCD.drawString(jobIDisp, 0, 2);
 					LCD.drawString(dropoffItems, 0, 3);
-					//location = robot.getCurrentLocation();
+					location = robot.getCurrentLocation();
 					LCD.drawString(locationDisp, 0, 4);
 					
 				}

@@ -32,20 +32,19 @@ public class PCReciever extends Thread {
 	public void run() {
 		while (running) {
 			try {
-				log.debug("reading protocol");
 				switch (fromNXT.readProtocol()) {
-					case Movement:
-						msg.setMoves(fromNXT.readMoves());
-						msg.updated();
-						break;
 					case Robot:
+						log.debug("read: Robot");
 						robot.update(fromNXT.readRobot());
 						robot.updated();
 						break;
-					case Command:
-						msg.setCommand(fromNXT.readCommand());
+					case Message:
+						log.debug("read: Message");
+						msg.update(fromNXT.readMessage());
 						msg.updated();
-						break;
+					case DC:
+						log.error("Disconnected");
+						this.interrupt();
 				}
 			} catch (IOException e) {
 				log.error("couldn't read data", e);
@@ -61,7 +60,7 @@ public class PCReciever extends Thread {
 			connection.close();
 			fromNXT.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("Failed to close", e);
 		}
 	}
 

@@ -10,6 +10,9 @@ public class Robot {
 	private boolean onPickup;
 	public static final int WEIGHT_LIMIT = 50;
 	private boolean needsUpdate;
+	private boolean isMoving;
+	private int movesCompleted;
+	private Integer globalMax;
 
 
     //if you want an empty robot just set everything to null
@@ -20,7 +23,9 @@ public class Robot {
 		this.currentLocation = startLocation;
 		this.onJob = false;
 		this.onPickup = false;
+		movesCompleted = 0;
 		needsUpdate = true;
+		this.setMoving(false);
 	}
 
 	public Robot(){
@@ -73,12 +78,12 @@ public class Robot {
 
 	public void setOnPickup(boolean onPickup) {
 		this.onPickup = onPickup;
-		this.needsUpdate = true;
+		needsUpdate = true;
 	}
 
 	public void setOnJob(boolean onJob) {
 		this.onJob = onJob;
-		this.needsUpdate = true;
+		needsUpdate = true;
 	}
 
 	public boolean needsUpdate() {
@@ -99,5 +104,31 @@ public class Robot {
 
 	public void updated() {
 		needsUpdate = false;
+	}
+
+	public boolean isMoving() {
+		return isMoving;
+	}
+
+	public void setMoving(boolean isMoving) {
+		this.isMoving = isMoving;
+		needsUpdate=true;
+	}
+	
+	public void setMoves(int moves) {
+		movesCompleted = moves;
+		needsUpdate = true;
+	}
+	
+	public void incrementMoves() {
+		movesCompleted++;
+		synchronized (globalMax) {
+			if (movesCompleted > globalMax) globalMax = movesCompleted;
+		}
+		needsUpdate = true;
+	}
+	
+	public int getMovesCompleted() {
+		return movesCompleted;
 	}
 }
