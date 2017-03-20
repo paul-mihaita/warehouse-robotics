@@ -24,7 +24,7 @@ public class PCReciever extends Thread {
 		this.robot = robot;
 		this.connection = inputStream;
 		this.msg = msg;
-		this.fromNXT = new NXTInputStream(inputStream);
+		this.fromNXT = new NXTInputStream(inputStream, log);
 		this.log = log;
 		this.setName("PCReciever - " + robot.getName() + ":");
 	}

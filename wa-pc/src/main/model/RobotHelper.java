@@ -29,8 +29,6 @@ public class RobotHelper extends Thread {
 	public void run() {
 		while (!r.isEmpty()) {																																																									
 			//sends the robot the moves
-			System.out.println(r.size());
-			System.out.println(r.peek().size());
 			ArrayList<move> temp = r.poll();
 			m.setMoves(temp);
 			//tells the robot to start

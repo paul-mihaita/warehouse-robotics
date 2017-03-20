@@ -1,6 +1,7 @@
 package robot_gui;
 
 import communication.Message;
+import communication.CommConst.command;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
@@ -103,7 +104,7 @@ public class GUI extends Thread {
 		jobIDisp = "Job: " + jobId;
 		itemDisp = itemName + ": " + numItems + "/" + quantity;
 		dropoffItems = "Drop off completed";
-		locationDisp = "Location: " + location.toString();
+		locationDisp = "Loc: " + location.toString();
 		itemMin = "No more items";
 	}
 
@@ -119,7 +120,6 @@ public class GUI extends Thread {
 					if (ENTER) {
 						drawUI(pickup,itemDisp);
 						isMoving = true;
-
 					}
 					if (ESCAPE) {
 						LCD.clear();
