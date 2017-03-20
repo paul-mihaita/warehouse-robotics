@@ -87,6 +87,7 @@ public class GUI extends Application {
 	@Override
 	public void stop() {
 		map.interrupt();
+		tabPane.interrupt();
 		Start.log.info("GUI was closed");
 	}
 	
