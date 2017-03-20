@@ -11,8 +11,9 @@ import utils.Location;
 import utils.Robot;
 
 public class Converters {
+	private static final int constItems = 6;
 	public static Robot byteToRobot(byte[] a) throws IOException {
-		if (a.length <= 6) throw new IOException("Robot array was less than 6 in size");
+		if (a.length <= constItems) throw new IOException("Robot array was less than 6 in size");
 		Location current = new Location(a[0], a[1]);
 		Location orientation = new Location(a[2], a[3]);
 		boolean isOnPickup = false;
@@ -22,9 +23,9 @@ public class Converters {
 			// shouldn't happen
 		}
 		int movesCompleted = a[5];
-		char[] c = new char[a.length - 6];
+		char[] c = new char[a.length - constItems];
 		for (int i = 0; i < c.length; i++) {
-			c[i] = (char) a[i + 6];
+			c[i] = (char) a[i + constItems];
 		}
 		String name = new String(c);
 		Robot r = new Robot(name, null, orientation, current);
@@ -35,7 +36,7 @@ public class Converters {
 
 	public static byte[] robotToByte(Robot r) {
 		String name = r.getName();
-		byte[] returnArr = new byte[name.length() + 6];
+		byte[] returnArr = new byte[name.length() + constItems];
 		Location location = r.getCurrentLocation();
 		returnArr[0] = (byte) location.getX();
 		returnArr[1] = (byte) location.getY();
@@ -46,7 +47,7 @@ public class Converters {
 		returnArr[5] = (byte) r.getMovesCompleted();
 		char[] c = name.toCharArray();
 		for (int i = 0; i < c.length; i++) {
-			returnArr[i + 6] = (byte) c[i];
+			returnArr[i + constItems] = (byte) c[i];
 		}
 		return returnArr;
 	}

@@ -33,7 +33,7 @@ public class WarehouseFloor {
 
 	private HashMap<Robot, Optional<Job>> assignment;
 
-	private HashMap<String, Message> messageQueues;
+	private HashMap<Robot, Message> messageQueues;
 
 	private HashMap<Integer, Job> jobList;
 
@@ -67,18 +67,18 @@ public class WarehouseFloor {
 		this.jobList = new HashMap<Integer, Job>();
 		this.items = items;
 		this.robots = new HashSet<Robot>();
-		this.messageQueues = new HashMap<String, Message>();
+		this.messageQueues = new HashMap<Robot, Message>();
 
 		Robot squirtle = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(11, 6),
 				new Location(11, 7));
 		//this.robots.add(squirtle);
 
 		Robot bulbasaur = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(1, 7), new Location(0, 7));
-		//this.robots.add(bulbasaur);
+		this.robots.add(bulbasaur);
 
 		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1),
 				new Location(0, 0));
-		this.robots.add(charmander);
+		//this.robots.add(charmander);
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -89,7 +89,7 @@ public class WarehouseFloor {
 			assignment.put(r, Optional.empty());
 			Message temp = new Message(new ArrayList<move>(), command.Wait, new BasicJob(0, new Task("", 0)));
 			tempArr[i++] = temp;
-			messageQueues.put(r.getName(), temp);
+			messageQueues.put(r, temp);
 		}
 
 		JobWorth jobWorth = new JobWorth(jobs, robots);
@@ -117,7 +117,7 @@ public class WarehouseFloor {
 
 	private void initalizePoller() {
 		for (Robot r : robots) {
-			poller.put(r, new RobotHelper(messageQueues.get(r.getName())));
+			poller.put(r, new RobotHelper(messageQueues.get(r)));
 		}
 	}
 
@@ -165,13 +165,12 @@ public class WarehouseFloor {
 
 	public Thread givePath(Robot r, ArrayList<ArrayList<move>> routes, Job job) {
 		if (!server)
-			return new Thread() {
-			};
+			return new Thread();
 		RobotHelper p = poller.get(r);
 		r.setOnPickup(true);
 		r.setOnJob(true);
 		p.overwriteRoutes(routes);
-		messageQueues.get(r).setJob(Converters.toBasicJob(job));
+ 		messageQueues.get(r).setJob(Converters.toBasicJob(job));
 		return p;
 	}
 

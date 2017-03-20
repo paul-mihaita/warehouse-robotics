@@ -27,9 +27,12 @@ public class RobotHelper extends Thread {
 	}
 	@Override
 	public void run() {
-		while (!r.isEmpty()) {
+		while (!r.isEmpty()) {																																																									
 			//sends the robot the moves
-			m.setMoves(r.poll());
+			System.out.println(r.size());
+			System.out.println(r.peek().size());
+			ArrayList<move> temp = r.poll();
+			m.setMoves(temp);
 			//tells the robot to start
 			m.setCommand(command.Start);
 			while (m.getCommand() != command.Finish) {
@@ -42,6 +45,7 @@ public class RobotHelper extends Thread {
 	@Override
 	public void interrupt() {
 		//job has been cancelled
+		System.err.println("interrupted");
 		m.setCommand(command.Wait);
 	}
 }

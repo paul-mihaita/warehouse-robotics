@@ -160,7 +160,7 @@ public class GUI extends Thread {
 						System.exit(0);
 					}
 				}
-				Delay.msDelay(200);
+				Delay.msDelay(400);
 			}
 		}
 	}
