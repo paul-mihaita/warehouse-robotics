@@ -12,7 +12,6 @@ import communication.BasicJob;
 import communication.CommConst.command;
 import communication.Message;
 import communication.thread.Server;
-import lejos.util.Delay;
 import main.gui.GUI;
 import main.job.JobWorth;
 import main.route.CommandCenter;
@@ -146,12 +145,10 @@ public class WarehouseFloor {
 									new Rate(100).sleep();
 								}
 
-								Job j = assignment.get(r).get();
-
 								if (p.isInterrupted()) {
-									j.cancel();
+									t.cancel();
 								} else {
-									j.completed();
+									t.completed();
 								}
 							};
 						}.start();

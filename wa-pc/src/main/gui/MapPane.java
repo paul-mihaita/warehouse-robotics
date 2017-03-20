@@ -29,12 +29,12 @@ public class MapPane extends Canvas {
 	private static Thread canvasHandler;
 
 	private static final Image WATER = new Image(
-			"http://orig04.deviantart.net/789b/f/2012/102/f/4/bigger_8_bit_squirtle_by_mickiart14-d4vwhge.png", 45, 45,
+			"http://orig04.deviantart.net/789b/f/2012/102/f/4/bigger_8_bit_squirtle_by_mickiart14-d4vwhge.png", 65, 65,
 			false, false);
 	private static final Image FIRE = new Image("http://piq.codeus.net/static/media/userpics/piq_366704_400x400.png",
-			35, 35, false, false);
+			45, 45, false, false);
 	private static final Image GRASS = new Image(
-			"http://orig03.deviantart.net/bad3/f/2014/261/0/4/pixel_bulbasaur_by_venasaur12-d7znzxm.png", 40, 30, false,
+			"http://orig03.deviantart.net/bad3/f/2014/261/0/4/pixel_bulbasaur_by_venasaur12-d7znzxm.png", 55, 45, false,
 			false);
 
 	public MapPane(WarehouseFloor model) {
@@ -151,23 +151,35 @@ public class MapPane extends Canvas {
 
 			if (r.getName().equals(Info.RobotNames[0])) {
 				// the water one
-				gc.drawImage(makeTransparent(WATER), scale(r.getCurrentLocation().getX()) - 15,
-						scale(r.getCurrentLocation().getY()) - 20);
+				gc.drawImage(makeTransparent(WATER), scale(r.getCurrentLocation().getX()) - 25,
+						scale(r.getCurrentLocation().getY()) - 30);
+
+				gc.setFill(Color.BLUE);
 
 			} else if (r.getName().equals(Info.RobotNames[1])) {
 				// the grass one
 
 				gc.drawImage(makeTransparent(GRASS), scale(r.getCurrentLocation().getX()) - 10,
-						scale(r.getCurrentLocation().getY()) - 15);
+						scale(r.getCurrentLocation().getY()) - 25);
+
+				gc.setFill(Color.GREEN);
 
 			} else if (r.getName().equals(Info.RobotNames[2])) {
 				// the fire one
-				gc.drawImage(makeTransparent(FIRE), scale(r.getCurrentLocation().getX()) - 15,
-						scale(r.getCurrentLocation().getY()) - 20);
+				gc.drawImage(makeTransparent(FIRE), scale(r.getCurrentLocation().getX()) - 10,
+						scale(r.getCurrentLocation().getY()) - 15);
+
+				gc.setFill(Color.RED);
 
 			}
 
-			// TODO r.getOrientation();
+			float x = r.getOrientation().getX();
+			float y = r.getOrientation().getY();
+			
+			float rx = r.getRelativeOrientation().getX();
+			float ry = r.getRelativeOrientation().getY();
+
+			
 		}
 	}
 
