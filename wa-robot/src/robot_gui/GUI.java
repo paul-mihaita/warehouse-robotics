@@ -68,12 +68,12 @@ public class GUI extends Thread {
 	}
 
 	private boolean isMoving;
-	private int jobId; 
-	private boolean isOnJob; 
+	private int jobId;
+	private boolean isOnJob;
 	private boolean isOnPickUp;
-	private Location location; 
-	private int quantity; 
-	private String itemName; 
+	private Location location;
+	private int quantity;
+	private String itemName;
 	private int numItems;
 
 	private boolean ENTER;
@@ -81,119 +81,96 @@ public class GUI extends Thread {
 	private boolean LEFT;
 	private boolean RIGHT;
 
-	private String pickup = "Pick-up";
-	private String dropoff = "Drop off";
-	private String jobIDisp = "Job: " + jobId;
-	private String itemDisp = itemName + ": " + numItems + "/" + quantity;
-	private String dropoffItems = "Drop off completed";
-	private String locationDisp = "Location: " + location;
-	private String itemMin = "No more items";
+	private String pickup;
+	private String dropoff;
+	private String jobIDisp;
+	private String itemDisp;
+	private String dropoffItems;
+	private String locationDisp;
+	private String itemMin;
+
+	public void update() {
+		jobId = msg.getJob().getId();
+		isOnJob = robot.isOnJob();
+		isOnPickUp = robot.isOnPickup();
+		location = robot.getCurrentLocation();
+		quantity = msg.getJob().getTask().getQuantity();
+		itemName = msg.getJob().getTask().getItem().getItemName();
+		isMoving = robot.isMoving();
+
+		pickup = "Pick-up";
+		dropoff = "Drop off";
+		jobIDisp = "Job: " + jobId;
+		itemDisp = itemName + ": " + numItems + "/" + quantity;
+		dropoffItems = "Drop off completed";
+		locationDisp = "Location: " + location;
+		itemMin = "No more items";
+	}
 
 	public void run() {
 
 		while (true) {
-			jobId = msg.getJob().getId();
-			isOnJob = robot.isOnJob();
-			isOnPickUp = robot.isOnPickup();
-			location = robot.getCurrentLocation();
-			quantity = msg.getJob().getTask().getQuantity();
-			itemName = msg.getJob().getTask().getItem().getItemName();
-			isMoving = robot.isMoving();
-			
+			update();
 			if (isMoving == false) {
 				isOnPickUp = robot.isOnPickup();
 
 				if (isOnPickUp) {
-					LCD.clear();
-					LCD.drawString(pickup, 0, 1);
-					jobId = msg.getJob().getId();
-					LCD.drawString(jobIDisp, 0, 2);
-					quantity = msg.getJob().getTask().getQuantity();
-					itemName = msg.getJob().getTask().getItem().getItemName();
-					LCD.drawString(itemDisp, 0, 3);
-					location = robot.getCurrentLocation();
-					LCD.drawString(locationDisp, 0, 4);
+					drawUI(pickup, itemDisp);
 					if (ENTER) {
+						drawUI(pickup,itemDisp);
+						isMoving = true;
+
+					}
+					if (ESCAPE) {
 						LCD.clear();
-						LCD.drawString(pickup, 0, 1);
-						jobId = msg.getJob().getId();
-						LCD.drawString(jobIDisp, 0, 2);
-						quantity = msg.getJob().getTask().getQuantity();
-						itemName = msg.getJob().getTask().getItem().getItemName();
-						LCD.drawString(itemDisp, 0, 3);
-						location = robot.getCurrentLocation();
-						LCD.drawString(locationDisp, 0, 4);
-						if (ENTER) {
-							LCD.clear();
-							LCD.drawString(pickup, 0, 1);
-							jobId = msg.getJob().getId();
-							LCD.drawString(jobIDisp, 0, 2);
-							quantity = msg.getJob().getTask().getQuantity();
-							itemName = msg.getJob().getTask().getItem().getItemName();
+						LCD.drawString("BYE", 7, 3);
+						System.exit(0);
+					}
+					if (LEFT) {
+						if (numItems > 0) {
+							numItems--;
+							itemDisp = itemName + ": " + numItems + "/" + quantity;
 							LCD.drawString(itemDisp, 0, 3);
-							location = robot.getCurrentLocation();
-							LCD.drawString(locationDisp, 0, 4);
-							isMoving = true;
-
-						}
-						if (ESCAPE) {
-							LCD.clear();
-							LCD.drawString("BYE", 7, 3);
-							System.exit(0);
-						}
-						if (LEFT) {
-							if (numItems > 0) {
-								numItems--;
-								itemDisp = itemName + ": " + numItems + "/" + quantity;
-								LCD.drawString(itemDisp, 0, 3);
-							} else
-								LCD.drawString(itemMin, 0, 3);
-						}
-						if (RIGHT) {
-							if (numItems < quantity) {
-								numItems++;
-								itemDisp = itemName + ": " + numItems + "/" + quantity;
-								LCD.drawString(itemDisp, 0, 3);
-							} else {
-								itemDisp = itemName + ": " + quantity + "/" + quantity;
-								LCD.drawString(itemDisp, 0, 3);
-							}
+						} else
+							LCD.drawString(itemMin, 0, 3);
+					}
+					if (RIGHT) {
+						if (numItems < quantity) {
+							numItems++;
+							itemDisp = itemName + ": " + numItems + "/" + quantity;
+							LCD.drawString(itemDisp, 0, 3);
+						} else {
+							itemDisp = itemName + ": " + quantity + "/" + quantity;
+							LCD.drawString(itemDisp, 0, 3);
 						}
 					}
-					if (!isOnPickUp) {
-						LCD.clear();
-						numItems = 0;
-						isOnJob = robot.isOnJob();
-						robot.setOnJob(isOnJob);
-						LCD.drawString(dropoff, 0, 1);
-						jobId = msg.getJob().getId();
-						LCD.drawString(jobIDisp, 0, 2);
-						LCD.drawString(dropoffItems, 0, 3);
-						location = robot.getCurrentLocation();
-						LCD.drawString(locationDisp, 0, 4);
-						if (ENTER) {
-							LCD.clear();
-							numItems = 0;
-							robot.setOnJob(isOnJob);
-							LCD.drawString(dropoff, 0, 1);
-							jobId = msg.getJob().getId();
-							LCD.drawString(jobIDisp, 0, 2);
-							LCD.drawString(dropoffItems, 0, 3);
-							location = robot.getCurrentLocation();
-							LCD.drawString(locationDisp, 0, 4);
-							isMoving = true;
-
-						}
-						if (ESCAPE) {
-							LCD.clear();
-							LCD.drawString("BYE", 7, 3);
-							System.exit(0);
-						}
-					}
-					Delay.msDelay(200);
 				}
+				if (!isOnPickUp) {
+					numItems = 0;
+					drawUI(dropoff, dropoffItems);
+					if (ENTER) {
+						numItems = 0;
+						drawUI(dropoff, dropoffItems);
+						isMoving = true;
+
+					}
+					if (ESCAPE) {
+						LCD.clear();
+						LCD.drawString("BYE", 7, 3);
+						System.exit(0);
+					}
+				}
+				Delay.msDelay(200);
 			}
 		}
-
 	}
+
+	private void drawUI(String state, String item) {
+		LCD.clear();
+		LCD.drawString(state ,0, 1);
+		LCD.drawString(jobIDisp, 0, 2);
+		LCD.drawString(item, 0, 3);
+		LCD.drawString(locationDisp, 0, 4);
+	}
+
 }
