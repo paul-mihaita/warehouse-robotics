@@ -12,10 +12,12 @@ import communication.BasicJob;
 import communication.CommConst.command;
 import communication.Message;
 import communication.thread.Server;
+import lejos.util.Delay;
 import main.gui.GUI;
 import main.job.JobWorth;
 import main.route.CommandCenter;
 import movement.Movement.move;
+import rp.util.Rate;
 import student_solution.Graph;
 import utils.Info;
 import utils.Item;
@@ -130,7 +132,29 @@ public class WarehouseFloor {
 						give.put(r, t);
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
 						GUI.displayPath(CommandCenter.getPathLocations().get(r));
-						givePath(r, path.get(r));
+						/*
+						 * Gets a thread which terminates when the job is
+						 * completed. Waits for that moment
+						 */
+						new Thread() {
+							public void run() {
+
+								Thread p = givePath(r, path.get(r));
+								p.start();
+
+								while (p.isAlive()) {
+									new Rate(100).sleep();
+								}
+
+								Job j = assignment.get(r).get();
+
+								if (p.isInterrupted()) {
+									j.cancel();
+								} else {
+									j.completed();
+								}
+							};
+						}.start();
 					}
 				}
 			});
@@ -138,14 +162,15 @@ public class WarehouseFloor {
 
 	}
 
-	public void givePath(Robot r, ArrayList<ArrayList<move>> routes) {
+	public Thread givePath(Robot r, ArrayList<ArrayList<move>> routes) {
 		if (!server)
-			return;
+			return new Thread() {
+			};
 		RobotHelper p = poller.get(r);
 		r.setOnPickup(true);
 		r.setOnJob(true);
 		p.overwriteRoutes(routes);
-		p.start();
+		return p;
 	}
 
 	public boolean assign(String name, Job j) {
