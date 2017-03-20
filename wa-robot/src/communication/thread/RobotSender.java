@@ -28,7 +28,6 @@ public class RobotSender extends Thread {
 	@Override
 	public void run() {
 		while (running) {
-			System.out.println(robot.getCurrentLocation().toString());
 			Delay.msDelay(CommConst.GRACE);
 			if (robot.needsUpdate()) {
 				try {

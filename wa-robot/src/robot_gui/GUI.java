@@ -103,7 +103,7 @@ public class GUI extends Thread {
 		jobIDisp = "Job: " + jobId;
 		itemDisp = itemName + ": " + numItems + "/" + quantity;
 		dropoffItems = "Drop off completed";
-		locationDisp = "Location: " + location;
+		locationDisp = "Location: " + location.toString();
 		itemMin = "No more items";
 	}
 

@@ -40,14 +40,12 @@ public class Junction extends AbstractBehavior {
 		if (moveQueue.finished()) {
 			robot.setMoving(false);
 			pilot.stop();
-			System.out.println("finished");
 			return;
 		}
 		junction(moveQueue.getNextMove());
 	}
 
 	private void junction(move m) {
-		System.out.print(m);
 		switch (m) {
 			case BACKWARD:
 				RobotMovement.backward(pilot, robot);
@@ -65,6 +63,5 @@ public class Junction extends AbstractBehavior {
 				RobotMovement.waitUntilPress(pilot);
 				break;
 		}
-		System.out.println("-");
 	}
 }

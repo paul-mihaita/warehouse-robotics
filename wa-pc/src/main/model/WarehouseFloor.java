@@ -142,6 +142,8 @@ public class WarehouseFloor {
 		if (!server)
 			return;
 		RobotHelper p = poller.get(r);
+		r.setOnPickup(true);
+		r.setOnJob(true);
 		p.overwriteRoutes(routes);
 		p.start();
 	}
