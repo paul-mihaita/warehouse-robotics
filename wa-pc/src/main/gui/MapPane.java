@@ -13,7 +13,6 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import main.model.WarehouseFloor;
 import rp.util.Rate;
 import student_solution.Graph;
@@ -108,12 +107,12 @@ public class MapPane extends Canvas {
 
 	private static void drawPath(GraphicsContext gc) {
 
-		for (Tuple<ArrayList<ArrayList<Location>>, Paint> path : GUI.getPaths()) {
+		for (Tuple<ArrayList<ArrayList<Location>>, Robot> path : GUI.getPaths()) {
 
 			for (ArrayList<Location> part : path.getX()) {
 
-				gc.setFill(path.getY());
-				gc.setStroke(path.getY());
+				gc.setFill(Color.BLUE);
+				gc.setStroke(Color.BLUE);
 
 				gc.setLineWidth(4);
 				gc.setLineDashes(7);
@@ -310,10 +309,10 @@ public class MapPane extends Canvas {
 	}
 
 	private static ArrayList<ArrayList<Location>> makeDrawable(
-			HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone) {
+			HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> clone) {
 		ArrayList<ArrayList<Location>> drawable = new ArrayList<ArrayList<Location>>();
 
-		for (Tuple<ArrayList<ArrayList<Location>>, Paint> partPath : clone) {
+		for (Tuple<ArrayList<ArrayList<Location>>, Robot> partPath : clone) {
 			ArrayList<Location> wholePath = new ArrayList<Location>();
 			for (ArrayList<Location> singlePath : partPath.getX()) {
 				for (Location l : singlePath) {
@@ -330,7 +329,7 @@ public class MapPane extends Canvas {
 
 		int maxPath = 0;
 
-		HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> clone = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>(
+		HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> clone = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>>(
 				GUI.getPaths());
 
 		for (ArrayList<Location> path : makeDrawable(clone)) {
