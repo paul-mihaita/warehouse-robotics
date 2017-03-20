@@ -29,8 +29,8 @@ public class JobWorth {
 	ArrayList<Job> jobs=new ArrayList<>();
 	HashMap<Robot,Job> map;
 	HashMap<String,String> jobsWithValue= new HashMap<>();
-	HashMap<String,String> finalJobsWithValue= new HashMap<>();	
-
+	HashMap<String,String> finalJobsWithValue= new HashMap<>();
+	
 	public JobWorth(ArrayList<Job> jobs, HashSet<Robot> robots){	
 		this.robots = robots;
 		this.jobs = jobs;
@@ -47,8 +47,8 @@ public class JobWorth {
 	
 	public Task getQuantity(){
 		return this.quantity;
-	}	
-
+	}
+	
 	public HashMap<String, String> getReward(){
 		
 		for(Job job : jobs){
@@ -106,5 +106,5 @@ public class JobWorth {
 			
 	}
 	
-
+	
 }

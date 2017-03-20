@@ -11,7 +11,7 @@ import utils.Node;
 import utils.Robot;
 import utils.Task;
 
-public class GUI implements Runnable {
+public class GUI extends Thread {
 	
 	Job job;
 	Node node;

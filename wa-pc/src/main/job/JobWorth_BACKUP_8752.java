@@ -28,10 +28,12 @@ public class JobWorth {
 	HashSet<utils.Robot> robots=new HashSet<>();
 	ArrayList<Job> jobs=new ArrayList<>();
 	HashMap<Robot,Job> map;
-	HashMap<String,String> jobsWithValue= new HashMap<>();
-	HashMap<String,String> finalJobsWithValue= new HashMap<>();	
+	HashMap<Integer,Float> jobsWithValue= new HashMap<>();
+	HashMap<Integer,Float> finalJobsWithValue= new HashMap<>();
+	
 
 	public JobWorth(ArrayList<Job> jobs, HashSet<Robot> robots){	
+
 		this.robots = robots;
 		this.jobs = jobs;
 	}
@@ -47,16 +49,18 @@ public class JobWorth {
 	
 	public Task getQuantity(){
 		return this.quantity;
-	}	
+	}
+	
 
 	public HashMap<String, String> getReward(){
 		
 		for(Job job : jobs){
-			map=new HashMap<>();
+			map=new HashMap<Robot, Job>();
 			
 			for(Robot robot:robots){
 				map.put(robot, job);
 			}
+
 			int jobPathCost = 0;
 			
 			HashMap<Robot,ArrayList<ArrayList<move>>> paths = CommandCenter.generatePaths(map);
@@ -72,6 +76,7 @@ public class JobWorth {
 					Float.toString( job.getJobReward() / 
 							( (jobPathCost / robots.size()) * (job.sumOfWeight() / 50) )
 					));
+
 			
 		}
 		
@@ -80,23 +85,24 @@ public class JobWorth {
 		return finalJobsWithValue;						
 	}	
 	
-	public static HashMap<String,String> sortByValue (HashMap<String,String> jobsWithValue){
+	public static HashMap<Integer,Float> sortByValue (HashMap<Integer, Float> jobsWithValue){
 			
-			List<HashMap.Entry<String,String>> list=new LinkedList<HashMap.Entry<String,String>>(jobsWithValue.entrySet());
+			List<HashMap.Entry<Integer,Float>> list=new LinkedList<HashMap.Entry<Integer,Float>>(jobsWithValue.entrySet());
 			//sorting based on values
-			Collections.sort(list,new Comparator<HashMap.Entry<String,String>>(){
-				public int compare(Entry<String,String> o1, Entry<String,String> o2){
+			Collections.sort(list,new Comparator<HashMap.Entry<Integer,Float>>(){
+				public int compare(Entry<Integer,Float> o1, Entry<Integer,Float> o2){
 					
 						return (o1.getValue()).compareTo(o2.getValue());
 				}
 			});
-			HashMap<String,String> sortedJobsWithValue=new HashMap<String,String>();
-			for(HashMap.Entry<String,String> entry:list){
+			HashMap<Integer,Float> sortedJobsWithValue=new HashMap<Integer,Float>();
+			for(HashMap.Entry<Integer,Float> entry:list){
 				sortedJobsWithValue.put(entry.getKey(), entry.getValue());
 			}
 			return sortedJobsWithValue;
 	}	
 	
+
 	public static void printMap(HashMap<String, String> map){
 		for (String key: map.keySet()){
             String k = key.toString();

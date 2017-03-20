@@ -61,6 +61,13 @@ public class Job {
 	public String getStatus() {
 		return status.name();
 	}
+	
+	public float getJobReward(){
+		float reward = 0;
+		for(Task t : tasks)
+			reward += t.getTaskReward();
+			return reward;
+	}
 
 	public boolean isActive() {
 		return status.equals(Status.ACTIVE);
