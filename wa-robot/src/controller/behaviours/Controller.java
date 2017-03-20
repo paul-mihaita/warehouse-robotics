@@ -20,7 +20,7 @@ public class Controller extends Thread {
 		Behavior left = new Direction(pilot, l, move.TURNLEFT, msg);
 		Behavior right = new Direction(pilot, r, move.TURNRIGHT, msg);
 		Behavior junction = new Junction(pilot, l, r, robot, msg);
-		arby = new Arbitrator(new Behavior[] { forward, left, right, junction });
+		arby = new Arbitrator(new Behavior[] { forward, left, right, junction }, false);
 	}
 
 	@Override
