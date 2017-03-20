@@ -20,8 +20,6 @@ public class GUI extends Thread {
 	private Message msg;
 
 	public GUI(Robot robot, Message msg) {
-		System.out.println("1");
-		Delay.msDelay(1000);
 		this.robot = robot;
 		this.msg = msg;
 		Button.ENTER.addButtonListener(new ButtonListener() {
@@ -72,22 +70,20 @@ public class GUI extends Thread {
 				ESCAPE = false;
 			}
 		});
-		System.out.println("2");
-		Delay.msDelay(1000);
 	}
 
-	private int jobId = msg.getJob().getId();
-	private boolean isOnJob = robot.isOnJob();
-	private boolean isOnPickUp = robot.isOnPickup();
-	private Location location = robot.getCurrentLocation();
-	private int quantity = msg.getJob().getTask().getQuantity();
-	private String itemName = msg.getJob().getTask().getItem().getItemName();
-	private int numItems = 0;
+	private int jobId; //msg.getJob().getId();
+	private boolean isOnJob; //robot.isOnJob();
+	private boolean isOnPickUp; //robot.isOnPickup();
+	private Location location; //robot.getCurrentLocation();
+	private int quantity; //msg.getJob().getTask().getQuantity();
+	private String itemName; //msg.getJob().getTask().getItem().getItemName();
+	private int numItems;
 	
-	private boolean ENTER = false; 
-	private boolean ESCAPE = false; 
-	private boolean LEFT = false; 
-	private boolean RIGHT = false; 
+	private boolean ENTER;
+	private boolean ESCAPE; 
+	private boolean LEFT;
+	private boolean RIGHT; 
 	
 	private String pickup = "Pick-up";
 	private String dropoff = "Drop off";
@@ -100,8 +96,12 @@ public class GUI extends Thread {
 	public void run() {
 		
 		while (true) {
-			System.out.println("3");
-			Delay.msDelay(1000);
+			jobId = msg.getJob().getId();
+			isOnJob = robot.isOnJob();
+			isOnPickUp = robot.isOnPickup();
+			location = robot.getCurrentLocation();
+			quantity = msg.getJob().getTask().getQuantity();
+			itemName = msg.getJob().getTask().getItem().getItemName();
 			if(isOnPickUp) {
 				LCD.clear();
 				LCD.drawString(pickup, 0, 1);
