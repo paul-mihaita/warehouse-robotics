@@ -131,7 +131,7 @@ public class WarehouseFloor {
 						HashMap<Robot, Job> give = new HashMap<Robot, Job>();
 						give.put(r, t);
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
-						GUI.displayPath(CommandCenter.getPathLocations().get(r));
+						GUI.displayPath(CommandCenter.getPathLocations().get(r), r);
 						/*
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment
@@ -151,6 +151,7 @@ public class WarehouseFloor {
 								} else {
 									t.completed();
 								}
+								GUI.removePath(r);
 							};
 						}.start();
 					}

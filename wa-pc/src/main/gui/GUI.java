@@ -9,11 +9,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import main.model.WarehouseFloor;
 import utils.Location;
+import utils.Robot;
 import utils.Tuple;
 
 public class GUI extends Application {
@@ -30,7 +29,7 @@ public class GUI extends Application {
 
 	private static ArrayList<Location> nodesToDraw;
 
-	private static HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> coloredPath;
+	private static HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> drawnPath;
 	private static HashSet<ArrayList<ArrayList<Location>>> paths;
 
 	private static TabMenuPane tabPane;
@@ -46,7 +45,7 @@ public class GUI extends Application {
 	 */
 	public static void create(WarehouseFloor model) {
 
-		GUI.coloredPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>();
+		GUI.drawnPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>>();
 		GUI.paths = new HashSet<ArrayList<ArrayList<Location>>>();
 		GUI.nodesToDraw = new ArrayList<Location>();
 		GUI.model = model;
@@ -91,8 +90,8 @@ public class GUI extends Application {
 		Start.log.info("GUI was closed");
 		System.exit(0);
 	}
-	
-	public static void refresh(){
+
+	public static void refresh() {
 		tabPane.refresh();
 	}
 
@@ -100,19 +99,29 @@ public class GUI extends Application {
 		return new ArrayList<Location>(nodesToDraw);
 	}
 
-	protected static HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>> getPaths() {
-		return coloredPath;
+	protected static HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> getPaths() {
+		return drawnPath;
 	}
 
 	protected static ArrayList<Location> getNodesToDraw() {
 		return nodesToDraw;
 	}
 
-	public static void displayPath(ArrayList<ArrayList<Location>> newPath) {
+	public static void displayPath(ArrayList<ArrayList<Location>> newPath, Robot robot) {
 		paths.add(newPath);
-		coloredPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Paint>>();
+		drawnPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>>();
 		for (ArrayList<ArrayList<Location>> path : paths) {
-			coloredPath.add(new Tuple<ArrayList<ArrayList<Location>>, Paint>(path, Color.BLUE));
-		}	
+			drawnPath.add(new Tuple<ArrayList<ArrayList<Location>>, Robot>(path, robot));
+		}
+	}
+
+	public static void removePath(Robot r) {
+
+		for (Tuple<ArrayList<ArrayList<Location>>, Robot> path : drawnPath) {
+			if (r.equals(path.getY())) {
+				drawnPath.remove(path);
+			}
+		}
+
 	}
 }
