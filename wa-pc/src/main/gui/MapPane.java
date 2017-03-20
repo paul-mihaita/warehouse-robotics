@@ -299,9 +299,9 @@ public class MapPane extends Canvas {
 
 		// Factors to make the drawing central and pretty
 
-		float scale = (float) (GUI.MAP_WIDTH / 11.5);
+		float scale = (float) (GUI.MAP_WIDTH / 12);
 
-		return value * scale + 5;
+		return value * scale + 10;
 	}
 
 	public void interrupt() {
