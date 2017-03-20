@@ -266,4 +266,8 @@ public class CommandCenter {
 		// ordering tasks, TODO
 	}
 
+	public static void resetTable() {
+		AstarWHCA.resetTable();
+	}
+
 }

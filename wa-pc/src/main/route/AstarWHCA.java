@@ -52,6 +52,10 @@ public class AstarWHCA {
 		return robotPaths;
 	}
 
+	public static void resetTable() {
+		Astar.reset();
+	}
+
 	/*private static <T> void rotate(List<T> list) {
 		if (!list.isEmpty()) {
 			int lSize = list.size();

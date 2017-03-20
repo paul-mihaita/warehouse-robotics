@@ -345,7 +345,7 @@ public class Input {
 			return true;
 		} else
 			return false;
-	}
+	}	
 	
 	public Job getJobWithID(int id){
 		for (Job job : jobs) {
