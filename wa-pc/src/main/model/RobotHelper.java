@@ -34,7 +34,7 @@ public class RobotHelper extends Thread {
 			//tells the robot to start
 			m.setCommand(command.Start);
 			while (m.getCommand() != command.Finish) {
-				//wait for the robot to finish
+				//wait for the robot to finish it segement
 				Delay.msDelay(100);
 			}
 		}

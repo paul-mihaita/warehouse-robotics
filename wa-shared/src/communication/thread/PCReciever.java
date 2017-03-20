@@ -19,6 +19,7 @@ public class PCReciever extends Thread {
 	private boolean running = true;
 	private Message msg;
 	private Logger log;
+	private boolean safe; //perform safe disconnects
 
 	public PCReciever(Robot robot, Message msg, InputStream inputStream, Logger log) {
 		this.robot = robot;
@@ -27,6 +28,7 @@ public class PCReciever extends Thread {
 		this.fromNXT = new NXTInputStream(inputStream, log);
 		this.log = log;
 		this.setName("PCReciever - " + robot.getName() + ":");
+		safe = false;
 	}
 
 	@Override
@@ -45,7 +47,8 @@ public class PCReciever extends Thread {
 						msg.updated();
 					case DC:
 						log.error(this.getName() +"Disconnected");
-						this.interrupt();
+						if (safe)
+							this.interrupt();
 				}
 			} catch (IOException e) {
 				log.error(this.getName() +"couldn't read data", e);

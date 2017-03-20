@@ -73,7 +73,7 @@ public class WarehouseFloor {
 		this.robots.add(squirtle);
 
 		Robot bulbasaur = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(1, 7), new Location(0, 7));
-		this.robots.add(bulbasaur);
+		//this.robots.add(bulbasaur);
 
 		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1),
 				new Location(0, 0));

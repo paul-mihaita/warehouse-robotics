@@ -235,7 +235,7 @@ public class MapPane extends Canvas {
 
 			}
 
-			Start.log.debug("Direction drawn at: " + r.getOrientation().toString());
+			//Start.log.debug("Direction drawn at: " + r.getOrientation().toString());
 
 			// gc.fillPolygon(xPoints, yPoints, 3);
 
