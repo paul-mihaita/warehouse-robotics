@@ -27,30 +27,31 @@ public class PCSender extends Thread {
 		this.log = log;
 		this.connection = connection;
 		this.toNXT = new PCOutputStream(connection, log);
+		this.setName("PCSender - " + robot.getName() + ":");
 	}
 
 	@Override
 	public void run() {
 		while (running) {
 			if (robot.needsUpdate()) {
-				log.debug("robot needs an update");
+				log.debug(this.getName() + "robot needs an update");
 				try {
 					toNXT.sendRobot(robot);
 					robot.updated();
-					log.debug("robot updates sent");
+					log.debug(this.getName() + "robot updates sent");
 				} catch (IOException e) {
-					log.error("Failed to send robot object", e);
+					log.error(this.getName() + "Failed to send robot object", e);
 				}
 				continue;
 			}
 			if (msg.needsUpdate()) {
-				log.debug("Message needs update");
+				log.debug(this.getName() + "Message needs update");
 				try {
 					toNXT.sendMessage(msg);
 					msg.updated();
-					log.debug("Message updates sent");
+					log.debug(this.getName() + "Message updates sent");
 				} catch (IOException e) {
-					log.error("Failed to send message", e);
+					log.error(this.getName() + "Failed to send message", e);
 				}
 				continue;
 			}
@@ -65,7 +66,7 @@ public class PCSender extends Thread {
 			connection.close();
 			toNXT.close();
 		} catch (IOException e) {
-			log.error("Failed to close communication on interupt", e);
+			log.error(this.getName() + "Failed to close communication on interupt", e);
 		}
 
 	}

@@ -1,6 +1,5 @@
 package utils;
 
-
 public class Location implements Comparable {
 
 	int x;
@@ -12,10 +11,10 @@ public class Location implements Comparable {
 		this.y = y;
 		this.reserved = false;
 	}
-	
+
 	@Override
-	public String toString(){
-		return "(" + x +", " + y + ")";
+	public String toString() {
+		return "(" + x + ", " + y + ")";
 	}
 
 	// GET
@@ -54,5 +53,4 @@ public class Location implements Comparable {
 		}
 		return false;
 	}
-
 }

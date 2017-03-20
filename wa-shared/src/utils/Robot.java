@@ -14,8 +14,7 @@ public class Robot {
 	private int movesCompleted;
 	private Integer globalMax;
 
-
-    //if you want an empty robot just set everything to null
+	// if you want an empty robot just set everything to null
 	public Robot(String name, String btAdresss, Location orientation, Location startLocation) {
 		this.name = name;
 		this.btAddress = btAdresss;
@@ -34,6 +33,10 @@ public class Robot {
 
 	public Location getOrientation() {
 		return orientation;
+	}
+
+	public Location getRelativeOrientation() {
+		return new Location(orientation.getX() - currentLocation.getX(), orientation.getY() - currentLocation.getY());
 	}
 
 	public void setOrientation(Location orientation) {
@@ -100,23 +103,31 @@ public class Robot {
 
 	public void setMoving(boolean isMoving) {
 		this.isMoving = isMoving;
-		needsUpdate=true;
+		needsUpdate = true;
 	}
-	
+
 	public void setMoves(int moves) {
 		movesCompleted = moves;
 		needsUpdate = true;
 	}
-	
+
 	public void incrementMoves() {
 		movesCompleted++;
 		synchronized (globalMax) {
-			if (movesCompleted > globalMax) globalMax = movesCompleted;
+			if (movesCompleted > globalMax)
+				globalMax = movesCompleted;
 		}
 		needsUpdate = true;
 	}
-	
+
 	public int getMovesCompleted() {
 		return movesCompleted;
+	}
+	@Override
+	public String toString() {
+		String returnStr = "";
+		returnStr += name;
+		returnStr += currentLocation.toString();
+		return returnStr;
 	}
 }

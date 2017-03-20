@@ -28,9 +28,9 @@ public class RobotSender extends Thread {
 	@Override
 	public void run() {
 		while (running) {
+			Delay.msDelay(CommConst.GRACE);
 			if (robot.needsUpdate()) {
 				try {
-					toPC.sendProtocol(protocol.Robot);
 					toPC.sendRobot(robot);
 					robot.updated();
 				} catch (IOException e) {
@@ -41,7 +41,6 @@ public class RobotSender extends Thread {
 			}
 			if (msg.needsUpdate()) {
 				try {
-					toPC.sendProtocol(protocol.Message);
 					toPC.sendMessage(msg);
 					msg.updated();
 				} catch (IOException e) {
@@ -49,7 +48,6 @@ public class RobotSender extends Thread {
 					e.printStackTrace();
 				}
 			}
-			Delay.msDelay(CommConst.GRACE);
 		}
 	}
 

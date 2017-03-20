@@ -1,5 +1,6 @@
 package controller.behaviours;
 
+import controller.logic.Pilot;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import rp.config.WheeledRobotConfiguration;
@@ -18,12 +19,11 @@ import rp.systems.WheeledRobotSystem;
 public abstract class AbstractBehavior implements Behavior {
 
 	protected WheeledRobotConfiguration config;
-	protected DifferentialPilot pilot;
+	protected Pilot pilot;
 	protected boolean suppressed;
 
-	public AbstractBehavior(WheeledRobotConfiguration config) {
-		this.config = config;
-		pilot = new WheeledRobotSystem(config).getPilot();
+	public AbstractBehavior(Pilot pilot) {
+		this.pilot = pilot;
 	}
 
 	/**

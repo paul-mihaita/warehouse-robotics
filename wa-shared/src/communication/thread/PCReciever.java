@@ -19,13 +19,16 @@ public class PCReciever extends Thread {
 	private boolean running = true;
 	private Message msg;
 	private Logger log;
+	private boolean safe; //perform safe disconnects
 
 	public PCReciever(Robot robot, Message msg, InputStream inputStream, Logger log) {
 		this.robot = robot;
 		this.connection = inputStream;
 		this.msg = msg;
-		this.fromNXT = new NXTInputStream(inputStream);
+		this.fromNXT = new NXTInputStream(inputStream, log);
 		this.log = log;
+		this.setName("PCReciever - " + robot.getName() + ":");
+		safe = false;
 	}
 
 	@Override
@@ -34,20 +37,21 @@ public class PCReciever extends Thread {
 			try {
 				switch (fromNXT.readProtocol()) {
 					case Robot:
-						log.debug("read: Robot");
+						log.debug(this.getName() + "read: Robot");
 						robot.update(fromNXT.readRobot());
 						robot.updated();
 						break;
 					case Message:
-						log.debug("read: Message");
+						log.debug(this.getName() +"read: Message");
 						msg.update(fromNXT.readMessage());
 						msg.updated();
 					case DC:
-						log.error("Disconnected");
-						this.interrupt();
+						log.error(this.getName() +"Disconnected");
+						if (safe)
+							this.interrupt();
 				}
 			} catch (IOException e) {
-				log.error("couldn't read data", e);
+				log.error(this.getName() +"couldn't read data", e);
 			}
 			Delay.msDelay(CommConst.GRACE);
 		}
@@ -60,7 +64,7 @@ public class PCReciever extends Thread {
 			connection.close();
 			fromNXT.close();
 		} catch (IOException e) {
-			log.error("Failed to close", e);
+			log.error(this.getName() +"Failed to close", e);
 		}
 	}
 

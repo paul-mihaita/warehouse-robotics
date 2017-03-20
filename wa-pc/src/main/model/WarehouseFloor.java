@@ -11,11 +11,13 @@ import org.apache.log4j.Logger;
 import communication.BasicJob;
 import communication.CommConst.command;
 import communication.Message;
+import communication.thread.Converters;
 import communication.thread.Server;
 import main.gui.GUI;
 import main.job.JobWorth;
 import main.route.CommandCenter;
 import movement.Movement.move;
+import rp.util.Rate;
 import student_solution.Graph;
 import utils.Info;
 import utils.Item;
@@ -30,7 +32,7 @@ public class WarehouseFloor {
 
 	private HashMap<Robot, Optional<Job>> assignment;
 
-	private HashMap<String, Message> messageQueues;
+	private HashMap<Robot, Message> messageQueues;
 
 	private HashMap<Integer, Job> jobList;
 
@@ -64,17 +66,18 @@ public class WarehouseFloor {
 		this.jobList = new HashMap<Integer, Job>();
 		this.items = items;
 		this.robots = new HashSet<Robot>();
-		this.messageQueues = new HashMap<String, Message>();
+		this.messageQueues = new HashMap<Robot, Message>();
 
-		Robot keith = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(2, 0), new Location(3, 0));
-		this.robots.add(keith);
+		Robot squirtle = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(11, 6),
+				new Location(11, 7));
+		this.robots.add(squirtle);
 
-		Robot cell = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(0, 0), new Location(1, 0));
-		this.robots.add(cell);
+		Robot bulbasaur = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(1, 7), new Location(0, 7));
+		//this.robots.add(bulbasaur);
 
 		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1),
 				new Location(0, 0));
-		this.robots.add(charmander);
+		//this.robots.add(charmander);
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -85,7 +88,7 @@ public class WarehouseFloor {
 			assignment.put(r, Optional.empty());
 			Message temp = new Message(new ArrayList<move>(), command.Wait, new BasicJob(0, new Task("", 0)));
 			tempArr[i++] = temp;
-			messageQueues.put(r.getName(), temp);
+			messageQueues.put(r, temp);
 		}
 
 		JobWorth jobWorth = new JobWorth(jobs, robots);
@@ -105,7 +108,7 @@ public class WarehouseFloor {
 		log.debug("created");
 		this.floor = floor;
 		log.debug("Creating Server");
-		Server s = new Server(Info.getRobots(), tempArr, log);
+		Server s = new Server(robots.toArray(new Robot[robots.size()]), tempArr, log);
 		if (server)
 			s.launch();
 		log.info("Server launched succesfully, warehousefloor constructed");
@@ -113,38 +116,11 @@ public class WarehouseFloor {
 
 	private void initalizePoller() {
 		for (Robot r : robots) {
-			poller.put(r, new RobotHelper(messageQueues.get(r.getName())));
+			poller.put(r, new RobotHelper(messageQueues.get(r)));
 		}
 	}
 
 	public void startRobots() {
-
-		/*
-		 * HashMap<Robot, Job> assignedJobs = new HashMap<Robot, Job>();
-		 * 
-		 * for (Robot r : assigment.keySet()) { if
-		 * (assigment.get(r).isPresent()) { Job j = assigment.get(r).get();
-		 * j.start(); assignedJobs.put(r, j); log.info(r.getName() +
-		 * " was started on job id: " + j.getJobID()); } else {
-		 * 
-		 * log.info(r.getName() +
-		 * " attempted to start, but has no assigned job"); } }
-		 * 
-		 * log.debug("Assigned job size: " + assignedJobs.size()); for (Job j :
-		 * assignedJobs.values()) {
-		 * 
-		 * log.debug("Job id: " + j.getJobID());
-		 * log.debug("Item .... Quantitiy .... Location"); for (Task t :
-		 * j.getTasks()) { log.debug( t.getItem().getItemName() + " .... " +
-		 * t.getQuantity() + " .... " + t.getItem().getLocation()); } }
-		 * HashMap<Robot, ArrayList<ArrayList<move>>> routes =
-		 * CommandCenter.generatePaths(assignedJobs);
-		 * 
-		 * for (Robot r : routes.keySet()) {
-		 * GUI.displayPath(CommandCenter.getPathLocations().get(r)); }
-		 * 
-		 * givePaths(routes);
-		 */
 
 		for (Robot r : robots) {
 			assignment.get(r).ifPresent(new Consumer<Job>() {
@@ -156,7 +132,27 @@ public class WarehouseFloor {
 						give.put(r, t);
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
 						GUI.displayPath(CommandCenter.getPathLocations().get(r));
-						givePath(r, path.get(r));
+						/*
+						 * Gets a thread which terminates when the job is
+						 * completed. Waits for that moment
+						 */
+						new Thread() {
+							public void run() {
+
+								Thread p = givePath(r, path.get(r), t);
+								p.start();
+
+								while (p.isAlive()) {
+									new Rate(100).sleep();
+								}
+
+								if (p.isInterrupted()) {
+									t.cancel();
+								} else {
+									t.completed();
+								}
+							};
+						}.start();
 					}
 				}
 			});
@@ -164,17 +160,15 @@ public class WarehouseFloor {
 
 	}
 
-	public void givePath(Robot r, ArrayList<ArrayList<move>> routes) {
+	public Thread givePath(Robot r, ArrayList<ArrayList<move>> routes, Job job) {
 		if (!server)
-			return;
+			return new Thread();
 		RobotHelper p = poller.get(r);
+		r.setOnPickup(true);
+		r.setOnJob(true);
 		p.overwriteRoutes(routes);
-		p.start();
-		try {
-			p.join();
-		} catch (InterruptedException e) {
-			log.debug("robot cancelled");
-		}
+ 		messageQueues.get(r).setJob(Converters.toBasicJob(job));
+		return p;
 	}
 
 	public boolean assign(String name, Job j) {
@@ -295,6 +289,10 @@ public class WarehouseFloor {
 		ArrayList<Robot> robotArray = new ArrayList<Robot>();
 		for (Robot r : unAssigned) {
 			robotArray.add(r);
+		}
+
+		if (robotArray.isEmpty()) {
+			return;
 		}
 
 		JobWorth selector = new JobWorth(validJobs, unAssigned);

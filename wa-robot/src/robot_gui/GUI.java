@@ -1,22 +1,18 @@
 package robot_gui;
 
 import communication.Message;
+import communication.CommConst.command;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
 import lejos.util.Delay;
-import utils.Job;
-import utils.Node;
 import utils.Robot;
-import utils.Task;
 import utils.Location;
 
 public class GUI extends Thread {
-	
-	Job job;
-	Node node;
-	Task task;
-	Robot robot;
+
+	private Robot robot;
+
 	private Message msg;
 
 	public GUI(Robot robot, Message msg) {
@@ -26,7 +22,7 @@ public class GUI extends Thread {
 			@Override
 			public void buttonPressed(Button b) {
 				ENTER = true;
-				
+
 			}
 
 			@Override
@@ -38,7 +34,7 @@ public class GUI extends Thread {
 			@Override
 			public void buttonPressed(Button b) {
 				LEFT = true;
-				
+
 			}
 
 			@Override
@@ -50,7 +46,7 @@ public class GUI extends Thread {
 			@Override
 			public void buttonPressed(Button b) {
 				RIGHT = true;
-				
+
 			}
 
 			@Override
@@ -62,7 +58,7 @@ public class GUI extends Thread {
 			@Override
 			public void buttonPressed(Button b) {
 				ESCAPE = true;
-				
+
 			}
 
 			@Override
@@ -70,110 +66,115 @@ public class GUI extends Thread {
 				ESCAPE = false;
 			}
 		});
-
 	}
 
-	private int jobId = msg.getJob().getId();
-	private boolean isOnJob = robot.isOnJob();
-	private boolean isOnPickUp = robot.isOnPickup();
-	private Location location = robot.getCurrentLocation();
-	private int quantity = msg.getJob().getTask().getQuantity();
-	private String itemName = msg.getJob().getTask().getItem().getItemName();
-	private int numItems = 0;
-	
-	private boolean ENTER = false; 
-	private boolean ESCAPE = false; 
-	private boolean LEFT = false; 
-	private boolean RIGHT = false; 
-	
-	private String pickup = "Pick-up";
-	private String dropoff = "Drop off";
-	private String jobIDisp = "Job: " + jobId;
-	private String itemDisp = itemName + ": " + numItems + "/" + quantity;
-	private String dropoffItems = "Drop off completed";
-	private String locationDisp = "Location: " + location;
-	private String itemMin = "No more items";
-	
+	private boolean isMoving;
+	private int jobId;
+	private boolean isOnJob;
+	private boolean isOnPickUp;
+	private Location location;
+	private int quantity;
+	private String itemName;
+	private int numItems;
+
+	private boolean ENTER;
+	private boolean ESCAPE;
+	private boolean LEFT;
+	private boolean RIGHT;
+
+	private String pickup;
+	private String dropoff;
+	private String jobIDisp;
+	private String itemDisp;
+	private String dropoffItems;
+	private String locationDisp;
+	private String itemMin;
+
+	public void update() {
+		jobId = msg.getJob().getId();
+		isOnJob = robot.isOnJob();
+		isOnPickUp = robot.isOnPickup();
+		location = robot.getCurrentLocation();
+		quantity = msg.getJob().getTask().getQuantity();
+		itemName = msg.getJob().getTask().getItem().getItemName();
+		isMoving = robot.isMoving();
+
+		pickup = "Pick-up";
+		dropoff = "Drop off";
+		jobIDisp = "Job: " + jobId;
+		itemDisp = itemName + ": " + numItems + "/" + quantity;
+		dropoffItems = "Drop off completed";
+		locationDisp = "Loc: " + location.toString();
+		itemMin = "No more items";
+	}
+
 	public void run() {
-		
+
 		while (true) {
-			
-			if(isOnPickUp) {
-				LCD.clear();
-				LCD.drawString(pickup, 0, 1);
-				jobId = msg.getJob().getId();
-				LCD.drawString(jobIDisp, 0, 2);
-				quantity = msg.getJob().getTask().getQuantity();
-				itemName = msg.getJob().getTask().getItem().getItemName();
-				LCD.drawString(itemDisp, 0, 3);
-				location = robot.getCurrentLocation();
-				LCD.drawString(locationDisp, 0, 4);
-				if (ENTER) {
-					LCD.clear();
-					LCD.drawString(pickup, 0, 1);
-					//jobId = msg.getJob().getId();
-					LCD.drawString(jobIDisp, 0, 2);
-					quantity = msg.getJob().getTask().getQuantity();
-					itemName = msg.getJob().getTask().getItem().getItemName();
-					LCD.drawString(itemDisp, 0, 3);
-					location = robot.getCurrentLocation();
-					LCD.drawString(locationDisp, 0, 4);
-					
+			update();
+			if (isMoving == false) {
+				isOnPickUp = robot.isOnPickup();
+
+				if (isOnPickUp) {
+					drawUI(pickup, itemDisp);
+					if (ENTER) {
+						drawUI(pickup,itemDisp);
+						isMoving = true;
+					}
+					if (ESCAPE) {
+						LCD.clear();
+						LCD.drawString("BYE", 7, 3);
+						System.exit(0);
+					}
+					if (LEFT) {
+						if (numItems > 0) {
+							numItems--;
+							itemDisp = itemName + ": " + numItems + "/" + quantity;
+							LCD.drawString(itemDisp, 0, 3);
+						} else
+							LCD.drawString(itemMin, 0, 3);
+					}
+					if (RIGHT) {
+						if (numItems < quantity) {
+							numItems++;
+							itemDisp = itemName + ": " + numItems + "/" + quantity;
+							LCD.drawString(itemDisp, 0, 3);
+						} else {
+							itemDisp = itemName + ": " + quantity + "/" + quantity;
+							LCD.drawString(itemDisp, 0, 3);
+						}
+					}
+					if (numItems == quantity) {
+						if (msg.getCommand() != command.Finish)
+							msg.setCommand(command.Finish); //we finished this pick up so tell the pc
+					}
 				}
-				if (ESCAPE) {
-					LCD.clear();
-					LCD.drawString("BYE", 7, 3);
-					System.exit(0);
+				if (!isOnPickUp) {
+					numItems = 0;
+					drawUI(dropoff, dropoffItems);
+					if (ENTER) {
+						numItems = 0;
+						drawUI(dropoff, dropoffItems);
+						isMoving = true;
+
+					}
+					if (ESCAPE) {
+						LCD.clear();
+						LCD.drawString("BYE", 7, 3);
+						System.exit(0);
+					}
 				}
-				if (LEFT) {
-					if (numItems>0) {
-						numItems--;
-						itemDisp = itemName + ": " + numItems + "/" + quantity;
-						LCD.drawString(itemDisp, 0, 3);
-					}else
-						LCD.drawString(itemMin, 0, 3);
-				}
-				if (RIGHT) {
-					if (numItems<quantity) {
-						numItems++;
-						itemDisp = itemName + ": " + numItems + "/" + quantity;
-						LCD.drawString(itemDisp, 0, 3);
-					}else
-						itemDisp = itemName + ": " + quantity + "/" + quantity;
-						LCD.drawString(itemDisp, 0, 3);
-				}
+				Delay.msDelay(400);
 			}
-			if (!isOnPickUp) {
-				LCD.clear();
-				numItems=0;
-				robot.setOnJob(isOnJob);
-				LCD.drawString(dropoff, 0, 1);
-				jobId = msg.getJob().getId();
-				LCD.drawString(jobIDisp, 0, 2);
-				LCD.drawString(dropoffItems, 0, 3);
-				location = robot.getCurrentLocation();
-				LCD.drawString(locationDisp, 0, 4);
-				if (ENTER) {
-					LCD.clear();
-					numItems=0;
-					robot.setOnJob(isOnJob);
-					LCD.drawString(dropoff, 0, 1);
-					//jobId = msg.getJob().getId();
-					LCD.drawString(jobIDisp, 0, 2);
-					LCD.drawString(dropoffItems, 0, 3);
-					location = robot.getCurrentLocation();
-					LCD.drawString(locationDisp, 0, 4);
-					
-				}
-				if (ESCAPE) {
-					LCD.clear();
-					LCD.drawString("BYE", 7, 3);
-					System.exit(0);
-				}
-			}
-			Delay.msDelay(200);
 		}
 	}
 
-	
+	private void drawUI(String state, String item) {
+		LCD.clear();
+		LCD.drawString(state ,0, 1);
+		LCD.drawString(jobIDisp, 0, 2);
+		LCD.drawString(item, 0, 3);
+		LCD.drawString(locationDisp, 0, 4);
+	}
+
 }

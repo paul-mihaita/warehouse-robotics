@@ -1,18 +1,13 @@
 package controller.behaviours;
 
-import java.util.List;
-
 import communication.CommConst.command;
 import communication.Message;
 import constants.RobotConstants;
-import controller.logic.RobotMovement;
+import controller.logic.Pilot;
 import controller.logic.QueueTracker;
-import lejos.nxt.Button;
-import lejos.nxt.SensorPort;
-import lejos.util.Delay;
+import controller.logic.RobotMovement;
 import movement.Movement.move;
 import rp.config.WheeledRobotConfiguration;
-import utils.Location;
 import utils.Robot;
 
 public class Junction extends AbstractBehavior {
@@ -23,8 +18,8 @@ public class Junction extends AbstractBehavior {
 	private Robot robot;
 	private QueueTracker moveQueue;
 
-	public Junction(WheeledRobotConfiguration desc, TapeSensor l, TapeSensor r, Robot robot, Message msg) {
-		super(desc);
+	public Junction(Pilot pilot, TapeSensor l, TapeSensor r, Robot robot, Message msg) {
+		super(pilot);
 		this.left = l;
 		this.right = r;
 		this.msg = msg;
@@ -51,7 +46,6 @@ public class Junction extends AbstractBehavior {
 	}
 
 	private void junction(move m) {
-		//System.out.println(m);
 		switch (m) {
 			case BACKWARD:
 				RobotMovement.backward(pilot, robot);

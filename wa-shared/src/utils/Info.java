@@ -2,7 +2,7 @@ package utils;
 
 public class Info {
 	public static final String[] RobotNames = new String[] {"Squirtle", "Bulbasaur", "Charmander" };
-	public static final String[] RobotAddresses = new String[] {"0016530FDDAE", "0016531AFA0B" , "0016531AF6D6"};
+	public static final String[] RobotAddresses = new String[] {"0016530FDDAE", "0016531AFA0B" , "00165308DA58"};
 	
 	/**
 	 * Gets all 3 robots
