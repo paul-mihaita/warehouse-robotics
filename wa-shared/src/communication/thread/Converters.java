@@ -3,8 +3,10 @@ package communication.thread;
 import java.io.IOException;
 import java.util.List;
 
+import communication.BasicJob;
 import communication.CommConst;
 import movement.Movement.move;
+import utils.Job;
 import utils.Location;
 import utils.Robot;
 
@@ -115,5 +117,9 @@ public class Converters {
 		str += "(" + r.getOrientation().getX() + ":" + r.getOrientation().getY() +")";
 		str += "-" + r.isOnJob() + ":" + r.isOnPickup();
 		return str;
+	}
+
+	public static BasicJob toBasicJob(Job t) {
+		return new BasicJob(t.getJobID(), t.getTasks().get(0));
 	}
 }

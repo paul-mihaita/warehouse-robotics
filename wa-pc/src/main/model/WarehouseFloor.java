@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import communication.BasicJob;
 import communication.CommConst.command;
 import communication.Message;
+import communication.thread.Converters;
 import communication.thread.Server;
 import lejos.util.Delay;
 import main.gui.GUI;
@@ -139,7 +140,7 @@ public class WarehouseFloor {
 						new Thread() {
 							public void run() {
 
-								Thread p = givePath(r, path.get(r));
+								Thread p = givePath(r, path.get(r), t);
 								p.start();
 
 								while (p.isAlive()) {
@@ -162,7 +163,7 @@ public class WarehouseFloor {
 
 	}
 
-	public Thread givePath(Robot r, ArrayList<ArrayList<move>> routes) {
+	public Thread givePath(Robot r, ArrayList<ArrayList<move>> routes, Job job) {
 		if (!server)
 			return new Thread() {
 			};
@@ -170,6 +171,7 @@ public class WarehouseFloor {
 		r.setOnPickup(true);
 		r.setOnJob(true);
 		p.overwriteRoutes(routes);
+		messageQueues.get(r).setJob(Converters.toBasicJob(job));
 		return p;
 	}
 
