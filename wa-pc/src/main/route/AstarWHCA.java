@@ -2,7 +2,7 @@ package main.route;
 
 
 import java.util.ArrayList;
-
+import java.util.Hashtable;
 import java.util.function.BiFunction;
 
 import rp.robotics.mapping.GridMap;
@@ -14,7 +14,7 @@ import utils.Robot;
 public class AstarWHCA {
 
 	public static ArrayList<ArrayList<Location>> aStar(Graph<Location> graph, GridMap map,
-			ArrayList<Robot> robots, ArrayList<Location> finish, int maxStep) {
+			ArrayList<Robot> robots, Hashtable<Robot, Location> targets, int maxStep ) {
 		
 		BiFunction<State, State, Integer> heuristics = new BiFunction<State, State, Integer>() {
 
@@ -22,7 +22,7 @@ public class AstarWHCA {
 			public Integer apply(State a, State b) {
 				Location start = a.getRLoc().get(0);
 				Location finish = b.getRLoc().get(0);
-				Astar.aStar(graph, start, finish, Planning.manhatanHeuristic, maxStep, false, map);
+				Astar.aStar(graph, start, finish, Planning.manhatanHeuristic, maxStep, false, map ,0);
 				return Astar.simpleAc;
 			}
 
@@ -30,21 +30,24 @@ public class AstarWHCA {
 		ArrayList<ArrayList<Location>> robotPaths = new ArrayList<>();
 		int routesComputed = 0;
 		int nrOfRobots = robots.size();
-		Astar.reset();
 		while (routesComputed < nrOfRobots) {
-
+			int max = -9999;
+			for(Robot r : robots){
+				if(max < r.getMovesCompleted())
+					max = r.getMovesCompleted();
+			}
 			Robot robot = robots.get(routesComputed);
-
-			Location start = robot.getCurrentLocation();
-			Location fin = finish.get(routesComputed);
-
-			ArrayList<Location> path = Astar.aStar(graph, start, fin,
-					heuristics, maxStep, true, map );
-			
-			
-			robotPaths.add(path);
-			Astar.setReserved(path);
-			routesComputed++;
+			if(targets.containsKey(robot)){
+				Location start = robot.getCurrentLocation();
+				Location fin = targets.get(robot);
+				if(!fin.equals(new Location(-1,-1))){
+					ArrayList<Location> path = Astar.aStar(graph, start, fin,
+							heuristics, maxStep, true, map , max );
+					robotPaths.add(path);
+					Astar.setReserved(path,max);
+					routesComputed++;
+				}else routesComputed++;
+			}else routesComputed++;
 		}
 		return robotPaths;
 	}

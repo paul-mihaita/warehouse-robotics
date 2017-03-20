@@ -3,6 +3,7 @@ package controller.behaviours;
 import communication.CommConst.command;
 import communication.Message;
 import constants.RobotConstants;
+import controller.logic.Pilot;
 import lejos.nxt.SensorPort;
 import movement.Movement.move;
 import rp.config.WheeledRobotConfiguration;
@@ -13,8 +14,8 @@ public class Direction extends AbstractBehavior {
 	private move dir;
 	private Message msg;
 
-	public Direction(WheeledRobotConfiguration config, TapeSensor s, move dir, Message msg) {
-		super(config);
+	public Direction(Pilot pilot, TapeSensor s, move dir, Message msg) {
+		super(pilot);
 		this.msg = msg;
 		this.sensor = s;
 		switch (dir) {

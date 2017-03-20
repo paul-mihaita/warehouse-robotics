@@ -19,14 +19,11 @@ public class Start {
 		Input in = new Input(false);
 
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
-				in.getJobsArray(),in.getItemsArray(), log, false);
-		
+				in.getJobsArray(), in.getItemsArray(), log, true);
 		// Testing
-		
+
 		log.debug("Number of Jobs: " + model.getJobs().size());
-		model.assign("Cell", model.getJobs().get(1002));
-		model.assign("Keith", model.getJobs().get(1001));
-		
+
 		GUI.create(model);
 	}
 

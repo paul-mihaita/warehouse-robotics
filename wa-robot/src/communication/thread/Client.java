@@ -2,15 +2,11 @@ package communication.thread;
 
 import java.io.DataInputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
-import communication.CommConst.command;
 import communication.Message;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 import lejos.util.Delay;
-import movement.Movement.move;
-import utils.Location;
 import utils.Robot;
 
 public class Client extends Thread {
@@ -22,8 +18,6 @@ public class Client extends Thread {
 	private RobotSender outThread;
 	private boolean connected = false;
 
-	// new Robot("Keith", "0016530FDDAE", new Location(0, 0), new Location(0, 0))
-	// new Robot("Cell", "0016531AFA0B", new Location(0,0), new Location(1, 0))
 	public Client(Robot robot, Message msg) {
 		BTConnection comm = Bluetooth.waitForConnection();
 		// wait for PC
