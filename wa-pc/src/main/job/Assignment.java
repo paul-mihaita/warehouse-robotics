@@ -20,8 +20,10 @@ public class Assignment extends Thread{
 	private AssignedJob currentJob1,currentJob2,currentJob3;
 	private ArrayList<Job> jobs;
 	private ArrayList<JobWorth> assignJobs1, assignJobs2,assignJobs3;
+	private LinkedList<Job> checklist;
+	private double totalReward;
 
-	public Assignment(Robot robot1, Robot robot2, Robot robot3){
+	public Assignment(Robot robot1, Robot robot2, Robot robot3, LinkedList<Job> trainingJobs){
 
 		this.robot1=robot1;
 		this.robot2=robot2;
@@ -54,6 +56,8 @@ public class Assignment extends Thread{
 		this.getList1=false;
 		this.getList2=false;
 		this.getList3=false;
+		
+		this.checklist=new LinkedList<>();
 
 		//cancellation
 
@@ -66,14 +70,13 @@ public class Assignment extends Thread{
 		this.run=true;
 
 		JobWorth jobToBeAssigned;
-		int num=0;
 
 		while(this.run){
 
 			//robot1
 			if(this.canStart1){
 
-				this.selector1=new Selection(this.robot1,this.jobs);
+				this.selector1=new Selection(this.robot1,this.jobs,this.checklist);
 
 				while(this.run){
 
@@ -82,8 +85,7 @@ public class Assignment extends Thread{
 						//if the robot got lost or job was cancelled
 						if(this.robotGotLost1||this.jobCancelled1){
 
-							num++;
-							this.selector1=new Selection(this.robot1,this.jobs);
+							this.selector1=new Selection(this.robot1,this.jobs,this.checklist);
 							this.getList1=false;
 							this.robotGotLost1=false;
 							this.jobCancelled1=false;
@@ -113,7 +115,7 @@ public class Assignment extends Thread{
 			//robot2
 			if(this.canStart2){
 
-				this.selector2=new Selection(this.robot2,this.jobs);
+				this.selector2=new Selection(this.robot2,this.jobs,this.checklist);
 
 				while(this.run){
 
@@ -121,8 +123,7 @@ public class Assignment extends Thread{
 						
 						if(this.robotGotLost2||this.jobCancelled2){
 							
-						num++;
-						this.selector2=new Selection(this.robot2,this.jobs);
+						this.selector2=new Selection(this.robot2,this.jobs,this.checklist);
 						this.getList2=false;
 						this.robotGotLost2=false;
 						this.jobCancelled2=false;
@@ -148,15 +149,15 @@ public class Assignment extends Thread{
 			//robot3
 			if(this.canStart3){
 
-				this.selector3=new Selection(this.robot3,this.jobs);
+				this.selector3=new Selection(this.robot3,this.jobs, this.checklist);
 
 				while(this.run){
 
 					if(this.jobCompleted3||this.jobCancelled3){
 						
 						if(this.robotGotLost3||this.jobCancelled3){
-						num++;
-						this.selector3=new Selection(this.robot3,this.jobs);
+						
+						this.selector3=new Selection(this.robot3,this.jobs,this.checklist);
 						this.getList3=false;
 						this.robotGotLost3=false;
 						this.jobCancelled3=false;
