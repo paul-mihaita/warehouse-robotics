@@ -151,7 +151,6 @@ public class WarehouseFloor {
 								} else {
 									t.completed();
 								}
-								GUI.refresh();
 							};
 						}.start();
 					}
