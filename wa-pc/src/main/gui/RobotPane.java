@@ -5,8 +5,6 @@ import java.util.HashMap;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -44,13 +42,6 @@ public class RobotPane extends GridPane {
 		startButton.setOnAction(new StartListener(model));
 
 		this.add(startButton, 0, 1);
-
-		ScrollPane robotDisplay = new ScrollPane();
-
-		robotDisplay.setMaxHeight(GUI.HEIGHT);
-		robotDisplay.setMinWidth(GUI.SIDEBAR_WIDTH); 
-		robotDisplay.setHbarPolicy(ScrollBarPolicy.NEVER);
-		robotDisplay.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
 		GridPane robotGrid = new GridPane();
 
@@ -104,7 +95,7 @@ public class RobotPane extends GridPane {
 
 			robotPane.setAlignment(Pos.CENTER_LEFT);
 			robotPane.setHgap(10);
-			robotPane.setVgap(0);
+			robotPane.setVgap(10);
 
 			robotPane.add(l, 0, 0);
 			robotPane.add(b, 1, 0);
@@ -148,8 +139,7 @@ public class RobotPane extends GridPane {
 			robotGrid.add(robotPane, 0, level++);
 		}
 
-		robotDisplay.setContent(robotGrid);
-		this.add(robotDisplay, 0, 2);
+		this.add(robotGrid, 0, 2);
 	}
 
 	public static void updateLabels() {
