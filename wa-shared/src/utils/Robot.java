@@ -123,4 +123,11 @@ public class Robot {
 	public int getMovesCompleted() {
 		return movesCompleted;
 	}
+	@Override
+	public String toString() {
+		String returnStr = "";
+		returnStr += name;
+		returnStr += currentLocation.toString();
+		return returnStr;
+	}
 }

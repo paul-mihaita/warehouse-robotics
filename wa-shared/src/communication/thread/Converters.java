@@ -3,13 +3,16 @@ package communication.thread;
 import java.io.IOException;
 import java.util.List;
 
+import communication.BasicJob;
 import communication.CommConst;
 import movement.Movement.move;
+import utils.Job;
 import utils.Location;
 import utils.Robot;
 
 public class Converters {
-	public static Robot byteToRobot(byte[] a) {
+	public static Robot byteToRobot(byte[] a) throws IOException {
+		if (a.length <= 6) throw new IOException("Robot array was less than 6 in size");
 		Location current = new Location(a[0], a[1]);
 		Location orientation = new Location(a[2], a[3]);
 		boolean isOnPickup = false;
@@ -114,5 +117,9 @@ public class Converters {
 		str += "(" + r.getOrientation().getX() + ":" + r.getOrientation().getY() +")";
 		str += "-" + r.isOnJob() + ":" + r.isOnPickup();
 		return str;
+	}
+
+	public static BasicJob toBasicJob(Job t) {
+		return new BasicJob(t.getJobID(), t.getTasks().get(0));
 	}
 }

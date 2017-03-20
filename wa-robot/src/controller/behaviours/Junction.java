@@ -3,6 +3,7 @@ package controller.behaviours;
 import communication.CommConst.command;
 import communication.Message;
 import constants.RobotConstants;
+import controller.logic.Pilot;
 import controller.logic.QueueTracker;
 import controller.logic.RobotMovement;
 import movement.Movement.move;
@@ -17,8 +18,8 @@ public class Junction extends AbstractBehavior {
 	private Robot robot;
 	private QueueTracker moveQueue;
 
-	public Junction(WheeledRobotConfiguration desc, TapeSensor l, TapeSensor r, Robot robot, Message msg) {
-		super(desc);
+	public Junction(Pilot pilot, TapeSensor l, TapeSensor r, Robot robot, Message msg) {
+		super(pilot);
 		this.left = l;
 		this.right = r;
 		this.msg = msg;
@@ -39,14 +40,12 @@ public class Junction extends AbstractBehavior {
 		if (moveQueue.finished()) {
 			robot.setMoving(false);
 			pilot.stop();
-			System.out.println("finished");
 			return;
 		}
 		junction(moveQueue.getNextMove());
 	}
 
 	private void junction(move m) {
-		System.out.println(m);
 		switch (m) {
 			case BACKWARD:
 				RobotMovement.backward(pilot, robot);

@@ -58,7 +58,7 @@ public class PCOutputStream extends AbstractOutputStream {
 		write(job.getTask().getQuantity());
 		String temp = job.getTask().getItem().getName();
 		if (temp == null || temp.equals(""))
-			write(0);
+			write(32);
 		else
 			write((byte) job.getTask().getItem().getName().charAt(0));
 	}
