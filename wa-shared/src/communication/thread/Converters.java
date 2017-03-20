@@ -9,7 +9,8 @@ import utils.Location;
 import utils.Robot;
 
 public class Converters {
-	public static Robot byteToRobot(byte[] a) {
+	public static Robot byteToRobot(byte[] a) throws IOException {
+		if (a.length <= 6) throw new IOException("Robot array was less than 6 in size");
 		Location current = new Location(a[0], a[1]);
 		Location orientation = new Location(a[2], a[3]);
 		boolean isOnPickup = false;

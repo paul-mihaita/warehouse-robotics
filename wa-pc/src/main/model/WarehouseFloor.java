@@ -68,14 +68,14 @@ public class WarehouseFloor {
 
 		Robot squirtle = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(11, 6),
 				new Location(11, 7));
-		this.robots.add(squirtle);
+		//this.robots.add(squirtle);
 
 		Robot bulbasaur = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(1, 7), new Location(0, 7));
-		this.robots.add(bulbasaur);
+		//this.robots.add(bulbasaur);
 
 		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1),
 				new Location(0, 0));
-		//this.robots.add(charmander);
+		this.robots.add(charmander);
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);

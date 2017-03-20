@@ -9,7 +9,6 @@ import communication.Message;
 import communication.thread.Client;
 import controller.behaviours.Controller;
 import lejos.nxt.Button;
-import lejos.util.Delay;
 import movement.Movement.move;
 import robot_gui.GUI;
 import utils.Info;
@@ -18,6 +17,9 @@ import utils.Task;
 public class RobotMain {
 	public static void main(String[] args) {
 		Robot[] r = Info.getRobots();
+		for (int i = 0; i < r.length; i++) {
+			r[i].updated();
+		}
 		int rob = 0; //0 = s, 1 = b, 2 = c
 		Message m = new Message((List<move>) new ArrayList<move>(), command.Wait, new BasicJob(1, new Task("a", 1)));
 		Client client = new Client(r[rob], m);
