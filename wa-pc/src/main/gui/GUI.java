@@ -89,6 +89,7 @@ public class GUI extends Application {
 		map.interrupt();
 		tabPane.interrupt();
 		Start.log.info("GUI was closed");
+		System.exit(0);
 	}
 	
 	public static void refresh(){
