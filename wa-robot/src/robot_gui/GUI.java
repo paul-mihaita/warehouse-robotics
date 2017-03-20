@@ -140,10 +140,13 @@ public class GUI extends Thread {
 							itemDisp = itemName + ": " + numItems + "/" + quantity;
 							LCD.drawString(itemDisp, 0, 3);
 						} else {
-							msg.setCommand(command.Finish); //we finished this pick up so tell the pc
 							itemDisp = itemName + ": " + quantity + "/" + quantity;
 							LCD.drawString(itemDisp, 0, 3);
 						}
+					}
+					if (numItems == quantity) {
+						if (msg.getCommand() != command.Finish)
+							msg.setCommand(command.Finish); //we finished this pick up so tell the pc
 					}
 				}
 				if (!isOnPickUp) {
