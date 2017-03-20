@@ -13,13 +13,15 @@ import utils.Location;
 
 public class GUI extends Thread {
 	
-	Job job;
-	Node node;
-	Task task;
-	Robot robot;
+	private Job job;
+	private Node node;
+	private Task task;
+	private Robot robot;
 	private Message msg;
 
 	public GUI(Robot robot, Message msg) {
+		System.out.println("1");
+		Delay.msDelay(1000);
 		this.robot = robot;
 		this.msg = msg;
 		Button.ENTER.addButtonListener(new ButtonListener() {
@@ -70,7 +72,8 @@ public class GUI extends Thread {
 				ESCAPE = false;
 			}
 		});
-
+		System.out.println("2");
+		Delay.msDelay(1000);
 	}
 
 	private int jobId = msg.getJob().getId();
@@ -97,7 +100,8 @@ public class GUI extends Thread {
 	public void run() {
 		
 		while (true) {
-			
+			System.out.println("3");
+			Delay.msDelay(1000);
 			if(isOnPickUp) {
 				LCD.clear();
 				LCD.drawString(pickup, 0, 1);
