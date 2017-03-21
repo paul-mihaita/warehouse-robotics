@@ -20,6 +20,7 @@ import main.route.CommandCenter;
 import movement.Movement.move;
 import rp.util.Rate;
 import student_solution.Graph;
+import utils.DropLocation;
 import utils.Info;
 import utils.Item;
 import utils.Job;
@@ -49,11 +50,16 @@ public class WarehouseFloor {
 
 	private boolean server;
 
+	private ArrayList<DropLocation> dropLocations;
+
 	/**
 	 * Creates the Warehouse floor object, contains all the data about the
 	 * warehouse floor.
 	 * 
-	 * @param arrayList
+	 * @param Drop
+	 *            Locations
+	 * 
+	 * @param Items
 	 * 
 	 * @param Floor
 	 *            Graph of locations which contain the warehouse floor
@@ -62,8 +68,8 @@ public class WarehouseFloor {
 	 * @param Log
 	 *            log4j logger object
 	 */
-	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items, Logger log,
-			boolean server) {
+	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items,
+			ArrayList<DropLocation> dropLocations, Logger log, boolean server) {
 
 		this.server = server;
 		this.log = log;
@@ -73,6 +79,11 @@ public class WarehouseFloor {
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<Robot, Message>();
 		this.activePaths = new HashSet<ArrayList<Location>>();
+		this.dropLocations = dropLocations;
+
+		for (DropLocation d : dropLocations) {
+			log.debug(d.toString());
+		}
 
 		Robot[] robos = Info.getRobotsPaul();
 		this.robots.add(robos[0]); //squirtle
@@ -127,7 +138,7 @@ public class WarehouseFloor {
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment
 						 */
-						if (server)
+						if (server) {
 							new Thread() {
 								public void run() {
 									this.setName("Job thread: " + r.getName() + " " + t.getJobID());
@@ -150,6 +161,19 @@ public class WarehouseFloor {
 								}
 
 							}.start();
+						} else {
+							new Thread() {
+								public void run() {
+									this.setName("Job thread: " + r.getName() + " " + t.getJobID());
+
+									addToPaths(locPath);
+
+									t.completed();
+									removeFromPaths(locPath);
+								}
+
+							}.start();
+						}
 
 					}
 				}
@@ -196,7 +220,24 @@ public class WarehouseFloor {
 
 	public boolean assign(Robot r, Job j) {
 
-		log.debug(j.getJobID() + " added to " + r.getName());
+		DropLocation drop = new DropLocation("Wating area");
+
+		for (DropLocation d : dropLocations) {
+
+			if (!d.isReserved()) {
+				d.reserved(true);
+				drop = d;
+			}
+
+		}
+
+		log.debug(j.getJobID() + " added to " + r.getName() + " with drop-off " + drop.getName());
+
+		ArrayList<Task> jobs = j.getTasks();
+
+		//jobs.add(new Task("dd", 0));
+
+		//j.setTasks(jobs);
 
 		if (!assignment.get(r).isPresent()) {
 			assignment.remove(r);

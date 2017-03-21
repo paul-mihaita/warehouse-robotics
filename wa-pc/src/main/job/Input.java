@@ -29,10 +29,10 @@ public class Input {
 
 	public Input(boolean haveTitle) {
 		thereIsTheTitleFile = haveTitle;
-		this.initializeListOfJobs(path + "jobs", path + "items", path + "locations");
-		this.initializeItemsList(path + "locations");
-		this.initializedropLocations(path + "drops");
-		this.initializeCancellation();
+		this.initializeListOfJobs(path+"jobs", path+"items", path+"locations");
+		this.initializeItemsList(path+"locations");
+		this.initializedropLocations(path+"drops");
+		//this.initializeCancelledJobs(path+"cancellations");
 	}
 
 	private void initializeCancellation() {

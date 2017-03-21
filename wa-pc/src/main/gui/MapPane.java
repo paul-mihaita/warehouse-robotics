@@ -60,9 +60,9 @@ public class MapPane extends Canvas {
 						MapPane.drawEdges(v, gc);
 					}
 
+					MapPane.drawPaths(gc);
 					MapPane.drawRobots(gc);
 					MapPane.drawItems(gc, model.getItems());
-					MapPane.drawPaths(gc);
 
 					r.sleep();
 				}
@@ -75,22 +75,30 @@ public class MapPane extends Canvas {
 	}
 
 	private static void drawPaths(GraphicsContext gc) {
-		
+
 		Iterator<ArrayList<Location>> iter = model.getActivePaths().iterator();
-		
-		while(iter.hasNext()){
-			
+
+		while (iter.hasNext()) {
+
 			ArrayList<Location> path = iter.next();
-			
-			for (int i = 0; i < path.size(); i++){
-				
+
+			for (int i = 0; i < path.size() - 1; i++) {
+
+				Location l = path.get(i);
+				Location m = path.get(i + 1);
+
+				gc.setStroke(Color.CADETBLUE);
+				gc.setLineDashes(7);
+				gc.setLineWidth(6);
+
+				gc.strokeLine(scale(l.getX()), scale(l.getY()), scale(m.getX()), scale(m.getY()));
+
 			}
-			
+
 			iter.remove();
-			
+
 		}
-		
-		
+
 	}
 
 	private static void drawEdges(IVertex<Location> v, GraphicsContext gc) {
