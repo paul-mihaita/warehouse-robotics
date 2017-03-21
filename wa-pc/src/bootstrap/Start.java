@@ -13,13 +13,13 @@ public class Start {
 	public static final Logger log = Logger.getLogger(Start.class);
 
 	public static void main(String[] args) {
-
+		
 		log.info("Starting");
 
 		Input in = new Input(false);
 
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
-				in.getJobsArray(), in.getItemsArray(), log, false);
+				in.getJobsArray(), in.getItemsArray(), log, true);
 		// Testing
 
 		log.debug("Number of Jobs: " + model.getJobs().size());

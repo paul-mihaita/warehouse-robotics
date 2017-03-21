@@ -1,26 +1,22 @@
 package test;
 
-import graph_entities.IVertex;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
-import main.job.InputTest;
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
 import main.route.CommandCenter;
-import movement.Movement.move;
 import student_solution.State;
 import utils.Item;
 import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
-
-import org.apache.log4j.Logger;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
 public class PlaningJUnit {
 	private final Logger LOG = Logger.getLogger(PlaningJUnit.class);
 	public static void main(String[] args) {

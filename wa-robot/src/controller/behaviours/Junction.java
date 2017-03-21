@@ -46,6 +46,7 @@ public class Junction extends AbstractBehavior {
 	}
 
 	private void junction(move m) {
+		System.out.println(m);
 		switch (m) {
 			case BACKWARD:
 				RobotMovement.backward(pilot, robot);
