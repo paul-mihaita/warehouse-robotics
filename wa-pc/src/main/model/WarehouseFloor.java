@@ -14,7 +14,6 @@ import communication.CommConst.command;
 import communication.Message;
 import communication.thread.Converters;
 import communication.thread.Server;
-import main.gui.GUI;
 import main.job.JobWorth;
 import main.route.Astar;
 import main.route.CommandCenter;
@@ -31,6 +30,7 @@ import utils.Task;
 public class WarehouseFloor {
 
 	private HashMap<Robot, RobotHelper> poller = new HashMap<Robot, RobotHelper>();
+
 	private HashSet<Robot> robots;
 
 	private HashMap<Robot, Optional<Job>> assignment;
@@ -42,6 +42,8 @@ public class WarehouseFloor {
 	private ArrayList<Item> items;
 
 	private Graph<Location> floor;
+
+	private HashSet<ArrayList<Location>> activePaths;
 
 	private Logger log;
 
@@ -70,6 +72,7 @@ public class WarehouseFloor {
 		this.items = items;
 		this.robots = new HashSet<Robot>();
 		this.messageQueues = new HashMap<Robot, Message>();
+		this.activePaths = new HashSet<ArrayList<Location>>();
 
 		Robot squirtle = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(4, 0), new Location(5, 0));
 		this.robots.add(squirtle);
@@ -77,7 +80,8 @@ public class WarehouseFloor {
 		Robot bulbasaur = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(3, 0), new Location(4, 0));
 		this.robots.add(bulbasaur);
 
-		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(2, 0), new Location(3, 0));
+		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(2, 0),
+				new Location(3, 0));
 		this.robots.add(charmander);
 
 		for (Job j : jobs) {
@@ -123,7 +127,7 @@ public class WarehouseFloor {
 						give.put(r, t);
 						Astar.reset();
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
-						GUI.displayPath(CommandCenter.getPathLocations().get(r), r);
+						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(r));
 						/*
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment
@@ -132,6 +136,8 @@ public class WarehouseFloor {
 							new Thread() {
 								public void run() {
 									this.setName("Job thread: " + r.getName() + " " + t.getJobID());
+
+									addToPaths(locPath);
 
 									Thread p = givePath(r, path.get(r), t);
 									p.start();
@@ -145,11 +151,14 @@ public class WarehouseFloor {
 									} else {
 										t.completed();
 									}
-									GUI.removePath(r);
-								};
+									removeFromPaths(locPath);
+								}
+
 							}.start();
+
 					}
 				}
+
 			});
 		}
 
@@ -164,6 +173,30 @@ public class WarehouseFloor {
 		p.overwriteRoutes(routes);
 		messageQueues.get(r).setJob(Converters.toBasicJob(job));
 		return p;
+	}
+
+	public synchronized void addToPaths(ArrayList<Location> path) {
+		activePaths.add(path);
+	}
+
+	public synchronized void removeFromPaths(ArrayList<Location> path) {
+		activePaths.remove(path);
+	}
+
+	public synchronized HashSet<ArrayList<Location>> getActivePaths() {
+		return activePaths;
+	}
+
+	private ArrayList<Location> conc(ArrayList<ArrayList<Location>> totalPath) {
+		ArrayList<Location> cPath = new ArrayList<Location>();
+		for (ArrayList<Location> parts : totalPath) {
+
+			for (Location l : parts) {
+				cPath.add(l);
+			}
+
+		}
+		return cPath;
 	}
 
 	public boolean assign(Robot r, Job j) {

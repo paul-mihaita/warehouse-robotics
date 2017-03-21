@@ -1,7 +1,6 @@
 package main.gui;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import graph_entities.IEdge;
 import graph_entities.IVertex;
@@ -19,7 +18,6 @@ import utils.Info;
 import utils.Item;
 import utils.Location;
 import utils.Robot;
-import utils.Tuple;
 
 public class MapPane extends Canvas {
 
@@ -52,17 +50,19 @@ public class MapPane extends Canvas {
 			public void run() {
 				this.setName("Canvas Handler");
 
+				Rate r = new Rate(10);
+
 				while (!this.isInterrupted()) {
 					gc.clearRect(0, 0, GUI.MAP_WIDTH, GUI.HEIGHT);
 
 					for (IVertex<Location> v : floorMap.getVertices()) {
 						MapPane.drawEdges(v, gc);
 					}
-					MapPane.drawPath(gc);
+
 					MapPane.drawRobots(gc);
-					MapPane.drawNodes(gc);
 					MapPane.drawItems(gc, model.getItems());
-					new Rate(5).sleep();
+
+					r.sleep();
 				}
 
 			}
@@ -70,27 +70,6 @@ public class MapPane extends Canvas {
 
 		canvasHandler.start();
 		pathAnimator.start();
-	}
-
-	private static void drawPath(GraphicsContext gc) {
-
-		for (Tuple<ArrayList<ArrayList<Location>>, Robot> path : GUI.getPaths()) {
-
-			for (ArrayList<Location> part : path.getX()) {
-
-				gc.setFill(Color.BLUE);
-				gc.setStroke(Color.BLUE);
-
-				gc.setLineWidth(4);
-				gc.setLineDashes(7);
-
-				for (int i = 0; i < part.size() - 1; i++) {
-					gc.strokeLine(scale(part.get(i).getX()) + 5, scale(part.get(i).getY()) + 5,
-							scale(part.get(i + 1).getX()) + 5, scale(part.get(i + 1).getY()) + 5);
-				}
-
-			}
-		}
 	}
 
 	private static void drawEdges(IVertex<Location> v, GraphicsContext gc) {
@@ -121,7 +100,7 @@ public class MapPane extends Canvas {
 			if (r.getName().equals(Info.RobotNames[0])) {
 				// the water one
 				gc.drawImage(makeTransparent(WATER), scale(r.getCurrentLocation().getX()) - 25,
-						scale(r.getCurrentLocation().getY()) - 30);
+						scale(r.getCurrentLocation().getY()) - 25);
 
 				gc.setFill(Color.BLUE);
 
@@ -129,14 +108,14 @@ public class MapPane extends Canvas {
 				// the grass one
 
 				gc.drawImage(makeTransparent(GRASS), scale(r.getCurrentLocation().getX()) - 10,
-						scale(r.getCurrentLocation().getY()) - 25);
+						scale(r.getCurrentLocation().getY()) - 15);
 
 				gc.setFill(Color.GREEN);
 
 			} else if (r.getName().equals(Info.RobotNames[2])) {
 				// the fire one
 				gc.drawImage(makeTransparent(FIRE), scale(r.getCurrentLocation().getX()) - 10,
-						scale(r.getCurrentLocation().getY()) - 15);
+						scale(r.getCurrentLocation().getY()) - 20);
 
 				gc.setFill(Color.RED);
 
@@ -147,6 +126,7 @@ public class MapPane extends Canvas {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void drawOrientation(Robot r, GraphicsContext gc) {
 
 		float x = r.getCurrentLocation().getX();
@@ -257,17 +237,6 @@ public class MapPane extends Canvas {
 
 	}
 
-	private static void drawNodes(GraphicsContext gc) {
-
-		ArrayList<Location> nodes = GUI.getNodes();
-
-		gc.setFill(Color.CADETBLUE);
-		for (Location l : nodes) {
-			gc.fillOval(scale(l.getX()), scale(l.getY()), 10, 10);
-		}
-
-	}
-
 	private static float scale(float value) {
 
 		// Factors to make the drawing central and pretty
@@ -280,22 +249,5 @@ public class MapPane extends Canvas {
 	public void interrupt() {
 		canvasHandler.interrupt();
 		pathAnimator.interrupt();
-	}
-
-	private static ArrayList<ArrayList<Location>> makeDrawable(
-			HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> clone) {
-		ArrayList<ArrayList<Location>> drawable = new ArrayList<ArrayList<Location>>();
-
-		for (Tuple<ArrayList<ArrayList<Location>>, Robot> partPath : clone) {
-			ArrayList<Location> wholePath = new ArrayList<Location>();
-			for (ArrayList<Location> singlePath : partPath.getX()) {
-				for (Location l : singlePath) {
-					wholePath.add(l);
-				}
-			}
-			drawable.add(wholePath);
-		}
-
-		return drawable;
 	}
 }

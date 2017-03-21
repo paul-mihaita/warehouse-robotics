@@ -31,6 +31,7 @@ public class RobotCancel implements EventHandler<ActionEvent> {
 				model.reassignJobs();
 				RobotPane.updateLabels();
 				JobPane.updateLabels();
+				// GUI.removePath(robot);
 			}
 		});
 	}
