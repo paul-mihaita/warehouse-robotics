@@ -74,15 +74,10 @@ public class WarehouseFloor {
 		this.messageQueues = new HashMap<Robot, Message>();
 		this.activePaths = new HashSet<ArrayList<Location>>();
 
-		Robot squirtle = new Robot(Info.RobotNames[0], Info.RobotAddresses[0], new Location(4, 0), new Location(5, 0));
-		//this.robots.add(squirtle);
-
-		Robot bulbasaur = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(3, 0), new Location(4, 0));
-		//this.robots.add(bulbasaur);
-
-		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(2, 0),
-				new Location(3, 0));
-		this.robots.add(charmander);
+		Robot[] robos = Info.getRobots();
+		this.robots.add(robos[0]); //squirtle
+		this.robots.add(robos[1]); //bulbasaur
+		this.robots.add(robos[2]); //charmander
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);

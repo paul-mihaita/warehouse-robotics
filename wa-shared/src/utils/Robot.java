@@ -5,6 +5,7 @@ public class Robot {
 	private String name = "";
 	private String btAddress = "";
 	private Location orientation;
+	private Location vectorOrient;
 	private Location currentLocation;
 	private boolean onJob;
 	private boolean onPickup;
