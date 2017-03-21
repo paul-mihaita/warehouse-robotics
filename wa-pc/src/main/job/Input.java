@@ -21,6 +21,7 @@ public class Input {
 	boolean thereIsTheTitleFile = false;
 	private final int MAX_LINES = 100;
 	private ArrayList<Job> jobs = new ArrayList<Job>();
+	private ArrayList<Job> jobsForCancellation = new ArrayList<Job>();
 	public ArrayList<Item> items = new ArrayList<Item>();
 	public ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
 	public HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
@@ -28,14 +29,19 @@ public class Input {
 
 	public Input(boolean haveTitle) {
 		thereIsTheTitleFile = haveTitle;
-		this.initializeListOfJobs(path+"jobs", path+"items", path+"locations");
-		this.initializeItemsList(path+"locations");
-		// this.initializedropLocations(path+"drops");
-		//this.initializeCancelledJobs(path+"cancellations");
+		this.initializeListOfJobs(path + "jobs", path + "items", path + "locations");
+		this.initializeItemsList(path + "locations");
+		this.initializedropLocations(path + "drops");
+		this.initializeCancellation();
 	}
-	
-	public Input(){
-		
+
+	private void initializeCancellation() {
+		this.initializeCancelledJobs(path + "cancellation");
+		this.readTaskAndJobs(path + "training",false);
+	}
+
+	public Input() {
+
 	}
 
 	public boolean fileHaveTheExtension(String fileName) {
@@ -58,7 +64,8 @@ public class Input {
 		return f.exists();
 	}
 
-	public boolean readTaskAndJobs(String fileName) {
+	public boolean readTaskAndJobs(String fileName,boolean limitation) {
+		
 		int k=0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
@@ -73,7 +80,9 @@ public class Input {
 				// WHILE UNTIL THE END OF THE FILE
 				boolean toDo = !thereIsTheTitleFile;
 				while (inFile.hasNext() && k<MAX_LINES) {
-					k++;
+					if(limitation)
+						k++;
+					
 					ArrayList<Task> tasks = new ArrayList<Task>();
 					token = inFile.nextLine();
 					if (toDo) {
@@ -113,7 +122,7 @@ public class Input {
 	}
 
 	public boolean readItemAndRewardAndWeight(String fileName) {
-		int i=0;
+		int i = 0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
@@ -125,7 +134,7 @@ public class Input {
 				String token;
 				boolean toDo = !thereIsTheTitleFile;
 				// WHILE UNTIL THE END OF THE FILE
-				while (inFile.hasNext() && i<MAX_LINES) {
+				while (inFile.hasNext() && i < MAX_LINES) {
 					token = inFile.nextLine();
 					if (toDo) {
 						// READ AND SPLIT THE LINE WITH THE CARACTER ","
@@ -156,7 +165,7 @@ public class Input {
 	}
 
 	public boolean readItemAndXPositionAndYPosition(String fileName) {
-		int i=0;
+		int i = 0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
@@ -168,7 +177,7 @@ public class Input {
 				String token;
 				boolean toDo = !thereIsTheTitleFile;
 				// WHILE UNTIL THE END OF THE FILE
-				while (inFile.hasNext() && i<MAX_LINES) {
+				while (inFile.hasNext() && i < MAX_LINES) {
 					token = inFile.nextLine();
 					if (toDo) {
 						// READ AND SPLIT THE LINE WITH THE CARACTER ","
@@ -208,12 +217,12 @@ public class Input {
 	}
 
 	public boolean initializeListOfJobs(String fileTaskAndJobs, String fileRewardsAndWeights,
-										String fileItemLocations) {
-			boolean check = true;
-			check = check && readTaskAndJobs(fileTaskAndJobs);
-			check = check && readItemAndRewardAndWeight(fileRewardsAndWeights);
-			check = check && readItemAndXPositionAndYPosition(fileItemLocations);
-			return check;
+			String fileItemLocations) {
+		boolean check = true;
+		check = check && readTaskAndJobs(fileTaskAndJobs,true);
+		check = check && readItemAndRewardAndWeight(fileRewardsAndWeights);
+		check = check && readItemAndXPositionAndYPosition(fileItemLocations);
+		return check;
 	}
 
 	public ArrayList<Job> getJobsArray() {
@@ -261,7 +270,7 @@ public class Input {
 	}
 
 	public boolean initializedropLocations(String fileName) {
-		int i=0;
+		int i = 0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
@@ -272,17 +281,17 @@ public class Input {
 				Scanner inFile = new Scanner(new File(fileName));
 				String token;
 				boolean toDo = !thereIsTheTitleFile;
-				while (inFile.hasNext() && i<MAX_LINES) {
+				while (inFile.hasNext() && i < MAX_LINES) {
 					token = inFile.nextLine();
 					if (toDo) {
 						String[] parts = token.split(",");
-						if (parts.length==2) {
-							Start.log.debug("Drop= "+token);
+						if (parts.length == 2) {
+							Start.log.debug("Drop= " + token);
 							Start.log.debug("drop location: " + i);
 							DropLocation temp = new DropLocation("DropLocation_" + (i + 1));
 							int x = Integer.parseInt(parts[0].trim());
 							int y = Integer.parseInt(parts[1].trim());
-							Start.log.debug("x= "+x+"\ty="+y);
+							Start.log.debug("x= " + x + "\ty=" + y);
 							temp.setLocation(x, y);
 							dropLocations.add(temp);
 						}
@@ -297,14 +306,13 @@ public class Input {
 		} else
 			return false;
 	}
-	
+
 	public ArrayList<DropLocation> getIDropLocationArray() {
 		return dropLocations;
 	}
-	
 
 	public boolean initializeCancelledJobs(String fileName) {
-		int i=0;
+		int i = 0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
@@ -316,22 +324,23 @@ public class Input {
 				String token;
 				boolean isCancelled;
 				boolean toDo = !thereIsTheTitleFile;
-				while (inFile.hasNext()&&i<MAX_LINES) {
+				while (inFile.hasNext() && i < MAX_LINES) {
 					token = inFile.nextLine();
 					if (toDo) {
 						String[] parts = token.split(",");
-						if (parts.length==2) {
-							Start.log.debug("JobID: "+parts[0]+"\tCancellation: "+parts[1]);
+						if (parts.length == 2) {
+							Start.log.debug("JobID: " + parts[0] + "\tCancellation: " + parts[1]);
 							int jobID = Integer.parseInt(parts[0]);
 							System.out.println(jobs.size());
-							//Job job = getJobWithID(Integer.parseInt(parts[0]));
+							// Job job =
+							// getJobWithID(Integer.parseInt(parts[0]));
 							for (Job j : jobs) {
-								System.out.println(j.getJobID() +"\t"+jobID);
-								if(j.getJobID() == jobID){
+								if (j.getJobID() == jobID) {
 									jobsWithCancellation.put(j, Boolean.parseBoolean(parts[1]));
-									Start.log.debug("Inserted in HashMap:\nJob with ID: "+j.getJobID()+"\tand Cancellation: "+Boolean.parseBoolean(parts[1]));
+									Start.log.debug("Inserted in HashMap:\nJob with ID: " + j.getJobID()
+											+ "\tand Cancellation: " + Boolean.parseBoolean(parts[1]));
 								}
-									
+
 							}
 						}
 					}
@@ -344,16 +353,16 @@ public class Input {
 			return true;
 		} else
 			return false;
-	}	
-	
-	public Job getJobWithID(int id){
+	}
+
+	public Job getJobWithID(int id) {
 		for (Job job : jobs) {
-			if(job.getJobID() == id)
+			if (job.getJobID() == id)
 				return job;
 		}
 		return null;
 	}
-	
+
 	public HashMap<Job, Boolean> getCancelledJobs() {
 		return jobsWithCancellation;
 	}
