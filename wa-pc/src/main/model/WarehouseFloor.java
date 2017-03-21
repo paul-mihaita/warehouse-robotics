@@ -27,6 +27,7 @@ import utils.Robot;
 import utils.Task;
 
 public class WarehouseFloor {
+
 	private HashMap<Robot, RobotHelper> poller = new HashMap<Robot, RobotHelper>();
 	private HashSet<Robot> robots;
 

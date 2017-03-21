@@ -3,7 +3,6 @@ package main.gui;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
 import javafx.scene.canvas.Canvas;
@@ -27,7 +26,7 @@ public class MapPane extends Canvas {
 	private static WarehouseFloor model;
 	private static Thread nodeAnimator;
 	private static Thread canvasHandler;
-
+	private static int maxNodes;
 	private static final Image WATER = new Image(
 			"http://orig04.deviantart.net/789b/f/2012/102/f/4/bigger_8_bit_squirtle_by_mickiart14-d4vwhge.png", 65, 65,
 			false, false);
@@ -53,8 +52,7 @@ public class MapPane extends Canvas {
 			public void run() {
 				this.setName("Node animator");
 				while (!this.isInterrupted()) {
-					int max = getMaxNodes();
-					for (int i = 0; i < max; i++) {
+					for (int i = 0; i < maxNodes; i++) {
 						for (ArrayList<Location> path : makeDrawable(GUI.getPaths())) {
 
 							if (i < path.size()) {
@@ -325,7 +323,7 @@ public class MapPane extends Canvas {
 		return drawable;
 	}
 
-	private synchronized static int getMaxNodes() {
+	protected synchronized static void refreshMaxNodes() {
 
 		int maxPath = 0;
 
@@ -336,6 +334,6 @@ public class MapPane extends Canvas {
 			maxPath = Math.max(maxPath, path.size());
 		}
 
-		return maxPath;
+		maxNodes = maxPath;
 	}
 }
