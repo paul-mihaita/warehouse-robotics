@@ -23,7 +23,11 @@ hs_err_pid*
 
 */.classpath
 */.project
+.classpath
+.project
 
-/wa-pc/logging/*
+
+*.log*
+*.log
 
 .recommenders/
