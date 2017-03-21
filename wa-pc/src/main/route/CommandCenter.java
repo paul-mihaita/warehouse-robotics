@@ -108,8 +108,10 @@ public class CommandCenter {
 						auxLoc.add(y);
 						pathsLocations.put(r, auxLoc);
 						j++;
-					} else
+					} else{
 						j++;
+						
+					}
 				}
 			} else {
 				int j = 0;
@@ -120,8 +122,21 @@ public class CommandCenter {
 						aux = CommandCenter.generateMovements(y, r.getOrientation());
 						finalLoc.put(r, y.get(y.size() - 1));
 						finalOrientation.put(r, getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
-						paths.get(r).add(aux);
-						pathsLocations.get(r).add(y);
+						if(paths.containsKey(r))
+							paths.get(r).add(aux);
+						else{
+							ArrayList<ArrayList<move>> auxx = new ArrayList<>();
+							auxx.add(aux);
+							paths.put(r,auxx);
+						}
+						if(pathsLocations.containsKey(r)){
+							pathsLocations.get(r).add(y);
+						}
+						else{
+							ArrayList<ArrayList<Location>> auxLoc = new ArrayList<>();
+							auxLoc.add(y);
+							pathsLocations.put(r, auxLoc);
+						}
 						j++;
 					} else
 						j++;
