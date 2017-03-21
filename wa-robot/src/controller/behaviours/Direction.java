@@ -37,16 +37,17 @@ public class Direction extends AbstractBehavior {
 
 	@Override
 	public void action() {
+		System.out.println(dir.toString() + "a");
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
-		while (!suppressed && sensor.isOnTape()) {
-			if (dir == move.TURNLEFT) {
-				pilot.steer(RobotConstants.STEER_SPEED);
-			} else {
-				pilot.steer(-1 * RobotConstants.STEER_SPEED);
-			}
+		if (dir == move.TURNLEFT) {
+			pilot.steer(RobotConstants.STEER_SPEED);
+		} else {
+			pilot.steer(-1 * RobotConstants.STEER_SPEED);
 		}
+		while (!suppressed && sensor.isOnTape());
 		suppressed = false;
+		pilot.stop();
 	}
 
 }

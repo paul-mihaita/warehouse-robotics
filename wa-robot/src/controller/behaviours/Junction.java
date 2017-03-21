@@ -43,6 +43,7 @@ public class Junction extends AbstractBehavior {
 			return;
 		}
 		junction(moveQueue.getNextMove());
+		pilot.stop();
 	}
 
 	private void junction(move m) {
