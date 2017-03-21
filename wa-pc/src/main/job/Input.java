@@ -22,7 +22,7 @@ public class Input {
 	boolean thereIsTheTitleFile = false;
 	private final int MAX_LINES = 100;
 	private ArrayList<Job> jobs = new ArrayList<Job>();
-	private ArrayList<Job> jobsForCancellation = new ArrayList<Job>();
+	private ArrayList<Job> trainignArray = new ArrayList<Job>();
 	public ArrayList<Item> items = new ArrayList<Item>();
 	public ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
 	public HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
@@ -38,7 +38,7 @@ public class Input {
 
 	private void initializeCancellation() {
 		this.initializeCancelledJobs(path + "cancellation");
-		this.readTaskAndJobs(path + "training",false);
+		this.readTaskAndJobs(path + "training", false, true);
 	}
 
 	public Input() {
@@ -65,9 +65,9 @@ public class Input {
 		return f.exists();
 	}
 
-	public boolean readTaskAndJobs(String fileName,boolean limitation) {
-		
-		int k=0;
+	public boolean readTaskAndJobs(String fileName, boolean limitation, boolean training) {
+
+		int k = 0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
@@ -80,10 +80,10 @@ public class Input {
 				int jobsID;
 				// WHILE UNTIL THE END OF THE FILE
 				boolean toDo = !thereIsTheTitleFile;
-				while (inFile.hasNext() && k<MAX_LINES) {
-					if(limitation)
+				while (inFile.hasNext() && k < MAX_LINES) {
+					if (limitation)
 						k++;
-					
+
 					ArrayList<Task> tasks = new ArrayList<Task>();
 					token = inFile.nextLine();
 					if (toDo) {
@@ -107,7 +107,10 @@ public class Input {
 							}
 						}
 						// ADD THE JOB TO THE ARRAY LIST OF JOBS
-						jobs.add(new Job(jobsID, tasks));
+						if (!training)
+							jobs.add(new Job(jobsID, tasks));
+						else
+							trainignArray.add(new Job(jobsID, tasks));
 
 					}
 					toDo = true;
@@ -220,7 +223,7 @@ public class Input {
 	public boolean initializeListOfJobs(String fileTaskAndJobs, String fileRewardsAndWeights,
 			String fileItemLocations) {
 		boolean check = true;
-		check = check && readTaskAndJobs(fileTaskAndJobs,true);
+		check = check && readTaskAndJobs(fileTaskAndJobs, true, false);
 		check = check && readItemAndRewardAndWeight(fileRewardsAndWeights);
 		check = check && readItemAndXPositionAndYPosition(fileItemLocations);
 		return check;
