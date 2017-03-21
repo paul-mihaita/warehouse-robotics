@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
 
 import bootstrap.Start;
 import utils.DropLocation;

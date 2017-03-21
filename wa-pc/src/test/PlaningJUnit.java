@@ -18,7 +18,6 @@ import utils.Robot;
 import utils.Task;
 
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
