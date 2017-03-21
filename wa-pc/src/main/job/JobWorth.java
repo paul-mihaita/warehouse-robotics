@@ -57,9 +57,8 @@ public class JobWorth {
 				map.put(robot, job);
 			}
 			int jobPathCost = 0;
-
-			HashMap<Robot, ArrayList<ArrayList<move>>> paths = CommandCenter.generatePaths(map);
 			Astar.reset();
+			HashMap<Robot, ArrayList<ArrayList<move>>> paths = CommandCenter.generatePaths(map);
 			Iterator<ArrayList<ArrayList<move>>> it1 = paths.values().iterator();
 			while (it1.hasNext()) {
 				ArrayList<ArrayList<move>> routes = new ArrayList<>();

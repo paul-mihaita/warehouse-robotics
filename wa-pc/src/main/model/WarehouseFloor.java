@@ -15,6 +15,7 @@ import communication.thread.Converters;
 import communication.thread.Server;
 import main.gui.GUI;
 import main.job.JobWorth;
+import main.route.Astar;
 import main.route.CommandCenter;
 import movement.Movement.move;
 import rp.util.Rate;
@@ -130,6 +131,7 @@ public class WarehouseFloor {
 						t.start();
 						HashMap<Robot, Job> give = new HashMap<Robot, Job>();
 						give.put(r, t);
+						Astar.reset();
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
 						GUI.displayPath(CommandCenter.getPathLocations().get(r), r);
 						/*
