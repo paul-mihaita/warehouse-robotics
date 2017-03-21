@@ -16,7 +16,7 @@ import utils.Robot;
 import utils.Task;
 public class RobotMain {
 	public static void main(String[] args) {
-		Robot[] r = Info.getRobots();
+		Robot[] r = Info.getRobotsVector();
 		for (int i = 0; i < r.length; i++) {
 			r[i].updated();
 		}

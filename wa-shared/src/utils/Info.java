@@ -9,10 +9,17 @@ public class Info {
 	 * Gets all 3 robots
 	 * @return an array conatining all the robots
 	 */
-	public static Robot[] getRobots() {
+	public static Robot[] getRobotsPaul() {
 		Robot[] r = new Robot[RobotNames.length];
 		for (int i = 0; i < RobotAddresses.length; i++) {
-			r[i] = new Robot(RobotNames[i], RobotAddresses[i], RobotStarting[i], addLocation(RobotStarting[i], RobotVector[i]));
+			r[i] = new Robot(RobotNames[i], RobotAddresses[i],addLocation(RobotStarting[i], RobotVector[i]), RobotStarting[i] );
+		}
+		return r;
+	}
+	public static Robot[] getRobotsVector() {
+		Robot[] r = new Robot[RobotNames.length];
+		for (int i = 0; i < RobotAddresses.length; i++) {
+			r[i] = new Robot(RobotNames[i], RobotAddresses[i], RobotVector[i], RobotStarting[i]);
 		}
 		return r;
 	}

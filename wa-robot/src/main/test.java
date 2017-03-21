@@ -36,7 +36,7 @@ public class test {
 		Button.waitForAnyPress();
 		init();
 		Message msg = new Message(BASEPATH, command.Start, new BasicJob(0, new Task("a",0)));
-		Controller cont = new Controller(Info.getRobots()[0], msg);
+		Controller cont = new Controller(Info.getRobotsVector()[0], msg);
 		cont.run();
 	}
 	private static void init() {

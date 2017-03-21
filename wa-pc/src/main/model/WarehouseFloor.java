@@ -74,7 +74,7 @@ public class WarehouseFloor {
 		this.messageQueues = new HashMap<Robot, Message>();
 		this.activePaths = new HashSet<ArrayList<Location>>();
 
-		Robot[] robos = Info.getRobots();
+		Robot[] robos = Info.getRobotsPaul();
 		this.robots.add(robos[0]); //squirtle
 		this.robots.add(robos[1]); //bulbasaur
 		this.robots.add(robos[2]); //charmander
