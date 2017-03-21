@@ -3,7 +3,6 @@ package main.gui;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
 import javafx.scene.canvas.Canvas;
@@ -25,9 +24,8 @@ import utils.Tuple;
 public class MapPane extends Canvas {
 
 	private static WarehouseFloor model;
-	private static Thread nodeAnimator;
+	private static Thread pathAnimator;
 	private static Thread canvasHandler;
-
 	private static final Image WATER = new Image(
 			"http://orig04.deviantart.net/789b/f/2012/102/f/4/bigger_8_bit_squirtle_by_mickiart14-d4vwhge.png", 65, 65,
 			false, false);
@@ -47,38 +45,7 @@ public class MapPane extends Canvas {
 
 		Graph<Location> floorMap = model.getFloorGraph();
 
-		nodeAnimator = new Thread() {
-
-			@Override
-			public void run() {
-				this.setName("Node animator");
-				while (!this.isInterrupted()) {
-					int max = getMaxNodes();
-					for (int i = 0; i < max; i++) {
-						for (ArrayList<Location> path : makeDrawable(GUI.getPaths())) {
-
-							if (i < path.size()) {
-								GUI.getNodesToDraw().add(path.get(i));
-							}
-						}
-
-						if (this.isInterrupted())
-							return;
-
-						new Rate(1.5).sleep();
-
-						if (this.isInterrupted())
-							return;
-
-						for (ArrayList<Location> path : makeDrawable(GUI.getPaths())) {
-							if (i < path.size()) {
-								GUI.getNodesToDraw().remove(path.get(i));
-							}
-						}
-					}
-				}
-			}
-		};
+		pathAnimator = new PathAnimator(model, gc);
 
 		canvasHandler = new Thread() {
 			@Override
@@ -102,7 +69,7 @@ public class MapPane extends Canvas {
 		};
 
 		canvasHandler.start();
-		nodeAnimator.start();
+		pathAnimator.start();
 	}
 
 	private static void drawPath(GraphicsContext gc) {
@@ -175,70 +142,77 @@ public class MapPane extends Canvas {
 
 			}
 
-			float x = r.getCurrentLocation().getX();
-			float y = r.getCurrentLocation().getY();
-
-			float rx = r.getRelativeOrientation().getX();
-			float ry = r.getRelativeOrientation().getY();
-
-			double[] xPoints = new double[3];
-			double[] yPoints = new double[3];
-
-			if (rx == 1.0f) {
-				// right
-
-				xPoints[0] = scale(x + 0.5f);
-				yPoints[0] = scale(y);
-
-				xPoints[1] = scale(x + 0.3f);
-				xPoints[1] = scale(y - 0.2f);
-
-				xPoints[2] = scale(x + 0.3f);
-				xPoints[2] = scale(y + 0.2f);
-
-			} else if (rx == -1.0f) {
-				// left
-
-				xPoints[0] = scale(x - 0.5f);
-				yPoints[0] = scale(y);
-
-				xPoints[1] = scale(x - 0.3f);
-				xPoints[1] = scale(y - 0.2f);
-
-				xPoints[2] = scale(x - 0.3f);
-				xPoints[2] = scale(y + 0.2f);
-
-			} else if (ry == 1.0d) {
-				// down
-
-				xPoints[0] = scale(x);
-				yPoints[0] = scale(y + 0.5f);
-
-				xPoints[1] = scale(x - 0.2f);
-				xPoints[1] = scale(y + 0.3f);
-
-				xPoints[2] = scale(x + 0.2f);
-				xPoints[2] = scale(y + 0.3f);
-
-			} else {
-				// up
-
-				xPoints[0] = scale(x);
-				yPoints[0] = scale(y - 0.5f);
-
-				xPoints[1] = scale(x - 0.2f);
-				xPoints[1] = scale(y - 0.3f);
-
-				xPoints[2] = scale(x + 0.2f);
-				xPoints[2] = scale(y - 0.3f);
-
-			}
-
-			//Start.log.debug("Direction drawn at: " + r.getOrientation().toString());
-
-			// gc.fillPolygon(xPoints, yPoints, 3);
+			// drawOrientation(r, gc);
 
 		}
+	}
+
+	private static void drawOrientation(Robot r, GraphicsContext gc) {
+
+		float x = r.getCurrentLocation().getX();
+		float y = r.getCurrentLocation().getY();
+
+		float rx = r.getRelativeOrientation().getX();
+		float ry = r.getRelativeOrientation().getY();
+
+		double[] xPoints = new double[3];
+		double[] yPoints = new double[3];
+
+		if (rx == 1.0f) {
+			// right
+
+			xPoints[0] = scale(x + 0.5f);
+			yPoints[0] = scale(y);
+
+			xPoints[1] = scale(x + 0.3f);
+			xPoints[1] = scale(y - 0.2f);
+
+			xPoints[2] = scale(x + 0.3f);
+			xPoints[2] = scale(y + 0.2f);
+
+		} else if (rx == -1.0f) {
+			// left
+
+			xPoints[0] = scale(x - 0.5f);
+			yPoints[0] = scale(y);
+
+			xPoints[1] = scale(x - 0.3f);
+			xPoints[1] = scale(y - 0.2f);
+
+			xPoints[2] = scale(x - 0.3f);
+			xPoints[2] = scale(y + 0.2f);
+
+		} else if (ry == 1.0d) {
+			// down
+
+			xPoints[0] = scale(x);
+			yPoints[0] = scale(y + 0.5f);
+
+			xPoints[1] = scale(x - 0.2f);
+			xPoints[1] = scale(y + 0.3f);
+
+			xPoints[2] = scale(x + 0.2f);
+			xPoints[2] = scale(y + 0.3f);
+
+		} else {
+			// up
+
+			xPoints[0] = scale(x);
+			yPoints[0] = scale(y - 0.5f);
+
+			xPoints[1] = scale(x - 0.2f);
+			xPoints[1] = scale(y - 0.3f);
+
+			xPoints[2] = scale(x + 0.2f);
+			xPoints[2] = scale(y - 0.3f);
+
+		}
+
+		// Start.log.debug("Direction drawn at: " +
+		// r.getOrientation().toString());
+
+		// gc.fillPolygon(xPoints, yPoints, 3);
+
 	}
 
 	private static final int TOLERANCE_THRESHOLD = 0XFF;
@@ -305,7 +279,7 @@ public class MapPane extends Canvas {
 
 	public void interrupt() {
 		canvasHandler.interrupt();
-		nodeAnimator.interrupt();
+		pathAnimator.interrupt();
 	}
 
 	private static ArrayList<ArrayList<Location>> makeDrawable(
@@ -323,19 +297,5 @@ public class MapPane extends Canvas {
 		}
 
 		return drawable;
-	}
-
-	private synchronized static int getMaxNodes() {
-
-		int maxPath = 0;
-
-		HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> clone = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>>(
-				GUI.getPaths());
-
-		for (ArrayList<Location> path : makeDrawable(clone)) {
-			maxPath = Math.max(maxPath, path.size());
-		}
-
-		return maxPath;
 	}
 }

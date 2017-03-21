@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import bootstrap.Start;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -78,6 +81,20 @@ public class GUI extends Application {
 		guiHolder.setLeft(tabPane);
 		guiHolder.setCenter(map);
 
+		final LongProperty lastUpdate = new SimpleLongProperty();
+
+		final long minUpdateInterval = 0;
+
+		AnimationTimer timer = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				if (now - lastUpdate.get() > minUpdateInterval) {
+					GUI.refresh();
+				}
+			}
+		};
+		timer.start();
+
 		primaryStage.setScene(new Scene(guiHolder));
 		primaryStage.show();
 
@@ -99,7 +116,7 @@ public class GUI extends Application {
 		return new ArrayList<Location>(nodesToDraw);
 	}
 
-	protected static HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> getPaths() {
+	protected synchronized static HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> getPaths() {
 		return drawnPath;
 	}
 
@@ -112,14 +129,16 @@ public class GUI extends Application {
 		drawnPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>>();
 		for (ArrayList<ArrayList<Location>> path : paths) {
 			drawnPath.add(new Tuple<ArrayList<ArrayList<Location>>, Robot>(path, robot));
+			// MapPane.refreshMaxNodes();
 		}
 	}
 
 	public static void removePath(Robot r) {
 
-		for (Tuple<ArrayList<ArrayList<Location>>, Robot> path : drawnPath) {
+		for (Tuple<ArrayList<ArrayList<Location>>, Robot> path : getPaths()) {
 			if (r.equals(path.getY())) {
 				drawnPath.remove(path);
+				// MapPane.refreshMaxNodes();
 			}
 		}
 

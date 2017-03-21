@@ -1,19 +1,30 @@
 package main.gui;
 
+import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import main.model.WarehouseFloor;
 import rp.util.Rate;
 
-public class TabMenuPane extends TabPane{
-	
+public class TabMenuPane extends TabPane {
+
 	private RobotPane robotHolder;
 	private JobPane jobHolder;
 	private EditPane editHolder;
 	private Thread refresh;
-	
+	private Runnable refreshCommand;
+
 	public TabMenuPane(WarehouseFloor model) {
 		super();
+
+		refreshCommand = new Runnable() {
+			@Override
+			public void run() {
+				RobotPane.updateLabels();
+				JobPane.updateLabels();
+			}
+		};
+
 		this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		robotHolder = new RobotPane(model);
 		this.getTabs().add(new Tab("Robots", robotHolder));
@@ -21,25 +32,22 @@ public class TabMenuPane extends TabPane{
 		this.getTabs().add(new Tab("Jobs", jobHolder));
 		editHolder = new EditPane(model);
 		this.getTabs().add(new Tab("Edit", editHolder));
-		
-		refresh = new Thread(){
+
+		refresh = new Thread() {
 			@Override
 			public void run() {
 				Rate r = new Rate(10);
-				while(!this.isInterrupted()){
+				while (!refresh.isInterrupted()) {
 					refresh();
 					r.sleep();
 				}
 			}
 		};
-		
-		refresh.start();
 
 	}
 
 	public void refresh() {
-		RobotPane.updateLabels();
-		JobPane.updateLabels();
+		Platform.runLater(refreshCommand);
 	}
 
 	protected void interrupt() {
