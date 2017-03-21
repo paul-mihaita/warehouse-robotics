@@ -142,70 +142,77 @@ public class MapPane extends Canvas {
 
 			}
 
-			float x = r.getCurrentLocation().getX();
-			float y = r.getCurrentLocation().getY();
-
-			float rx = r.getRelativeOrientation().getX();
-			float ry = r.getRelativeOrientation().getY();
-
-			double[] xPoints = new double[3];
-			double[] yPoints = new double[3];
-
-			if (rx == 1.0f) {
-				// right
-
-				xPoints[0] = scale(x + 0.5f);
-				yPoints[0] = scale(y);
-
-				xPoints[1] = scale(x + 0.3f);
-				xPoints[1] = scale(y - 0.2f);
-
-				xPoints[2] = scale(x + 0.3f);
-				xPoints[2] = scale(y + 0.2f);
-
-			} else if (rx == -1.0f) {
-				// left
-
-				xPoints[0] = scale(x - 0.5f);
-				yPoints[0] = scale(y);
-
-				xPoints[1] = scale(x - 0.3f);
-				xPoints[1] = scale(y - 0.2f);
-
-				xPoints[2] = scale(x - 0.3f);
-				xPoints[2] = scale(y + 0.2f);
-
-			} else if (ry == 1.0d) {
-				// down
-
-				xPoints[0] = scale(x);
-				yPoints[0] = scale(y + 0.5f);
-
-				xPoints[1] = scale(x - 0.2f);
-				xPoints[1] = scale(y + 0.3f);
-
-				xPoints[2] = scale(x + 0.2f);
-				xPoints[2] = scale(y + 0.3f);
-
-			} else {
-				// up
-
-				xPoints[0] = scale(x);
-				yPoints[0] = scale(y - 0.5f);
-
-				xPoints[1] = scale(x - 0.2f);
-				xPoints[1] = scale(y - 0.3f);
-
-				xPoints[2] = scale(x + 0.2f);
-				xPoints[2] = scale(y - 0.3f);
-
-			}
-
-			//Start.log.debug("Direction drawn at: " + r.getOrientation().toString());
-
-			// gc.fillPolygon(xPoints, yPoints, 3);
+			// drawOrientation(r, gc);
 
 		}
+	}
+
+	private static void drawOrientation(Robot r, GraphicsContext gc) {
+
+		float x = r.getCurrentLocation().getX();
+		float y = r.getCurrentLocation().getY();
+
+		float rx = r.getRelativeOrientation().getX();
+		float ry = r.getRelativeOrientation().getY();
+
+		double[] xPoints = new double[3];
+		double[] yPoints = new double[3];
+
+		if (rx == 1.0f) {
+			// right
+
+			xPoints[0] = scale(x + 0.5f);
+			yPoints[0] = scale(y);
+
+			xPoints[1] = scale(x + 0.3f);
+			xPoints[1] = scale(y - 0.2f);
+
+			xPoints[2] = scale(x + 0.3f);
+			xPoints[2] = scale(y + 0.2f);
+
+		} else if (rx == -1.0f) {
+			// left
+
+			xPoints[0] = scale(x - 0.5f);
+			yPoints[0] = scale(y);
+
+			xPoints[1] = scale(x - 0.3f);
+			xPoints[1] = scale(y - 0.2f);
+
+			xPoints[2] = scale(x - 0.3f);
+			xPoints[2] = scale(y + 0.2f);
+
+		} else if (ry == 1.0d) {
+			// down
+
+			xPoints[0] = scale(x);
+			yPoints[0] = scale(y + 0.5f);
+
+			xPoints[1] = scale(x - 0.2f);
+			xPoints[1] = scale(y + 0.3f);
+
+			xPoints[2] = scale(x + 0.2f);
+			xPoints[2] = scale(y + 0.3f);
+
+		} else {
+			// up
+
+			xPoints[0] = scale(x);
+			yPoints[0] = scale(y - 0.5f);
+
+			xPoints[1] = scale(x - 0.2f);
+			xPoints[1] = scale(y - 0.3f);
+
+			xPoints[2] = scale(x + 0.2f);
+			xPoints[2] = scale(y - 0.3f);
+
+		}
+
+		// Start.log.debug("Direction drawn at: " +
+		// r.getOrientation().toString());
+
+		// gc.fillPolygon(xPoints, yPoints, 3);
+
 	}
 
 	private static final int TOLERANCE_THRESHOLD = 0XFF;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.PriorityQueue;
 import java.util.function.Consumer;
 
 import org.apache.log4j.Logger;
@@ -74,11 +75,11 @@ public class WarehouseFloor {
 		this.robots.add(squirtle);
 
 		Robot bulbasaur = new Robot(Info.RobotNames[1], Info.RobotAddresses[1], new Location(1, 7), new Location(0, 7));
-		//this.robots.add(bulbasaur);
+		// this.robots.add(bulbasaur);
 
 		Robot charmander = new Robot(Info.RobotNames[2], Info.RobotAddresses[2], new Location(0, 1),
 				new Location(0, 0));
-		//this.robots.add(charmander);
+		// this.robots.add(charmander);
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -90,16 +91,6 @@ public class WarehouseFloor {
 			Message temp = new Message(new ArrayList<move>(), command.Wait, new BasicJob(0, new Task("", 0)));
 			tempArr[i++] = temp;
 			messageQueues.put(r, temp);
-		}
-
-		JobWorth jobWorth = new JobWorth(jobs, robots);
-		HashMap<Integer, Float> temp = jobWorth.getReward();
-
-		Integer maxkey = -1;
-		for (Integer key : temp.keySet()) {
-			if (maxkey == -1) {
-				maxkey = key;
-			}
 		}
 
 		reassignJobs();
@@ -137,24 +128,26 @@ public class WarehouseFloor {
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment
 						 */
-						new Thread() {
-							public void run() {
+						if (server)
+							new Thread() {
+								public void run() {
+									this.setName("Job thread: " + r.getName() + " " + t.getJobID());
 
-								Thread p = givePath(r, path.get(r), t);
-								p.start();
+									Thread p = givePath(r, path.get(r), t);
+									p.start();
 
-								while (p.isAlive()) {
-									new Rate(100).sleep();
-								}
+									while (p.isAlive()) {
+										new Rate(100).sleep();
+									}
 
-								if (p.isInterrupted()) {
-									t.cancel();
-								} else {
-									t.completed();
-								}
-								GUI.removePath(r);
-							};
-						}.start();
+									if (p.isInterrupted()) {
+										t.cancel();
+									} else {
+										t.completed();
+									}
+									GUI.removePath(r);
+								};
+							}.start();
 					}
 				}
 			});
@@ -169,24 +162,24 @@ public class WarehouseFloor {
 		r.setOnPickup(true);
 		r.setOnJob(true);
 		p.overwriteRoutes(routes);
- 		messageQueues.get(r).setJob(Converters.toBasicJob(job));
+		messageQueues.get(r).setJob(Converters.toBasicJob(job));
 		return p;
 	}
 
-	public boolean assign(String name, Job j) {
+	public boolean assign(Robot r, Job j) {
 
-		log.debug(j.getJobID() + " added to " + name);
+		log.debug(j.getJobID() + " added to " + r.getName());
 
-		if (!assignment.get(getRobot(name)).isPresent()) {
-			assignment.remove(name);
-			assignment.put(getRobot(name), Optional.of(j));
+		if (!assignment.get(r).isPresent()) {
+			assignment.remove(r);
+			assignment.put(r, Optional.of(j));
 			j.select();
 			return true;
 		} else {
-			Job c = assignment.get(getRobot(name)).get();
+			Job c = assignment.get(r).get();
 			if (c.isCompleted() || c.isCanceled()) {
-				assignment.remove(name);
-				assignment.put(getRobot(name), Optional.of(j));
+				assignment.remove(r);
+				assignment.put(r, Optional.of(j));
 				j.select();
 				return true;
 			}
@@ -268,7 +261,7 @@ public class WarehouseFloor {
 	public void reassignJobs() {
 
 		ArrayList<Job> validJobs = new ArrayList<Job>();
-		HashSet<Robot> unAssigned = new HashSet<Robot>();
+		ArrayList<Robot> unAssigned = new ArrayList<Robot>();
 		for (Job j : jobList.values()) {
 			if (j.isNotSelected()) {
 				validJobs.add(j);
@@ -288,25 +281,15 @@ public class WarehouseFloor {
 
 		}
 
-		ArrayList<Robot> robotArray = new ArrayList<Robot>();
-		for (Robot r : unAssigned) {
-			robotArray.add(r);
-		}
-
-		if (robotArray.isEmpty()) {
+		if (unAssigned.isEmpty()) {
 			return;
 		}
 
 		JobWorth selector = new JobWorth(validJobs, unAssigned);
+		PriorityQueue<Job> queue = selector.getReward();
 
-		int i = 0;
-		for (Integer id : selector.getReward().keySet()) {
-			jobList.get(id);
-			if (i == robotArray.size()) {
-				break;
-			}
-
-			assign(robotArray.get(i++).getName(), jobList.get(id));
+		for (Robot r : unAssigned) {
+			this.assign(r, queue.poll());
 		}
 
 	}
