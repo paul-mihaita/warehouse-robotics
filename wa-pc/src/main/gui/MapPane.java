@@ -1,6 +1,7 @@
 package main.gui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import graph_entities.IEdge;
 import graph_entities.IVertex;
@@ -61,6 +62,7 @@ public class MapPane extends Canvas {
 
 					MapPane.drawRobots(gc);
 					MapPane.drawItems(gc, model.getItems());
+					MapPane.drawPaths(gc);
 
 					r.sleep();
 				}
@@ -70,6 +72,25 @@ public class MapPane extends Canvas {
 
 		canvasHandler.start();
 		pathAnimator.start();
+	}
+
+	private static void drawPaths(GraphicsContext gc) {
+		
+		Iterator<ArrayList<Location>> iter = model.getActivePaths().iterator();
+		
+		while(iter.hasNext()){
+			
+			ArrayList<Location> path = iter.next();
+			
+			for (int i = 0; i < path.size(); i++){
+				
+			}
+			
+			iter.remove();
+			
+		}
+		
+		
 	}
 
 	private static void drawEdges(IVertex<Location> v, GraphicsContext gc) {
