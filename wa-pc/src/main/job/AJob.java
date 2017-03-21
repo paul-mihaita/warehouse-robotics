@@ -2,9 +2,10 @@ package main.job;
 
 import java.util.List;
 
+import utils.DropLocation;
 import utils.Item;
 
-public class AJob {
+public class AJob{
 
 	public final String id;
 	public boolean cancelledinTrainingSet;
@@ -17,9 +18,7 @@ public class AJob {
 		this.id=id;
 	}
 	
-	public AJob(DropLocation location, List<Item> pickups){
-		this(location,pickups);
-	}
+	
 	
 	public boolean isAssigned(){
 		return false;

@@ -1,26 +1,28 @@
 package main.job;
 
+import java.util.HashSet;
 import java.util.List;
 
+import utils.DropLocation;
 import utils.Item;
 import utils.Robot;
 import utils.Route;
 
 public class AssignedJob extends AJob{
 
-	public Robot robot;
+	public HashSet<Robot> robots=new HashSet<Robot>();
 	public Route route;
 	
-	public AssignedJob(DropLocation location, List<Item> pickups, Robot robot, Route route, String id ){
+	public AssignedJob(DropLocation location, List<Item> pickups, HashSet<Robot> robots, Route route, String id ){
 		
 		super(location,pickups,id);
 		this.route=route;
-		this.robot=robot;
+		this.robots=robots;
 		
 	}
 	
-	public AssignedJob(AJob job, Route route, Robot robot){
-		this(job.location,job.pickups,job.id,route,robot);
+	public AssignedJob(AJob job, Route route, HashSet<Robot> robots){
+		this(job.location,job.pickups,robots,route,job.id);
 		this.cancelledinTrainingSet=job.cancelledinTrainingSet;
 	}
 	
