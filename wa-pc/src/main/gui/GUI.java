@@ -129,7 +129,7 @@ public class GUI extends Application {
 		drawnPath = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>>();
 		for (ArrayList<ArrayList<Location>> path : paths) {
 			drawnPath.add(new Tuple<ArrayList<ArrayList<Location>>, Robot>(path, robot));
-			MapPane.refreshMaxNodes();
+			// MapPane.refreshMaxNodes();
 		}
 	}
 
@@ -138,7 +138,7 @@ public class GUI extends Application {
 		for (Tuple<ArrayList<ArrayList<Location>>, Robot> path : getPaths()) {
 			if (r.equals(path.getY())) {
 				drawnPath.remove(path);
-				MapPane.refreshMaxNodes();
+				// MapPane.refreshMaxNodes();
 			}
 		}
 
