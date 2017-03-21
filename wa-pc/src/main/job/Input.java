@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
 
 import bootstrap.Start;
 import utils.DropLocation;
@@ -23,9 +22,9 @@ public class Input {
 	private final int MAX_LINES = 100;
 	private ArrayList<Job> jobs = new ArrayList<Job>();
 	private ArrayList<Job> trainignArray = new ArrayList<Job>();
-	public ArrayList<Item> items = new ArrayList<Item>();
-	public ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
-	public HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
+	private ArrayList<Item> items = new ArrayList<Item>();
+	private ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
+	private HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
 	String path = "./data_files/";
 
 	public Input(boolean haveTitle) {
@@ -229,10 +228,6 @@ public class Input {
 		return check;
 	}
 
-	public ArrayList<Job> getJobsArray() {
-		return jobs;
-	}
-
 	public boolean initializeItemsList(String fileName) {
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
@@ -267,10 +262,6 @@ public class Input {
 			return true;
 		} else
 			return false;
-	}
-
-	public ArrayList<Item> getItemsArray() {
-		return items;
 	}
 
 	public boolean initializedropLocations(String fileName) {
@@ -368,6 +359,22 @@ public class Input {
 	}
 
 	public HashMap<Job, Boolean> getCancelledJobs() {
+		return jobsWithCancellation;
+	}
+
+	public ArrayList<Item> getItemsArray() {
+		return items;
+	}
+
+	public ArrayList<Job> getJobsArray() {
+		return jobs;
+	}
+	
+	public ArrayList<DropLocation> getDropLocations(){
+		return dropLocations;
+	}
+	
+	public HashMap<Job, Boolean> getJobsWithCancellation(){
 		return jobsWithCancellation;
 	}
 
