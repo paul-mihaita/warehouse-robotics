@@ -21,6 +21,7 @@ public class Start {
 		log.info("Starting");
 
 		Input in = new Input(false);
+		
 
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
 				in.getJobsArray(), in.getItemsArray(), in.getIDropLocationArray(), log, server);
