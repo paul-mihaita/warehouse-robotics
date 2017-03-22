@@ -25,19 +25,28 @@ public class Input {
 	private ArrayList<Item> items = new ArrayList<Item>();
 	private ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
 	private HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
-	String path = "./data_files/";
+	
+	private final String PATH = "./data_files/";
+	private final String JOBS_FILE = PATH + "jobs";
+	private final String ITEMS_FILE = PATH + "items";
+	private final String LOCATIONS_FILE = PATH + "locations";
+	private final String DROPS_FILE = PATH + "drops";
+	private final String CANCELLATIONS_FILE = PATH + "cancellations";
+	private final String TRAINING_JOBS_FILE = PATH + "training_jobs";
+	
+	
 
 	public Input(boolean haveTitle) {
 		thereIsTheTitleFile = haveTitle;
-		this.initializeListOfJobs(path + "jobs", path + "items", path + "locations");
-		this.initializeItemsList(path + "locations");
-		this.initializedropLocations(path + "drops");
-		this.initializeCancellation();
+		this.initializeListOfJobs(JOBS_FILE, ITEMS_FILE, LOCATIONS_FILE);
+		this.initializeItemsList(LOCATIONS_FILE);
+		this.initializedropLocations(DROPS_FILE);
+		this.initializeCancellation(CANCELLATIONS_FILE, TRAINING_JOBS_FILE);
 	}
 
-	private void initializeCancellation() {
-		this.initializeCancelledJobs(path + "cancellation");
-		this.readTaskAndJobs(path + "training", false, true);
+	private void initializeCancellation(String cancellation_file, String training_job_file) {
+		this.initializeCancelledJobs(cancellation_file);
+		this.readTaskAndJobs(training_job_file, false, true);
 	}
 
 	public Input() {
@@ -320,17 +329,17 @@ public class Input {
 				boolean isCancelled;
 				boolean toDo = !thereIsTheTitleFile;
 				while (inFile.hasNext() && i < MAX_LINES) {
+					i++;
 					token = inFile.nextLine();
 					if (toDo) {
 						String[] parts = token.split(",");
 						if (parts.length == 2) {
 							Start.log.debug("JobID: " + parts[0] + "\tCancellation: " + parts[1]);
-							int jobID = Integer.parseInt(parts[0]);
-							System.out.println(jobs.size());
-							// Job job =
-							// getJobWithID(Integer.parseInt(parts[0]));
+							int jobID = Integer.parseInt(parts[0].trim());
 							for (Job j : jobs) {
+								//System.out.println("j.getJobID() = "+j.getJobID()+" jpobID = "+jobID);
 								if (j.getJobID() == jobID) {
+									System.out.println("THIS SHOULD BE PRINTED");
 									jobsWithCancellation.put(j, Boolean.parseBoolean(parts[1]));
 									Start.log.debug("Inserted in HashMap:\nJob with ID: " + j.getJobID()
 											+ "\tand Cancellation: " + Boolean.parseBoolean(parts[1]));
