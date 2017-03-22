@@ -21,10 +21,10 @@ public class Input {
 	boolean thereIsTheTitleFile = false;
 	private final int MAX_LINES = 100;
 	private ArrayList<Job> jobs = new ArrayList<Job>();
-	private ArrayList<Job> jobsForCancellation = new ArrayList<Job>();
-	public ArrayList<Item> items = new ArrayList<Item>();
-	public ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
-	public HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
+	private ArrayList<Job> trainignArray = new ArrayList<Job>();
+	private ArrayList<Item> items = new ArrayList<Item>();
+	private ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
+	private HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
 	String path = "./data_files/";
 
 	public Input(boolean haveTitle) {
@@ -32,12 +32,13 @@ public class Input {
 		this.initializeListOfJobs(path+"jobs", path+"items", path+"locations");
 		this.initializeItemsList(path+"locations");
 		this.initializedropLocations(path+"drops");
-		//this.initializeCancelledJobs(path+"cancellations");
+		this.readTaskAndJobs(path+"training_jobs", false, true);
+		this.initializeCancelledJobs(path+"cancellations");
 	}
 
 	private void initializeCancellation() {
 		this.initializeCancelledJobs(path + "cancellation");
-		this.readTaskAndJobs(path + "training",false);
+		this.readTaskAndJobs(path + "training", false, true);
 	}
 
 	public Input() {
@@ -64,9 +65,9 @@ public class Input {
 		return f.exists();
 	}
 
-	public boolean readTaskAndJobs(String fileName,boolean limitation) {
-		
-		int k=0;
+	public boolean readTaskAndJobs(String fileName, boolean limitation, boolean training) {
+
+		int k = 0;
 		/////////////////////////////////////////////////// FILE RIGHT
 		if (fileRight(fileName)) {
 			try {
@@ -79,10 +80,10 @@ public class Input {
 				int jobsID;
 				// WHILE UNTIL THE END OF THE FILE
 				boolean toDo = !thereIsTheTitleFile;
-				while (inFile.hasNext() && k<MAX_LINES) {
-					if(limitation)
+				while (inFile.hasNext() && k < MAX_LINES) {
+					if (limitation)
 						k++;
-					
+
 					ArrayList<Task> tasks = new ArrayList<Task>();
 					token = inFile.nextLine();
 					if (toDo) {
@@ -106,7 +107,10 @@ public class Input {
 							}
 						}
 						// ADD THE JOB TO THE ARRAY LIST OF JOBS
-						jobs.add(new Job(jobsID, tasks));
+						if (!training)
+							jobs.add(new Job(jobsID, tasks));
+						else
+							trainignArray.add(new Job(jobsID, tasks));
 
 					}
 					toDo = true;
@@ -219,14 +223,10 @@ public class Input {
 	public boolean initializeListOfJobs(String fileTaskAndJobs, String fileRewardsAndWeights,
 			String fileItemLocations) {
 		boolean check = true;
-		check = check && readTaskAndJobs(fileTaskAndJobs,true);
+		check = check && readTaskAndJobs(fileTaskAndJobs, true, false);
 		check = check && readItemAndRewardAndWeight(fileRewardsAndWeights);
 		check = check && readItemAndXPositionAndYPosition(fileItemLocations);
 		return check;
-	}
-
-	public ArrayList<Job> getJobsArray() {
-		return jobs;
 	}
 
 	public boolean initializeItemsList(String fileName) {
@@ -263,10 +263,6 @@ public class Input {
 			return true;
 		} else
 			return false;
-	}
-
-	public ArrayList<Item> getItemsArray() {
-		return items;
 	}
 
 	public boolean initializedropLocations(String fileName) {
@@ -331,12 +327,17 @@ public class Input {
 						if (parts.length == 2) {
 							Start.log.debug("JobID: " + parts[0] + "\tCancellation: " + parts[1]);
 							int jobID = Integer.parseInt(parts[0]);
-							System.out.println(jobs.size());
 							// Job job =
 							// getJobWithID(Integer.parseInt(parts[0]));
-							for (Job j : jobs) {
+							for (Job j : trainignArray) {
 								if (j.getJobID() == jobID) {
-									jobsWithCancellation.put(j, Boolean.parseBoolean(parts[1]));
+									int ind = Integer.parseInt(parts[1]);
+									if(ind == 1){
+										jobsWithCancellation.put(j, true);
+									}else{
+										jobsWithCancellation.put(j, false);
+
+									}
 									Start.log.debug("Inserted in HashMap:\nJob with ID: " + j.getJobID()
 											+ "\tand Cancellation: " + Boolean.parseBoolean(parts[1]));
 								}
@@ -364,6 +365,22 @@ public class Input {
 	}
 
 	public HashMap<Job, Boolean> getCancelledJobs() {
+		return jobsWithCancellation;
+	}
+
+	public ArrayList<Item> getItemsArray() {
+		return items;
+	}
+
+	public ArrayList<Job> getJobsArray() {
+		return jobs;
+	}
+	
+	public ArrayList<DropLocation> getDropLocations(){
+		return dropLocations;
+	}
+	
+	public HashMap<Job, Boolean> getJobsWithCancellation(){
 		return jobsWithCancellation;
 	}
 
