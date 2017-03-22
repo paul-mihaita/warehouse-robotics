@@ -11,24 +11,23 @@ import utils.Location;
 import utils.Robot;
 
 public class Converters {
-	private static final int constItems = 6;
+	private static final int constItems = 4;
 	public static Robot byteToRobot(byte[] a) throws IOException {
 		if (a.length <= constItems) throw new IOException("Robot array was less than 6 in size");
 		Location current = new Location(a[0], a[1]);
-		Location orientation = new Location(a[2], a[3]);
 		boolean isOnPickup = false;
 		try {
-			isOnPickup = byteToBoolean(a[4]);
+			isOnPickup = byteToBoolean(a[2]);
 		} catch (IOException e) {
 			// shouldn't happen
 		}
-		int movesCompleted = a[5];
+		int movesCompleted = a[3];
 		char[] c = new char[a.length - constItems];
 		for (int i = 0; i < c.length; i++) {
 			c[i] = (char) a[i + constItems];
 		}
 		String name = new String(c);
-		Robot r = new Robot(name, null, orientation, current);
+		Robot r = new Robot(name, null, null, current);
 		r.setMoves(movesCompleted); 
 		r.setOnPickup(isOnPickup);
 		return r;
@@ -40,11 +39,8 @@ public class Converters {
 		Location location = r.getCurrentLocation();
 		returnArr[0] = (byte) location.getX();
 		returnArr[1] = (byte) location.getY();
-		location = r.getOrientation();
-		returnArr[2] = (byte) location.getX();
-		returnArr[3] = (byte) location.getX();
-		returnArr[4] = booleanToByte(r.isOnPickup());
-		returnArr[5] = (byte) r.getMovesCompleted();
+		returnArr[2] = booleanToByte(r.isOnPickup());
+		returnArr[3] = (byte) r.getMovesCompleted();
 		char[] c = name.toCharArray();
 		for (int i = 0; i < c.length; i++) {
 			returnArr[i + constItems] = (byte) c[i];

@@ -26,12 +26,12 @@ public class RobotHelper extends Thread {
 		this.m = m;
 		this.robot = robot;
 		this.log = log;
-		index = 0;
 	}
 	
 	public void overwriteRoutes(ArrayList<ArrayList<move>> routes, Job j ) {
 		this.r = routes;
 		this.job = j;
+		index = 0;
 	}
 	@Override
 	public void run() {
