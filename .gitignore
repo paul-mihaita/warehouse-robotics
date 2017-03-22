@@ -18,3 +18,17 @@ hs_err_pid*
 */bin/
 
 .metadata
+
+/bin/
+
+*/.classpath
+*/.project
+.classpath
+.project
+*.settings
+
+
+*.log*
+*.log
+
+.recommenders/

@@ -1,0 +1,126 @@
+package communication.thread;
+
+import java.io.IOException;
+import java.util.List;
+
+import communication.BasicJob;
+import communication.CommConst;
+import movement.Movement.move;
+import utils.Job;
+import utils.Location;
+import utils.Robot;
+
+public class Converters {
+	private static final int constItems = 6;
+	public static Robot byteToRobot(byte[] a) throws IOException {
+		if (a.length <= constItems) throw new IOException("Robot array was less than 6 in size");
+		Location current = new Location(a[0], a[1]);
+		Location orientation = new Location(a[2], a[3]);
+		boolean isOnPickup = false;
+		try {
+			isOnPickup = byteToBoolean(a[4]);
+		} catch (IOException e) {
+			// shouldn't happen
+		}
+		int movesCompleted = a[5];
+		char[] c = new char[a.length - constItems];
+		for (int i = 0; i < c.length; i++) {
+			c[i] = (char) a[i + constItems];
+		}
+		String name = new String(c);
+		Robot r = new Robot(name, null, orientation, current);
+		r.setMoves(movesCompleted); 
+		r.setOnPickup(isOnPickup);
+		return r;
+	}
+
+	public static byte[] robotToByte(Robot r) {
+		String name = r.getName();
+		byte[] returnArr = new byte[name.length() + constItems];
+		Location location = r.getCurrentLocation();
+		returnArr[0] = (byte) location.getX();
+		returnArr[1] = (byte) location.getY();
+		location = r.getOrientation();
+		returnArr[2] = (byte) location.getX();
+		returnArr[3] = (byte) location.getX();
+		returnArr[4] = booleanToByte(r.isOnPickup());
+		returnArr[5] = (byte) r.getMovesCompleted();
+		char[] c = name.toCharArray();
+		for (int i = 0; i < c.length; i++) {
+			returnArr[i + constItems] = (byte) c[i];
+		}
+		return returnArr;
+	}
+
+	public static byte[] movesToByte(List<move> movement, int num) {
+		byte[] returnArr = new byte[num];
+		int i = 0;
+		for (move m : movement) {
+			returnArr[i++] = moveToByte(m);
+		}
+		return returnArr;
+	}
+
+	public static byte moveToByte(move m) {
+		switch (m) {
+			case FORWARD:
+				return CommConst.FORWARD;
+			case BACKWARD:
+				return CommConst.BACKWARD;
+			case TURNLEFT:
+				return CommConst.TURNLEFT;
+			case TURNRIGHT:
+				return CommConst.TURNRIGHT;
+			case WAIT:
+				return CommConst.WAIT;
+			default:
+				// can't happen
+				return 0;
+		}
+	}
+
+	public static move byteToMove(byte b) throws IOException {
+		switch (b) {
+			case CommConst.FORWARD:
+				return move.FORWARD;
+			case CommConst.BACKWARD:
+				return move.BACKWARD;
+			case CommConst.TURNLEFT:
+				return move.TURNLEFT;
+			case CommConst.TURNRIGHT:
+				return move.TURNRIGHT;
+			case CommConst.WAIT:
+				return move.WAIT;
+			default:
+				throw new IOException("Incorrect byte code for movement");
+		}
+	}
+
+	public static byte booleanToByte(boolean b) {
+		if (b) {
+			return 1;
+		}
+		return 0;
+	}
+
+	public static boolean byteToBoolean(byte b) throws IOException {
+		if (b == 1) {
+			return true;
+		} else if (b == 0) {
+			return false;
+		}
+		throw new IOException("Incorrect byte code for a boolean");
+	}
+	
+	public static String robotToString(Robot r) {
+		String str = r.getName() + "_" + r.getBtAddress() + "-";
+		str += "(" + r.getCurrentLocation().getX() + ":" + r.getCurrentLocation().getY() + ")";
+		str += "(" + r.getOrientation().getX() + ":" + r.getOrientation().getY() +")";
+		str += "-" + r.isOnJob() + ":" + r.isOnPickup();
+		return str;
+	}
+
+	public static BasicJob toBasicJob(Job t) {
+		return new BasicJob(t.getJobID(), t.getTasks().get(0));
+	}
+}

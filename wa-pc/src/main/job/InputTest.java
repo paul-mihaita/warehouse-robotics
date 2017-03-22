@@ -1,7 +1,9 @@
-package job;
+package main.job;
 
 import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
+
 import utils.Job;
 import utils.Task;
 
@@ -17,18 +19,17 @@ public class InputTest {
 
 		Input input = new Input(false);
 		if (input.initializeListOfJobs(file1, file2, file3)) {
-			
-			
+
 			LOG.debug("Start reading file");
-			
+
 			jobs = input.getJobsArray();
 			for (Job j : jobs) {
 				LOG.debug("JOB: " + j.getJobID() + " Sum of weights: " + j.sumOfWeight());
-				for (Task t : j.geTasks()) {
+				for (Task t : j.getTasks()) {
 					LOG.debug("New task");
-					LOG.debug("Item name: " + t.getTaskItem().getItemName() + "     Quantity: "
-							+ t.getQuantity() + "     Reward: " + t.getTaskItem().getReward() + "     Weight: "
-							+ t.getTaskItem().getWeight());
+					LOG.debug("Item name: " + t.getItem().getItemName() + "     Quantity: " + t.getQuantity()
+							+ "     Reward: " + t.getItem().getReward() + "     Weight: "
+							+ t.getItem().getWeight());
 				}
 				LOG.debug("next task");
 			}
