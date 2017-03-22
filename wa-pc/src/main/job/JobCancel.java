@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 import utils.Item;
 import utils.Job;
@@ -11,9 +12,10 @@ import utils.Task;
 
 public class JobCancel {
 	private static double ProbC = 0;
-	private static Hashtable<Integer,Double> quantProb = new Hashtable<Integer,Double>();
+	private static Hashtable<Item,Hashtable<Integer,Integer>> quantProb = new Hashtable<Item,Hashtable<Integer,Integer>>();
 	private static ArrayList<Job> jobs = new ArrayList<>();
 	private static HashMap<Job, Boolean> jobsCanceled;
+	
 	private static void initialiseQuantProb(HashMap<Job, Boolean> jobs){
 		
 		Collection<Boolean> canceled = jobs.values();
@@ -22,39 +24,44 @@ public class JobCancel {
 			if (b == true)
 				 contor++;
 		}
-		Hashtable<Integer, Integer> quantAux = new Hashtable<Integer,Integer>();
+		Hashtable<Item,Hashtable<Integer,Integer>> quantAuxCanceled = getQuant(jobs,true);	
+		Hashtable<Item,Hashtable<Integer,Integer>> quantAuxNotCanceled = getQuant(jobs,false);	
+		
 		ProbC = (double)contor / canceled.size();
+		
+		for(Item it : quantAuxCanceled.keySet()){
+			Hashtable<Integer, Integer> list = quantAuxCanceled.get(it);
+			int nrOfQuant = list.size();
+			
+		}
+	}
+	private static Hashtable<Item, Hashtable<Integer, Integer>> getQuant(HashMap<Job, Boolean> jobs,boolean canceled) {
+		Hashtable<Item,Hashtable<Integer,Integer>> quantAux = new Hashtable<Item,Hashtable<Integer,Integer>>();
 		for(Job job : jobs.keySet()){
-			if(jobs.get(job) == true){
+			if(jobs.get(job) == canceled){
 				ArrayList<Task> tasks = job.getTasks();
 				for(Task task : tasks){
 					int quant = task.getQuantity();
-					//Item itm = task.getItem();
-					//float reward = task.getTaskReward();
-					if(!quantAux.containsKey(quant)){
-						quantAux.put(quant, 1);
+					if(quantAux.contains(task.getItem())){
+						Hashtable<Integer, Integer> list = quantAux.get(task.getItem());
+						if(list.containsKey(quant)){
+							int v = list.get(quant);
+							list.put(quant, ++v);
+						}
+						else{
+							list.put(quant, 1);
+						}
 					}else{
-						Integer integer = quantAux.get(quant);
-						quantAux.remove(quant);
-						quantAux.put(quant,++integer );
+						Hashtable<Integer, Integer> list = new Hashtable<Integer,Integer>();
+							list.put(quant, 1);
+							quantAux.put(task.getItem(), list);
 					}
 				}
 			}
 		}
-		int nrOfTimes = 0;
-		for(Integer val : quantAux.values()){
-			nrOfTimes += val;
-		}
-		for(Integer key : quantAux.keySet()){
-			if((double)quantAux.get(key) / nrOfTimes > 0.001)
-				quantProb.put(key, (double)quantAux.get(key) / nrOfTimes );
-			else{
-				quantProb.put(key, (double) 0);
-
-			}
-		}
+		return quantAux;
 	}
-	private static void feedData(ArrayList<Job> data){
+	/*private static void feedData(ArrayList<Job> data){
 		jobs = data;
 		Hashtable<Job,Boolean> predicitons = new Hashtable<Job,Boolean>();
 		for(Job job : jobs){
@@ -87,7 +94,7 @@ public class JobCancel {
 				min = aux;
 		}
 		return min;
-	}
+	}*/
 	public static void main (String [] args){
 		Input input = new Input(false);
 		jobsCanceled = input.getCancelledJobs();
@@ -96,7 +103,6 @@ public class JobCancel {
 		for(Job j : jobsCanceled.keySet()){
 			jobsToPredict.add(j);
 		}
-		feedData(jobsToPredict);
-		System.out.println(input.getItemsArray().size());
+		//feedData(jobsToPredict);
 	}
 }
