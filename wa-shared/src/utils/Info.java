@@ -3,11 +3,11 @@ package utils;
 public class Info {
 	public static final String[] RobotNames = new String[] {"Squirtle", "Bulbasaur", "Charmander" };
 	public static final String[] RobotAddresses = new String[] {"0016530FDDAE", "0016531AFA0B" , "00165308DA58"};
-	public static final Location[] RobotStarting = new Location[] {new Location (2,0), new Location (3,0), new Location (4,0)};
-	public static final Location[] RobotVector = new Location[] {new Location (1,0), new Location (1,0), new Location (1,0)};
+	public static final Location[] RobotStarting = new Location[] {new Location (10,0), new Location (9,0), new Location (11,0)};
+	public static final Location[] RobotVector = new Location[] {new Location (-1,0), new Location (-1,0), new Location (-1,0)};
 	/**
 	 * Gets all 3 robots
-	 * @return an array conatining all the robots
+	 * @return an array containing all the robots
 	 */
 	public static Robot[] getRobotsPaul() {
 		Robot[] r = new Robot[RobotNames.length];
