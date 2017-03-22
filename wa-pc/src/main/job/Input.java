@@ -32,7 +32,8 @@ public class Input {
 		this.initializeListOfJobs(path+"jobs", path+"items", path+"locations");
 		this.initializeItemsList(path+"locations");
 		this.initializedropLocations(path+"drops");
-		//this.initializeCancelledJobs(path+"cancellations");
+		this.readTaskAndJobs(path+"training_jobs", false, true);
+		this.initializeCancelledJobs(path+"cancellations");
 	}
 
 	private void initializeCancellation() {
@@ -326,12 +327,17 @@ public class Input {
 						if (parts.length == 2) {
 							Start.log.debug("JobID: " + parts[0] + "\tCancellation: " + parts[1]);
 							int jobID = Integer.parseInt(parts[0]);
-							System.out.println(jobs.size());
 							// Job job =
 							// getJobWithID(Integer.parseInt(parts[0]));
-							for (Job j : jobs) {
+							for (Job j : trainignArray) {
 								if (j.getJobID() == jobID) {
-									jobsWithCancellation.put(j, Boolean.parseBoolean(parts[1]));
+									int ind = Integer.parseInt(parts[1]);
+									if(ind == 1){
+										jobsWithCancellation.put(j, true);
+									}else{
+										jobsWithCancellation.put(j, false);
+
+									}
 									Start.log.debug("Inserted in HashMap:\nJob with ID: " + j.getJobID()
 											+ "\tand Cancellation: " + Boolean.parseBoolean(parts[1]));
 								}
