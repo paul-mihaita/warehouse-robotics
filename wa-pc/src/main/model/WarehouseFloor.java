@@ -129,11 +129,12 @@ public class WarehouseFloor {
 				public void accept(Job t) {
 					if (t.isSelected()) {
 						t.start();
+						Robot temp = r.cloneRobot();
 						HashMap<Robot, Job> give = new HashMap<Robot, Job>();
-						give.put(r, t);
+						give.put(temp, t);
 						Astar.reset();
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
-						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(r));
+						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(temp));
 						/*
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment
@@ -145,7 +146,7 @@ public class WarehouseFloor {
 
 									addToPaths(locPath);
 
-									Thread p = givePath(r, path.get(r), t);
+									Thread p = givePath(r, path.get(temp), t);
 									p.start();
 
 									while (p.isAlive()) {
