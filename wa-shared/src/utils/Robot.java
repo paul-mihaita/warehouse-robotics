@@ -50,12 +50,6 @@ public class Robot {
 		needsUpdate = true;
 	}
 
-	public void setPosition(Location loc, Location orientation) {
-		this.currentLocation = loc;
-		this.orientation = orientation;
-		needsUpdate = true;
-	}
-
 	public Location getCurrentLocation() {
 		return currentLocation;
 	}
@@ -91,7 +85,6 @@ public class Robot {
 		this.name = r.getName();
 		this.onJob = r.isOnJob();
 		this.onPickup = r.isOnPickup();
-		this.orientation = r.getOrientation();
 	}
 
 	public void updated() {

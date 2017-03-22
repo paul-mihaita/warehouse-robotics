@@ -14,7 +14,6 @@ public class Selection extends Thread{
 	private ArrayList<JobWorth> selectedlist;
 	private ArrayList<JobWorth> convertedlist;
 
-
 	public Selection(Robot robot, ArrayList<Job> jobs){
 		
 		this.robot=robot;
@@ -68,8 +67,8 @@ public class Selection extends Thread{
 		ArrayList<JobWorth> jobWorths=new ArrayList<JobWorth>();
 		for(Job job:this.copyJobs){//calculate worth of jobs and add to list
 			
-			JobWorth jobworth=new JobWorth(this.robot, job);
-			jobWorths.add(jobworth);
+			//JobWorth jobworth=new JobWorth(this.robot, job);
+			//jobWorths.add(jobworth);
 		}
 		
 		return jobWorths;

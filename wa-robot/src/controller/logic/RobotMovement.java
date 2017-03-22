@@ -17,8 +17,7 @@ public class RobotMovement {
 		pilot.forward();
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
-		robot.setPosition(l, orientation);
-		Mixtape.play();
+		robot.setCurrentLocation(l);
 		Delay.msDelay(250);
 	}
 

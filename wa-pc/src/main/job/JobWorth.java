@@ -3,11 +3,7 @@ package main.job;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.PriorityQueue;
-
-import com.sun.media.sound.AlawCodec;
-import com.sun.org.apache.bcel.internal.generic.FLOAD;
 
 import main.route.Astar;
 import main.route.CommandCenter;

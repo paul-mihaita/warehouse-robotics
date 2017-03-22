@@ -15,11 +15,11 @@ public class GUI_TEST {
 
 	public static void main(String[] args) {
 		
-		Task task = new Task("item", 5);
+		/*Task task = new Task("item", 5);
 		Message m = new Message((List<move>) new ArrayList<move>(), command.Wait, new BasicJob(1, task));
 		
 		GUI gui = new GUI(new Robot("Keith", "address", new Location(2, 0), new Location(1, 0)), m);
-		gui.start();
+		gui.start();*/
 	}
 
 }
