@@ -7,9 +7,9 @@ import utils.Location;
 import utils.Robot;
 
 public class RobotMovement {
-	public static void backward(Pilot pilot, Robot robot) {
+	public static void backward(Location vector, Pilot pilot, Robot robot) {
 		pilot.rotate(180);
-		forward(changeAngle((double) 180, robot.getOrientation()), pilot, robot);
+		forward(changeAngle((double) 180, vector), pilot, robot);
 	}
 
 	public static void forward(Location orientation, Pilot pilot, Robot robot) {
@@ -20,16 +20,16 @@ public class RobotMovement {
 		Delay.msDelay(250);
 	}
 
-	public static void turnleft(Pilot pilot, Robot robot) {
+	public static void turnleft(Location vector, Pilot pilot, Robot robot) {
 		pilot.travel(0.05);
 		pilot.rotate(-90);
-		forward(changeAngle((double) -90, robot.getOrientation()), pilot, robot);
+		forward(changeAngle((double) -90, vector), pilot, robot);
 	}
 
-	public static void turnright(Pilot pilot, Robot robot) {
+	public static void turnright(Location vector, Pilot pilot, Robot robot) {
 		pilot.travel(0.05);
 		pilot.rotate(90);
-		forward(changeAngle((double) 90, robot.getOrientation()), pilot, robot);
+		forward(changeAngle((double) 90, vector), pilot, robot);
 	}
 
 	public static void waitUntilPress(Pilot pilot) {
