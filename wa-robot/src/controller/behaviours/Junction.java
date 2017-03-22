@@ -8,6 +8,7 @@ import controller.logic.QueueTracker;
 import controller.logic.RobotMovement;
 import movement.Movement.move;
 import rp.config.WheeledRobotConfiguration;
+import utils.Location;
 import utils.Robot;
 
 public class Junction extends AbstractBehavior {
@@ -17,14 +18,16 @@ public class Junction extends AbstractBehavior {
 	private Message msg;
 	private Robot robot;
 	private QueueTracker moveQueue;
+	private Location vector;
 
-	public Junction(Pilot pilot, TapeSensor l, TapeSensor r, Robot robot, Message msg) {
+	public Junction(Pilot pilot, TapeSensor l, TapeSensor r, Robot robot, Message msg, Location vector) {
 		super(pilot);
 		this.left = l;
 		this.right = r;
 		this.msg = msg;
 		this.robot = robot;
 		this.moveQueue = new QueueTracker(msg);
+		this.vector = vector;
 	}
 
 	@Override
@@ -49,16 +52,16 @@ public class Junction extends AbstractBehavior {
 	private void junction(move m) {
 		switch (m) {
 			case BACKWARD:
-				RobotMovement.backward(pilot, robot);
+				RobotMovement.backward(vector, pilot, robot);
 				break;
 			case FORWARD:
-				RobotMovement.forward(robot.getOrientation(), pilot, robot);
+				RobotMovement.forward(vector, pilot, robot);
 				break;
 			case TURNLEFT:
-				RobotMovement.turnleft(pilot, robot);
+				RobotMovement.turnleft(vector, pilot, robot);
 				break;
 			case TURNRIGHT:
-				RobotMovement.turnright(pilot, robot);
+				RobotMovement.turnright(vector, pilot, robot);
 				break;
 			case WAIT:
 				RobotMovement.waitUntilPress(pilot);

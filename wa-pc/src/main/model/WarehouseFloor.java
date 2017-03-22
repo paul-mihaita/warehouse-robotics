@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.PriorityQueue;
+import java.util.Random;
 import java.util.function.Consumer;
 
 import org.apache.log4j.Logger;
@@ -85,9 +86,9 @@ public class WarehouseFloor {
 			log.debug(d.toString());
 		}
 
-		Robot[] robos = Info.getRobotsPaul();
-		this.robots.add(robos[0]); // squirtle
-		this.robots.add(robos[1]); // bulbasaur
+		Robot[] robos = Info.getRobotsVector();
+		//this.robots.add(robos[0]); // squirtle
+		//this.robots.add(robos[1]); // bulbasaur
 		this.robots.add(robos[2]); // charmander
 
 		for (Job j : jobs) {
@@ -335,6 +336,8 @@ public class WarehouseFloor {
 		for (Job j : jobList.values()) {
 			if (j.isNotSelected()) {
 				validJobs.add(j);
+				////SOMEONE FIX THIS PLZ
+				j.setDropLocation(dropLocations.get(new Random().nextInt(dropLocations.size()-1)));
 			}
 		}
 
