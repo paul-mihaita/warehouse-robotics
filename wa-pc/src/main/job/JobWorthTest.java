@@ -16,23 +16,19 @@ import utils.Robot;
 public class JobWorthTest {
 
 	public static final Logger log = Logger.getLogger(Start.class);
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 
 		Input in = new Input(false);
-		//in.initializeListOfJobs("1", "2", "3");
-		
-		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
-				in.getJobsArray(), null, log, false);
+		// in.initializeListOfJobs("1", "2", "3");
 
-		
-		
-		//HashMap<String, String> jobsReward = jobWorth.getReward(); 
-		
-		//GUI.create(model);
-		
+		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
+				in.getDropLocations(), in.getItemsArray(), in.getJobsArray(), log, false);
+
+		// HashMap<String, String> jobsReward = jobWorth.getReward();
+
+		// GUI.create(model);
+
 	}
-	
-	
 
 }

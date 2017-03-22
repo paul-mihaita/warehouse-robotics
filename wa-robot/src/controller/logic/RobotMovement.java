@@ -17,7 +17,7 @@ public class RobotMovement {
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
-		Delay.msDelay(200);
+		Delay.msDelay(250);
 	}
 
 	public static void turnleft(Pilot pilot, Robot robot) {

@@ -75,19 +75,18 @@ public class CommandCenter {
 
 		for (Robot r : robots) {
 			startOrientations.put(r, r.getOrientation());
-			finalOrientation.put(r, r.getOrientation());
 			startLocations.put(r, r.getCurrentLocation());
 		}
 		for (int i = 0; i < maxItem; i++) {
 			Hashtable<Robot, Location> targets = new Hashtable<Robot, Location>();
 			for (Robot r : robots) {
 				ArrayList<Location> aux = finishLoc.get(r);
+				r.setOrientation(startOrientations.get(r));
+				
 				if (aux.size() > i) {
 					targets.put(r, aux.get(i));
-					r.setOrientation(finalOrientation.get(r));
 				} else {
 					targets.put(r, r.getCurrentLocation());
-					r.setOrientation(finalOrientation.get(r));
 				}
 
 			}
@@ -109,17 +108,35 @@ public class CommandCenter {
 						auxLoc.add(y);
 						pathsLocations.put(r, auxLoc);
 						j++;
-					} else
+					} else{
 						j++;
+						
+					}
 				}
 			} else {
 				int j = 0;
 				for (ArrayList<Location> y : x) {
 					if (y.size() > 2) {
+						ArrayList<move> aux = new ArrayList<>();
 						Robot r = robots.get(j);
+						aux = CommandCenter.generateMovements(y, r.getOrientation());
 						finalLoc.put(r, y.get(y.size() - 1));
 						finalOrientation.put(r, getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
-						pathsLocations.get(r).add(y);
+						if(paths.containsKey(r))
+							paths.get(r).add(aux);
+						else{
+							ArrayList<ArrayList<move>> auxx = new ArrayList<>();
+							auxx.add(aux);
+							paths.put(r,auxx);
+						}
+						if(pathsLocations.containsKey(r)){
+							pathsLocations.get(r).add(y);
+						}
+						else{
+							ArrayList<ArrayList<Location>> auxLoc = new ArrayList<>();
+							auxLoc.add(y);
+							pathsLocations.put(r, auxLoc);
+						}
 						j++;
 					} else
 						j++;

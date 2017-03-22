@@ -5,6 +5,7 @@ public class Robot {
 	private String name = "";
 	private String btAddress = "";
 	private Location orientation;
+	private Location vectorOrient;
 	private Location currentLocation;
 	private boolean onJob;
 	private boolean onPickup;
@@ -129,5 +130,15 @@ public class Robot {
 		returnStr += name;
 		returnStr += currentLocation.toString();
 		return returnStr;
+	}
+	
+	public Robot cloneRobot() {
+		Robot clone = new Robot(this.name, this.btAddress, this.orientation, this.currentLocation);
+		clone.setMoves(this.movesCompleted);
+		clone.setOnJob(this.onJob);
+		clone.setOnPickup(this.onPickup);
+		clone.setMoving(this.isMoving);
+		clone.updated();
+		return clone;
 	}
 }

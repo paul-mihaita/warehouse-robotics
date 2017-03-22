@@ -27,6 +27,7 @@ public class Input {
 	private HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
 	
 	private final String PATH = "./data_files/";
+	String path = "./data_files/";
 	private final String JOBS_FILE = PATH + "jobs";
 	private final String ITEMS_FILE = PATH + "items";
 	private final String LOCATIONS_FILE = PATH + "locations";
@@ -38,15 +39,17 @@ public class Input {
 
 	public Input(boolean haveTitle) {
 		thereIsTheTitleFile = haveTitle;
+
 		this.initializeListOfJobs(JOBS_FILE, ITEMS_FILE, LOCATIONS_FILE);
 		this.initializeItemsList(LOCATIONS_FILE);
 		this.initializedropLocations(DROPS_FILE);
 		this.initializeCancellation(CANCELLATIONS_FILE, TRAINING_JOBS_FILE);
+
 	}
 
 	private void initializeCancellation(String cancellation_file, String training_job_file) {
-		this.initializeCancelledJobs(cancellation_file);
 		this.readTaskAndJobs(training_job_file, false, true);
+		this.initializeCancelledJobs(cancellation_file);
 	}
 
 	public Input() {
@@ -244,11 +247,9 @@ public class Input {
 				if (!fileHaveTheExtension(fileName)) {
 					fileName = fileName + ".csv";
 				}
-				// CREATE SCANNER TO READ FILE
 				Scanner inFile = new Scanner(new File(fileName));
 				String token;
 				boolean toDo = !thereIsTheTitleFile;
-				// WHILE UNTIL THE END OF THE FILE
 				while (inFile.hasNext()) {
 					token = inFile.nextLine();
 					if (toDo) {
@@ -323,24 +324,27 @@ public class Input {
 				if (!fileHaveTheExtension(fileName)) {
 					fileName = fileName + ".csv";
 				}
-				// CREATE SCANNER TO READ FILE
 				Scanner inFile = new Scanner(new File(fileName));
 				String token;
 				boolean isCancelled;
 				boolean toDo = !thereIsTheTitleFile;
 				while (inFile.hasNext() && i < MAX_LINES) {
-					i++;
+					//i++;		//uncomment to limit the number of lines to read
 					token = inFile.nextLine();
 					if (toDo) {
 						String[] parts = token.split(",");
 						if (parts.length == 2) {
 							Start.log.debug("JobID: " + parts[0] + "\tCancellation: " + parts[1]);
-							int jobID = Integer.parseInt(parts[0].trim());
-							for (Job j : jobs) {
-								//System.out.println("j.getJobID() = "+j.getJobID()+" jpobID = "+jobID);
+							int jobID = Integer.parseInt(parts[0]);
+							for (Job j : trainignArray) {
 								if (j.getJobID() == jobID) {
-									System.out.println("THIS SHOULD BE PRINTED");
-									jobsWithCancellation.put(j, Boolean.parseBoolean(parts[1]));
+									int ind = Integer.parseInt(parts[1]);
+									if(ind == 1){
+										jobsWithCancellation.put(j, true);
+									}else{
+										jobsWithCancellation.put(j, false);
+
+									}
 									Start.log.debug("Inserted in HashMap:\nJob with ID: " + j.getJobID()
 											+ "\tand Cancellation: " + Boolean.parseBoolean(parts[1]));
 								}

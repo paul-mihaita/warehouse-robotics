@@ -1,9 +1,8 @@
 package main.gui;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Iterator;
 
-import bootstrap.Start;
 import graph_entities.IEdge;
 import graph_entities.IVertex;
 import javafx.scene.canvas.Canvas;
@@ -20,14 +19,12 @@ import utils.Info;
 import utils.Item;
 import utils.Location;
 import utils.Robot;
-import utils.Tuple;
 
 public class MapPane extends Canvas {
 
 	private static WarehouseFloor model;
-	private static Thread nodeAnimator;
+	private static Thread pathAnimator;
 	private static Thread canvasHandler;
-
 	private static final Image WATER = new Image(
 			"http://orig04.deviantart.net/789b/f/2012/102/f/4/bigger_8_bit_squirtle_by_mickiart14-d4vwhge.png", 65, 65,
 			false, false);
@@ -47,43 +44,14 @@ public class MapPane extends Canvas {
 
 		Graph<Location> floorMap = model.getFloorGraph();
 
-		nodeAnimator = new Thread() {
-
-			@Override
-			public void run() {
-				this.setName("Node animator");
-				while (!this.isInterrupted()) {
-					int max = getMaxNodes();
-					for (int i = 0; i < max; i++) {
-						for (ArrayList<Location> path : makeDrawable(GUI.getPaths())) {
-
-							if (i < path.size()) {
-								GUI.getNodesToDraw().add(path.get(i));
-							}
-						}
-
-						if (this.isInterrupted())
-							return;
-
-						new Rate(1.5).sleep();
-
-						if (this.isInterrupted())
-							return;
-
-						for (ArrayList<Location> path : makeDrawable(GUI.getPaths())) {
-							if (i < path.size()) {
-								GUI.getNodesToDraw().remove(path.get(i));
-							}
-						}
-					}
-				}
-			}
-		};
+		pathAnimator = new PathAnimator(model, gc);
 
 		canvasHandler = new Thread() {
 			@Override
 			public void run() {
 				this.setName("Canvas Handler");
+
+				Rate r = new Rate(10);
 
 				while (!this.isInterrupted()) {
 					gc.clearRect(0, 0, GUI.MAP_WIDTH, GUI.HEIGHT);
@@ -91,39 +59,46 @@ public class MapPane extends Canvas {
 					for (IVertex<Location> v : floorMap.getVertices()) {
 						MapPane.drawEdges(v, gc);
 					}
-					MapPane.drawPath(gc);
+
+					MapPane.drawPaths(gc);
 					MapPane.drawRobots(gc);
-					MapPane.drawNodes(gc);
 					MapPane.drawItems(gc, model.getItems());
-					new Rate(5).sleep();
+
+					r.sleep();
 				}
 
 			}
 		};
 
 		canvasHandler.start();
-		nodeAnimator.start();
+		pathAnimator.start();
 	}
 
-	private static void drawPath(GraphicsContext gc) {
+	private static void drawPaths(GraphicsContext gc) {
 
-		for (Tuple<ArrayList<ArrayList<Location>>, Robot> path : GUI.getPaths()) {
+		Iterator<ArrayList<Location>> iter = model.getActivePaths().iterator();
 
-			for (ArrayList<Location> part : path.getX()) {
+		while (iter.hasNext()) {
 
-				gc.setFill(Color.BLUE);
-				gc.setStroke(Color.BLUE);
+			ArrayList<Location> path = iter.next();
 
-				gc.setLineWidth(4);
+			for (int i = 0; i < path.size() - 1; i++) {
+
+				Location l = path.get(i);
+				Location m = path.get(i + 1);
+
+				gc.setStroke(Color.CADETBLUE);
 				gc.setLineDashes(7);
+				gc.setLineWidth(6);
 
-				for (int i = 0; i < part.size() - 1; i++) {
-					gc.strokeLine(scale(part.get(i).getX()) + 5, scale(part.get(i).getY()) + 5,
-							scale(part.get(i + 1).getX()) + 5, scale(part.get(i + 1).getY()) + 5);
-				}
+				gc.strokeLine(scale(l.getX()), scale(l.getY()), scale(m.getX()), scale(m.getY()));
 
 			}
+
+			iter.remove();
+
 		}
+
 	}
 
 	private static void drawEdges(IVertex<Location> v, GraphicsContext gc) {
@@ -154,7 +129,7 @@ public class MapPane extends Canvas {
 			if (r.getName().equals(Info.RobotNames[0])) {
 				// the water one
 				gc.drawImage(makeTransparent(WATER), scale(r.getCurrentLocation().getX()) - 25,
-						scale(r.getCurrentLocation().getY()) - 30);
+						scale(r.getCurrentLocation().getY()) - 25);
 
 				gc.setFill(Color.BLUE);
 
@@ -162,83 +137,91 @@ public class MapPane extends Canvas {
 				// the grass one
 
 				gc.drawImage(makeTransparent(GRASS), scale(r.getCurrentLocation().getX()) - 10,
-						scale(r.getCurrentLocation().getY()) - 25);
+						scale(r.getCurrentLocation().getY()) - 15);
 
 				gc.setFill(Color.GREEN);
 
 			} else if (r.getName().equals(Info.RobotNames[2])) {
 				// the fire one
 				gc.drawImage(makeTransparent(FIRE), scale(r.getCurrentLocation().getX()) - 10,
-						scale(r.getCurrentLocation().getY()) - 15);
+						scale(r.getCurrentLocation().getY()) - 20);
 
 				gc.setFill(Color.RED);
 
 			}
 
-			float x = r.getCurrentLocation().getX();
-			float y = r.getCurrentLocation().getY();
-
-			float rx = r.getRelativeOrientation().getX();
-			float ry = r.getRelativeOrientation().getY();
-
-			double[] xPoints = new double[3];
-			double[] yPoints = new double[3];
-
-			if (rx == 1.0f) {
-				// right
-
-				xPoints[0] = scale(x + 0.5f);
-				yPoints[0] = scale(y);
-
-				xPoints[1] = scale(x + 0.3f);
-				xPoints[1] = scale(y - 0.2f);
-
-				xPoints[2] = scale(x + 0.3f);
-				xPoints[2] = scale(y + 0.2f);
-
-			} else if (rx == -1.0f) {
-				// left
-
-				xPoints[0] = scale(x - 0.5f);
-				yPoints[0] = scale(y);
-
-				xPoints[1] = scale(x - 0.3f);
-				xPoints[1] = scale(y - 0.2f);
-
-				xPoints[2] = scale(x - 0.3f);
-				xPoints[2] = scale(y + 0.2f);
-
-			} else if (ry == 1.0d) {
-				// down
-
-				xPoints[0] = scale(x);
-				yPoints[0] = scale(y + 0.5f);
-
-				xPoints[1] = scale(x - 0.2f);
-				xPoints[1] = scale(y + 0.3f);
-
-				xPoints[2] = scale(x + 0.2f);
-				xPoints[2] = scale(y + 0.3f);
-
-			} else {
-				// up
-
-				xPoints[0] = scale(x);
-				yPoints[0] = scale(y - 0.5f);
-
-				xPoints[1] = scale(x - 0.2f);
-				xPoints[1] = scale(y - 0.3f);
-
-				xPoints[2] = scale(x + 0.2f);
-				xPoints[2] = scale(y - 0.3f);
-
-			}
-
-			//Start.log.debug("Direction drawn at: " + r.getOrientation().toString());
-
-			// gc.fillPolygon(xPoints, yPoints, 3);
+			// drawOrientation(r, gc);
 
 		}
+	}
+
+	@SuppressWarnings("unused")
+	private static void drawOrientation(Robot r, GraphicsContext gc) {
+
+		float x = r.getCurrentLocation().getX();
+		float y = r.getCurrentLocation().getY();
+
+		float rx = r.getRelativeOrientation().getX();
+		float ry = r.getRelativeOrientation().getY();
+
+		double[] xPoints = new double[3];
+		double[] yPoints = new double[3];
+
+		if (rx == 1.0f) {
+			// right
+
+			xPoints[0] = scale(x + 0.5f);
+			yPoints[0] = scale(y);
+
+			xPoints[1] = scale(x + 0.3f);
+			xPoints[1] = scale(y - 0.2f);
+
+			xPoints[2] = scale(x + 0.3f);
+			xPoints[2] = scale(y + 0.2f);
+
+		} else if (rx == -1.0f) {
+			// left
+
+			xPoints[0] = scale(x - 0.5f);
+			yPoints[0] = scale(y);
+
+			xPoints[1] = scale(x - 0.3f);
+			xPoints[1] = scale(y - 0.2f);
+
+			xPoints[2] = scale(x - 0.3f);
+			xPoints[2] = scale(y + 0.2f);
+
+		} else if (ry == 1.0d) {
+			// down
+
+			xPoints[0] = scale(x);
+			yPoints[0] = scale(y + 0.5f);
+
+			xPoints[1] = scale(x - 0.2f);
+			xPoints[1] = scale(y + 0.3f);
+
+			xPoints[2] = scale(x + 0.2f);
+			xPoints[2] = scale(y + 0.3f);
+
+		} else {
+			// up
+
+			xPoints[0] = scale(x);
+			yPoints[0] = scale(y - 0.5f);
+
+			xPoints[1] = scale(x - 0.2f);
+			xPoints[1] = scale(y - 0.3f);
+
+			xPoints[2] = scale(x + 0.2f);
+			xPoints[2] = scale(y - 0.3f);
+
+		}
+
+		// Start.log.debug("Direction drawn at: " +
+		// r.getOrientation().toString());
+
+		// gc.fillPolygon(xPoints, yPoints, 3);
+
 	}
 
 	private static final int TOLERANCE_THRESHOLD = 0XFF;
@@ -283,17 +266,6 @@ public class MapPane extends Canvas {
 
 	}
 
-	private static void drawNodes(GraphicsContext gc) {
-
-		ArrayList<Location> nodes = GUI.getNodes();
-
-		gc.setFill(Color.CADETBLUE);
-		for (Location l : nodes) {
-			gc.fillOval(scale(l.getX()), scale(l.getY()), 10, 10);
-		}
-
-	}
-
 	private static float scale(float value) {
 
 		// Factors to make the drawing central and pretty
@@ -305,37 +277,6 @@ public class MapPane extends Canvas {
 
 	public void interrupt() {
 		canvasHandler.interrupt();
-		nodeAnimator.interrupt();
-	}
-
-	private static ArrayList<ArrayList<Location>> makeDrawable(
-			HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> clone) {
-		ArrayList<ArrayList<Location>> drawable = new ArrayList<ArrayList<Location>>();
-
-		for (Tuple<ArrayList<ArrayList<Location>>, Robot> partPath : clone) {
-			ArrayList<Location> wholePath = new ArrayList<Location>();
-			for (ArrayList<Location> singlePath : partPath.getX()) {
-				for (Location l : singlePath) {
-					wholePath.add(l);
-				}
-			}
-			drawable.add(wholePath);
-		}
-
-		return drawable;
-	}
-
-	private synchronized static int getMaxNodes() {
-
-		int maxPath = 0;
-
-		HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>> clone = new HashSet<Tuple<ArrayList<ArrayList<Location>>, Robot>>(
-				GUI.getPaths());
-
-		for (ArrayList<Location> path : makeDrawable(clone)) {
-			maxPath = Math.max(maxPath, path.size());
-		}
-
-		return maxPath;
+		pathAnimator.interrupt();
 	}
 }

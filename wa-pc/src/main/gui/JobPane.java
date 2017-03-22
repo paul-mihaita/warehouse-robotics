@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import main.gui.listeners.JobCancel;
 import main.model.WarehouseFloor;
 import utils.Job;
 import utils.Job.Status;
@@ -73,12 +74,7 @@ public class JobPane extends GridPane {
 
 			Button cancel = new Button("Cancel");
 			cancel.setTextFill(Color.RED);
-			cancel.setOnAction(e -> {
-				model.cancelJob(j);
-				model.reassignJobs();
-				JobPane.updateLabels();
-				RobotPane.updateLabels();
-			});
+			cancel.setOnAction(new JobCancel(model, j));
 
 			jobStatus.put(status, j);
 

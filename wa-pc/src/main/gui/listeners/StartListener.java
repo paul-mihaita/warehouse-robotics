@@ -3,7 +3,6 @@ package main.gui.listeners;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import main.gui.GUI;
-import main.gui.RobotPane;
 import main.model.WarehouseFloor;
 
 public class StartListener implements EventHandler<ActionEvent> {
@@ -17,6 +16,7 @@ public class StartListener implements EventHandler<ActionEvent> {
 	@Override
 	public void handle(ActionEvent event) {
 
+		model.reassignJobs();
 		model.startRobots();
 		GUI.refresh();
 

@@ -22,10 +22,10 @@ public class Forward extends AbstractBehavior {
 
 	@Override
 	public void action() {
+		System.out.println("for");
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.forward();
-		while (!suppressed)
-			;
+		while (!suppressed);
 		suppressed = false;
 		pilot.stop();
 	}
