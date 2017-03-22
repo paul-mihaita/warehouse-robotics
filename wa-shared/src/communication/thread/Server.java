@@ -65,6 +65,7 @@ public class Server extends Thread {
 				log.debug("thread created");
 			} catch (NXTCommException e) {
 				log.error("Couldn't connect", e);
+				connected = true;
 				return;
 			}
 		}
@@ -90,7 +91,7 @@ public class Server extends Thread {
 	public void launch() {
 		this.start();
 		while (!connected) {
-			Delay.msDelay(1000);
+			Delay.msDelay(100);
 		}
 	}
 

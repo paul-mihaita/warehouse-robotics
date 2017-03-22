@@ -119,7 +119,7 @@ public class WarehouseFloor {
 
 	private void initalizePoller() {
 		for (Robot r : robots) {
-			poller.put(r, new RobotHelper(messageQueues.get(r)));
+			poller.put(r, new RobotHelper(messageQueues.get(r), r));
 		}
 	}
 
