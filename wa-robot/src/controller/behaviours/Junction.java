@@ -1,5 +1,6 @@
 package controller.behaviours;
 
+import beats.Mixtape;
 import communication.CommConst.command;
 import communication.Message;
 import constants.RobotConstants;
@@ -41,6 +42,7 @@ public class Junction extends AbstractBehavior {
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
 		moveQueue.pull();
 		if (moveQueue.finished()) {
+			Mixtape.play();
 			robot.setMoving(false);
 			pilot.stop();
 			return;

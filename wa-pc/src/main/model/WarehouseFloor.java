@@ -83,11 +83,10 @@ public class WarehouseFloor {
 			log.debug(d.toString());
 		}
 
-
 		Robot[] robos = Info.getRobotsPaul();
-		//this.robots.add(robos[0]); // squirtle
+		this.robots.add(robos[0]); // squirtle
 		//this.robots.add(robos[1]); // bulbasaur
-		this.robots.add(robos[2]); // charmander
+		//this.robots.add(robos[2]); // charmander
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -134,6 +133,7 @@ public class WarehouseFloor {
 						Astar.reset();
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
 						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(temp));
+						r.setOrientation(temp.getOrientation());
 						/*
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment
@@ -147,15 +147,14 @@ public class WarehouseFloor {
 
 									Thread p = new Thread(givePath(r, path.get(temp), job));
 									p.start();
-									
+
 									try {
 										p.join();
 										job.completed();
 									} catch (InterruptedException e) {
 										job.cancel();
 									}
-									
-									
+
 									removeFromPaths(locPath);
 								}
 							}.start();
@@ -326,7 +325,7 @@ public class WarehouseFloor {
 	}
 
 	public void reassignJobs() {
-		
+
 		ArrayList<Job> validJobs = new ArrayList<Job>();
 		ArrayList<Robot> unAssigned = new ArrayList<Robot>();
 		for (Job j : jobList.values()) {
@@ -334,7 +333,7 @@ public class WarehouseFloor {
 				validJobs.add(j);
 			}
 		}
-		
+
 		for (Robot r : assignment.keySet()) {
 
 			if (assignment.get(r).isPresent()) {
@@ -347,11 +346,11 @@ public class WarehouseFloor {
 			}
 
 		}
-		
+
 		if (unAssigned.isEmpty()) {
 			return;
 		}
-		
+
 		JobWorth selector = new JobWorth(validJobs, unAssigned);
 		PriorityQueue<Job> queue = selector.getReward();
 		for (Robot r : unAssigned) {

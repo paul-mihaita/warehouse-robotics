@@ -13,9 +13,6 @@ public class Mixtape {
 				File file = new File("junction.wav");
 				Sound.setVolume(Sound.VOL_MAX);
 				Sound.playSample(file);
-				p(432, 500);
-				p(400, 500);
-				p(350, 250);
 			}
 		}.run();
 	}

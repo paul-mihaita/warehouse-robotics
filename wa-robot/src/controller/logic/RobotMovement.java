@@ -1,8 +1,6 @@
 package controller.logic;
 
-import beats.Mixtape;
 import lejos.nxt.Button;
-import lejos.robotics.navigation.DifferentialPilot;
 import lejos.util.Delay;
 import utils.Location;
 import utils.Robot;
@@ -48,6 +46,7 @@ public class RobotMovement {
 		l.setY(newy);
 		return l;
 	}
+
 	private static int round(double d) {
 		if (d > 0) {
 			return (int) (d + 0.5);
