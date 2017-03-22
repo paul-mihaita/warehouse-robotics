@@ -31,9 +31,8 @@ public class JobWorth {
 	private HashMap<Robot, Job> map;
 	private HashMap<Integer, Float> jobsWorth;
 
-	JobComparator jc = new JobComparator();
-	PriorityQueue<Job> jobsQueue = new PriorityQueue<>(jc);
-	
+	private static JobComparator jc = new JobComparator();
+	private static PriorityQueue<Job> jobsQueue = new PriorityQueue<>(jc);
 	
 	
 	
@@ -41,8 +40,6 @@ public class JobWorth {
 	public static HashMap<Job, Float> bella = new HashMap<>();
 	
 	/////////////////////////////////////////////////
-	
-	
 	
 	
 	
@@ -103,9 +100,6 @@ public class JobWorth {
 
 	
 	
-	
-	
-	
 	public static int manhattanDistance(ArrayList<Robot> robots, ArrayList<Job> jobs) {
 
 		float tempAvgRevForRobot=0f;
@@ -127,36 +121,30 @@ public class JobWorth {
 			bella.put(job, valueOfJob);
 		}
 		
-		/*
-		riordinaPerValore(bella);
-		
-		ritorna => PriorityQueue ordinata in base al valore
-		*/
+		for(Job job: jobs)
+			jobsQueue.offer(job);
+
 		return 0;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public class JobComparator implements Comparator<Job> {
+	public static void printMap(HashMap<Integer, Float> map) {
+		for (Integer key : map.keySet()) {
+			String k = key.toString();
+			String value = map.get(key).toString();
+			System.out.println("JobID: " + k + "\t worth: " + value);
+		}
+
+	}
+
+	public static class JobComparator implements Comparator<Job> {
 		@Override
 		public int compare(Job j1, Job j2) {
-			if (jobsWorth.get(j1.getJobID()) < jobsWorth.get(j2.getJobID()))
+			if(bella.get(j1)<bella.get(j2))
 				return -1;
-			else if (jobsWorth.get(j1.getJobID()) > jobsWorth.get(j2.getJobID()))
+			else if (bella.get(j1)==bella.get(j2))
 				return 0;
 			else
-				return 0;
+				return 1;
 		}
 	}
 
