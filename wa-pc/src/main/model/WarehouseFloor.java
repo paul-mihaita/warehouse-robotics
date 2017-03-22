@@ -161,7 +161,6 @@ public class WarehouseFloor {
 										job.completed();
 									}
 									removeFromPaths(locPath);
-									WarehouseFloor.this.reassignJobs();
 								}
 							}.start();
 						} else {
@@ -174,8 +173,9 @@ public class WarehouseFloor {
 									Delay.msDelay(1000);
 
 									job.completed();
+									r.setCurrentLocation(
+											job.getTasks().get(job.getTasks().size() - 1).getItem().getLocation());
 									removeFromPaths(locPath);
-									WarehouseFloor.this.reassignJobs();
 								}
 
 							}.start();
