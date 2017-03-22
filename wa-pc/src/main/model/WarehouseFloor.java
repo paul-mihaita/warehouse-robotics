@@ -9,11 +9,13 @@ import java.util.function.Consumer;
 
 import org.apache.log4j.Logger;
 
+import bootstrap.Start;
 import communication.BasicJob;
 import communication.CommConst.command;
 import communication.Message;
 import communication.thread.Converters;
 import communication.thread.Server;
+import lejos.util.Delay;
 import main.job.JobWorth;
 import main.route.Astar;
 import main.route.CommandCenter;
@@ -86,9 +88,9 @@ public class WarehouseFloor {
 		}
 
 		Robot[] robos = Info.getRobotsPaul();
-		this.robots.add(robos[0]); //squirtle
-		this.robots.add(robos[1]); //bulbasaur
-		this.robots.add(robos[2]); //charmander
+		this.robots.add(robos[0]); // squirtle
+		this.robots.add(robos[1]); // bulbasaur
+		this.robots.add(robos[2]); // charmander
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -158,8 +160,8 @@ public class WarehouseFloor {
 										t.completed();
 									}
 									removeFromPaths(locPath);
+									WarehouseFloor.this.reassignJobs();
 								}
-
 							}.start();
 						} else {
 							new Thread() {
@@ -168,8 +170,11 @@ public class WarehouseFloor {
 
 									addToPaths(locPath);
 
+									Delay.msDelay(1000);
+
 									t.completed();
 									removeFromPaths(locPath);
+									WarehouseFloor.this.reassignJobs();
 								}
 
 							}.start();
@@ -235,9 +240,9 @@ public class WarehouseFloor {
 
 		ArrayList<Task> jobs = j.getTasks();
 
-		//jobs.add(new Task("dd", 0));
+		// jobs.add(new Task("dd", 0));
 
-		//j.setTasks(jobs);
+		// j.setTasks(jobs);
 
 		if (!assignment.get(r).isPresent()) {
 			assignment.remove(r);
