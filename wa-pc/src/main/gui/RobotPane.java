@@ -1,8 +1,14 @@
 package main.gui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Predicate;
 
+import org.apache.log4j.Logger;
+
+import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -19,14 +25,16 @@ import utils.Tuple;
 
 public class RobotPane extends GridPane {
 
-	private static HashMap<Robot, Tuple<Label, Label>> robotLabels;
+	private static HashMap<Robot, ArrayList<Label>> robotLabels;
+	private static HashMap<Robot, GridPane> robotItems;
 	private static WarehouseFloor model;
 
 	public RobotPane(WarehouseFloor model) {
 		super();
 
 		RobotPane.model = model;
-		RobotPane.robotLabels = new HashMap<Robot, Tuple<Label, Label>>();
+		RobotPane.robotLabels = new HashMap<Robot, ArrayList<Label>>();
+		RobotPane.robotItems = new HashMap<Robot, GridPane>();
 
 		this.setMaxHeight(GUI.HEIGHT);
 		this.setPrefWidth(GUI.SIDEBAR_WIDTH);
@@ -38,7 +46,7 @@ public class RobotPane extends GridPane {
 		startButton.setFont(new Font(20));
 
 		startButton.setPrefWidth(GUI.SIDEBAR_WIDTH);
-		
+
 		startButton.setOnAction(new StartListener(model));
 
 		this.add(startButton, 0, 1);
@@ -54,7 +62,7 @@ public class RobotPane extends GridPane {
 		for (Robot r : model.getRobots()) {
 
 			GridPane robotPane = new GridPane();
-			
+
 			robotPane.setAlignment(Pos.BASELINE_RIGHT);
 
 			robotPane.setMaxWidth(GUI.SIDEBAR_WIDTH - 20);
@@ -68,7 +76,7 @@ public class RobotPane extends GridPane {
 			cancelb.setTextFill(Color.CRIMSON);
 			cancelb.setMinWidth(75);
 			cancelb.setOnAction(new RobotCancel(model, r));
-			
+
 			Label s = new Label("Job status:");
 
 			String text;
@@ -127,9 +135,13 @@ public class RobotPane extends GridPane {
 				}
 
 				robotPane.add(taskPane, 0, 3, 3, 3);
+				robotItems.put(r, taskPane);
 			}
 
-			robotLabels.put(r, new Tuple<Label, Label>(jobId, status));
+			ArrayList<Label> labels = new ArrayList<Label>();
+			labels.add(jobId);
+			labels.add(status);
+			robotLabels.put(r, labels);
 
 			robotGrid.add(robotPane, 0, level++);
 		}
@@ -139,7 +151,7 @@ public class RobotPane extends GridPane {
 
 	public static void updateLabels() {
 		for (Robot r : robotLabels.keySet()) {
-			Tuple<Label, Label> t = robotLabels.get(r);
+			ArrayList<Label> t = robotLabels.get(r);
 			String text;
 
 			if (model.getJob(r).isPresent()) {
@@ -148,7 +160,7 @@ public class RobotPane extends GridPane {
 				text = "UNASSIGNED";
 			}
 
-			t.getX().setText(text);
+			t.get(0).setText(text);
 
 			if (model.getJob(r).isPresent()) {
 				text = model.getJob(r).get().getStatus().toString();
@@ -156,8 +168,46 @@ public class RobotPane extends GridPane {
 				text = "UNASSIGNED";
 			}
 
-			t.getY().setText(text);
+			t.get(1).setText(text);
 
+		}
+	}
+
+	public static void updateItems() {
+		for (Robot r : model.getRobots()) {
+			GridPane pane = robotItems.get(r);
+			if (model.getJob(r).isPresent() && !model.getJob(r).get().getTasks().isEmpty()) {
+
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+
+						pane.getChildren().removeIf(new Predicate<Node>() {
+							@Override
+							public boolean test(Node arg0) {
+								GUI.log.debug("Items nodes removed");
+								return true;
+							}
+
+						});
+
+						int i = 0;
+
+						for (Task t1 : model.getJob(r).get().getTasks()) {
+
+							Label itemName = new Label(t1.getItem().getItemName());
+							Label itemQuantity = new Label("" + t1.getQuantity());
+
+							pane.add(itemName, 0, i);
+							pane.add(itemQuantity, 1, i++);
+
+							GUI.log.debug("Items nodes populated");
+
+						}
+					}
+				});
+
+			}
 		}
 	}
 
