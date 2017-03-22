@@ -10,7 +10,7 @@ import rp.robotics.mapping.MapUtils;
 
 public class Start {
 
-	public static final Logger LOG = Logger.getLogger(Start.class);
+	public static final Logger log = Logger.getLogger(Start.class);
 
 	public static void main(String[] args) {
 		boolean server;
@@ -18,7 +18,7 @@ public class Start {
 			server = false;
 		else
 			server = true;
-		LOG.info("Starting");
+		log.info("Starting");
 
 		Input in = new Input(false);
 		
@@ -27,7 +27,7 @@ public class Start {
 				in.getJobsArray(), in.getItemsArray(), in.getIDropLocationArray(), server);
 		// Testing
 
-		LOG.debug("Number of Jobs: " + model.getJobs().size());
+		log.debug("Number of Jobs: " + model.getJobs().size());
 
 		GUI.create(model);
 	}
