@@ -34,7 +34,7 @@ public class PCSender extends Thread {
 	public void run() {
 		while (running) {
 			if (robot.needsUpdate()) {
-				log.debug(this.getName() + "robot needs an update");
+				log.info(this.getName() + "robot needs an update");
 				try {
 					toNXT.sendRobot(robot);
 					robot.updated();
@@ -45,7 +45,7 @@ public class PCSender extends Thread {
 				continue;
 			}
 			if (msg.needsUpdate()) {
-				log.debug(this.getName() + "Message needs update");
+				log.info(this.getName() + "Message needs update");
 				try {
 					toNXT.sendMessage(msg);
 					msg.updated();

@@ -13,6 +13,7 @@ public abstract class AbstractOutputStream {
 	}
 
 	protected void write(int b) throws IOException {
+		if (b == -1) return;
 		stream.write(b);
 		stream.flush();
 		Delay.msDelay(CommConst.GRACE);

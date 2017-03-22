@@ -120,7 +120,7 @@ public class Converters {
 		return str;
 	}
 
-	public static BasicJob toBasicJob(Job t) {
-		return new BasicJob(t.getJobID(), t.getTasks().get(0));
+	public static BasicJob toBasicJob(Job t, int TaskNum) {
+		return new BasicJob(t.getJobID(), t.getTasks().get(TaskNum));
 	}
 }

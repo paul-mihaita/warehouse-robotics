@@ -14,11 +14,11 @@ public class RobotMovement {
 	}
 
 	public static void forward(Location orientation, Pilot pilot, Robot robot) {
+		Mixtape.play();
 		pilot.forward();
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
-		Mixtape.play();
 		Delay.msDelay(250);
 	}
 

@@ -8,7 +8,7 @@ public class BasicJob {
 
 	public BasicJob(int jobID, Task task) {
 		this.setId(jobID);
-		this.setTask(task);
+		this.task = task;
 	}
 
 	public int getId() {
@@ -21,9 +21,5 @@ public class BasicJob {
 
 	public Task getTask() {
 		return task;
-	}
-
-	public void setTask(Task task) {
-		this.task = task;
 	}
 }

@@ -70,11 +70,10 @@ public class Message {
 	
 	@Override
 	public String toString() {
-		String returnStr = command.toString();
+		String returnStr = command.toString() + " - ";
 		for (move move : moves) {
-			returnStr += move.toString();
+			returnStr += move.toString() + ",";
 		}
-		returnStr += " - " + super.toString();
 		return returnStr;
 	}
 

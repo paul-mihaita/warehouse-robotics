@@ -142,7 +142,7 @@ public class GUI extends Thread {
 							LCD.drawString(itemDisp, 0, 3);
 						}
 					}
-					if (numItems == quantity) {
+					if (numItems == quantity && quantity > 0) {
 						if (msg.getCommand() != command.Finish)
 							msg.setCommand(command.Finish); //we finished this pick up so tell the pc
 					}
