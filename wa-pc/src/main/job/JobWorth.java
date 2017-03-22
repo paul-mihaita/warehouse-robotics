@@ -6,9 +6,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
+
+import com.sun.media.sound.AlawCodec;
+import com.sun.org.apache.bcel.internal.generic.FLOAD;
+
 import main.route.Astar;
 import main.route.CommandCenter;
 import movement.Movement.move;
+import utils.Item;
 import utils.Job;
 import utils.Location;
 import utils.Robot;
@@ -23,11 +28,22 @@ public class JobWorth {
 
 	private ArrayList<Robot> robots;
 	private ArrayList<Job> jobs;
+
+	private ArrayList<Item> items;
 	private HashMap<Robot, Job> map;
 	private HashMap<Integer, Float> jobsWorth;
 
-	JobComparator jc = new JobComparator();
-	PriorityQueue<Job> jobsQueue = new PriorityQueue<>(jc);
+	private static JobComparator jc = new JobComparator();
+	private static PriorityQueue<Job> jobsQueue = new PriorityQueue<>(jc);
+	
+	
+	
+	/////////////////////////////////////////////////
+	public static HashMap<Job, Float> bella = new HashMap<>();
+	
+	/////////////////////////////////////////////////
+	
+	
 
 	public JobWorth(ArrayList<Job> jobs, ArrayList<Robot> unAssigned) {
 		this.robots = unAssigned;
@@ -67,7 +83,7 @@ public class JobWorth {
 					jobPathCost += route.size();
 				}
 			}
-			
+
 			jobsWorth.put(job.getJobID(),
 					job.getJobReward() / ((jobPathCost / robots.size()) * (job.sumOfWeight() / 50)));
 
@@ -81,26 +97,34 @@ public class JobWorth {
 
 	}
 
-	// public static HashMap<Integer, Float> sortByValue(HashMap<Integer, Float>
-	// jobsWithValue) {
-	//
-	// List<HashMap.Entry<Integer, Float>> list = new
-	// LinkedList<HashMap.Entry<Integer, Float>>(
-	// jobsWithValue.entrySet());
-	// // sorting based on values
-	// Collections.sort(list, new Comparator<HashMap.Entry<Integer, Float>>() {
-	// public int compare(Entry<Integer, Float> o1, Entry<Integer, Float> o2) {
-	//
-	// return (o1.getValue()).compareTo(o2.getValue());
-	// }
-	// });
-	// HashMap<Integer, Float> sortedJobsWithValue = new HashMap<Integer,
-	// Float>();
-	// for (HashMap.Entry<Integer, Float> entry : list) {
-	// sortedJobsWithValue.put(entry.getKey(), entry.getValue());
-	// }
-	// return sortedJobsWithValue;
-	// }
+	
+	public static int manhattanDistance(ArrayList<Robot> robots, ArrayList<Job> jobs) {
+
+		float tempAvgRevForRobot=0f;
+		float sumTaskRev=0f;
+		float valueOfJob=0f;
+		
+		for(Job job: jobs){
+			for(Task task: job.getTasks()){
+				for(Robot robot:robots){
+					int x = Math.abs(robot.getCurrentLocation().getX()-task.getItem().getLocation().getX());
+					int y = Math.abs(robot.getCurrentLocation().getY()-task.getItem().getLocation().getY());
+					tempAvgRevForRobot = (x +y);
+				}
+				sumTaskRev+=(tempAvgRevForRobot/robots.size())*Math.abs(50/task.getQuantity());
+				tempAvgRevForRobot=0;
+			}
+			valueOfJob=sumTaskRev/job.getTasks().size();
+			sumTaskRev=0;
+			bella.put(job, valueOfJob);
+		}
+		
+		for(Job job: jobs)
+			jobsQueue.offer(job);
+
+		return 0;
+	}
+
 
 	public static void printMap(HashMap<Integer, Float> map) {
 		for (Integer key : map.keySet()) {
@@ -111,15 +135,16 @@ public class JobWorth {
 
 	}
 
-	public class JobComparator implements Comparator<Job> {
+
+	public static class JobComparator implements Comparator<Job> {
 		@Override
 		public int compare(Job j1, Job j2) {
-			if (jobsWorth.get(j1.getJobID()) < jobsWorth.get(j2.getJobID()))
+			if(bella.get(j1)<bella.get(j2))
 				return -1;
-			else if (jobsWorth.get(j1.getJobID()) > jobsWorth.get(j2.getJobID()))
+			else if (bella.get(j1)==bella.get(j2))
 				return 0;
 			else
-				return 0;
+				return 1;
 		}
 	}
 

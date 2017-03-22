@@ -19,6 +19,7 @@ public class Job {
 		this.tasks = tasks;
 		this.status = Status.NOT_SELECTED;
 		this.drop = new DropLocation("default");
+
 		drop.setLocation(7, 11);
 	}
 	
