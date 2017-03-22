@@ -12,6 +12,11 @@ public class DropLocation {
 		this.taken = false;
 	}
 
+	public DropLocation(String name,Location location2) {
+		this.name = name;
+		this.location = location2;
+		this.taken = false;	}
+
 	public String getName() {
 		return name;
 	}

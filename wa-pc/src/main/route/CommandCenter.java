@@ -64,6 +64,9 @@ public class CommandCenter {
 				finishLoc.get(robot).add(finish);
 				item++;
 			}
+			Location finish = curJob.getDropLocation().getLocation();
+			finishLoc.get(robot).add(finish);
+			item++;
 			if (maxItem < item) {
 				maxItem = item;
 			}

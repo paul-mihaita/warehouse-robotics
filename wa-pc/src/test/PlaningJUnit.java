@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import main.route.CommandCenter;
 import student_solution.State;
+import utils.DropLocation;
 import utils.Item;
 import utils.Job;
 import utils.Location;
@@ -51,6 +52,7 @@ public class PlaningJUnit {
 		task.setItem(itm);
 		tasks.add(task);
 		job.setTasks(tasks);
+		job.setDropLocation(new DropLocation("first",new Location(2,0)));
 		HashMap<Robot, Job> lll = new HashMap<>();
 		
 		Item itm2 = new Item("gfhf");
@@ -111,6 +113,7 @@ public class PlaningJUnit {
 		task.setItem(itm);
 		tasks.add(task);
 		job.setTasks(tasks);
+		job.setDropLocation(new DropLocation("first",new Location(2,0)));
 		HashMap<Robot, Job> lll = new HashMap<>();
 		
 		ArrayList<Task> tasks2 = new ArrayList<Task>() ;
@@ -122,6 +125,7 @@ public class PlaningJUnit {
 		tasks2.add(task);
 		Job job2 = new Job(2, tasks2);
 		job2.setTasks(tasks2);
+		job2.setDropLocation(new DropLocation("first",new Location(6,0)));
 		lll.put(r1, job);
 		lll.put(r2, job2);
 		CommandCenter.generatePaths(lll);
