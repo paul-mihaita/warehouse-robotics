@@ -18,7 +18,7 @@ public class Input {
 	private static final Logger LOG = Logger.getLogger(Input.class);
 	// SET TO TRUE IF IN THE FILES THE FIRST LINE IS THE TITLE
 	boolean thereIsTheTitleFile = false;
-	private final int MAX_LINES = 100;
+	private final int MAX_LINES = Integer.MAX_VALUE;
 	private ArrayList<Job> jobs = new ArrayList<Job>();
 	private ArrayList<Job> trainignArray = new ArrayList<Job>();
 	private ArrayList<Item> items = new ArrayList<Item>();

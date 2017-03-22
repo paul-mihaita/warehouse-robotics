@@ -101,4 +101,9 @@ public class GUI extends Application {
 	public static void refresh() {
 		tabPane.refresh();
 	}
+
+	public static void updateItems() {
+		tabPane.updateItems();
+		
+	}
 }

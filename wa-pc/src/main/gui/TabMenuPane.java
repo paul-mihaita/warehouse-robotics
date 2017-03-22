@@ -53,4 +53,10 @@ public class TabMenuPane extends TabPane {
 	protected void interrupt() {
 		refresh.interrupt();
 	}
+
+	protected void updateItems() {
+		
+		robotHolder.updateItems();
+		
+	}
 }

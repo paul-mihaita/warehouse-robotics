@@ -2,7 +2,11 @@ package main.gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Predicate;
 
+import org.apache.log4j.Logger;
+
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -145,7 +149,6 @@ public class RobotPane extends GridPane {
 		this.add(robotGrid, 0, 2);
 	}
 
-	private static int cycleCounter = 0;
 	public static void updateLabels() {
 		for (Robot r : robotLabels.keySet()) {
 			ArrayList<Label> t = robotLabels.get(r);
@@ -166,36 +169,43 @@ public class RobotPane extends GridPane {
 			}
 
 			t.get(1).setText(text);
-			
-			if(cycleCounter++ > 20){
-				updateItems();
-			}
 
 		}
 	}
 
-	private static void updateItems() {
+	public static void updateItems() {
 		for (Robot r : model.getRobots()) {
-
 			GridPane pane = robotItems.get(r);
+			if (model.getJob(r).isPresent() && !model.getJob(r).get().getTasks().isEmpty()) {
 
-			for (Node n : pane.getChildren()) {
-				pane.getChildren().remove(n);
-			}
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
 
-			if (model.getJob(r).isPresent()) {
+						pane.getChildren().removeIf(new Predicate<Node>() {
+							@Override
+							public boolean test(Node arg0) {
+								GUI.log.debug("Items nodes removed");
+								return true;
+							}
 
-				int i = 0;
+						});
 
-				for (Task t1 : model.getJob(r).get().getTasks()) {
+						int i = 0;
 
-					Label itemName = new Label(t1.getItem().getItemName());
-					Label itemQuantity = new Label("" + t1.getQuantity());
+						for (Task t1 : model.getJob(r).get().getTasks()) {
 
-					pane.add(itemName, 0, i);
-					pane.add(itemQuantity, 1, i++);
+							Label itemName = new Label(t1.getItem().getItemName());
+							Label itemQuantity = new Label("" + t1.getQuantity());
 
-				}
+							pane.add(itemName, 0, i);
+							pane.add(itemQuantity, 1, i++);
+
+							GUI.log.debug("Items nodes populated");
+
+						}
+					}
+				});
 
 			}
 		}

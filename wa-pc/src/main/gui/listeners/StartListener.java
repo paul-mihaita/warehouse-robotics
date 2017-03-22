@@ -18,7 +18,7 @@ public class StartListener implements EventHandler<ActionEvent> {
 
 		model.reassignJobs();
 		model.startRobots();
-		GUI.refresh();
+		GUI.updateItems();
 
 	}
 
