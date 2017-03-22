@@ -328,7 +328,7 @@ public class WarehouseFloor {
 	}
 
 	public void reassignJobs() {
-
+		
 		ArrayList<Job> validJobs = new ArrayList<Job>();
 		ArrayList<Robot> unAssigned = new ArrayList<Robot>();
 		for (Job j : jobList.values()) {
@@ -336,7 +336,7 @@ public class WarehouseFloor {
 				validJobs.add(j);
 			}
 		}
-
+		
 		for (Robot r : assignment.keySet()) {
 
 			if (assignment.get(r).isPresent()) {
@@ -349,18 +349,16 @@ public class WarehouseFloor {
 			}
 
 		}
-
+		
 		if (unAssigned.isEmpty()) {
 			return;
 		}
-
+		
 		JobWorth selector = new JobWorth(validJobs, unAssigned);
 		PriorityQueue<Job> queue = selector.getReward();
-
 		for (Robot r : unAssigned) {
 			this.assign(r, queue.poll());
 		}
-
 	}
 
 }
