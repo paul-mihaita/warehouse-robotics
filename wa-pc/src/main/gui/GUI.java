@@ -2,6 +2,8 @@ package main.gui;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
+
 import bootstrap.Start;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -14,6 +16,8 @@ import javafx.stage.Stage;
 import main.model.WarehouseFloor;
 
 public class GUI extends Application {
+
+	private static final Logger log = Logger.getLogger(GUI.class);
 
 	// For the moment while there is no map these are not being used
 	public static final int SIDEBAR_WIDTH = 272;
@@ -55,7 +59,7 @@ public class GUI extends Application {
 		File alex = new File("/alex.png");
 
 		if (alex.exists()) {
-			Start.log.debug("Icon found at " + alex.getAbsolutePath());
+			log.debug("Icon found at " + alex.getAbsolutePath());
 			primaryStage.getIcons().add(new Image(alex.getAbsolutePath()));
 		}
 
@@ -91,7 +95,7 @@ public class GUI extends Application {
 	public void stop() {
 		map.interrupt();
 		tabPane.interrupt();
-		Start.log.info("GUI was closed");
+		log.info("GUI was closed");
 		System.exit(0);
 	}
 

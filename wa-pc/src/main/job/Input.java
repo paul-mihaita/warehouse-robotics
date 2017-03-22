@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import bootstrap.Start;
 import utils.DropLocation;
 import utils.Item;
 import utils.Job;
@@ -25,7 +24,7 @@ public class Input {
 	private ArrayList<Item> items = new ArrayList<Item>();
 	private ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
 	private HashMap<Job, Boolean> jobsWithCancellation = new HashMap<Job, Boolean>();
-	
+
 	private final String PATH = "./data_files/";
 	String path = "./data_files/";
 	private final String JOBS_FILE = PATH + "jobs";
@@ -34,8 +33,6 @@ public class Input {
 	private final String DROPS_FILE = PATH + "drops";
 	private final String CANCELLATIONS_FILE = PATH + "cancellations";
 	private final String TRAINING_JOBS_FILE = PATH + "training_jobs";
-	
-	
 
 	public Input(boolean haveTitle) {
 		thereIsTheTitleFile = haveTitle;
@@ -329,7 +326,7 @@ public class Input {
 				boolean isCancelled;
 				boolean toDo = !thereIsTheTitleFile;
 				while (inFile.hasNext() && i < MAX_LINES) {
-					//i++;		//uncomment to limit the number of lines to read
+					// i++; //uncomment to limit the number of lines to read
 					token = inFile.nextLine();
 					if (toDo) {
 						String[] parts = token.split(",");
@@ -339,9 +336,9 @@ public class Input {
 							for (Job j : trainignArray) {
 								if (j.getJobID() == jobID) {
 									int ind = Integer.parseInt(parts[1]);
-									if(ind == 1){
+									if (ind == 1) {
 										jobsWithCancellation.put(j, true);
-									}else{
+									} else {
 										jobsWithCancellation.put(j, false);
 
 									}
@@ -382,12 +379,12 @@ public class Input {
 	public ArrayList<Job> getJobsArray() {
 		return jobs;
 	}
-	
-	public ArrayList<DropLocation> getDropLocations(){
+
+	public ArrayList<DropLocation> getDropLocations() {
 		return dropLocations;
 	}
-	
-	public HashMap<Job, Boolean> getJobsWithCancellation(){
+
+	public HashMap<Job, Boolean> getJobsWithCancellation() {
 		return jobsWithCancellation;
 	}
 

@@ -168,7 +168,7 @@ public class WarehouseFloor {
 
 									addToPaths(locPath);
 
-									Delay.msDelay(1000);
+									Delay.msDelay(5000);
 
 									job.completed();
 									r.setCurrentLocation(job.getDropLocation().getLocation());
