@@ -25,20 +25,31 @@ public class Input {
 	private ArrayList<Item> items = new ArrayList<Item>();
 	private ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
 	private HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
+	
+	private final String PATH = "./data_files/";
 	String path = "./data_files/";
+	private final String JOBS_FILE = PATH + "jobs";
+	private final String ITEMS_FILE = PATH + "items";
+	private final String LOCATIONS_FILE = PATH + "locations";
+	private final String DROPS_FILE = PATH + "drops";
+	private final String CANCELLATIONS_FILE = PATH + "cancellations";
+	private final String TRAINING_JOBS_FILE = PATH + "training_jobs";
+	
+	
 
 	public Input(boolean haveTitle) {
 		thereIsTheTitleFile = haveTitle;
-		this.initializeListOfJobs(path+"jobs", path+"items", path+"locations");
-		this.initializeItemsList(path+"locations");
-		this.initializedropLocations(path+"drops");
-		this.readTaskAndJobs(path+"training_jobs", false, true);
-		this.initializeCancelledJobs(path+"cancellations");
+
+		this.initializeListOfJobs(JOBS_FILE, ITEMS_FILE, LOCATIONS_FILE);
+		this.initializeItemsList(LOCATIONS_FILE);
+		this.initializedropLocations(DROPS_FILE);
+		this.initializeCancellation(CANCELLATIONS_FILE, TRAINING_JOBS_FILE);
+
 	}
 
-	private void initializeCancellation() {
-		this.initializeCancelledJobs(path + "cancellation");
-		this.readTaskAndJobs(path + "training", false, true);
+	private void initializeCancellation(String cancellation_file, String training_job_file) {
+		this.readTaskAndJobs(training_job_file, false, true);
+		this.initializeCancelledJobs(cancellation_file);
 	}
 
 	public Input() {
@@ -236,11 +247,9 @@ public class Input {
 				if (!fileHaveTheExtension(fileName)) {
 					fileName = fileName + ".csv";
 				}
-				// CREATE SCANNER TO READ FILE
 				Scanner inFile = new Scanner(new File(fileName));
 				String token;
 				boolean toDo = !thereIsTheTitleFile;
-				// WHILE UNTIL THE END OF THE FILE
 				while (inFile.hasNext()) {
 					token = inFile.nextLine();
 					if (toDo) {
@@ -315,20 +324,18 @@ public class Input {
 				if (!fileHaveTheExtension(fileName)) {
 					fileName = fileName + ".csv";
 				}
-				// CREATE SCANNER TO READ FILE
 				Scanner inFile = new Scanner(new File(fileName));
 				String token;
 				boolean isCancelled;
 				boolean toDo = !thereIsTheTitleFile;
 				while (inFile.hasNext() && i < MAX_LINES) {
+					//i++;		//uncomment to limit the number of lines to read
 					token = inFile.nextLine();
 					if (toDo) {
 						String[] parts = token.split(",");
 						if (parts.length == 2) {
 							Start.log.debug("JobID: " + parts[0] + "\tCancellation: " + parts[1]);
 							int jobID = Integer.parseInt(parts[0]);
-							// Job job =
-							// getJobWithID(Integer.parseInt(parts[0]));
 							for (Job j : trainignArray) {
 								if (j.getJobID() == jobID) {
 									int ind = Integer.parseInt(parts[1]);
