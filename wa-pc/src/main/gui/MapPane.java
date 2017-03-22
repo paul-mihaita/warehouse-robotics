@@ -3,6 +3,8 @@ package main.gui;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.sun.java.swing.plaf.motif.MotifOptionPaneUI;
+
 import graph_entities.IEdge;
 import graph_entities.IVertex;
 import javafx.scene.canvas.Canvas;
@@ -12,6 +14,8 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Scale;
+import main.gui.listeners.MouseFlip;
 import main.model.WarehouseFloor;
 import rp.util.Rate;
 import student_solution.Graph;
@@ -39,6 +43,7 @@ public class MapPane extends Canvas {
 		MapPane.model = model;
 		this.setWidth(GUI.MAP_WIDTH);
 		this.setHeight(GUI.HEIGHT);
+		this.setOnMouseClicked(new MouseFlip(this));
 
 		GraphicsContext gc = this.getGraphicsContext2D();
 
@@ -126,6 +131,7 @@ public class MapPane extends Canvas {
 
 			if (r.getName().equals(Info.RobotNames[0])) {
 				// the water one
+
 				gc.drawImage(makeTransparent(WATER), scale(r.getCurrentLocation().getX()) - 25,
 						scale(r.getCurrentLocation().getY()) - 25);
 
@@ -141,6 +147,7 @@ public class MapPane extends Canvas {
 
 			} else if (r.getName().equals(Info.RobotNames[2])) {
 				// the fire one
+
 				gc.drawImage(makeTransparent(FIRE), scale(r.getCurrentLocation().getX()) - 10,
 						scale(r.getCurrentLocation().getY()) - 20);
 

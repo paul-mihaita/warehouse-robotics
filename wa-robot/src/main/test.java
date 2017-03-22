@@ -21,6 +21,7 @@ import utils.Task;
 public class test {
 	private static final List<move> BASEPATH = new ArrayList<move>();
 	static Pilot pilot = new Pilot(new WheeledRobotSystem(RobotConstants.DESC).getPilot());
+
 	public static void main(String[] args) {
 		Button.ESCAPE.addButtonListener(new ButtonListener() {
 			@Override
@@ -35,10 +36,11 @@ public class test {
 		});
 		Button.waitForAnyPress();
 		init();
-		Message msg = new Message(BASEPATH, command.Start, new BasicJob(0, new Task("a",0)));
-		Controller cont = new Controller(Info.getRobotsVector()[0], msg);
-		cont.run();
+		Message msg = new Message(BASEPATH, command.Start, new BasicJob(0, new Task("a", 0)));
+		// Controller cont = new Controller(Info.getRobotsVector()[0], msg);
+		// cont.run();
 	}
+
 	private static void init() {
 		for (int i = 0; i < 6; i++) {
 			BASEPATH.add(move.FORWARD);

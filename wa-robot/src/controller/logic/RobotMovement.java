@@ -1,5 +1,6 @@
 package controller.logic;
 
+import beats.Mixtape;
 import lejos.nxt.Button;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.util.Delay;
@@ -17,6 +18,7 @@ public class RobotMovement {
 		Location l = robot.getCurrentLocation();
 		l = addLocation(l, orientation);
 		robot.setPosition(l, orientation);
+		Mixtape.play();
 		Delay.msDelay(250);
 	}
 
