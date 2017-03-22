@@ -113,8 +113,6 @@ public class GUI extends Thread {
 		while (true) {
 			update();
 			if (isMoving == false) {
-				isOnPickUp = robot.isOnPickup();
-
 				if (isOnPickUp) {
 					drawUI(pickup, itemDisp);
 					if (ENTER) {
@@ -149,7 +147,7 @@ public class GUI extends Thread {
 							msg.setCommand(command.Finish); //we finished this pick up so tell the pc
 					}
 				}
-				if (!isOnPickUp) {
+				else {
 					numItems = 0;
 					drawUI(dropoff, dropoffItems);
 					if (ENTER) {
