@@ -23,7 +23,7 @@ public class JobWorthTest {
 		// in.initializeListOfJobs("1", "2", "3");
 
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
-				in.getDropLocations(), in.getItemsArray(), in.getJobsArray(), log, false);
+				in.getJobsArray(), in.getItemsArray(), in.getDropLocations(), false);
 
 		// HashMap<String, String> jobsReward = jobWorth.getReward();
 
