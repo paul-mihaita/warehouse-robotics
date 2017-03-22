@@ -2,9 +2,8 @@ package main.gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.function.Predicate;
-
-import org.apache.log4j.Logger;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -19,9 +18,9 @@ import javafx.scene.text.TextAlignment;
 import main.gui.listeners.RobotCancel;
 import main.gui.listeners.StartListener;
 import main.model.WarehouseFloor;
+import utils.Job;
 import utils.Robot;
 import utils.Task;
-import utils.Tuple;
 
 public class RobotPane extends GridPane {
 
@@ -89,7 +88,7 @@ public class RobotPane extends GridPane {
 
 			Label status = new Label(text);
 
-			status.setTextFill(statusColor(text));
+			status.setTextFill(colorPicker(model.getJob(r)));
 
 			Label idText = new Label("Job ID:");
 
@@ -169,6 +168,7 @@ public class RobotPane extends GridPane {
 			}
 
 			t.get(1).setText(text);
+			t.get(1).setTextFill(colorPicker(model.getJob(r)));
 
 		}
 	}
@@ -211,20 +211,22 @@ public class RobotPane extends GridPane {
 		}
 	}
 
-	private static Paint statusColor(String status) {
-		/*
-		 * aCtive, iNactive, cOmpleted, cAnceled
-		 */
-		switch (status.charAt(1)) {
-		case 'C':
-			return Color.GREEN;
-		case 'N':
-			return Color.BLACK;
-		case 'O':
-			return Color.BLUE;
-		case 'A':
-			return Color.RED;
-		default:
+	private static Paint colorPicker(Optional<Job> optional) {
+		if (optional.isPresent()) {
+
+			switch (optional.get().getStatus()) {
+			case COMPLETED:
+				return Color.GREEN;
+			case SELECTED:
+				return Color.YELLOW;
+			case NOT_SELECTED:
+				return Color.BLACK;
+			case ACTIVE:
+				return Color.YELLOWGREEN;
+			default:
+				return Color.RED;
+			}
+		} else {
 			return Color.GRAY;
 		}
 	}

@@ -33,7 +33,7 @@ public class JobWorth {
 	private HashMap<Integer, Float> jobsWorth;
 
 	private static JobComparator jc = new JobComparator();
-	private static PriorityQueue<Job> jobsQueue = new PriorityQueue<>(jc);
+	private PriorityQueue<Job> jobsQueue = new PriorityQueue<>(jc);
 
 	/////////////////////////////////////////////////
 	public static HashMap<Job, Float> bella = new HashMap<>();
@@ -67,7 +67,7 @@ public class JobWorth {
 
 	}
 
-	public static void manhattanDistance(ArrayList<Robot> robots, ArrayList<Job> jobs) {
+	public void manhattanDistance(ArrayList<Robot> robots, ArrayList<Job> jobs) {
 
 		float tempAvgRevForRobot = 0f;
 		float sumTaskRev = 0f;
