@@ -22,9 +22,9 @@ import utils.Task;
  * @author Lexer747, Alex Lewis
  *
  */
-public class Bluetooth {
+public class PcBluetoothTest {
 
-	public static final Logger log = Logger.getLogger(Bluetooth.class);
+	public static final Logger log = Logger.getLogger(PcBluetoothTest.class);
 	Robot[] robots = Info.getRobotsVector();
 	Message[] msgs = new Message[robots.length];
 
@@ -44,6 +44,7 @@ public class Bluetooth {
 		for (int i = 0; i < previous.length; i++) {
 			previous[i] = robots[i].cloneRobot();
 		}
+		Delay.msDelay(1000); //wait for original data to send
 		for (int i = 0; i < msgs.length; i++) {
 			msgs[i].setCommand(command.Finish); 
 			//send a bluetooth command
