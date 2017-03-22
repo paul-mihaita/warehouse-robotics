@@ -18,6 +18,8 @@ public class Job {
 		this.jobID = jobID;
 		this.tasks = tasks;
 		this.status = Status.NOT_SELECTED;
+		this.drop = new DropLocation("defult");
+		drop.setLocation(7, 11);
 	}
 	
 	public float sumOfWeight() {
