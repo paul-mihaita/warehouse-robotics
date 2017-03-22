@@ -10,7 +10,7 @@ public class Job {
 	}
 
 	private Status status;
-
+	private DropLocation drop;
 	private int jobID;
 	private ArrayList<Task> tasks = new ArrayList<Task>();
 
@@ -20,10 +20,6 @@ public class Job {
 		this.status = Status.NOT_SELECTED;
 	}
 	
-	public Job(){
-		
-	}
-
 	public float sumOfWeight() {
 
 		float sumOfWeight = 0;
@@ -51,10 +47,20 @@ public class Job {
 		this.jobID = jobID;
 	}
 
-	public void start() {
+	public void start(DropLocation drop) {
 		if (!status.equals(Status.CANCELED)) {
 			this.status = Status.ACTIVE;
+			this.drop = drop;
+			drop.reserve();
 		}
+	}
+	
+	public void setDropLocation(DropLocation drop){
+		this.drop = drop;
+	}
+	
+	public DropLocation getDropLocation(){
+		return drop;
 	}
 
 	public void select() {
@@ -64,10 +70,12 @@ public class Job {
 	}
 
 	public void completed() {
+		drop.unReserve();
 		this.status = Status.COMPLETED;
 	}
 
 	public void cancel() {
+		drop.unReserve();
 		this.status = Status.CANCELED;
 	}
 

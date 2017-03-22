@@ -24,7 +24,7 @@ public class Input {
 	private ArrayList<Job> trainignArray = new ArrayList<Job>();
 	private ArrayList<Item> items = new ArrayList<Item>();
 	private ArrayList<DropLocation> dropLocations = new ArrayList<DropLocation>();
-	private HashMap<Job, Boolean> jobsWithCancellation = new HashMap();
+	private HashMap<Job, Boolean> jobsWithCancellation = new HashMap<Job, Boolean>();
 	
 	private final String PATH = "./data_files/";
 	String path = "./data_files/";
@@ -72,7 +72,7 @@ public class Input {
 		}
 		File f = new File(file);
 
-		Start.log.debug("File exists: " + f.exists());
+		LOG.debug("File exists: " + f.exists());
 		return f.exists();
 	}
 
@@ -202,16 +202,16 @@ public class Input {
 						// ITEM
 						// REWARD
 						for (Job j : jobs) {
-							Start.log.debug("In Jobid: " + j.getJobID());
+							LOG.debug("In Jobid: " + j.getJobID());
 							for (Task t : j.getTasks()) {
 
-								Start.log.debug("Item test name " + parts[2]);
+								LOG.debug("Item test name " + parts[2]);
 								if (t.getItem().getItemName().equals(parts[2])) {
 
 									int x = Integer.parseInt(parts[0]);
 									int y = Integer.parseInt(parts[1]);
 
-									Start.log.debug(t.getItem().getName() + "'s Location: " + x + " " + y);
+									LOG.debug(t.getItem().getName() + "'s Location: " + x + " " + y);
 
 									t.getItem().setLocation(x, y);
 								}
@@ -255,7 +255,7 @@ public class Input {
 					if (toDo) {
 						String[] parts = token.split(",");
 						if (!items.contains(parts[2])) {
-							Start.log.debug("item: " + parts[2] + " were added");
+							LOG.debug("item: " + parts[2] + " were added");
 							Item temp = new Item(parts[2]);
 							int x = Integer.parseInt(parts[0]);
 							int y = Integer.parseInt(parts[1]);
@@ -291,12 +291,12 @@ public class Input {
 					if (toDo) {
 						String[] parts = token.split(",");
 						if (parts.length == 2) {
-							Start.log.debug("Drop= " + token);
-							Start.log.debug("drop location: " + i);
+							LOG.debug("Drop= " + token);
+							LOG.debug("drop location: " + i);
 							DropLocation temp = new DropLocation("DropLocation_" + (i + 1));
 							int x = Integer.parseInt(parts[0].trim());
 							int y = Integer.parseInt(parts[1].trim());
-							Start.log.debug("x= " + x + "\ty=" + y);
+							LOG.debug("x= " + x + "\ty=" + y);
 							temp.setLocation(x, y);
 							dropLocations.add(temp);
 						}
@@ -334,7 +334,7 @@ public class Input {
 					if (toDo) {
 						String[] parts = token.split(",");
 						if (parts.length == 2) {
-							Start.log.debug("JobID: " + parts[0] + "\tCancellation: " + parts[1]);
+							LOG.debug("JobID: " + parts[0] + "\tCancellation: " + parts[1]);
 							int jobID = Integer.parseInt(parts[0]);
 							for (Job j : trainignArray) {
 								if (j.getJobID() == jobID) {
@@ -345,7 +345,7 @@ public class Input {
 										jobsWithCancellation.put(j, false);
 
 									}
-									Start.log.debug("Inserted in HashMap:\nJob with ID: " + j.getJobID()
+									LOG.debug("Inserted in HashMap:\nJob with ID: " + j.getJobID()
 											+ "\tand Cancellation: " + Boolean.parseBoolean(parts[1]));
 								}
 

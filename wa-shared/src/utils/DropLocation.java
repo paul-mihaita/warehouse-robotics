@@ -29,8 +29,12 @@ public class DropLocation {
 		this.location.setY(y);
 	}
 
-	public void reserved(boolean b) {
-		this.taken = b;
+	public void reserve() {
+		this.taken = true;
+	}
+	
+	public void unReserve(){
+		this.taken = false;
 	}
 
 	public boolean isReserved() {

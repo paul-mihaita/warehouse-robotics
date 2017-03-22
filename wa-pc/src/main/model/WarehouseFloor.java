@@ -9,7 +9,6 @@ import java.util.function.Consumer;
 
 import org.apache.log4j.Logger;
 
-import bootstrap.Start;
 import communication.BasicJob;
 import communication.CommConst.command;
 import communication.Message;
@@ -48,7 +47,7 @@ public class WarehouseFloor {
 
 	private HashSet<ArrayList<Location>> activePaths;
 
-	private Logger log;
+	private Logger log = Logger.getLogger(WarehouseFloor.class);
 
 	private boolean server;
 
@@ -71,10 +70,9 @@ public class WarehouseFloor {
 	 *            log4j logger object
 	 */
 	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items,
-			ArrayList<DropLocation> dropLocations, Logger log, boolean server) {
+			ArrayList<DropLocation> dropLocations, boolean server) {
 
 		this.server = server;
-		this.log = log;
 		this.assignment = new HashMap<Robot, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
 		this.items = items;
@@ -130,7 +128,7 @@ public class WarehouseFloor {
 				@Override
 				public void accept(Job job) {
 					if (job.isSelected()) {
-						job.start();
+						job.start(getDropLocation());
 						Robot temp = r.cloneRobot();
 						HashMap<Robot, Job> give = new HashMap<Robot, Job>();
 						give.put(temp, job);
@@ -173,8 +171,7 @@ public class WarehouseFloor {
 									Delay.msDelay(1000);
 
 									job.completed();
-									r.setCurrentLocation(
-											job.getTasks().get(job.getTasks().size() - 1).getItem().getLocation());
+									r.setCurrentLocation(job.getDropLocation().getLocation());
 									removeFromPaths(locPath);
 								}
 
@@ -187,6 +184,21 @@ public class WarehouseFloor {
 			});
 		}
 
+	}
+
+	private DropLocation getDropLocation() {
+
+		DropLocation drop = new DropLocation("Wating area");
+
+		for (DropLocation d : dropLocations) {
+
+			if (!d.isReserved()) {
+				drop = d;
+			}
+
+		}
+
+		return drop;
 	}
 
 	public Thread givePath(Robot r, ArrayList<ArrayList<move>> routes, Job job) {
@@ -226,24 +238,7 @@ public class WarehouseFloor {
 
 	public boolean assign(Robot r, Job j) {
 
-		DropLocation drop = new DropLocation("Wating area");
-
-		for (DropLocation d : dropLocations) {
-
-			if (!d.isReserved()) {
-				d.reserved(true);
-				drop = d;
-			}
-
-		}
-
-		log.debug(j.getJobID() + " added to " + r.getName() + " with drop-off " + drop.getName());
-
-		ArrayList<Task> jobs = j.getTasks();
-
-		// jobs.add(new Task("dd", 0));
-
-		// j.setTasks(jobs);
+		// TODO: Add drop-off assignment
 
 		if (!assignment.get(r).isPresent()) {
 			assignment.remove(r);

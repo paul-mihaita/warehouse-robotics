@@ -26,7 +26,7 @@ public class GuiTest {
 		Input in = new Input(false);
 
 		model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()), in.getJobsArray(),
-				in.getItemsArray(), in.getIDropLocationArray(), log, false);
+				in.getItemsArray(), in.getIDropLocationArray(), false);
 		// Testing
 
 		log.debug("Number of Jobs: " + model.getJobs().size());
