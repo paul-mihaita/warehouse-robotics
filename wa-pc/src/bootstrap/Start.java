@@ -10,7 +10,7 @@ import rp.robotics.mapping.MapUtils;
 
 public class Start {
 
-	public static final Logger log = Logger.getLogger(Start.class);
+	public static final Logger LOG = Logger.getLogger(Start.class);
 
 	public static void main(String[] args) {
 		boolean server;
@@ -18,15 +18,15 @@ public class Start {
 			server = false;
 		else
 			server = true;
-		log.info("Starting");
+		LOG.info("Starting");
 
 		Input in = new Input(false);
 
 		WarehouseFloor model = new WarehouseFloor(Planning.createGraph(MapUtils.createRealWarehouse()),
-				in.getJobsArray(), in.getItemsArray(), in.getIDropLocationArray(), log, server);
+				in.getJobsArray(), in.getItemsArray(), in.getIDropLocationArray(), server);
 		// Testing
 
-		log.debug("Number of Jobs: " + model.getJobs().size());
+		LOG.debug("Number of Jobs: " + model.getJobs().size());
 
 		GUI.create(model);
 	}

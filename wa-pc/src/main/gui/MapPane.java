@@ -91,7 +91,7 @@ public class MapPane extends Canvas {
 				gc.setLineDashes(7);
 				gc.setLineWidth(6);
 
-				gc.strokeLine(scale(l.getX()), scale(l.getY()), scale(m.getX()), scale(m.getY()));
+				gc.strokeLine(scale(l.getX()) + 2, scale(l.getY()) + 2, scale(m.getX()) + 2, scale(m.getY()) + 2);
 
 			}
 
