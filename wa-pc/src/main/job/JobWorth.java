@@ -5,12 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-import main.route.Astar;
-import main.route.CommandCenter;
-import movement.Movement.move;
-import utils.Item;
 import utils.Job;
-import utils.Location;
 import utils.Robot;
 import utils.Route;
 import utils.Task;
@@ -24,12 +19,8 @@ public class JobWorth {
 	private ArrayList<Robot> robots;
 	private ArrayList<Job> jobs;
 
-	private ArrayList<Item> items;
-	private HashMap<Robot, Job> map;
-	private HashMap<Integer, Float> jobsWorth;
-
 	private static JobComparator jc = new JobComparator();
-	private static PriorityQueue<Job> jobsQueue = new PriorityQueue<>(jc);
+	private PriorityQueue<Job> jobsQueue = new PriorityQueue<>(jc);
 
 	/////////////////////////////////////////////////
 	public static HashMap<Job, Float> bella = new HashMap<>();
@@ -39,7 +30,6 @@ public class JobWorth {
 	public JobWorth(ArrayList<Job> jobs, ArrayList<Robot> unAssigned) {
 		this.robots = unAssigned;
 		this.jobs = jobs;
-		this.jobsWorth = new HashMap<>();
 	}
 
 	public Route getRoute() {
@@ -63,7 +53,7 @@ public class JobWorth {
 
 	}
 
-	public static void manhattanDistance(ArrayList<Robot> robots, ArrayList<Job> jobs) {
+	public void manhattanDistance(ArrayList<Robot> robots, ArrayList<Job> jobs) {
 
 		float tempAvgRevForRobot = 0f;
 		float sumTaskRev = 0f;
