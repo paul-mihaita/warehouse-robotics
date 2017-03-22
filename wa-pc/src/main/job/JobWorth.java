@@ -10,6 +10,7 @@ import main.route.Astar;
 import main.route.CommandCenter;
 import movement.Movement.move;
 import utils.Job;
+import utils.Location;
 import utils.Robot;
 import utils.Route;
 import utils.Task;

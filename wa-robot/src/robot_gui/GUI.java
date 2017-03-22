@@ -154,7 +154,7 @@ public class GUI extends Thread {
 						numItems = 0;
 						drawUI(dropoff, dropoffItems);
 						isMoving = true;
-
+						msg.setCommand(command.Finish); //we finished this drop off so tell the pc
 					}
 					if (ESCAPE) {
 						LCD.clear();

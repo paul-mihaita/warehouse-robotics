@@ -83,9 +83,7 @@ public class CommandCenter {
 		for (int i = 0; i < maxItem; i++) {
 			Hashtable<Robot, Location> targets = new Hashtable<Robot, Location>();
 			for (Robot r : robots) {
-				ArrayList<Location> aux = finishLoc.get(r);
-				r.setOrientation(startOrientations.get(r));
-				
+				ArrayList<Location> aux = finishLoc.get(r);				
 				if (aux.size() > i) {
 					targets.put(r, aux.get(i));
 				} else {
@@ -106,6 +104,7 @@ public class CommandCenter {
 						Robot r = robots.get(j);
 						aux.add(CommandCenter.generateMovements(y, r.getOrientation()));
 						finalLoc.put(r, y.get(y.size() - 1));
+						
 						finalOrientation.put(r, getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
 						paths.put(r, aux);
 						auxLoc.add(y);
