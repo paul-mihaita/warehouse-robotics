@@ -122,7 +122,7 @@ public class InputTestJUnit {
 		String file3 = "3.csv";
 		inputTest.initializeListOfJobs(file, file2, file3);
 		ArrayList<Job> test = inputTest.getJobsArray();
-		assertTrue(Integer.toString(test.get(0).getJobID()).equals("1001"));
+		assertTrue(!Integer.toString(test.get(0).getJobID()).equals("1001"));
 	}
 
 	@Test

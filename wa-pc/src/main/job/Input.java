@@ -342,8 +342,8 @@ public class Input {
 										jobsWithCancellation.put(j, false);
 
 									}
-									LOG.debug("Inserted in HashMap:\nJob with ID: " + j.getJobID()
-											+ "\tand Cancellation: " + Boolean.parseBoolean(parts[1]));
+									//LOG.debug("Inserted in HashMap:\nJob with ID: " + j.getJobID()
+										//	+ "\tand Cancellation: " + Boolean.parseBoolean(parts[1]));
 								}
 
 							}
