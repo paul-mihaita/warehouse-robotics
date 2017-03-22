@@ -173,6 +173,7 @@ public class WarehouseFloor {
 									Delay.msDelay(1000);
 
 									t.completed();
+									r.setCurrentLocation(t.getTasks().get(t.getTasks().size() - 1).getItem().getLocation());
 									removeFromPaths(locPath);
 								}
 
