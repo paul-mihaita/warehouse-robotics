@@ -131,4 +131,14 @@ public class Robot {
 		returnStr += currentLocation.toString();
 		return returnStr;
 	}
+	
+	public Robot cloneRobot() {
+		Robot clone = new Robot(this.name, this.btAddress, this.orientation, this.currentLocation);
+		clone.setMoves(this.movesCompleted);
+		clone.setOnJob(this.onJob);
+		clone.setOnPickup(this.onPickup);
+		clone.setMoving(this.isMoving);
+		clone.updated();
+		return clone;
+	}
 }

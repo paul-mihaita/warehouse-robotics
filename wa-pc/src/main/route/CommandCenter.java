@@ -74,6 +74,7 @@ public class CommandCenter {
 		Hashtable<Robot, Location> startLocations = new Hashtable<Robot, Location>();
 
 		for (Robot r : robots) {
+			r = r.cloneRobot();
 			startOrientations.put(r, r.getOrientation());
 			startLocations.put(r, r.getCurrentLocation());
 		}
