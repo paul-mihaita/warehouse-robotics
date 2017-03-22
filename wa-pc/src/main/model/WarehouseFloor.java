@@ -83,10 +83,9 @@ public class WarehouseFloor {
 			log.debug(d.toString());
 		}
 
-
 		Robot[] robos = Info.getRobotsPaul();
-		//this.robots.add(robos[0]); // squirtle
-		//this.robots.add(robos[1]); // bulbasaur
+		// this.robots.add(robos[0]); // squirtle
+		// this.robots.add(robos[1]); // bulbasaur
 		this.robots.add(robos[2]); // charmander
 
 		for (Job j : jobs) {
@@ -121,6 +120,23 @@ public class WarehouseFloor {
 	}
 
 	public void startRobots() {
+		
+		HashMap<Robot, Robot> clones = new HashMap<Robot, Robot>();
+
+		HashMap<Robot, Job> give = new HashMap<Robot, Job>();
+		for (Robot r : robots) {
+
+			assignment.get(r).ifPresent(new Consumer<Job>() {
+
+				@Override
+				public void accept(Job t) {
+					Robot temp = r.cloneRobot();
+					clones.put(r, temp);
+					give.put(temp, t);
+
+				}
+			});
+		}
 
 		for (Robot r : robots) {
 			assignment.get(r).ifPresent(new Consumer<Job>() {
@@ -128,12 +144,9 @@ public class WarehouseFloor {
 				public void accept(Job job) {
 					if (job.isSelected()) {
 						job.start(getDropLocation());
-						Robot temp = r.cloneRobot();
-						HashMap<Robot, Job> give = new HashMap<Robot, Job>();
-						give.put(temp, job);
 						Astar.reset();
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
-						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(temp));
+						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(clones.get(r)));
 						/*
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment
@@ -145,17 +158,16 @@ public class WarehouseFloor {
 
 									addToPaths(locPath);
 
-									Thread p = new Thread(givePath(r, path.get(temp), job));
+									Thread p = new Thread(givePath(r, path.get(clones.get(r)), job));
 									p.start();
-									
+
 									try {
 										p.join();
 										job.completed();
 									} catch (InterruptedException e) {
 										job.cancel();
 									}
-									
-									
+
 									removeFromPaths(locPath);
 								}
 							}.start();
@@ -326,7 +338,7 @@ public class WarehouseFloor {
 	}
 
 	public void reassignJobs() {
-		
+
 		ArrayList<Job> validJobs = new ArrayList<Job>();
 		ArrayList<Robot> unAssigned = new ArrayList<Robot>();
 		for (Job j : jobList.values()) {
@@ -334,7 +346,7 @@ public class WarehouseFloor {
 				validJobs.add(j);
 			}
 		}
-		
+
 		for (Robot r : assignment.keySet()) {
 
 			if (assignment.get(r).isPresent()) {
@@ -347,11 +359,11 @@ public class WarehouseFloor {
 			}
 
 		}
-		
+
 		if (unAssigned.isEmpty()) {
 			return;
 		}
-		
+
 		JobWorth selector = new JobWorth(validJobs, unAssigned);
 		PriorityQueue<Job> queue = selector.getReward();
 		for (Robot r : unAssigned) {
