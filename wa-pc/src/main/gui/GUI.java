@@ -17,7 +17,7 @@ import main.model.WarehouseFloor;
 
 public class GUI extends Application {
 
-	private static final Logger log = Logger.getLogger(GUI.class);
+	public static final Logger log = Logger.getLogger(GUI.class);
 
 	// For the moment while there is no map these are not being used
 	public static final int SIDEBAR_WIDTH = 272;
