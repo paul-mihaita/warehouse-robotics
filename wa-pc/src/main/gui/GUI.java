@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 
-import bootstrap.Start;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.LongProperty;

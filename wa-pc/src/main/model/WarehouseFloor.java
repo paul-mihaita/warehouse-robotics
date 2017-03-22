@@ -51,7 +51,6 @@ public class WarehouseFloor {
 	private Logger log = Logger.getLogger(WarehouseFloor.class);
 
 	private boolean server;
-
 	private ArrayList<DropLocation> dropLocations;
 
 	/**
@@ -67,8 +66,6 @@ public class WarehouseFloor {
 	 *            Graph of locations which contain the warehouse floor
 	 * @param Jobs
 	 *            List of jobs in preferential order
-	 * @param Log
-	 *            log4j logger object
 	 */
 	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items,
 			ArrayList<DropLocation> dropLocations, boolean server) {
@@ -87,8 +84,8 @@ public class WarehouseFloor {
 		}
 
 		Robot[] robos = Info.getRobotsVector();
-		//this.robots.add(robos[0]); // squirtle
-		//this.robots.add(robos[1]); // bulbasaur
+		// this.robots.add(robos[0]); // squirtle
+		// this.robots.add(robos[1]); // bulbasaur
 		this.robots.add(robos[2]); // charmander
 
 		for (Job j : jobs) {
@@ -169,11 +166,11 @@ public class WarehouseFloor {
 
 									addToPaths(locPath);
 
-									Delay.msDelay(5000);
+									Delay.msDelay(500);
 
-									job.completed();
 									r.setCurrentLocation(job.getDropLocation().getLocation());
 									removeFromPaths(locPath);
+									job.completed();
 								}
 
 							}.start();
@@ -336,8 +333,6 @@ public class WarehouseFloor {
 		for (Job j : jobList.values()) {
 			if (j.isNotSelected()) {
 				validJobs.add(j);
-				////SOMEONE FIX THIS PLZ
-				j.setDropLocation(dropLocations.get(new Random().nextInt(dropLocations.size()-1)));
 			}
 		}
 
