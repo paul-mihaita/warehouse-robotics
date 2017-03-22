@@ -86,7 +86,7 @@ public class WarehouseFloor {
 			log.debug(d.toString());
 		}
 
-		Robot[] robos = Info.getRobotsVector();
+		Robot[] robos = Info.getRobotsPaul();
 		//this.robots.add(robos[0]); // squirtle
 		//this.robots.add(robos[1]); // bulbasaur
 		this.robots.add(robos[2]); // charmander
