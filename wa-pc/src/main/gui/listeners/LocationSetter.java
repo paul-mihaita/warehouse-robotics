@@ -4,6 +4,7 @@ import bootstrap.Start;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
+import main.gui.GUI;
 import utils.Location;
 import utils.Robot;
 
@@ -32,7 +33,7 @@ public class LocationSetter implements EventHandler<ActionEvent> {
 				r.setOrientation(new Location(Integer.parseInt(parts[0]) + 1, Integer.parseInt(parts[1])));
 
 			} catch (NumberFormatException e) {
-				Start.log.error("Incorect Number format for setting location");
+				GUI.log.error("Incorect Number format for setting location");
 			}
 		}
 
