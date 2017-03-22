@@ -116,7 +116,7 @@ public class WarehouseFloor {
 
 	private void initalizePoller() {
 		for (Robot r : robots) {
-			poller.put(r, new RobotHelper(messageQueues.get(r), r));
+			poller.put(r, new RobotHelper(messageQueues.get(r), r, log));
 		}
 	}
 
@@ -145,18 +145,17 @@ public class WarehouseFloor {
 
 									addToPaths(locPath);
 
-									Thread p = givePath(r, path.get(temp), job);
+									Thread p = new Thread(givePath(r, path.get(temp), job));
 									p.start();
-
-									while (p.isAlive()) {
-										new Rate(100).sleep();
-									}
-
-									if (p.isInterrupted()) {
-										job.cancel();
-									} else {
+									
+									try {
+										p.join();
 										job.completed();
+									} catch (InterruptedException e) {
+										job.cancel();
 									}
+									
+									
 									removeFromPaths(locPath);
 								}
 							}.start();
@@ -206,8 +205,7 @@ public class WarehouseFloor {
 		RobotHelper p = poller.get(r);
 		r.setOnPickup(true);
 		r.setOnJob(true);
-		p.overwriteRoutes(routes);
-		messageQueues.get(r).setJob(Converters.toBasicJob(job));
+		p.overwriteRoutes(routes, job);
 		return p;
 	}
 

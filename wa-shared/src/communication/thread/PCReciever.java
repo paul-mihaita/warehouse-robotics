@@ -37,13 +37,13 @@ public class PCReciever extends Thread {
 			try {
 				switch (fromNXT.readProtocol()) {
 					case Robot:
-						log.debug(this.getName() + "read: Robot");
 						robot.update(fromNXT.readRobot());
+						log.info(this.getName() + " - " + robot.toString());
 						robot.updated();
 						break;
 					case Message:
-						log.debug(this.getName() +"read: Message");
 						msg.update(fromNXT.readMessage());
+						log.info(this.getName() + " - " + msg.toString());
 						msg.updated();
 					case DC:
 						log.error(this.getName() +"Disconnected");

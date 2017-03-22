@@ -151,10 +151,10 @@ public class CommandCenter {
 				}
 			}
 		}
-		for (Robot r : robots) {
+		/*for (Robot r : robots) {
 			r.setCurrentLocation(startLocations.get(r));
 			r.setOrientation(startOrientations.get(r));
-		}
+		}*/
 		return paths;
 
 	}

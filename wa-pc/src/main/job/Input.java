@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -38,6 +37,7 @@ public class Input {
 	// number of jobs.
 	private boolean limit = false;
 	private final int MAX_LINES = 80;
+
 	/******************************************************************/
 	public Input(boolean haveTitle) {
 		thereIsTheTitleFile = haveTitle;
@@ -204,16 +204,17 @@ public class Input {
 						// ITEM
 						// REWARD
 						for (Job j : jobs) {
-							//LOG.debug("In Jobid: " + j.getJobID());
+							// LOG.debug("In Jobid: " + j.getJobID());
 							for (Task t : j.getTasks()) {
 
-								//LOG.debug("Item test name " + parts[2]);
+								// LOG.debug("Item test name " + parts[2]);
 								if (t.getItem().getItemName().equals(parts[2])) {
 
 									int x = Integer.parseInt(parts[0]);
 									int y = Integer.parseInt(parts[1]);
 
-									//LOG.debug(t.getItem().getName() + "'s Location: " + x + " " + y);
+									// LOG.debug(t.getItem().getName() + "'s
+									// Location: " + x + " " + y);
 
 									t.getItem().setLocation(x, y);
 								}
@@ -257,7 +258,7 @@ public class Input {
 					if (toDo) {
 						String[] parts = token.split(",");
 						if (!items.contains(parts[2])) {
-							//LOG.debug("item: " + parts[2] + " were added");
+							// LOG.debug("item: " + parts[2] + " were added");
 							Item temp = new Item(parts[2]);
 							int x = Integer.parseInt(parts[0]);
 							int y = Integer.parseInt(parts[1]);
