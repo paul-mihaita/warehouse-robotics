@@ -54,13 +54,13 @@ public class InputTestJUnit {
 	@Test
 	public void testReadTaskAndJobs1() {
 		String file = "1.csv";
-		assertTrue(inputTest.readTaskAndJobs(file) == true);
+		assertTrue(inputTest.readTaskAndJobs(file, false, false) == true);
 	}
 
 	@Test 
 	public void testReadTaskAndJobs2() {
 		String file = "11.csv";
-		assertTrue(inputTest.readTaskAndJobs(file) == false);
+		assertTrue(inputTest.readTaskAndJobs(file, false ,false) == false);
 	}
 
 	// readItemAndRewardAndWeight()

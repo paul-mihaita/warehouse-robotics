@@ -97,5 +97,6 @@ public class JobCancel {
 			jobsToPredict.add(j);
 		}
 		feedData(jobsToPredict);
+		System.out.println(input.getItemsArray().size());
 	}
 }
