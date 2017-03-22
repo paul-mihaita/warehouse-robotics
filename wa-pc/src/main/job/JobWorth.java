@@ -53,7 +53,7 @@ public class JobWorth {
 			map = new HashMap<Robot, Job>();
 
 			for (Robot robot : robots) {
-				map.put(robot, job);
+				map.put(robot.cloneRobot(), job);
 			}
 			int jobPathCost = 0;
 			Astar.reset();

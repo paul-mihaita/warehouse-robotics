@@ -161,7 +161,6 @@ public class WarehouseFloor {
 										t.completed();
 									}
 									removeFromPaths(locPath);
-									WarehouseFloor.this.reassignJobs();
 								}
 							}.start();
 						} else {
@@ -175,7 +174,6 @@ public class WarehouseFloor {
 
 									t.completed();
 									removeFromPaths(locPath);
-									WarehouseFloor.this.reassignJobs();
 								}
 
 							}.start();
