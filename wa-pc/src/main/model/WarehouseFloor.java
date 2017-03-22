@@ -178,7 +178,7 @@ public class WarehouseFloor {
 
 							}.start();
 						}
-
+						log.debug("JOB FINISHED");
 					}
 				}
 

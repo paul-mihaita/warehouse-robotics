@@ -37,7 +37,6 @@ public class Direction extends AbstractBehavior {
 
 	@Override
 	public void action() {
-		System.out.println(dir.toString() + "a");
 		pilot.setTravelSpeed(RobotConstants.FORWARD_SPEED);
 		pilot.setRotateSpeed(RobotConstants.ROT_SPEED);
 		if (dir == move.TURNLEFT) {
