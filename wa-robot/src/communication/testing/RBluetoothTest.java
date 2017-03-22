@@ -14,7 +14,7 @@ import utils.Location;
 import utils.Robot;
 import utils.Task;
 
-public class RobotBluetoothTest {
+public class RBluetoothTest {
 	public static void main(String[] args) {
 		Robot[] robots = Info.getRobotsVector();
 		int rob = 0; //0 = s, 1 = b, 2 = c;
@@ -26,6 +26,7 @@ public class RobotBluetoothTest {
 			Delay.msDelay(100); //wait for pc to tell us what to do
 		}
 		robots[rob].setCurrentLocation(new Location(15, 15));
+		System.out.println("sent");
 		//send a robot update
 	}
 }

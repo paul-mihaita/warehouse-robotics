@@ -67,5 +67,15 @@ public class Message {
 		this.job = readMessage.getJob();
 		needsUpdate = true;
 	}
+	
+	@Override
+	public String toString() {
+		String returnStr = command.toString();
+		for (move move : moves) {
+			returnStr += move.toString();
+		}
+		returnStr += " - " + super.toString();
+		return returnStr;
+	}
 
 }
