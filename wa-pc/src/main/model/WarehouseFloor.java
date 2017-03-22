@@ -126,12 +126,12 @@ public class WarehouseFloor {
 		for (Robot r : robots) {
 			assignment.get(r).ifPresent(new Consumer<Job>() {
 				@Override
-				public void accept(Job t) {
-					if (t.isSelected()) {
-						t.start();
+				public void accept(Job job) {
+					if (job.isSelected()) {
+						job.start();
 						Robot temp = r.cloneRobot();
 						HashMap<Robot, Job> give = new HashMap<Robot, Job>();
-						give.put(temp, t);
+						give.put(temp, job);
 						Astar.reset();
 						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
 						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(temp));
@@ -142,11 +142,11 @@ public class WarehouseFloor {
 						if (server) {
 							new Thread() {
 								public void run() {
-									this.setName("Job thread: " + r.getName() + " " + t.getJobID());
+									this.setName("Job thread: " + r.getName() + " " + job.getJobID());
 
 									addToPaths(locPath);
 
-									Thread p = givePath(r, path.get(temp), t);
+									Thread p = givePath(r, path.get(temp), job);
 									p.start();
 
 									while (p.isAlive()) {
@@ -154,9 +154,9 @@ public class WarehouseFloor {
 									}
 
 									if (p.isInterrupted()) {
-										t.cancel();
+										job.cancel();
 									} else {
-										t.completed();
+										job.completed();
 									}
 									removeFromPaths(locPath);
 								}
@@ -165,11 +165,11 @@ public class WarehouseFloor {
 						} else {
 							new Thread() {
 								public void run() {
-									this.setName("Job thread: " + r.getName() + " " + t.getJobID());
+									this.setName("Job thread: " + r.getName() + " " + job.getJobID());
 
 									addToPaths(locPath);
 
-									t.completed();
+									job.completed();
 									removeFromPaths(locPath);
 								}
 
