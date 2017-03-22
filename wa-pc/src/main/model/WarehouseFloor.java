@@ -326,14 +326,8 @@ public class WarehouseFloor {
 					}
 				});
 			}
-
-			// TODO: Reselect Jobs
-
 		} else if (j.isActive()) {
 			j.cancel();
-
-			// TODO: Interrupt job
-
 		}
 
 		j.cancel();
@@ -369,6 +363,10 @@ public class WarehouseFloor {
 		JobWorth selector = new JobWorth(validJobs, unAssigned);
 		PriorityQueue<Job> queue = selector.getReward();
 		for (Robot r : unAssigned) {
+			///////////////////////////////////////
+			/////Just to skip a job
+			queue.poll();
+			////////////////////////////////////////
 			this.assign(r, queue.poll());
 		}
 	}
