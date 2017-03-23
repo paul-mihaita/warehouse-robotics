@@ -58,4 +58,8 @@ public class Item {
 	public void setWeight(float weight) {
 		this.weight = weight;
 	}
+
+	public boolean equalsItem(Item item) {
+		return item.getName().equals(this.getName());
+	}
 }
