@@ -1,13 +1,13 @@
 package robot_gui;
 
-import communication.Message;
 import communication.CommConst.command;
+import communication.Message;
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
 import lejos.util.Delay;
-import utils.Robot;
 import utils.Location;
+import utils.Robot;
 
 public class GUI extends Thread {
 
@@ -116,7 +116,7 @@ public class GUI extends Thread {
 				if (isOnPickUp) {
 					drawUI(pickup, itemDisp);
 					if (ENTER) {
-						drawUI(pickup,itemDisp);
+						drawUI(pickup, itemDisp);
 						isMoving = true;
 					}
 					if (ESCAPE) {
@@ -127,7 +127,7 @@ public class GUI extends Thread {
 					if (LEFT) {
 						if (numItems > 0) {
 							numItems--;
-							itemDisp = "Item "+ itemName + ": " + numItems + "/" + quantity;
+							itemDisp = "Item " + itemName + ": " + numItems + "/" + quantity;
 							LCD.drawString(itemDisp, 1, 3);
 						} else
 							LCD.drawString(itemMin, 1, 3);
@@ -143,21 +143,23 @@ public class GUI extends Thread {
 						}
 					}
 					if (numItems == quantity && quantity > 0) {
-						if (msg.getCommand() != command.Finish){
+						if (msg.getCommand() != command.Finish) {
 							numItems = 0;
 							drawUI("Items picked up", "");
-							msg.setCommand(command.Finish); //we finished this pick up so tell the pc
+							msg.setCommand(command.Finish); // we finished this
+															// pick up so tell
+															// the pc
 						}
 					}
-				}
-				else {
+				} else {
 					numItems = 0;
 					drawUI(dropoff, dropoffItems);
 					if (ENTER) {
 						numItems = 0;
 						drawUI(dropoff, dropoffItems);
 						isMoving = true;
-						msg.setCommand(command.Finish); //we finished this drop off so tell the pc
+						msg.setCommand(command.Finish); // we finished this drop
+														// off so tell the pc
 					}
 					if (ESCAPE) {
 						LCD.clear();

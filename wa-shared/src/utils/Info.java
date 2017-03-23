@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Info {
 	public static final String[] RobotNames = new String[] {"Squirtle", "Bulbasaur", "Charmander" };
 	public static final String[] RobotAddresses = new String[] {"0016530FDDAE", "0016531AFA0B" , "00165308DA58"};
-	public static final Location[] RobotStarting = new Location[] {new Location (5,0), new Location (7,0), new Location (10,0)};
+	public static final Location[] RobotStarting = new Location[] {new Location (6,4), new Location (11,7), new Location (10,0)};
 	public static final Location[] RobotVector = new Location[] {new Location (-1,0), new Location (-1,0), new Location (-1,0)};
 	/**
 	 * Gets all 3 robots

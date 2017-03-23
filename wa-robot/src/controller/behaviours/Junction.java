@@ -45,7 +45,7 @@ public class Junction extends AbstractBehavior {
 			Mixtape.play();
 			robot.setMoving(false);
 			pilot.stop();
-			pilot.travel(-3 * RobotConstants.WHEEL_TO_SENSOR);
+			pilot.travel(-0.1);
 			pilot.stop();
 			return;
 		}
