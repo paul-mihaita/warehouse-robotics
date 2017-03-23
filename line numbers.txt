@@ -1,0 +1,7 @@
+tom = 1905
+jacob = 323
+alex = 2623
+paul = 1536
+maria = 238
+nerae = 175
+ravinder = 468

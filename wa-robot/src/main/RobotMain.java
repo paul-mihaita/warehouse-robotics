@@ -23,7 +23,7 @@ public class RobotMain {
 		for (int i = 0; i < r.length; i++) {
 			r[i].updated();
 		}
-		int rob = 2; //0 = s, 1 = b, 2 = c
+		int rob = 0; //0 = s, 1 = b, 2 = c
 		printWelcome(r[rob]);
 		Message m = new Message((List<move>) new ArrayList<move>(), command.Wait, new BasicJob(1, new Task("a", 1)));
 		Client client = new Client(r[rob], m);
