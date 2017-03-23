@@ -8,7 +8,7 @@ import utils.Robot;
 
 public class RobotMovement {
 	public static void backward(Location vector, Pilot pilot, Robot robot) {
-		pilot.rotate(180);
+		pilot.rotate(190);
 		forward(Maths.changeAngle((double) 180, vector), pilot, robot);
 	}
 
@@ -22,13 +22,13 @@ public class RobotMovement {
 
 	public static void turnleft(Location vector, Pilot pilot, Robot robot) {
 		pilot.travel(0.05);
-		pilot.rotate(-90);
+		pilot.rotate(-95);
 		forward(Maths.changeAngle((double) -90, vector), pilot, robot);
 	}
 
 	public static void turnright(Location vector, Pilot pilot, Robot robot) {
 		pilot.travel(0.05);
-		pilot.rotate(90);
+		pilot.rotate(95);
 		forward(Maths.changeAngle((double) 90, vector), pilot, robot);
 	}
 
