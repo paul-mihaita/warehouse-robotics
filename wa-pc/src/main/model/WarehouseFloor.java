@@ -77,7 +77,7 @@ public class WarehouseFloor {
 
 		Robot[] robos = Info.getRobotsPaul();
 		this.robots.add(robos[0]); // squirtle
-		// this.robots.add(robos[1]); // bulbasaur
+		this.robots.add(robos[1]); // bulbasaur
 		// this.robots.add(robos[2]); // charmander
 
 		for (Job j : jobs) {
@@ -156,7 +156,7 @@ public class WarehouseFloor {
 
 									addToPaths(locPath);
 
-									Thread p = new Thread(givePath(r, path.getX().get(r), job));
+									Thread p = new Thread(givePath(r, path.getX().get(clones.get(r)), job));
 									p.start();
 									try {
 										p.join();

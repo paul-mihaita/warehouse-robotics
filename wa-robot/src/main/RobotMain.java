@@ -24,6 +24,7 @@ public class RobotMain {
 			r[i].updated();
 		}
 		int rob = 0; //0 = s, 1 = b, 2 = c
+		printWelcome(r[rob]);
 		Message m = new Message((List<move>) new ArrayList<move>(), command.Wait, new BasicJob(1, new Task("a", 1)));
 		Client client = new Client(r[rob], m);
 		client.launch(); //do not use client.start(); use this instead
@@ -31,14 +32,14 @@ public class RobotMain {
 		GUI gui = new GUI(r[rob], m);
 		gui.start();
 		controller.start();
-		
+		Button.waitForAnyPress();
+	}
+	
+	private static void printWelcome(Robot r) {
 		//Priting welcome message
 		LCD.clear();
-		LCD.drawString("WELCOME", 3, 1);
-		LCD.drawString("I'm "+r[rob].getName(), 1, 3);
-		LCD.drawString("Ready to run!", 3, 5);
-		
-		
-		Button.waitForAnyPress();
+		LCD.drawString("WELCOME", 5, 1);
+		LCD.drawString("I'm "+r.getName(), 1, 3);
+		LCD.drawString("Ready to run!", 2, 4);
 	}
 }

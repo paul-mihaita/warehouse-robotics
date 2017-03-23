@@ -34,7 +34,9 @@ public class Maths {
 	public static int findAngle(Location u, Location v) {
 		double x = Math.atan2(u.getY(), u.getX());
 		double y = Math.atan2(v.getY(), v.getX());
-		return round((x - y) * (180/Math.PI));
+		int ang = round((x - y) * (180/Math.PI));
+		ang = Math.floorMod(ang, 360);
+		return ang;
 	}
 	
 	

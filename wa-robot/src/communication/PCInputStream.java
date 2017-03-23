@@ -21,7 +21,6 @@ public class PCInputStream {
 
 	public protocol readProtocol() throws IOException {
 		int proto = stream.read();
-		System.out.println(proto);
 		switch (proto) {
 			case CommConst.ROBOT:
 				return protocol.Robot;

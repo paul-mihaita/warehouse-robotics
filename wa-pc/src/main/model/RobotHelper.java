@@ -1,15 +1,13 @@
 package main.model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 import org.apache.log4j.Logger;
 
 import communication.CommConst.command;
-import lejos.util.Delay;
 import communication.Message;
 import communication.thread.Converters;
+import lejos.util.Delay;
 import movement.Movement.move;
 import utils.Job;
 import utils.Robot;
@@ -26,6 +24,7 @@ public class RobotHelper extends Thread {
 		this.m = m;
 		this.robot = robot;
 		this.log = log;
+		this.setName(robot.getName());
 	}
 	
 	public void overwriteRoutes(ArrayList<ArrayList<move>> routes, Job j ) {
@@ -35,7 +34,7 @@ public class RobotHelper extends Thread {
 	}
 	@Override
 	public void run() {
-		while (index < r.size()) {																																																						
+		while (index < r.size()) {
 			//sends the robot the moves
 			ArrayList<move> temp = r.get(index);
 			m.setMoves(temp);
@@ -58,7 +57,7 @@ public class RobotHelper extends Thread {
 			
 			index++;
 			
-			log.info(m.toString());
+			log.info(this.getName() + " - " + m.toString());
 			while (m.getCommand() != command.Finish) {
 				//wait for the robot to finish it segement
 				Delay.msDelay(100);
