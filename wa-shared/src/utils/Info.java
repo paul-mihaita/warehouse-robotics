@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.ArrayList;
+
 public class Info {
 	public static final String[] RobotNames = new String[] {"Squirtle", "Bulbasaur", "Charmander" };
 	public static final String[] RobotAddresses = new String[] {"0016530FDDAE", "0016531AFA0B" , "00165308DA58"};
@@ -13,6 +15,14 @@ public class Info {
 		Robot[] r = new Robot[RobotNames.length];
 		for (int i = 0; i < RobotAddresses.length; i++) {
 			r[i] = new Robot(RobotNames[i], RobotAddresses[i],addLocation(RobotStarting[i], RobotVector[i]), RobotStarting[i] );
+		}
+		return r;
+	}
+	public static ArrayList<Robot> getRobotsRavinder() {
+		ArrayList<Robot> r = new ArrayList<Robot>();
+		for (int i = 0; i < RobotAddresses.length; i++) {
+			Robot temp= new Robot(RobotNames[i], RobotAddresses[i],addLocation(RobotStarting[i], RobotVector[i]), RobotStarting[i] );
+			r.add(temp);
 		}
 		return r;
 	}
