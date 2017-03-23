@@ -18,6 +18,7 @@ import lejos.util.Delay;
 import main.job.JobWorth;
 import main.route.Astar;
 import main.route.CommandCenter;
+import movement.Maths;
 import movement.Movement.move;
 import student_solution.Graph;
 import utils.DropLocation;
@@ -142,7 +143,8 @@ public class WarehouseFloor {
 								.locationToMove(CommandCenter.getPathLocations(), finishOrientation);
 						
 						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(clones.get(r)));
-						r.setOrientation(path.getY().get(r.getName()));
+						finishOrientation.replace(r.getName(), path.getY().get(r.getName()));
+						r.setOrientation(Maths.addLocation(clones.get(r).getOrientation(), finishOrientation.get(r.getName())));
 						/*
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment

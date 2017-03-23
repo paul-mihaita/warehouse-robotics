@@ -32,13 +32,19 @@ public class Maths {
 	}
 	
 	public static int findAngle(Location u, Location v) {
-		double top = dotProduct(u, v);
-		double bot = dotProduct(square(u), square(v));
-		return round(Math.acos(top / bot) * (180 / Math.PI));
+		double x = Math.atan2(u.getY(), u.getX());
+		double y = Math.atan2(v.getY(), v.getX());
+		return round((x - y) * (180/Math.PI));
 	}
+	
+	
 	
 	public static double dotProduct(Location u, Location v) {
 		return (u.getX() * v.getX()) + (u.getY() + v.getY());
+	}
+	
+	public static double detProduct(Location u, Location v) {
+		return (u.getX() * v.getY()) - (u.getY() + v.getX());
 	}
 	
 }

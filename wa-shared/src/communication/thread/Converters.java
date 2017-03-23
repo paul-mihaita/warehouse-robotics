@@ -151,15 +151,16 @@ public class Converters {
 		validateVector(initalOrientation);
 		Location returnLocation = new Location(initalOrientation.getX(), initalOrientation.getY());
 		int j = 0;
-		while (j < arrayList.size() - 1) {
+		while (j < arrayList.size()) {
 			ArrayList<Location> path = arrayList.get(j);
 			returnList.add(j, new ArrayList<move>());
 			int i = 0;
-			while (i < path.size() - 2) {
+			while (i < path.size() - 1) {
 				Location minusLocation = Maths.minusLocation(path.get(i + 1), path.get(i));
+				
 				int angle = Maths.findAngle(returnLocation, minusLocation);
 				returnLocation = minusLocation;
-				returnList.get(j).add(angleToMove(angle));
+				returnList.get(j).add(angleToMove(Math.floorMod(angle, 360)));
 				i++;
 			}
 			j++;
@@ -173,12 +174,10 @@ public class Converters {
 				return move.FORWARD;
 			case 90:
 				return move.TURNLEFT;
-			case -90:
-				return move.TURNRIGHT;
 			case 180:
 				return move.BACKWARD;
-			case -180:
-				return move.BACKWARD;
+			case 270:
+				return move.TURNRIGHT;
 			default:
 				throw new IllegalArgumentException("ooops " + angle);
 		}
