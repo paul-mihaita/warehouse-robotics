@@ -141,10 +141,11 @@ public class WarehouseFloor {
 						CommandCenter.generatePaths(give);
 						Tuple<HashMap<Robot, ArrayList<ArrayList<move>>>, HashMap<String, Location>> path = Converters
 								.locationToMove(CommandCenter.getPathLocations(), finishOrientation);
-						
+
 						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(clones.get(r)));
 						finishOrientation.replace(r.getName(), path.getY().get(r.getName()));
-						r.setOrientation(Maths.addLocation(clones.get(r).getOrientation(), finishOrientation.get(r.getName())));
+						r.setOrientation(
+								Maths.addLocation(clones.get(r).getOrientation(), finishOrientation.get(r.getName())));
 						/*
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment
@@ -334,7 +335,25 @@ public class WarehouseFloor {
 		ArrayList<Robot> unAssigned = new ArrayList<Robot>();
 		for (Job j : jobList.values()) {
 			if (j.isNotSelected()) {
-				validJobs.add(j);
+				boolean itemsTaken = false;
+
+				for (Task t : j.getTasks()) {
+
+					for (Optional<Job> aj : assignment.values()) {
+						if (aj.isPresent()) {
+							for (Task at : aj.get().getTasks()) {
+								if (at.getItem().equals(t.getItem())) {
+									itemsTaken = true;
+								}
+							}
+						}
+					}
+
+				}
+
+				if (!itemsTaken) {
+					validJobs.add(j);
+				}
 			}
 		}
 
