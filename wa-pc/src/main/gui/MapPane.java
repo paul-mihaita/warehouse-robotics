@@ -7,6 +7,7 @@ import com.sun.java.swing.plaf.motif.MotifOptionPaneUI;
 
 import graph_entities.IEdge;
 import graph_entities.IVertex;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -59,15 +60,22 @@ public class MapPane extends Canvas {
 				Rate r = new Rate(10);
 
 				while (!this.isInterrupted()) {
-					gc.clearRect(0, 0, GUI.MAP_WIDTH, GUI.HEIGHT);
+					Platform.runLater(new Runnable() {
 
-					for (IVertex<Location> v : floorMap.getVertices()) {
-						MapPane.drawEdges(v, gc);
-					}
+						@Override
+						public void run() {
+							gc.clearRect(0, 0, GUI.MAP_WIDTH, GUI.HEIGHT);
 
-					MapPane.drawPaths(gc);
-					MapPane.drawRobots(gc);
-					MapPane.drawItems(gc, model.getItems());
+							for (IVertex<Location> v : floorMap.getVertices()) {
+								MapPane.drawEdges(v, gc);
+							}
+
+							MapPane.drawPaths(gc);
+							MapPane.drawRobots(gc);
+							MapPane.drawItems(gc, model.getItems());
+
+						}
+					});
 
 					r.sleep();
 				}
