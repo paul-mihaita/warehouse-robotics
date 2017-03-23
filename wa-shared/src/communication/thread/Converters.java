@@ -135,14 +135,26 @@ public class Converters {
 		HashMap<Robot, ArrayList<ArrayList<move>>> returnHash = new HashMap<>();
 		HashMap<String, Location> returnOrientation = new HashMap<>();
 
-		Set<Robot> robots = pathLocations.keySet();
-		for (Robot robot : robots) {
-			Tuple<ArrayList<ArrayList<move>>, Location> temp = locationToMove(pathLocations.get(robot),
+		for (Robot robot : pathLocations.keySet()) {
+			ArrayList<ArrayList<Location>> paths = adjustY(pathLocations.get(robot));
+			Tuple<ArrayList<ArrayList<move>>, Location> temp = locationToMove(paths,
 					initalOrientation.get(robot.getName()));
 			returnHash.put(robot, temp.getX());
 			returnOrientation.put(robot.getName(), temp.getY());
 		}
 		return new Tuple<>(returnHash, returnOrientation);
+	}
+
+	private static ArrayList<ArrayList<Location>> adjustY(ArrayList<ArrayList<Location>> arrayList) {
+		ArrayList<ArrayList<Location>> returnList = new ArrayList<ArrayList<Location>>();
+		for (ArrayList<Location> arrayList2 : arrayList) {
+			ArrayList<Location> cur = new ArrayList<Location>();
+			returnList.add(cur);
+			for (Location location : arrayList2) {
+				cur.add(new Location(location.getX(), -1 * location.getY()));
+			}
+		}
+		return returnList;
 	}
 
 	private static Tuple<ArrayList<ArrayList<move>>, Location> locationToMove(ArrayList<ArrayList<Location>> arrayList,
