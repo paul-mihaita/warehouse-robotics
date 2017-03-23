@@ -11,6 +11,7 @@ public class TabMenuPane extends TabPane {
 	private RobotPane robotHolder;
 	private JobPane jobHolder;
 	private EditPane editHolder;
+	private RewardPane rewardHolder;
 	private Thread refresh;
 	private Runnable refreshCommand;
 
@@ -22,6 +23,7 @@ public class TabMenuPane extends TabPane {
 			public void run() {
 				RobotPane.updateLabels();
 				JobPane.updateLabels();
+				rewardHolder.update();
 			}
 		};
 
@@ -32,6 +34,8 @@ public class TabMenuPane extends TabPane {
 		this.getTabs().add(new Tab("Jobs", jobHolder));
 		editHolder = new EditPane(model);
 		this.getTabs().add(new Tab("Edit", editHolder));
+		rewardHolder = new RewardPane(model);
+		this.getTabs().add(new Tab("Reward", rewardHolder));
 
 		refresh = new Thread() {
 			@Override
@@ -55,8 +59,8 @@ public class TabMenuPane extends TabPane {
 	}
 
 	protected void updateItems() {
-		
-		robotHolder.updateItems();
-		
+
+		RobotPane.updateItems();
+
 	}
 }
