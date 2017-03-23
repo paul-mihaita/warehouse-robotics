@@ -24,6 +24,7 @@ public class RobotHelper extends Thread {
 		this.m = m;
 		this.robot = robot;
 		this.log = log;
+		this.setName(robot.getName());
 	}
 	
 	public void overwriteRoutes(ArrayList<ArrayList<move>> routes, Job j ) {
@@ -56,7 +57,7 @@ public class RobotHelper extends Thread {
 			
 			index++;
 			
-			log.info(m.toString());
+			log.info(this.getName() + " - " + m.toString());
 			while (m.getCommand() != command.Finish) {
 				//wait for the robot to finish it segement
 				Delay.msDelay(100);

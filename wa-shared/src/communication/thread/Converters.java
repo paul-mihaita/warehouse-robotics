@@ -157,12 +157,12 @@ public class Converters {
 			int i = 0;
 			while (i < path.size() - 1) {
 				Location minusLocation = Maths.minusLocation(path.get(i + 1), path.get(i));
-
-				int angle = Maths.findAngle(returnLocation, minusLocation);
-				if (returnLocation.equals(new Location(-1, 0)) && minusLocation.equals(new Location(0, 1)))
-					System.out.println("test");
+				if ((path.get(i).equals(new Location(5,0))) && path.get(i + 1).equals(new Location(5, 1))) {
+					System.out.println("temp");
+				}
+				int angle = Maths.findAngle(minusLocation, returnLocation);
 				returnLocation = minusLocation;
-				returnList.get(j).add(angleToMove(Math.floorMod(angle, 360)));
+				returnList.get(j).add(angleToMove(angle));
 				i++;
 			}
 			j++;
@@ -175,11 +175,11 @@ public class Converters {
 			case 0:
 				return move.FORWARD;
 			case 90:
-				return move.TURNRIGHT;
+				return move.TURNLEFT;
 			case 180:
 				return move.BACKWARD;
 			case 270:
-				return move.TURNLEFT;
+				return move.TURNRIGHT;
 			default:
 				throw new IllegalArgumentException("ooops " + angle);
 		}
