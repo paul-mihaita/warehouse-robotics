@@ -245,8 +245,6 @@ public class WarehouseFloor {
 
 	public boolean assign(Robot r, Job j) {
 
-		// TODO: Add drop-off assignment
-
 		if (!assignment.get(r).isPresent()) {
 			assignment.remove(r);
 			assignment.put(r, Optional.of(j));
@@ -329,33 +327,67 @@ public class WarehouseFloor {
 		j.cancel();
 	}
 
+	// public void reassignJobs() {
+	//
+	// ArrayList<Job> validJobs = new ArrayList<Job>();
+	// ArrayList<Robot> unAssigned = new ArrayList<Robot>();
+	//
+	// for (Job j : jobList.values()) {
+	// if (j.isNotSelected()) {
+	// boolean itemsTaken = false;
+	//
+	// for (Task t : j.getTasks()) {
+	//
+	// for (Optional<Job> aj : assignment.values()) {
+	//
+	// if (aj.isPresent()) {
+	// for (Task at : aj.get().getTasks()) {
+	// if (at.getItem().equals(t.getItem())) {
+	// itemsTaken = true;
+	// }
+	// }
+	// }
+	// }
+	//
+	// }
+	//
+	// if (!itemsTaken) {
+	// validJobs.add(j);
+	// }
+	// }
+	// }
+	//
+	// for (Robot r : assignment.keySet()) {
+	//
+	// if (assignment.get(r).isPresent()) {
+	// Job j = assignment.get(r).get();
+	// if (j.isCanceled() || j.isCompleted()) {
+	// unAssigned.add(r);
+	// }
+	// } else {
+	// unAssigned.add(r);
+	// }
+	//
+	// }
+	//
+	// if (unAssigned.isEmpty()) {
+	// return;
+	// }
+	//
+	// JobWorth selector = new JobWorth(validJobs, unAssigned);
+	// PriorityQueue<Job> queue = selector.getReward();
+	// for (Robot r : unAssigned) {
+	// ///////////////////////////////////////
+	// ///// Just to skip a job
+	// queue.poll();
+	// ////////////////////////////////////////
+	// this.assign(r, queue.poll());
+	// }
+	// }
+
 	public void reassignJobs() {
 
-		ArrayList<Job> validJobs = new ArrayList<Job>();
 		ArrayList<Robot> unAssigned = new ArrayList<Robot>();
-		for (Job j : jobList.values()) {
-			if (j.isNotSelected()) {
-				boolean itemsTaken = false;
-
-				for (Task t : j.getTasks()) {
-
-					for (Optional<Job> aj : assignment.values()) {
-						if (aj.isPresent()) {
-							for (Task at : aj.get().getTasks()) {
-								if (at.getItem().equals(t.getItem())) {
-									itemsTaken = true;
-								}
-							}
-						}
-					}
-
-				}
-
-				if (!itemsTaken) {
-					validJobs.add(j);
-				}
-			}
-		}
 
 		for (Robot r : assignment.keySet()) {
 
@@ -370,19 +402,45 @@ public class WarehouseFloor {
 
 		}
 
-		if (unAssigned.isEmpty()) {
-			return;
-		}
+		ArrayList<Job> validJobs = new ArrayList<Job>();
 
-		JobWorth selector = new JobWorth(validJobs, unAssigned);
-		PriorityQueue<Job> queue = selector.getReward();
 		for (Robot r : unAssigned) {
+
+			for (Job j : jobList.values()) {
+				if (j.isNotSelected()) {
+					boolean itemsTaken = false;
+
+					for (Task t : j.getTasks()) {
+
+						for (Optional<Job> aj : assignment.values()) {
+
+							if (aj.isPresent()) {
+
+								for (Task at : aj.get().getTasks()) {
+									itemsTaken = itemsTaken || at.getItem().equalsItem(t.getItem());
+
+								}
+							}
+						}
+
+					}
+
+					if (!itemsTaken) {
+						validJobs.add(j);
+					}
+				}
+			}
+
+			JobWorth selector = new JobWorth(validJobs, unAssigned);
+			PriorityQueue<Job> queue = selector.getReward();
 			///////////////////////////////////////
 			///// Just to skip a job
-			queue.poll();
+			// queue.poll();
 			////////////////////////////////////////
 			this.assign(r, queue.poll());
+			validJobs = new ArrayList<Job>();
 		}
+
 	}
 
 }

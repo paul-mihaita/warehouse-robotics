@@ -24,7 +24,7 @@ public class Task {
 	public Item getItem() {
 		return item;
 	}
-
+	
 	// SET
 	public void setItem(Item item) {
 		this.item = item;
