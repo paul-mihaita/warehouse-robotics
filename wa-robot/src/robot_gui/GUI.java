@@ -112,7 +112,7 @@ public class GUI extends Thread {
 
 		while (true) {
 			update();
-			if (isMoving == false) {
+			if (!isMoving) {
 				if (isOnPickUp) {
 					drawUI(pickup, itemDisp);
 					if (ENTER) {
@@ -127,24 +127,27 @@ public class GUI extends Thread {
 					if (LEFT) {
 						if (numItems > 0) {
 							numItems--;
-							itemDisp = itemName + ": " + numItems + "/" + quantity;
-							LCD.drawString(itemDisp, 0, 3);
+							itemDisp = "Item "+ itemName + ": " + numItems + "/" + quantity;
+							LCD.drawString(itemDisp, 1, 3);
 						} else
-							LCD.drawString(itemMin, 0, 3);
+							LCD.drawString(itemMin, 1, 3);
 					}
 					if (RIGHT) {
 						if (numItems < quantity) {
 							numItems++;
 							itemDisp = itemName + ": " + numItems + "/" + quantity;
-							LCD.drawString(itemDisp, 0, 3);
+							LCD.drawString(itemDisp, 1, 3);
 						} else {
 							itemDisp = itemName + ": " + quantity + "/" + quantity;
-							LCD.drawString(itemDisp, 0, 3);
+							LCD.drawString(itemDisp, 1, 3);
 						}
 					}
 					if (numItems == quantity) {
-						if (msg.getCommand() != command.Finish)
+						if (msg.getCommand() != command.Finish){
+							numItems = 0;
+							drawUI("Item picked up", "");
 							msg.setCommand(command.Finish); //we finished this pick up so tell the pc
+						}
 					}
 				}
 				else {
@@ -169,10 +172,10 @@ public class GUI extends Thread {
 
 	private void drawUI(String state, String item) {
 		LCD.clear();
-		LCD.drawString(state ,0, 1);
-		LCD.drawString(jobIDisp, 0, 2);
-		LCD.drawString(item, 0, 3);
-		LCD.drawString(locationDisp, 0, 4);
+		LCD.drawString(state, 1, 1);
+		LCD.drawString(jobIDisp, 1, 2);
+		LCD.drawString(item, 1, 3);
+		LCD.drawString(locationDisp, 1, 4);
 	}
 
 }

@@ -9,6 +9,7 @@ import communication.Message;
 import communication.thread.Client;
 import controller.behaviours.Controller;
 import lejos.nxt.Button;
+import lejos.nxt.LCD;
 import movement.Movement.move;
 import robot_gui.GUI;
 import utils.Info;
@@ -30,6 +31,14 @@ public class RobotMain {
 		GUI gui = new GUI(r[rob], m);
 		gui.start();
 		controller.start();
+		
+		//Priting welcome message
+		LCD.clear();
+		LCD.drawString("WELCOME", 3, 1);
+		LCD.drawString("I'm "+r[rob].getName(), 1, 3);
+		LCD.drawString("Ready to run!", 3, 5);
+		
+		
 		Button.waitForAnyPress();
 	}
 }
