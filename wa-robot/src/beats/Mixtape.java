@@ -11,8 +11,8 @@ public class Mixtape {
 			@Override
 			public void run() {
 				File file = new File("junction.wav");
-				Sound.setVolume(Sound.VOL_MAX);
 				Sound.playSample(file);
+				p(123,100);
 			}
 		}.run();
 	}
