@@ -99,14 +99,11 @@ public class CommandCenter {
 				int j = 0;
 				for (ArrayList<Location> y : x) {
 					if (y.size() > 2) {
-						ArrayList<ArrayList<move>> aux = new ArrayList<>();
 						ArrayList<ArrayList<Location>> auxLoc = new ArrayList<>();
 						Robot r = robots.get(j);
-						aux.add(CommandCenter.generateMovements(y, r.getOrientation()));
 						finalLoc.put(r, y.get(y.size() - 1));
 						
 						finalOrientation.put(r, getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
-						paths.put(r, aux);
 						auxLoc.add(y);
 						pathsLocations.put(r, auxLoc);
 						j++;
@@ -119,18 +116,9 @@ public class CommandCenter {
 				int j = 0;
 				for (ArrayList<Location> y : x) {
 					if (y.size() > 2) {
-						ArrayList<move> aux = new ArrayList<>();
 						Robot r = robots.get(j);
-						aux = CommandCenter.generateMovements(y, r.getOrientation());
 						finalLoc.put(r, y.get(y.size() - 1));
 						finalOrientation.put(r, getOrientation(y.get(y.size() - 2), y.get(y.size() - 1)));
-						if(paths.containsKey(r))
-							paths.get(r).add(aux);
-						else{
-							ArrayList<ArrayList<move>> auxx = new ArrayList<>();
-							auxx.add(aux);
-							paths.put(r,auxx);
-						}
 						if(pathsLocations.containsKey(r)){
 							pathsLocations.get(r).add(y);
 						}
@@ -151,12 +139,7 @@ public class CommandCenter {
 				}
 			}
 		}
-		/*for (Robot r : robots) {
-			r.setCurrentLocation(startLocations.get(r));
-			r.setOrientation(startOrientations.get(r));
-		}*/
 		return paths;
-
 	}
 
 	public static HashMap<Robot, ArrayList<ArrayList<Location>>> getPathLocations() {
@@ -179,7 +162,7 @@ public class CommandCenter {
 			return location2;
 	}
 
-	public static ArrayList<move> generateMovements(ArrayList<Location> path, Location orientation) {
+	/*public static ArrayList<move> generateMovements(ArrayList<Location> path, Location orientation) {
 		ArrayList<move> moves = new ArrayList<>();
 		move facing = getFacing(path.get(0), orientation);
 
@@ -279,7 +262,7 @@ public class CommandCenter {
 		else if (orientation.getY() < loc.getY())
 			return move.BACKWARD;
 		return move.WAIT;
-	}
+	}*/
 
 	public static void orderTasks(ArrayList<Task> tasks) {
 		// ordering tasks, TODO

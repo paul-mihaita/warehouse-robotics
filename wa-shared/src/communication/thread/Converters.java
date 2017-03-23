@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import communication.BasicJob;
 import communication.CommConst;
 import movement.Maths;

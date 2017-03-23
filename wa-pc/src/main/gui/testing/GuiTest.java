@@ -1,9 +1,10 @@
 package main.gui.testing;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.apache.log4j.Logger;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import lejos.util.Delay;
@@ -18,10 +19,10 @@ public class GuiTest {
 
 	public static final Logger log = Logger.getLogger(GuiTest.class);
 
-	private WarehouseFloor model;
+	private static WarehouseFloor model;
 
-	@Before
-	public void setUp() {
+	@BeforeClass
+	public static void setUp() {
 
 		Input in = new Input(false);
 
