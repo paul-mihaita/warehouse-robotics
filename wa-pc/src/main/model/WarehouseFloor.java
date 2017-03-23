@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.PriorityQueue;
-import java.util.Random;
 import java.util.function.Consumer;
 
 import org.apache.log4j.Logger;
@@ -19,8 +18,8 @@ import lejos.util.Delay;
 import main.job.JobWorth;
 import main.route.Astar;
 import main.route.CommandCenter;
+import movement.Maths;
 import movement.Movement.move;
-import rp.util.Rate;
 import student_solution.Graph;
 import utils.DropLocation;
 import utils.Info;
@@ -29,29 +28,22 @@ import utils.Job;
 import utils.Location;
 import utils.Robot;
 import utils.Task;
+import utils.Tuple;
 
 public class WarehouseFloor {
 
 	private HashMap<Robot, RobotHelper> poller = new HashMap<Robot, RobotHelper>();
-
 	private HashSet<Robot> robots;
-
 	private HashMap<Robot, Optional<Job>> assignment;
-
 	private HashMap<Robot, Message> messageQueues;
-
 	private HashMap<Integer, Job> jobList;
-
 	private ArrayList<Item> items;
-
 	private Graph<Location> floor;
-
 	private HashSet<ArrayList<Location>> activePaths;
-
 	private Logger log = Logger.getLogger(WarehouseFloor.class);
-
 	private boolean server;
 	private ArrayList<DropLocation> dropLocations;
+	private HashMap<String, Location> finishOrientation;
 
 	/**
 	 * Creates the Warehouse floor object, contains all the data about the
@@ -69,7 +61,7 @@ public class WarehouseFloor {
 	 */
 	public WarehouseFloor(Graph<Location> floor, ArrayList<Job> jobs, ArrayList<Item> items,
 			ArrayList<DropLocation> dropLocations, boolean server) {
-
+		this.finishOrientation = new HashMap<String, Location>();
 		this.server = server;
 		this.assignment = new HashMap<Robot, Optional<Job>>();
 		this.jobList = new HashMap<Integer, Job>();
@@ -85,9 +77,8 @@ public class WarehouseFloor {
 
 		Robot[] robos = Info.getRobotsPaul();
 		this.robots.add(robos[0]); // squirtle
-		//this.robots.add(robos[1]); // bulbasaur
-		//this.robots.add(robos[2]); // charmander
-
+		// this.robots.add(robos[1]); // bulbasaur
+		// this.robots.add(robos[2]); // charmander
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -97,8 +88,9 @@ public class WarehouseFloor {
 		for (Robot r : robots) {
 			assignment.put(r, Optional.empty());
 			Message temp = new Message(new ArrayList<move>(), command.Wait, new BasicJob(0, new Task("", 0)));
-			tempArr[i++] = temp;
+			tempArr[i] = temp;
 			messageQueues.put(r, temp);
+			finishOrientation.put(r.getName(), Info.RobotVector[i++]);
 		}
 
 		reassignJobs();
@@ -121,7 +113,7 @@ public class WarehouseFloor {
 	}
 
 	public void startRobots() {
-		
+
 		HashMap<Robot, Robot> clones = new HashMap<Robot, Robot>();
 
 		HashMap<Robot, Job> give = new HashMap<Robot, Job>();
@@ -146,9 +138,13 @@ public class WarehouseFloor {
 					if (job.isSelected()) {
 						job.start(getDropLocation());
 						Astar.reset();
-						HashMap<Robot, ArrayList<ArrayList<move>>> path = CommandCenter.generatePaths(give);
+						CommandCenter.generatePaths(give);
+						Tuple<HashMap<Robot, ArrayList<ArrayList<move>>>, HashMap<String, Location>> path = Converters
+								.locationToMove(CommandCenter.getPathLocations(), finishOrientation);
+						
 						ArrayList<Location> locPath = conc(CommandCenter.getPathLocations().get(clones.get(r)));
-						r.setOrientation(clones.get(r).getOrientation());
+						finishOrientation.replace(r.getName(), path.getY().get(r.getName()));
+						r.setOrientation(Maths.addLocation(clones.get(r).getOrientation(), finishOrientation.get(r.getName())));
 						/*
 						 * Gets a thread which terminates when the job is
 						 * completed. Waits for that moment
@@ -160,9 +156,8 @@ public class WarehouseFloor {
 
 									addToPaths(locPath);
 
-									Thread p = new Thread(givePath(r, path.get(clones.get(r)), job));
+									Thread p = new Thread(givePath(r, path.getX().get(r), job));
 									p.start();
-
 									try {
 										p.join();
 										job.completed();
@@ -364,7 +359,7 @@ public class WarehouseFloor {
 		PriorityQueue<Job> queue = selector.getReward();
 		for (Robot r : unAssigned) {
 			///////////////////////////////////////
-			/////Just to skip a job
+			///// Just to skip a job
 			queue.poll();
 			////////////////////////////////////////
 			this.assign(r, queue.poll());
