@@ -12,7 +12,7 @@ public class Mixtape {
 			public void run() {
 				File file = new File("junction.wav");
 				Sound.playSample(file);
-				p(123,100);
+				p(300,300);
 			}
 		}.run();
 	}

@@ -62,10 +62,10 @@ public class Maths {
 		} else if (u.equals(new Location(0, -1))) {
 			if (v.equals(new Location(1,0))) {
 				//not sure
-				return 270;
+				return 90;
 			} else if (v.equals(new Location(-1, 0))){
 				//not sure
-				return 90;
+				return 270;
 			} else if (v.equals(new Location(0, 1))){
 				return 180;
 			} else {
