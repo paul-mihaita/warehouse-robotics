@@ -32,12 +32,60 @@ public class Maths {
 	}
 	
 	public static int findAngle(Location u, Location v) {
-		double x = Math.atan2(u.getY(), u.getX());
+		/*double x = Math.atan2(u.getY(), u.getX());
 		double y = Math.atan2(v.getY(), v.getX());
 		int ang = round((x - y) * (180/Math.PI));
 		ang = Math.floorMod(ang, 360);
-		return ang;
+		return ang;*/
+		if (u.equals(new Location(1, 0))) {
+			if (v.equals(new Location(1,0))) {
+				return 0;
+			} else if (v.equals(new Location(-1, 0))){
+				return 180;
+			} else if (v.equals(new Location(0, 1))){
+				//not sure
+				return 90;
+			} else {
+				return 270;
+			}
+		} else if (u.equals(new Location(-1, 0))) {
+			if (v.equals(new Location(1,0))) {
+				return 180;
+			} else if (v.equals(new Location(-1, 0))){
+				return 0;
+			} else if (v.equals(new Location(0, 1))){
+				//not sure
+				return 270;
+			} else {
+				return 90;
+			}
+		} else if (u.equals(new Location(0, -1))) {
+			if (v.equals(new Location(1,0))) {
+				//not sure
+				return 270;
+			} else if (v.equals(new Location(-1, 0))){
+				//not sure
+				return 90;
+			} else if (v.equals(new Location(0, 1))){
+				return 180;
+			} else {
+				return 0;
+			}
+		} else {
+			//0, 1
+			if (v.equals(new Location(1,0))) {
+				//not sure
+				return 270;
+			} else if (v.equals(new Location(-1, 0))){
+				return 90;
+			} else if (v.equals(new Location(0, 1))){
+				return 0;
+			} else {
+				return 180;
+			}
+		}
 	}
+	
 	
 	
 	

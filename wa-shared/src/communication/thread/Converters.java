@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import communication.BasicJob;
 import communication.CommConst;
@@ -154,7 +153,7 @@ public class Converters {
 				cur.add(new Location(location.getX(), -1 * location.getY()));
 			}
 		}
-		return returnList;
+		return arrayList;
 	}
 
 	private static Tuple<ArrayList<ArrayList<move>>, Location> locationToMove(ArrayList<ArrayList<Location>> arrayList,
@@ -169,10 +168,7 @@ public class Converters {
 			int i = 0;
 			while (i < path.size() - 1) {
 				Location minusLocation = Maths.minusLocation(path.get(i + 1), path.get(i));
-				if ((path.get(i).equals(new Location(5,0))) && path.get(i + 1).equals(new Location(5, 1))) {
-					System.out.println("temp");
-				}
-				int angle = Maths.findAngle(minusLocation, returnLocation);
+				int angle = Maths.findAngle(returnLocation, minusLocation);
 				returnLocation = minusLocation;
 				returnList.get(j).add(angleToMove(angle));
 				i++;
