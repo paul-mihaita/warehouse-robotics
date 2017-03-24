@@ -78,7 +78,7 @@ public class WarehouseFloor {
 		Robot[] robos = Info.getRobotsPaul();
 		this.robots.add(robos[0]); // squirtle
 		this.robots.add(robos[1]); // bulbasaur
-		//this.robots.add(robos[2]); // charmander
+		this.robots.add(robos[2]); // charmander
 
 		for (Job j : jobs) {
 			jobList.put(j.getJobID(), j);
@@ -100,9 +100,8 @@ public class WarehouseFloor {
 		log.debug("created");
 		this.floor = floor;
 		log.debug("Creating Server");
-		Server s = new Server(robots.toArray(new Robot[robots.size()]), tempArr, log);
-		if (server)
-			s.launch();
+		if (server) {
+		}
 		log.info("Server launched succesfully, warehousefloor constructed");
 	}
 
@@ -176,7 +175,7 @@ public class WarehouseFloor {
 
 									addToPaths(locPath);
 
-									Delay.msDelay(500);
+									Delay.msDelay(5000);
 
 									r.setCurrentLocation(job.getDropLocation().getLocation());
 									removeFromPaths(locPath);
