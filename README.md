@@ -6,9 +6,9 @@
 
 #### To upload the code on a robot please run:
 
-- wa-robot/src/main/RobotMain.java
+- warehouse/wa-robot/src/main/RobotMain.java
 
-#### To run the system please run the folowing class:
+#### To run the system please run the following class:
 
 - warehouse/wa-pc/src/bootstrap/Start.java
 
